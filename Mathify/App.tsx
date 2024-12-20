@@ -1,16 +1,14 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Appbar, Provider as PaperProvider } from 'react-native-paper';
-import PlayScreen from "./PlayScreen";
-import HomeScreen from "./HomeScreen";
+import PlayScreen from './pages/PlayScreen';
+import HomeScreen from './pages/HomeScreen';
+import Classe from './pages/Classe';
+import Materiale from './pages/Materiale';
 
 export const Stack = createStackNavigator();
-
-
-
-
 
 export default function App() {
     return (
@@ -19,6 +17,8 @@ export default function App() {
                 <Stack.Navigator initialRouteName="Home">
                     <Stack.Screen name="Home" component={HomeScreen} />
                     <Stack.Screen name="Play" component={PlayScreen} />
+                    <Stack.Screen name="Classe" component={Classe} />
+                    <Stack.Screen name="Materiale" component={Materiale} />
                 </Stack.Navigator>
             </NavigationContainer>
         </PaperProvider>
@@ -53,12 +53,15 @@ export const styles = StyleSheet.create({
         marginBottom: 10,
     },
     footer: {
-        padding: 10,
-        backgroundColor: '#f8f8f8',
+        padding: 20,
+        backgroundColor: '#6200ee',
         alignItems: 'center',
     },
     footerText: {
-        fontSize: 16,
+        fontSize: 18,
+        color: 'white',
+        fontWeight: 'bold',
+        marginVertical: 5,
     },
     questionText: {
         fontSize: 20,

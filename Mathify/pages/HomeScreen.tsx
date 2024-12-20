@@ -1,7 +1,7 @@
 import React from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, TouchableOpacity } from "react-native";
 import { Appbar, Card, Button, Text, TextInput, Avatar } from "react-native-paper";
-import { styles } from "./App";
+import { styles } from "../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 export default function HomeScreen({ navigation }: { navigation: StackNavigationProp<any> }) {
@@ -39,7 +39,14 @@ export default function HomeScreen({ navigation }: { navigation: StackNavigation
                     </Card.Actions>
                 </Card>
             </View>
-
+            <View style={styles.footer}>
+                <TouchableOpacity onPress={() => navigation.navigate('Classe')}>
+                    <Text style={styles.footerText}>Classe</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Materiale')}>
+                    <Text style={styles.footerText}>Materiale</Text>
+                </TouchableOpacity>
+            </View>
         </ScrollView>
     );
 }

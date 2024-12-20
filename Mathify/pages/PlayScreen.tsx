@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { View, Alert } from "react-native";
 import { Appbar, Card, Button, Text, ProgressBar, IconButton } from "react-native-paper";
-import { styles } from "./App";
+import { styles } from "../App";
+
 
 export default function PlayScreen() {
     const [progress, setProgress] = useState(0);
