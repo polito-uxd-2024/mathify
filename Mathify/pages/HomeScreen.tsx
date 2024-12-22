@@ -1,10 +1,22 @@
 import React from "react";
-import { View, ScrollView, TouchableOpacity } from "react-native";
-import { Appbar, Card, Button, Text, TextInput, Avatar } from "react-native-paper";
+import { View, ScrollView } from "react-native";
+import { Appbar, Card, Button, Text, TextInput, Avatar, BottomNavigation } from "react-native-paper";
 import { styles } from "../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 export default function HomeScreen({ navigation }: { navigation: StackNavigationProp<any> }) {
+    const [index, setIndex] = React.useState(0);
+
+    const ClasseRoute = () => {
+        navigation.navigate('Classe');
+        return null;
+    };
+
+    const MaterialeRoute = () => {
+        navigation.navigate('Materiale');
+        return null;
+    };
+
     return (
         <ScrollView style={styles.container}>
             <Appbar.Header>
@@ -39,13 +51,18 @@ export default function HomeScreen({ navigation }: { navigation: StackNavigation
                     </Card.Actions>
                 </Card>
             </View>
-            <View style={styles.footer}>
-                <TouchableOpacity onPress={() => navigation.navigate('Classe')}>
-                    <Text style={styles.footerText}>Classe</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Materiale')}>
-                    <Text style={styles.footerText}>Materiale</Text>
-                </TouchableOpacity>
+            <View>
+                <BottomNavigation
+                    navigationState={{ index: index, routes: [
+                            { key: 'classe', title: 'Classe', icon: 'school' },
+                            { key: 'materiale', title: 'Materiale', icon: 'book' },
+                        ] }}
+                    onIndexChange={setIndex}
+                    renderScene={BottomNavigation.SceneMap({
+                        classe: ClasseRoute,
+                        materiale: MaterialeRoute,
+                    })}
+                />
             </View>
         </ScrollView>
     );
