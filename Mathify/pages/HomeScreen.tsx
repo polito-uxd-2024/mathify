@@ -3,19 +3,18 @@ import { View, ScrollView } from "react-native";
 import { Appbar, Card, Button, Text, TextInput, Avatar, BottomNavigation } from "react-native-paper";
 import { styles } from "../App";
 import { StackNavigationProp } from "@react-navigation/stack";
+import Classe from "./Classe";
+import Materiale from "./Materiale";
 
 export default function HomeScreen({ navigation }: { navigation: StackNavigationProp<any> }) {
     const [index, setIndex] = React.useState(0);
 
-    const ClasseRoute = () => {
-        navigation.navigate('Classe');
-        return null;
-    };
+    const ClasseRoute = Classe
+        ;
+    ;
 
-    const MaterialeRoute = () => {
-        navigation.navigate('Materiale');
-        return null;
-    };
+    const MaterialeRoute = Materiale
+    ;
 
     return (
         <ScrollView style={styles.container}>

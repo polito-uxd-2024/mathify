@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { Appbar, Provider as PaperProvider } from 'react-native-paper';
+import {MD3LightTheme as DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import PlayScreen from './pages/PlayScreen';
 import HomeScreen from './pages/HomeScreen';
 import Classe from './pages/Classe';
@@ -10,9 +10,20 @@ import Materiale from './pages/Materiale';
 
 export const Stack = createStackNavigator();
 
+
+const theme = {
+    ...DefaultTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        primary: 'tomato',
+        secondary: 'yellow',
+    },
+};
+
+
 export default function App() {
     return (
-        <PaperProvider>
+        <PaperProvider theme={theme}>
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="Home">
                     <Stack.Screen name="Home" component={HomeScreen} />
@@ -28,7 +39,7 @@ export default function App() {
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+
     },
     content: {
         flex: 1,
@@ -54,7 +65,7 @@ export const styles = StyleSheet.create({
     },
     footer: {
         padding: 20,
-        backgroundColor: '#6200ee',
+
         alignItems: 'center',
     },
     footerText: {
