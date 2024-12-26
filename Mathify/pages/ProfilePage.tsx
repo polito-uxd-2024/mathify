@@ -4,7 +4,7 @@ import { Appbar, Card, Text, Button } from "react-native-paper";
 import {useNavigation} from "@react-navigation/native";
 
 export default function ProfilePage() {
-    const {navigate} = useNavigation();
+    const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <Appbar.Header>
@@ -21,7 +21,7 @@ export default function ProfilePage() {
                     </Card.Content>
                     <Card.Actions>
                         <Button onPress={() => {
-                            navigate("Impostazioni")
+                            navigation.navigate("Impostazioni");
                         }}>
                             Impostazioni
                         </Button>

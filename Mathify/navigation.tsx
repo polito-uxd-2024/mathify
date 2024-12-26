@@ -8,19 +8,24 @@ import { createStackNavigator } from "@react-navigation/stack";
 import PlayScreen from "./pages/PlayScreen";
 import Materiale from "./pages/Materiale";
 import Impostazioni from "./pages/Impostazioni";
+import Verifica from "./pages/Verifica";
 
 const Tab = createBottomTabNavigator();
 const Play = createStackNavigator();
 const ProfileStack = createStackNavigator();
 const RootStack = createStackNavigator();
+const ImpostazioniStack = createStackNavigator();
 function ProfileStackScreen() {
     return (
         <ProfileStack.Navigator>
             <ProfileStack.Screen name="Profile" component={ProfilePage} />
             <ProfileStack.Screen name="Impostazioni" component={Impostazioni}/>
+            <ProfileStack.Screen name="Classe" component={Classe}/>
+            <ProfileStack.Screen name="Verifica" component={Verifica} options={{ presentation: 'modal' }}/>
         </ProfileStack.Navigator>
     );
 }
+
 function PlayScreenStack() {
     return (
         <Play.Navigator>
