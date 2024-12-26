@@ -7,6 +7,7 @@ import PlayScreen from './pages/PlayScreen';
 import HomeScreen from './pages/HomeScreen';
 import Classe from './pages/Classe';
 import Materiale from './pages/Materiale';
+import Navigation from "./navigation";
 
 export const Stack = createStackNavigator();
 
@@ -24,14 +25,7 @@ const theme = {
 export default function App() {
     return (
         <PaperProvider theme={theme}>
-            <NavigationContainer>
-                <Stack.Navigator initialRouteName="Home">
-                    <Stack.Screen name="Home" component={HomeScreen} />
-                    <Stack.Screen name="Play" component={PlayScreen} />
-                    <Stack.Screen name="Classe" component={Classe} />
-                    <Stack.Screen name="Materiale" component={Materiale} />
-                </Stack.Navigator>
-            </NavigationContainer>
+            <Navigation/>
         </PaperProvider>
     );
 }
