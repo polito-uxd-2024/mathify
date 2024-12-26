@@ -4,7 +4,7 @@ import { Appbar, Card, Button, Text, TextInput, Avatar } from "react-native-pape
 import { styles } from "../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 
-export default function HomeScreen({ navigation }: { navigation: StackNavigationProp<any> }) {
+export default function HomeScreen({navigation }: { navigation: StackNavigationProp<any> }) {
     return (
         <ScrollView style={styles.container}>
             <Appbar.Header>
@@ -13,7 +13,6 @@ export default function HomeScreen({ navigation }: { navigation: StackNavigation
             <View style={styles.content}>
                 <Text style={styles.welcomeText}>Welcome to Our App!</Text>
                 <Text style={styles.subText}>We are glad to have you here.</Text>
-
                 <Card style={styles.card}>
                     <Card.Title title="Get Started" left={(props) => <Avatar.Icon {...props} icon="play-circle" />} />
                     <Card.Content>
