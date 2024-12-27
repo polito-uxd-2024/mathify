@@ -17,7 +17,7 @@ const RootStack = createStackNavigator();
 const ImpostazioniStack = createStackNavigator();
 function ProfileStackScreen() {
     return (
-        <ProfileStack.Navigator>
+        <ProfileStack.Navigator screenOptions={{headerShown:false}}>
             <ProfileStack.Screen name="Profile" component={ProfilePage} />
             <ProfileStack.Screen name="Impostazioni" component={Impostazioni}/>
             <ProfileStack.Screen name="Classe" component={Classe}/>
@@ -64,7 +64,7 @@ function Tabs() {
 export default function Navigation() {
     return (
         <NavigationContainer>
-            <RootStack.Navigator>
+            <RootStack.Navigator screenOptions={{headerShown:false}}>
                 <RootStack.Screen name="Main" component={Tabs} />
                 <RootStack.Screen name="Play" component={PlayScreenStack} />
             </RootStack.Navigator>
