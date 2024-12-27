@@ -78,6 +78,7 @@ export const styles = StyleSheet.create({
     card: {
         marginVertical: 10,
         width: '90%',
+
     },
     input: {
         marginBottom: 10,
@@ -103,5 +104,10 @@ export const styles = StyleSheet.create({
     progressBar: {
         flex: 1,
         marginHorizontal: 10,
+    },fab: {
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: 0,
     },
 });
