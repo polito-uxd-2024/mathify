@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {View, ScrollView, Pressable, Animated} from "react-native";
+import {View, ScrollView, Pressable, Animated, ImageBackground} from "react-native";
 import {Appbar, Card, Button, Text, TextInput, Avatar, ProgressBar} from "react-native-paper";
 import { styles } from "../App";
 import { useNavigation } from "@react-navigation/native";
@@ -62,13 +62,31 @@ export default function HomeScreen() {
             </Appbar.Header>
 
             <View style={styles.content}>
-                <Card style={{ marginBottom: 16, width: "100%" }}>
-                    <View style={{ alignItems: "center", marginVertical: 16 }}>
-                        <Avatar.Icon icon="calculator" size={48} />
-                        <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 8 }}>
-                            ARITMETICA
-                        </Text>
-                    </View>
+                <Card style={{ marginBottom: 16, width: "100%", position: "relative" }}>
+                    {/* Immagine in alto a destra */}
+                    <ImageBackground
+                        source={{ uri: 'https://cdn.pixabay.com/photo/2017/05/02/15/05/addition-2278415_1280.jpg' }}
+                        style={{flex: 1,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            marginBottom: 10,
+                        }}
+                        imageStyle={{ borderRadius: 10}}
+                    >
+                        <View style={{flex: 1, // Puoi anche aggiungere uno sfondo semitrasparente o altri elementi
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}>
+                            <View style={{ alignItems: "center", marginVertical: 16 }}>
+                                <Avatar.Icon icon="calculator" size={48} />
+                                <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 8 }}>
+                                    ARITMETICA
+                                </Text>
+                            </View>
+                        </View>
+                    </ImageBackground>
+
+
                     <Card.Content>
                         <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 8 }}>
                             <Avatar.Icon icon="clock" size={24} style={{ marginRight: 8 }} />
@@ -95,6 +113,7 @@ export default function HomeScreen() {
                         </Button>
                     </Card.Actions>
                 </Card>
+
 
                 <Card style={{ flex: 1, padding: 16, borderRadius: 10, width: '100%' }}>
                     <TextInput
@@ -126,6 +145,10 @@ export default function HomeScreen() {
                     />
                 </Card>
             </View>
+
+
+
         </ScrollView>
     );
 }
+
