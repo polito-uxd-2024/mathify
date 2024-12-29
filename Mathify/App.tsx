@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
@@ -11,6 +11,7 @@ import Navigation from "./navigation";
 
 import { db } from './Firebase';
 import {ref, get} from "firebase/database";
+import { Context, contextReducer, InitialState } from './Context';
 export const Stack = createStackNavigator();
 
 
@@ -26,6 +27,7 @@ const theme = {
 
 export default function App() {
     const [Name, setName] = useState('');
+    const [state, dispatch] = (contextReducer, InitialState);
 
     useEffect(() => {
         // Funzione per ottenere il nome dell'utente con id 'Utente1'
@@ -49,9 +51,11 @@ export default function App() {
         fetchName();
     }, []);
     return (
+        <Context.Provider value={{state, dispatch}}>
         <PaperProvider theme={theme}>
             <Navigation/>
         </PaperProvider>
+        </Context.Provider>
     );
 }
 
