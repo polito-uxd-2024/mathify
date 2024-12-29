@@ -3,21 +3,9 @@ import { View, Alert } from "react-native";
 import { Appbar, Card, Button, Text, ProgressBar, IconButton } from "react-native-paper";
 import { styles } from "../App";
 
-interface Question {
-    Testo: string;
-    Risposte: string[];
-    RispostaCorretta: string;
-}
-export interface Sfida{
-    id: string;
-    questions: Question[];
-    punteggioOttenuto: number;
-}
-
 
 export default function PlayScreen() {
     const [progress, setProgress] = useState(0);
-    const [sfida, setSfida] = useState<Sfida>()
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -32,7 +20,6 @@ export default function PlayScreen() {
         }, 1000);
         return () => clearInterval(interval);
     }, []);
-
 
     return (
         <View style={styles.container}>
