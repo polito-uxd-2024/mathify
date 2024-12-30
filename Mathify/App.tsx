@@ -1,17 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import React, {ReducerState, useEffect, useReducer, useState} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import {MD3LightTheme as DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
-import PlayScreen from './pages/PlayScreen';
-import HomeScreen from './pages/HomeScreen';
-import Classe from './pages/Classe';
-import Materiale from './pages/Materiale';
-import Navigation from "./navigation";
+import { MD3LightTheme as DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import Navigation from './navigation';
+import {InitialState, Reducer, StateContext} from "./Reducer";
+import {State} from "react-native-paper/lib/typescript/components/TextInput/types";
 
-import { db } from './Firebase';
-import {ref, get} from "firebase/database";
-export const Stack = createStackNavigator();
+
 
 
 const theme = {
@@ -23,42 +18,25 @@ const theme = {
     },
 };
 
-
 export default function App() {
-    const [Name, setName] = useState('');
 
-    useEffect(() => {
-        // Funzione per ottenere il nome dell'utente con id 'Utente1'
-        const fetchName = async () => {
-            try {
+   ;
 
-                const userRef = ref(db, 'Utenti/Utente1');  // Riferimento al nodo dell'utente1
-                const snapshot = await get(userRef);  // Leggi i dati dal nodo
-                if (snapshot.exists()) {
-                    // Se i dati esistono, imposta il nome
-                    setName(snapshot.val().Nome);  // Estrai il nome dell'utente
-                    console.log("Trovato") //da togliere
-                } else {
-                    console.log("Utente non trovato");
-                }
-            } catch (error) {
-                console.error("Errore nel recupero dei dati: ", error);
-            }
-        };
 
-        fetchName();
-    }, []);
     return (
-        <PaperProvider theme={theme}>
-            <Navigation/>
-        </PaperProvider>
+
+            <PaperProvider theme={theme}>
+                <StateContext.Provider value={useReducer(Reducer, InitialState as ReducerState<State>)}>
+                <Navigation />
+                </StateContext.Provider>
+            </PaperProvider>
+
     );
 }
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-
     },
     content: {
         flex: 1,
@@ -78,14 +56,12 @@ export const styles = StyleSheet.create({
     card: {
         marginVertical: 10,
         width: '90%',
-
     },
     input: {
         marginBottom: 10,
     },
     footer: {
         padding: 20,
-
         alignItems: 'center',
     },
     footerText: {
@@ -104,7 +80,8 @@ export const styles = StyleSheet.create({
     progressBar: {
         flex: 1,
         marginHorizontal: 10,
-    },fab: {
+    },
+    fab: {
         position: 'absolute',
         margin: 16,
         right: 0,

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {View, ScrollView, Pressable, Animated, ImageBackground} from "react-native";
 import {Appbar, Card, Button, Text, TextInput, Avatar, ProgressBar} from "react-native-paper";
 import { styles } from "../App";
@@ -8,8 +8,18 @@ import FlatList = Animated.FlatList;
 import {black} from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 import { LinearGradient } from 'react-native-linear-gradient';
 
+import {fetchDataFromFirebase} from "../Component/DataFetchingComponent";
+import {Sfida} from "../Component/Interfaces";
+
+
 export default function HomeScreen() {
     const { navigate } = useNavigation();
+    const [sfida, setSfida] = useState<Sfida>(null);
+    const [index, setIndex] = useState("0");
+
+
+
+
 
     const challenges = [
         { id: "1", title: "Algebra", icon: "alpha-a-box" },
@@ -104,7 +114,11 @@ export default function HomeScreen() {
                     <Card.Actions style={{ justifyContent: "center" }}>
                         <Button
                             mode="contained"
-                            onPress={() => navigate("Play")}
+                            onPress={() => {
+                                navigate("Play"),
+                                    setIndex(Math.floor(Math.random() ).toString());
+                                ;
+                            }}
                             contentStyle={{ height: 50 }}
                             labelStyle={{ fontSize: 16 }}
                             style={{ width: "100%", alignSelf: "center" }}
@@ -138,6 +152,7 @@ export default function HomeScreen() {
                                 />
                                 <Card.Actions>
                                     <Button onPress={() => navigate(item.title)} style={{ flex: 1 }}>Seleziona</Button>
+
                                 </Card.Actions>
                             </Card>
                         )}
