@@ -6,6 +6,7 @@ import {Sfida} from "../Component/Interfaces";
 import {StateContext} from "../Reducer";
 import {fetchChallenge} from "../Component/firebaseService";
 import {setSelectedChallenge} from "../Action";
+import setCurrentChallenge from "../Component/setCurrentChallenge";
 
 
 
@@ -13,6 +14,7 @@ export default function PlayScreen() {
     const [progress, setProgress] = useState(0);
     const [state, dispatch] = useContext(StateContext);
 
+    console.log(state);
 
 
 

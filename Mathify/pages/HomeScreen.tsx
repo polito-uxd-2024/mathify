@@ -3,19 +3,22 @@ import {View, ScrollView, Pressable, Animated, ImageBackground} from "react-nati
 import {Appbar, Card, Button, Text, TextInput, Avatar, ProgressBar} from "react-native-paper";
 import { styles } from "../App";
 import { useNavigation } from "@react-navigation/native";
-import PlayScreen from "./PlayScreen";
-import FlatList = Animated.FlatList;
-import {black} from "react-native-paper/lib/typescript/styles/themes/v2/colors";
-import { LinearGradient } from 'react-native-linear-gradient';
 
-import {fetchDataFromFirebase} from "../Component/DataFetchingComponent";
+import FlatList = Animated.FlatList;
+
 import {Sfida} from "../Component/Interfaces";
+import setCurrentChallenge from "../Component/setCurrentChallenge";
+import {StateContext} from "../Reducer";
 
 
 export default function HomeScreen() {
     const { navigate } = useNavigation();
-    const [sfida, setSfida] = useState<Sfida>(null);
+    const [state,dispatch] = useContext(StateContext);
+    const [sfida, setSfida] = useState("");
     const [index, setIndex] = useState("0");
+    setCurrentChallenge(sfida);
+    console.log(state.selectedChallenge)
+
 
 
 
@@ -116,7 +119,9 @@ export default function HomeScreen() {
                             mode="contained"
                             onPress={() => {
                                 navigate("Play"),
-                                    setIndex(Math.floor(Math.random() ).toString());
+                                    setIndex(Math.floor(Math.random() ).toString()),
+                                    setSfida("Sfida1")
+
                                 ;
                             }}
                             contentStyle={{ height: 50 }}
