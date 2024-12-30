@@ -14,7 +14,6 @@ export default function PlayScreen() {
     const [progress, setProgress] = useState(0);
     const [state, dispatch] = useContext(StateContext);
 
-    console.log(state);
 
 
 
