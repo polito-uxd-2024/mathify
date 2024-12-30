@@ -1,8 +1,7 @@
-import React, {ReducerState, useEffect, useReducer, useState} from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import React, {ReducerState, useReducer, useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { MD3LightTheme as DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-import Navigation from './navigation';
+import Navigation from './Component/navigation';
 import {InitialState, Reducer, StateContext} from "./Reducer";
 import {State} from "react-native-paper/lib/typescript/components/TextInput/types";
 

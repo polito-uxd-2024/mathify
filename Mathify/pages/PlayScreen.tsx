@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useContext} from "react";
 import { View, Alert } from "react-native";
 import { Appbar, Card, Button, Text, ProgressBar, IconButton } from "react-native-paper";
 import { styles } from "../App";
 import {Sfida} from "../Component/Interfaces";
-
+import {StateContext} from "../Reducer";
+import {fetchChallenge} from "../Component/firebaseService";
+import {setSelectedChallenge} from "../Action";
 
 
 
 export default function PlayScreen() {
     const [progress, setProgress] = useState(0);
-    const [sfida, setSfida] = useState<Sfida>()
+    const [state, dispatch] = useContext(StateContext);
+
+
 
 
     useEffect(() => {

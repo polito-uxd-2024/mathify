@@ -1,16 +1,16 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from "./pages/HomeScreen";
-import ProfilePage from "./pages/ProfilePage";
-import Classe from "./pages/Classe";
+import HomeScreen from "../pages/HomeScreen";
+import ProfilePage from "../pages/ProfilePage";
+import Classe from "../pages/Classe";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { createStackNavigator } from "@react-navigation/stack";
-import PlayScreen from "./pages/PlayScreen";
-import Materiale from "./pages/Materiale";
-import Impostazioni from "./pages/Impostazioni";
-import Verifica from "./pages/Verifica";
+import PlayScreen from "../pages/PlayScreen";
+import Materiale from "../pages/Materiale";
+import Impostazioni from "../pages/Impostazioni";
+import Verifica from "../pages/Verifica";
 import {useReducer} from "react";
-import {InitialState, Reducer} from "./Reducer";
+import {InitialState, Reducer} from "../Reducer";
 
 const Tab = createBottomTabNavigator();
 const Play = createStackNavigator();
