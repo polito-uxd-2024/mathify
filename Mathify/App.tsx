@@ -1,9 +1,10 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, {ReducerState, useEffect, useReducer, useState} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { MD3LightTheme as DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import Navigation from './navigation';
 import {InitialState, Reducer, StateContext} from "./Reducer";
+import {State} from "react-native-paper/lib/typescript/components/TextInput/types";
 
 
 
@@ -19,12 +20,13 @@ const theme = {
 
 export default function App() {
 
+   ;
 
 
     return (
 
             <PaperProvider theme={theme}>
-                <StateContext.Provider value={useReducer(Reducer, InitialState)}>
+                <StateContext.Provider value={useReducer(Reducer, InitialState as ReducerState<State>)}>
                 <Navigation />
                 </StateContext.Provider>
             </PaperProvider>

@@ -7,7 +7,7 @@ import PlayScreen from "./PlayScreen";
 import FlatList = Animated.FlatList;
 import {black} from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 import { LinearGradient } from 'react-native-linear-gradient';
-import {setSelectedChallenge, StateContext} from "../Context";
+
 import {fetchDataFromFirebase} from "../Component/DataFetchingComponent";
 import {Sfida} from "../Component/Interfaces";
 
@@ -16,21 +16,10 @@ export default function HomeScreen() {
     const { navigate } = useNavigation();
     const [sfida, setSfida] = useState<Sfida>(null);
     const [index, setIndex] = useState("0");
-    const [state, dispatch] = useContext(StateContext);
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const result = await fetchDataFromFirebase(index);
-                setSfida(result);
-                dispatch(setSelectedChallenge(sfida))
-                console.log("Sfida: ", sfida);
-            } catch (error) {
-                console.error("Error fetching data: ", error);
-            }
-        };
 
-        fetchData();
-    }, []);
+
+
+
 
     const challenges = [
         { id: "1", title: "Algebra", icon: "alpha-a-box" },
