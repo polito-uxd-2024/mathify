@@ -1,5 +1,4 @@
-import {Sfida} from "./pages/PlayScreen";
-
+import {Sfida} from "./Component/Interfaces";
 
 
 export type Action =

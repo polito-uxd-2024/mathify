@@ -3,12 +3,13 @@ import {View, ScrollView, Pressable, Animated, ImageBackground} from "react-nati
 import {Appbar, Card, Button, Text, TextInput, Avatar, ProgressBar} from "react-native-paper";
 import { styles } from "../App";
 import { useNavigation } from "@react-navigation/native";
-import PlayScreen, {Sfida} from "./PlayScreen";
+import PlayScreen from "./PlayScreen";
 import FlatList = Animated.FlatList;
 import {black} from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 import { LinearGradient } from 'react-native-linear-gradient';
 import {setSelectedChallenge, StateContext} from "../Context";
 import {fetchDataFromFirebase} from "../Component/DataFetchingComponent";
+import {Sfida} from "../Component/Interfaces";
 
 
 export default function HomeScreen() {
