@@ -22,11 +22,13 @@ export default function App() {
 
 
     return (
-        <StateContext.Provider value={useReducer(Reducer, InitialState)}>
+
             <PaperProvider theme={theme}>
+                <StateContext.Provider value={useReducer(Reducer, InitialState)}>
                 <Navigation />
+                </StateContext.Provider>
             </PaperProvider>
-        </StateContext.Provider>
+
     );
 }
 

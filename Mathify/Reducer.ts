@@ -8,14 +8,23 @@ interface State{
     selectedChallenge:Sfida;
     utente:Utente;
 }
-export function Reducer(state:State,action:Action):State{
-    switch (action.type){
+export function Reducer(state: State, action: Action) {
+    switch (action.type) {
         case "setPunteggio":
-            return ({
+            return {
                 ...state,
-                selectedChallenge:{...state.selectedChallenge,
-                    punteggioOttenuto:action.punteggio}
-            })
+                selectedChallenge: {
+                    ...state.selectedChallenge,
+                    punteggioOttenuto: action.punteggio
+                }
+            };
+        case "setSelectedChallenge":
+            return {
+                ...state,
+                selectedChallenge: action.challenge
+            };
+        default:
+            return state;
     }
 }
 
@@ -27,7 +36,8 @@ export const InitialState:State={
     utente:{id:"0",
         nome:"Giovanni",
         cognome:"Rossi",
-        livello:1,
+        livello:{numero:1,xpTotali:0},
+        xp:0,
         sfideCompletate:[]}
 }
 export const StateContext=

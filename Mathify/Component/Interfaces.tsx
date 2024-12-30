@@ -13,7 +13,8 @@ export interface Utente{
     id:string;
     nome:string;
     cognome:string;
-    livello:number;
+    livello:{numero:number,xpTotali:number};
+    xp:number;
     sfideCompletate:SfidaCompletata[];
 
 }
@@ -22,6 +23,7 @@ export interface SfidaCompletata{
     punteggio:number;
     tempoImpiegato:number;
     domande:QuestionDone[];
+    xpGuadagnati:number;
 
 }
 export interface QuestionDone {
