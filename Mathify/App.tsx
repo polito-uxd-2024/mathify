@@ -6,7 +6,7 @@ import Navigation from './navigation';
 import {InitialState, Reducer, StateContext} from "./Reducer";
 
 
-export const Stack = createStackNavigator();
+
 
 const theme = {
     ...DefaultTheme,
@@ -18,7 +18,7 @@ const theme = {
 };
 
 export default function App() {
-    const [Name, setName] = useState('');
+
 
 
     return (

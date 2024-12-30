@@ -9,6 +9,8 @@ import PlayScreen from "./pages/PlayScreen";
 import Materiale from "./pages/Materiale";
 import Impostazioni from "./pages/Impostazioni";
 import Verifica from "./pages/Verifica";
+import {useReducer} from "react";
+import {InitialState, Reducer} from "./Reducer";
 
 const Tab = createBottomTabNavigator();
 const Play = createStackNavigator();
@@ -63,11 +65,15 @@ function Tabs() {
 
 export default function Navigation() {
     return (
+
         <NavigationContainer>
+
             <RootStack.Navigator screenOptions={{headerShown:false}}>
                 <RootStack.Screen name="Main" component={Tabs} />
                 <RootStack.Screen name="Play" component={PlayScreenStack} />
             </RootStack.Navigator>
+
         </NavigationContainer>
+
     );
 }

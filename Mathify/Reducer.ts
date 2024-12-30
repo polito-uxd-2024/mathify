@@ -4,13 +4,16 @@ import {Sfida} from "./pages/PlayScreen";
 
 interface State{
     selectedChallenge:Sfida;
+
 }
-export function Reducer(state: State, action: Action): State {
-    switch (action.type) {
-        case "setSelectedChallenge":
-            return { ...state, selectedChallenge: action.challenge };
-        default:
-            return state; // Ritorna lo stato corrente per azioni sconosciute
+export function Reducer(state:State,action:Action):State{
+    switch (action.type){
+        case "setPunteggio":
+            return ({
+                ...state,
+                selectedChallenge:{...state.selectedChallenge,
+                    punteggioOttenuto:action.punteggio}
+            })
     }
 }
 
@@ -19,10 +22,5 @@ export const InitialState:State={
         punteggioOttenuto:0,
         questions:[]}
 }
-export const StateContext = createContext<{
-    state: State;
-    dispatch: React.Dispatch<Action>;
-}>({
-    state: InitialState,
-    dispatch: () => {}, // Funzione vuota come placeholder
-});
+export const StateContext=
+    createContext<[State,React.Dispatch<Action>]>([InitialState,(_:Action)=>{}])
