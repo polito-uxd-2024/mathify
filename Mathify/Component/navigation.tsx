@@ -66,7 +66,7 @@ function Tabs() {
 export default function Navigation() {
     return (
 
-        <NavigationContainer>
+        <NavigationContainer >
 
             <RootStack.Navigator screenOptions={{headerShown:false}}>
                 <RootStack.Screen name="Main" component={Tabs} />

@@ -33,7 +33,7 @@ export default function PlayScreen() {
 
 
     return (
-        <View style={styles.container}>
+        <View>
             <Appbar.Header>
                 <Appbar.Content title="Challenge Screen" />
                 <IconButton icon="hourglass" />

@@ -49,11 +49,11 @@ export default function HomeScreen() {
     const requiredScore = 100;
 
     return (
-        <ScrollView style={styles.container}>
-            <Appbar.Header style={{ backgroundColor: 'blue' }}>
+        <ScrollView >
+            <Appbar.Header>
                 <Appbar.Content
                     title="Mathify"
-                    titleStyle={{ color: 'orange', fontFamily: 'Comic Sans MS', fontSize: 22, fontWeight: 'bold' }}
+
                 />
                 <View style={{ flexDirection: 'row', alignItems: 'center', flex:1 }}>
                     <View style={{ flex: 1 }}>
@@ -61,8 +61,8 @@ export default function HomeScreen() {
                             progress={currentScore / requiredScore}
                             color="orange"
                             style={{ height: 8, borderRadius: 4 }}
-                            trackColor="lightgray"
-                            animated={true}
+
+
                         />
 
                     </View>

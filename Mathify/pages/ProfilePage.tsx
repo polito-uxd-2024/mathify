@@ -6,17 +6,17 @@ import {useNavigation} from "@react-navigation/native";
 export default function ProfilePage() {
     const navigation = useNavigation();
     return (
-        <View style={styles.container}>
+        <View>
             <Appbar.Header>
                 <Appbar.Content title="Profile" />
             </Appbar.Header>
-            <View style={styles.content}>
-                <Card style={styles.card}>
+            <View >
+                <Card >
                     <Card.Title title="Profile Information" />
                     <Card.Content>
                         <View>
-                            <Text style={styles.questionText}>Name: John Doe</Text>
-                            <Text style={styles.questionText}>Email:</Text>
+                            <Text >Name: John Doe</Text>
+                            <Text>Email:</Text>
                         </View>
                     </Card.Content>
                     <Card.Actions>

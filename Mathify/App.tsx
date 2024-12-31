@@ -4,18 +4,10 @@ import { MD3LightTheme as DefaultTheme, Provider as PaperProvider } from 'react-
 import Navigation from './Component/navigation';
 import {InitialState, Reducer, StateContext} from "./Reducer";
 import {State} from "react-native-paper/lib/typescript/components/TextInput/types";
+import {theme} from "./Component/theme";
 
 
 
-
-const theme = {
-    ...DefaultTheme,
-    colors: {
-        ...DefaultTheme.colors,
-        primary: 'tomato',
-        secondary: 'yellow',
-    },
-};
 
 export default function App() {
 
@@ -24,11 +16,10 @@ export default function App() {
 
     return (
 
-            <PaperProvider theme={theme}>
-                <StateContext.Provider value={useReducer(Reducer, InitialState as ReducerState<State>)}>
+
+                <StateContext.Provider value={useReducer(Reducer, InitialState)}>
                 <Navigation />
                 </StateContext.Provider>
-            </PaperProvider>
 
     );
 }
