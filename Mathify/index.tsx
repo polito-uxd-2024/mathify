@@ -1,12 +1,14 @@
 import { registerRootComponent } from 'expo';
 import {MD3DarkTheme, MD3LightTheme, Provider as PaperProvider} from 'react-native-paper';
 import App from './App';
-import {theme} from "./Component/theme";
+import {CombinedDarkTheme} from "./Component/theme";
+
 
 const Main = () => (
-    <PaperProvider theme={theme}>
+    <PaperProvider theme={CombinedDarkTheme}>
         <App />
     </PaperProvider>
+
 );
 
 registerRootComponent(Main);

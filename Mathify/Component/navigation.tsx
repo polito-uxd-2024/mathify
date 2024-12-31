@@ -11,6 +11,7 @@ import Impostazioni from "../pages/Impostazioni";
 import Verifica from "../pages/Verifica";
 import {useReducer} from "react";
 import {InitialState, Reducer} from "../Reducer";
+import {CombinedDarkTheme} from "./theme";
 
 const Tab = createBottomTabNavigator();
 const Play = createStackNavigator();
@@ -66,7 +67,7 @@ function Tabs() {
 export default function Navigation() {
     return (
 
-        <NavigationContainer >
+        <NavigationContainer theme={CombinedDarkTheme} >
 
             <RootStack.Navigator screenOptions={{headerShown:false}}>
                 <RootStack.Screen name="Main" component={Tabs} />

@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
-import {View, ScrollView, Pressable, Animated, ImageBackground} from "react-native";
-import {Appbar, Card, Button, Text, TextInput, Avatar, ProgressBar} from "react-native-paper";
+import {View, ScrollView, Pressable, Animated, ImageBackground, } from "react-native";
+import {Appbar, Card, Button, Text, TextInput, Avatar, ProgressBar, useTheme, Switch} from "react-native-paper";
 import { styles } from "../App";
 import { useNavigation } from "@react-navigation/native";
 
@@ -9,6 +9,7 @@ import FlatList = Animated.FlatList;
 import {Sfida} from "../Component/Interfaces";
 import setCurrentChallenge from "../Component/setCurrentChallenge";
 import {StateContext} from "../Reducer";
+import {PreferencesContext} from "../Component/PreferencesContext";
 
 
 export default function HomeScreen() {
@@ -18,7 +19,8 @@ export default function HomeScreen() {
     const [index, setIndex] = useState("0");
     setCurrentChallenge(sfida);
     console.log(state.selectedChallenge)
-
+    const theme = useTheme();
+    const { toggleTheme, isThemeDark } = React.useContext(PreferencesContext);
 
 
 
@@ -54,6 +56,11 @@ export default function HomeScreen() {
                 <Appbar.Content
                     title="Mathify"
 
+                />
+                <Switch
+                    color={'red'}
+                    value={isThemeDark}
+                    onValueChange={toggleTheme}
                 />
                 <View style={{ flexDirection: 'row', alignItems: 'center', flex:1 }}>
                     <View style={{ flex: 1 }}>

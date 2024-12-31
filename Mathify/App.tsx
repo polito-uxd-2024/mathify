@@ -4,21 +4,39 @@ import { MD3LightTheme as DefaultTheme, Provider as PaperProvider } from 'react-
 import Navigation from './Component/navigation';
 import {InitialState, Reducer, StateContext} from "./Reducer";
 import {State} from "react-native-paper/lib/typescript/components/TextInput/types";
-import {theme} from "./Component/theme";
+import {CombinedDarkTheme, CombinedDefaultTheme} from "./Component/theme";
+import {PreferencesContext} from "./Component/PreferencesContext";
+
 
 
 
 
 export default function App() {
 
-   ;
+    const [isThemeDark, setIsThemeDark] = React.useState(false);
+
+    let theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
+
+    const toggleTheme = React.useCallback(() => {
+        return setIsThemeDark(!isThemeDark);
+    }, [isThemeDark]);
+
+    const preferences = React.useMemo(
+        () => ({
+            toggleTheme,
+            isThemeDark,
+        }),
+        [toggleTheme, isThemeDark]
+    );
 
 
     return (
 
 
                 <StateContext.Provider value={useReducer(Reducer, InitialState)}>
-                <Navigation />
+                    <PreferencesContext.Provider value={preferences}>
+                        <Navigation />
+                    </PreferencesContext.Provider>
                 </StateContext.Provider>
 
     );

@@ -1,12 +1,19 @@
-import {MD3DarkTheme, MD3LightTheme, MD3LightTheme as DefaultTheme} from 'react-native-paper';
+import {
+    NavigationContainer,
+    DarkTheme as NavigationDarkTheme,
+    DefaultTheme as NavigationDefaultTheme,
+} from '@react-navigation/native';
+import {
+    MD3DarkTheme,
+    MD3LightTheme,
+    adaptNavigationTheme,
+} from 'react-native-paper';
+import merge from 'deepmerge';
 
-export const theme = {
-    ...MD3DarkTheme, // or MD3DarkTheme
-    roundness: 2,
-    colors: {
-        ...MD3DarkTheme.colors,
-        primary: '#3498db',
-        secondary: '#f1c40f',
-        tertiary: '#a1b2c3',
-    },
-};
+const { LightTheme, DarkTheme } = adaptNavigationTheme({
+    reactNavigationLight: NavigationDefaultTheme,
+    reactNavigationDark: NavigationDarkTheme,
+});
+
+export const CombinedDefaultTheme = merge(MD3LightTheme, LightTheme);
+export const CombinedDarkTheme = merge(MD3DarkTheme, DarkTheme);
