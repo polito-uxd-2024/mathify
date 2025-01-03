@@ -3,6 +3,7 @@ import { View, Alert } from "react-native";
 import { Appbar, Card, Button, Text, ProgressBar, IconButton, useTheme } from "react-native-paper";
 import { Sfida } from "../Component/Interfaces";
 import { StateContext } from "../Reducer";
+import setCurrentChallenge from "../Component/setCurrentChallenge";
 
 export default function PlayScreen() {
     const { colors } = useTheme(); // Otteniamo i colori del tema
@@ -125,6 +126,7 @@ export default function PlayScreen() {
 
     useEffect(() => {
         resetTimer(); // Avvia il timer alla prima domanda
+        //setCurrentChallenge("Sfida1")
     }, []);
 
     return (
