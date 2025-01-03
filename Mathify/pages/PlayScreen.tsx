@@ -139,7 +139,7 @@ export default function PlayScreen() {
             <ProgressBar
                 progress={timeProgress}
                 style={{ height: 8, backgroundColor: colors.background }}
-                color={colors.accent} // Usa il colore "accent" del tema
+                // Usa il colore "accent" del tema
             />
             <View style={{ padding: 16 }}>
                 <Card>
