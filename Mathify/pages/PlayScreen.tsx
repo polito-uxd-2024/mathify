@@ -1,157 +1,157 @@
-/*
-import React, {useState, useEffect, useContext} from "react";
-import { View, Alert } from "react-native";
-import { Appbar, Card, Button, Text, ProgressBar, IconButton } from "react-native-paper";
-import { styles } from "../App";
-import {Sfida} from "../Component/Interfaces";
-import {StateContext} from "../Reducer";
-import {fetchChallenge} from "../Component/firebaseService";
-import {setSelectedChallenge} from "../Action";
-import setCurrentChallenge from "../Component/setCurrentChallenge";
-
-
-
-export default function PlayScreen() {
-    const [progress, setProgress] = useState(0);
-    const [state, dispatch] = useContext(StateContext);
-    const sfide= fetchChallenge("0")
-
-
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setProgress((prev) => {
-                if (prev >= 1) {
-                    clearInterval(interval);
-                    Alert.alert("Time's up", "You have run out of time!");
-                    return 1;
-                }
-                return prev + 0.01;
-            });
-        }, 1000);
-        return () => clearInterval(interval);
-    }, []);
-
-
-    return (
-        <View>
-            <Appbar.Header>
-                <Appbar.Content title="Challenge Screen" />
-                <IconButton icon="hourglass" />
-                <ProgressBar progress={progress} style={styles.progressBar} />
-            </Appbar.Header>
-            <View style={styles.content}>
-                <Card style={styles.card}>
-                    <Card.Title title="Challenge Question" />
-                    <Card.Content>
-                        <Text style={styles.questionText}>What is 2 + 2?</Text>
-                        <Button mode="contained" style={styles.answerButton} onPress={() => alert('Answer 1 Pressed')}>
-                            3
-                        </Button>
-                        <Button mode="contained" style={styles.answerButton} onPress={() => alert('Answer 2 Pressed')}>
-                            4
-                        </Button>
-                        <Button mode="contained" style={styles.answerButton} onPress={() => alert('Answer 3 Pressed')}>
-                            5
-                        </Button>
-                        <Button mode="contained" style={styles.answerButton} onPress={() => alert('Answer 4 Pressed')}>
-                            6
-                        </Button>
-                    </Card.Content>
-                </Card>
-            </View>
-        </View>
-    );
-}
-
-*/
-
 import React, { useState, useEffect, useContext } from "react";
 import { View, Alert } from "react-native";
-import { Appbar, Card, Button, Text, ProgressBar, IconButton } from "react-native-paper";
-import { styles } from "../App";
+import { Appbar, Card, Button, Text, ProgressBar, IconButton, useTheme } from "react-native-paper";
+import { Sfida } from "../Component/Interfaces";
 import { StateContext } from "../Reducer";
-import { fetchChallenge } from "../Component/firebaseService";
+import setCurrentChallenge from "../Component/setCurrentChallenge";
 
 export default function PlayScreen() {
-    const [progress, setProgress] = useState(0);
-    const [state] = useContext(StateContext);
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [questions, setQuestions] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        // Fetch challenge data
-        const loadChallenge = async () => {
-            try {
-                const challenge = await fetchChallenge("sfida 1"); // Sostituisci "0" con l'ID dinamico se necessario
-                setQuestions(challenge.questions);
-                setLoading(false);
-            } catch (error) {
-                console.error("Errore nel recupero della sfida:", error);
+    const { colors } = useTheme(); // Otteniamo i colori del tema
+    const challenge: Sfida = {
+        id: "challenge001",
+        questions: [
+            {
+                Testo: "Qual è la capitale della Francia?",
+                Risposte: ["Parigi", "Londra", "Madrid", "Berlino"],
+                RispostaCorretta: "Parigi",
+                Grafico: false
+            },
+            {
+                Testo: "Chi ha dipinto la Monna Lisa?",
+                Risposte: ["Van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Michelangelo"],
+                RispostaCorretta: "Leonardo da Vinci",
+                Grafico: false
+            },
+            {
+                Testo: "Qual è il simbolo chimico dell'ossigeno?",
+                Risposte: ["O", "Ox", "Og", "Ogx"],
+                RispostaCorretta: "O",
+                Grafico: false
+            },
+            {
+                Testo: "Qual è il numero atomico del ferro?",
+                Risposte: ["26", "55", "47", "10"],
+                RispostaCorretta: "26",
+                Grafico: false
+            },
+            {
+                Testo: "Qual è l'unità di misura della velocità?",
+                Risposte: ["Meter/secondo", "Kilometri/ora", "Miglio/ora", "None of the above"],
+                RispostaCorretta: "Meter/secondo",
+                Grafico: false
+            },
+            {
+                Testo: "Chi ha scritto 'Romeo e Giulietta'?",
+                Risposte: ["Shakespeare", "Goethe", "Hemingway", "Dostoevskij"],
+                RispostaCorretta: "Shakespeare",
+                Grafico: false
+            },
+            {
+                Testo: "Qual è il pianeta più vicino al Sole?",
+                Risposte: ["Mercurio", "Venere", "Marte", "Terra"],
+                RispostaCorretta: "Mercurio",
+                Grafico: false
+            },
+            {
+                Testo: "Qual è la capitale dell'Italia?",
+                Risposte: ["Roma", "Milano", "Napoli", "Torino"],
+                RispostaCorretta: "Roma",
+                Grafico: false
+            },
+            {
+                Testo: "Qual è l'elemento chimico con simbolo 'Hg'?",
+                Risposte: ["Oro", "Mercurio", "Zinco", "Argento"],
+                RispostaCorretta: "Mercurio",
+                Grafico: false
+            },
+            {
+                Testo: "Qual è la valuta ufficiale degli Stati Uniti?",
+                Risposte: ["Euro", "Yen", "Dollaro", "Libra"],
+                RispostaCorretta: "Dollaro",
+                Grafico: false
             }
-        };
-        loadChallenge();
-    }, []);
+        ],
+        punteggioOttenuto: 0
+    };
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setProgress((prev) => {
-                if (prev >= 1) {
-                    clearInterval(interval);
-                    Alert.alert("Tempo scaduto", "Hai finito il tempo!");
-                    return 1;
-                }
-                return prev + 0.01;
-            });
-        }, 1000);
-        return () => clearInterval(interval);
-    }, []);
+    const [progress, setProgress] = useState(0);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [punteggioOttenuto, setPunteggioOttenuto] = useState(0);
+    const [timeProgress, setTimeProgress] = useState(1); // Per la barra del tempo
+    const [timerActive, setTimerActive] = useState(false); // Stato per controllare il timer
+    const currentQuestion = challenge.questions[currentQuestionIndex];
 
-    const handleAnswer = (answer) => {
-        const currentQuestion = questions[currentQuestionIndex];
-        if (answer === currentQuestion.RispostaCorretta) {
-            Alert.alert("Risposta corretta!");
-        } else {
-            Alert.alert("Risposta sbagliata.");
+    const resetTimer = () => {
+        setTimeProgress(1);
+        setTimerActive(false);
+        setTimeout(() => setTimerActive(true), 100); // Breve pausa per riattivare il timer
+    };
+
+    const handleAnswerPress = (risposta: string) => {
+        if (risposta === currentQuestion.RispostaCorretta) {
+            setPunteggioOttenuto(punteggioOttenuto + 1);
         }
-        // Vai alla prossima domanda o termina la sfida
-        if (currentQuestionIndex < questions.length - 1) {
+
+        if (currentQuestionIndex < challenge.questions.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
-            setProgress(0); // Resetta il timer per la prossima domanda
+            setProgress((currentQuestionIndex + 1) / challenge.questions.length);
+            resetTimer(); // Reset del timer per la prossima domanda
         } else {
-            Alert.alert("Sfida completata", "Hai finito tutte le domande!");
+            alert(`Finito! Punteggio: ${punteggioOttenuto}`);
         }
     };
 
-    if (loading) {
-        return (
-            <View style={styles.content}>
-                <Text>Caricamento...</Text>
-            </View>
-        );
-    }
+    useEffect(() => {
+        if (!timerActive) return;
 
-    const currentQuestion = questions[currentQuestionIndex];
+        let timer = setInterval(() => {
+            setTimeProgress((prev) => {
+                if (prev <= 0) {
+                    clearInterval(timer);
+                    Alert.alert("Tempo scaduto", "Non hai risposto in tempo!");
+                    if (currentQuestionIndex < challenge.questions.length - 1) {
+                        setCurrentQuestionIndex(currentQuestionIndex + 1);
+                        setProgress((currentQuestionIndex + 1) / challenge.questions.length);
+                        resetTimer(); // Reset del timer per la prossima domanda
+                    } else {
+                        alert(`Finito! Punteggio: ${punteggioOttenuto}`);
+                    }
+                }
+                return prev - 0.01;
+            });
+        }, 100); // Aggiorniamo ogni 100ms per un timer fluido
+
+        return () => clearInterval(timer); // Pulizia al cambio di domanda
+    }, [timerActive, currentQuestionIndex]);
+
+    useEffect(() => {
+        resetTimer(); // Avvia il timer alla prima domanda
+        //setCurrentChallenge("Sfida1")
+    }, []);
 
     return (
         <View>
             <Appbar.Header>
                 <Appbar.Content title="Challenge Screen" />
                 <IconButton icon="hourglass" />
-                <ProgressBar progress={progress} style={styles.progressBar} />
+                <ProgressBar progress={progress} style={{ margin: 8 }} color={colors.primary} />
             </Appbar.Header>
-            <View style={styles.content}>
-                <Card style={styles.card}>
-                    <Card.Title title={`Domanda ${currentQuestionIndex + 1}`} />
+            <ProgressBar
+                progress={timeProgress}
+                style={{ height: 8, backgroundColor: colors.background }}
+                color={colors.accent} // Usa il colore "accent" del tema
+            />
+            <View style={{ padding: 16 }}>
+                <Card>
+                    <Card.Title title="Challenge Question" />
                     <Card.Content>
-                        <Text style={styles.questionText}>{currentQuestion.Testo}</Text>
+                        <Text style={{ fontSize: 18, marginBottom: 16 }}>{currentQuestion.Testo}</Text>
                         {currentQuestion.Risposte.map((risposta, index) => (
                             <Button
                                 key={index}
                                 mode="contained"
-                                style={styles.answerButton}
-                                onPress={() => handleAnswer(risposta)}
+                                style={{ marginBottom: 8 }}
+                                onPress={() => handleAnswerPress(risposta)}
                             >
                                 {risposta}
                             </Button>
@@ -162,4 +162,3 @@ export default function PlayScreen() {
         </View>
     );
 }
-
