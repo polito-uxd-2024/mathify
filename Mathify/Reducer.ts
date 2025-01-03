@@ -36,8 +36,8 @@ export const InitialState:State={
     utente:{id:"0",
         nome:"Giovanni",
         cognome:"Rossi",
-        livello:{numero:1,xpTotali:0},
-        xp:0,
+        livello:{numero:1,xpTotali:10},
+        xp:1,
         sfideCompletate:[]}
 }
 export const StateContext=
