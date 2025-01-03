@@ -4,7 +4,7 @@ import {Sfida} from "./Interfaces";
 
 export const fetchUser = async (userId: string) => {
 
-    const userRef = ref(db, `Utenti/${userId}`);
+    const userRef = ref(db, 'Utenti/${userId}');
     const snapshot = await get(userRef);
     if (snapshot.exists()) {
         return snapshot.val();
@@ -14,15 +14,15 @@ export const fetchUser = async (userId: string) => {
 };
 
 export const fetchChallenge = async (challengeId: string) => {
-    const challengeRef = ref(db, `Sfide/${challengeId}`);
+    const challengeRef = ref(db, 'Sfide/${challengeId}');
     const snapshot = await get(challengeRef);
     if (snapshot.exists()) {
         const data = snapshot.val();
         const challenge: Sfida = {
             id: challengeId,
-            questions: Object.keys(data.domande).map(key => ({
-                Testo: data.domande[key].testo,
-                Risposte: [data.domande[key].A, data.domande[key].B, data.domande[key].C, data.domande[key].D],
+            questions: Object.keys(data.Domande).map(key => ({
+                Testo: data.Domande[key].testo,
+                Risposte: [data.Domande[key].A, data.Domande[key].B, data.Domande[key].C, data.Domande[key].D],
                 RispostaCorretta: "", // Assuming you will set this later
                 Grafico: false // Assuming default value
             })),
@@ -33,4 +33,3 @@ export const fetchChallenge = async (challengeId: string) => {
         throw new Error("Challenge not found");
     }
 };
-
