@@ -1,10 +1,8 @@
-import React, {useContext, useEffect, useState} from "react";
-import {View, ScrollView, Pressable, Animated, ImageBackground, } from "react-native";
-import {Appbar, Card, Button, Text, TextInput, Avatar, ProgressBar, useTheme, Switch} from "react-native-paper";
+import React, {useContext,useState} from "react";
+import {View, ScrollView, ImageBackground, } from "react-native";
+import {Appbar, Card, Button, Text,  Avatar, ProgressBar, Switch} from "react-native-paper";
 import { styles } from "../App";
 import { useNavigation } from "@react-navigation/native";
-import FlatList = Animated.FlatList;
-import {Sfida} from "../Component/Interfaces";
 import setCurrentChallenge from "../Component/setCurrentChallenge";
 import {StateContext} from "../Reducer";
 import {PreferencesContext} from "../Component/PreferencesContext";
@@ -12,12 +10,12 @@ import SegmentedButton from "../Component/SegmentedButton";
 
 export default function HomeScreen() {
     const { navigate } = useNavigation();
-    const [state,dispatch] = useContext(StateContext);
+    const [state] = useContext(StateContext);
     const [sfida, setSfida] = useState("");
     const [index, setIndex] = useState("0");
     setCurrentChallenge(sfida);
     console.log(state.selectedChallenge)
-    const theme = useTheme();
+
     const { toggleTheme, isThemeDark } = React.useContext(PreferencesContext);
 
     const challenges = [
@@ -105,7 +103,7 @@ export default function HomeScreen() {
                                         key={index}
                                         icon="star"
                                         size={20}
-                                        style={{ marginLeft: 8, color: index < 2 ? 'gold' : 'gray' }} // Colore delle stelle
+                                        style={{ marginLeft: 8, /*color: index < 2 ? 'gold' : 'gray'*/}} // Colore delle stelle
                                     />
                                 ))}
                                 {/*la difficoltà poi si deve prendere dallo stato*/}
