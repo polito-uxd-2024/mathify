@@ -1,24 +1,24 @@
-import {useContext, useEffect, useState} from "react";
-import {fetchChallenge} from "./firebaseService";
-import {setSelectedChallenge} from "../Action";
-import {StateContext} from "../Reducer";
+import { useEffect } from "react";
+import { fetchChallenge } from "./firebaseService";
+import { setSelectedChallenge } from "../Action";
+import { useContext } from "react";
+import { StateContext } from "../Reducer";
 
+// Custom hook per gestire la sfida corrente
+export const useSetCurrentChallenge = (sfidaSelected: string) => {
+    const [, dispatch] = useContext(StateContext);
 
-
-export default function setCurrentChallenge(sfidaSelected: string) {
-    const [state, dispatch] = useContext(StateContext);
-    const [sfida, setSfida] = useState("Sfida1");
-
-    useEffect(() => {const loadChallenge = async () => {
-        try {
-            setSfida(sfidaSelected);
-            const challenge = await fetchChallenge(sfida);
-            dispatch(setSelectedChallenge(challenge));
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    useEffect(() => {
+        const loadChallenge = async () => {
+            try {
+                if (!sfidaSelected) return; // Verifica che il valore non sia vuoto
+                const challenge = await fetchChallenge(sfidaSelected);
+                dispatch(setSelectedChallenge(challenge));
+            } catch (error) {
+                console.error("Errore durante il fetch della sfida:", error);
+            }
+        };
 
         loadChallenge();
-    }, [dispatch]);
-}
+    }, [sfidaSelected, dispatch]); // Assicurati di usare sfidaSelected come dipendenza
+};

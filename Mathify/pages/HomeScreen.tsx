@@ -3,7 +3,7 @@ import {View, ScrollView, ImageBackground, } from "react-native";
 import {Appbar, Card, Button, Text,  Avatar, ProgressBar, Switch} from "react-native-paper";
 import { styles } from "../App";
 import { useNavigation } from "@react-navigation/native";
-import setCurrentChallenge from "../Component/setCurrentChallenge";
+import  {useSetCurrentChallenge} from "../Component/setCurrentChallenge";
 import {StateContext} from "../Reducer";
 import {PreferencesContext} from "../Component/PreferencesContext";
 import SegmentedButton from "../Component/SegmentedButton";
@@ -11,13 +11,18 @@ import SegmentedButton from "../Component/SegmentedButton";
 export default function HomeScreen() {
     const { navigate } = useNavigation();
     const [state] = useContext(StateContext);
-    const [sfida, setSfida] = useState("");
+    const [sfida, setSfida] = useState("Sfida1");
     const [index, setIndex] = useState("0");
-
+    useSetCurrentChallenge(sfida);
+    const handleChallengeChange = () => {
+        navigate("Play");
+        setSfida("Sfida2")
+        setIndex(Math.floor(Math.random()).toString());
+    };
     console.log(sfida);
     console.log(state)
 
-    setCurrentChallenge(sfida);
+
     const { toggleTheme, isThemeDark } = React.useContext(PreferencesContext);
 
     const challenges = [
@@ -153,12 +158,7 @@ export default function HomeScreen() {
                     {/* Bottone "Play" */}
                     <Button
                         mode="contained"
-                        onPress={() => {
-                            navigate("Play");
-                            setSfida("Sfida1")
-                            setIndex(Math.floor(Math.random()).toString());
-
-                        }}
+                        onPress={handleChallengeChange}
                         contentStyle={{ height: 50 }}
                         labelStyle={{ fontSize: 16 }}
                         style={{ width: '100%', alignSelf: 'center' }}
