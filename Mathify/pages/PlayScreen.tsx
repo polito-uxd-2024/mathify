@@ -7,7 +7,8 @@ import setCurrentChallenge from "../Component/setCurrentChallenge";
 
 export default function PlayScreen() {
     const { colors } = useTheme(); // Otteniamo i colori del tema
-    const challenge: Sfida = {
+    const [state] = useContext(StateContext)
+    /*const challenge: Sfida = {
         id: "challenge001",
         questions: [
             {
@@ -73,14 +74,14 @@ export default function PlayScreen() {
         ],
         punteggioOttenuto: 0
     };
-
+*/
     const [progress, setProgress] = useState(0);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [punteggioOttenuto, setPunteggioOttenuto] = useState(0);
     const [timeProgress, setTimeProgress] = useState(1); // Per la barra del tempo
     const [timerActive, setTimerActive] = useState(false); // Stato per controllare il timer
-    const currentQuestion = challenge.questions[currentQuestionIndex];
-
+    const currentQuestion = state.selectedChallenge.questions[currentQuestionIndex];
+    setCurrentChallenge("Sfida1")
     const resetTimer = () => {
         setTimeProgress(1);
         setTimerActive(false);
@@ -92,14 +93,16 @@ export default function PlayScreen() {
             setPunteggioOttenuto(punteggioOttenuto + 1);
         }
 
-        if (currentQuestionIndex < challenge.questions.length - 1) {
+        if (currentQuestionIndex < state.selectedChallenge.questions.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
-            setProgress((currentQuestionIndex + 1) / challenge.questions.length);
+            setProgress((currentQuestionIndex + 1) / state.selectedChallenge.questions.length);
             resetTimer(); // Reset del timer per la prossima domanda
         } else {
             alert(`Finito! Punteggio: ${punteggioOttenuto}`);
         }
     };
+
+
 
     useEffect(() => {
         if (!timerActive) return;
@@ -109,9 +112,9 @@ export default function PlayScreen() {
                 if (prev <= 0) {
                     clearInterval(timer);
                     Alert.alert("Tempo scaduto", "Non hai risposto in tempo!");
-                    if (currentQuestionIndex < challenge.questions.length - 1) {
+                    if (currentQuestionIndex < state.selectedChallenge.questions.length - 1) {
                         setCurrentQuestionIndex(currentQuestionIndex + 1);
-                        setProgress((currentQuestionIndex + 1) / challenge.questions.length);
+                        setProgress((currentQuestionIndex + 1) / state.selectedChallenge.questions.length);
                         resetTimer(); // Reset del timer per la prossima domanda
                     } else {
                         alert(`Finito! Punteggio: ${punteggioOttenuto}`);
@@ -136,16 +139,11 @@ export default function PlayScreen() {
                 <IconButton icon="hourglass" />
                 <ProgressBar progress={progress} style={{ margin: 8 }} color={colors.primary} />
             </Appbar.Header>
-            <ProgressBar
-                progress={timeProgress}
-                style={{ height: 8, backgroundColor: colors.background }}
-                // Usa il colore "accent" del tema
-            />
-            <View style={{ padding: 16 }}>
+            <View>
                 <Card>
-                    <Card.Title title="Challenge Question" />
+                    <Card.Title title={state.selectedChallenge.titolo} />
                     <Card.Content>
-                        <Text style={{ fontSize: 18, marginBottom: 16 }}>{currentQuestion.Testo}</Text>
+                        <Text style={{ fontSize: 18, marginBottom: 16 }}>{state.selectedChallenge.questions[currentQuestionIndex].Testo}</Text>
                         {currentQuestion.Risposte.map((risposta, index) => (
                             <Button
                                 key={index}
@@ -158,6 +156,16 @@ export default function PlayScreen() {
                         ))}
                     </Card.Content>
                 </Card>
+                <View style={{flexDirection:"row", justifyContent:"center"}}>
+                <Card style={{margin:5}}>AIUTO</Card>
+                <Card style={{margin:5}}>AIUTO</Card>
+                <Card style={{margin:5}}>AIUTO</Card>
+                </View>
+                <ProgressBar
+                    progress={timeProgress}
+                    style={{ height: 8, backgroundColor: colors.background }}
+                    // Usa il colore "accent" del tema
+                />
             </View>
         </View>
     );
