@@ -16,7 +16,7 @@ export default function HomeScreen() {
     useSetCurrentChallenge(sfida);
     const handleChallengeChange = () => {
         navigate("Play");
-        setSfida("Sfida2")
+        setSfida("Sfida1")
         setIndex(Math.floor(Math.random()).toString());
     };
     console.log(sfida);
