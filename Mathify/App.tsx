@@ -6,6 +6,7 @@ import {InitialState, Reducer, StateContext} from "./Reducer";
 import {State} from "react-native-paper/lib/typescript/components/TextInput/types";
 import {CombinedDarkTheme, CombinedDefaultTheme} from "./Component/theme";
 import {PreferencesContext} from "./Component/PreferencesContext";
+import {DarkTheme} from "@react-navigation/native";
 
 
 
@@ -61,9 +62,25 @@ export const styles = StyleSheet.create({
         fontSize: 20,
         marginBottom: 20,
     },
+    cardBase: {
+        flex: 1,
+        width: '100%',
+        backgroundColor: 'gray',
+        paddingHorizontal: 8,
+        paddingTop: 8,
+        paddingBottom: 16,
+        borderRadius: 15,
+        marginVertical: 6,
+    },
     card: {
-        marginVertical: 10,
-        width: '90%',
+        backgroundColor: 'white',
+        borderRadius: 20,
+    },
+    callout: {
+        backgroundColor: 'gray',
+        padding: 2,
+        borderRadius: 10,
+        width: 100,
     },
     input: {
         marginBottom: 10,

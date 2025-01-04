@@ -3,6 +3,7 @@ import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
 import { Avatar, Button, Card, SegmentedButtons, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from '../App';
+import SfideCompletate from "../pages/SfideCompletate";
 
 interface Challenge {
     id: string;
@@ -25,6 +26,9 @@ const SegmentedButton = ({ filteredChallenges }: { filteredChallenges: Challenge
                     { value: 'programmate', label: 'Programmate' },
                 ]}
             />
+            {value === 'completate' && (
+                <SfideCompletate/>
+            )}
             {value === 'esplora' && (
                 <FlatList
                     data={filteredChallenges}
