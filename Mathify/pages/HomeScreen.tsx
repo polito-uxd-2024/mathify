@@ -8,6 +8,7 @@ import {Sfida} from "../Component/Interfaces";
 import setCurrentChallenge from "../Component/setCurrentChallenge";
 import {StateContext} from "../Reducer";
 import {PreferencesContext} from "../Component/PreferencesContext";
+import SegmentedButton from "../Component/SegmentedButton";
 
 export default function HomeScreen() {
     const { navigate } = useNavigation();
@@ -167,33 +168,17 @@ export default function HomeScreen() {
                 </Card> {/*deve partire con la sfida selezionata*/}
 
                 <Card style={{ flex: 1, padding: 16, borderRadius: 10, width: '100%' }}>
-                    <TextInput
-                        label="Cerca sfida"
-                        mode="outlined"
-                        value={searchQuery}
-                        onChangeText={setSearchQuery}
-                        style={{ marginBottom: 16 }}
-                    />
 
-                    <FlatList
-                        data={filteredChallenges}
-                        keyExtractor={(item) => item.id}
-                        renderItem={({ item }) => (
-                            <Card style={{ flex: 1, margin: 12, width: '100%' }}>
-                                <Card.Title
-                                    left={(props) => (
-                                        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-                                            <Avatar.Icon icon={item.icon} size={20} style={{ marginRight: 8 }} />
-                                            <Text style={{ fontSize: 16 }}>{item.title}</Text>
-                                        </View>
-                                    )}
-                                />
-                                <Card.Actions>
-                                    <Button onPress={() => navigate(item.title)} style={{ flex: 1 }}>Mostra dettagli</Button>
-                                </Card.Actions>
-                            </Card>
-                        )}
-                    />
+                    {/* <TextInput
+    label="Cerca sfida"
+    mode="outlined"
+    value={searchQuery}
+    onChangeText={setSearchQuery}
+    style={{ marginBottom: 16 }}
+/> */}
+
+
+                    <SegmentedButton filteredChallenges={filteredChallenges}/>
                 </Card>
             </View>
 
