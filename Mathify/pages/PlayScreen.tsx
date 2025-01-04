@@ -3,75 +3,21 @@ import { View, Alert } from "react-native";
 import { Appbar, Card, Button, Text, ProgressBar, IconButton, useTheme } from "react-native-paper";
 import { Sfida } from "../Component/Interfaces";
 import { StateContext } from "../Reducer";
-import setCurrentChallenge from "../Component/setCurrentChallenge";
+
 
 export default function PlayScreen() {
-    const { colors } = useTheme(); // Otteniamo i colori del tema
+    const { colors } = useTheme(); //// Otteniamo i colori del tema
+    const [state, dispatch] = useContext(StateContext);
+
     const challenge: Sfida = {
-        id: "challenge001",
-        questions: [
-            {
-                Testo: "Qual è la capitale della Francia?",
-                Risposte: ["Parigi", "Londra", "Madrid", "Berlino"],
-                RispostaCorretta: "Parigi",
-                Grafico: false
-            },
-            {
-                Testo: "Chi ha dipinto la Monna Lisa?",
-                Risposte: ["Van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Michelangelo"],
-                RispostaCorretta: "Leonardo da Vinci",
-                Grafico: false
-            },
-            {
-                Testo: "Qual è il simbolo chimico dell'ossigeno?",
-                Risposte: ["O", "Ox", "Og", "Ogx"],
-                RispostaCorretta: "O",
-                Grafico: false
-            },
-            {
-                Testo: "Qual è il numero atomico del ferro?",
-                Risposte: ["26", "55", "47", "10"],
-                RispostaCorretta: "26",
-                Grafico: false
-            },
-            {
-                Testo: "Qual è l'unità di misura della velocità?",
-                Risposte: ["Meter/secondo", "Kilometri/ora", "Miglio/ora", "None of the above"],
-                RispostaCorretta: "Meter/secondo",
-                Grafico: false
-            },
-            {
-                Testo: "Chi ha scritto 'Romeo e Giulietta'?",
-                Risposte: ["Shakespeare", "Goethe", "Hemingway", "Dostoevskij"],
-                RispostaCorretta: "Shakespeare",
-                Grafico: false
-            },
-            {
-                Testo: "Qual è il pianeta più vicino al Sole?",
-                Risposte: ["Mercurio", "Venere", "Marte", "Terra"],
-                RispostaCorretta: "Mercurio",
-                Grafico: false
-            },
-            {
-                Testo: "Qual è la capitale dell'Italia?",
-                Risposte: ["Roma", "Milano", "Napoli", "Torino"],
-                RispostaCorretta: "Roma",
-                Grafico: false
-            },
-            {
-                Testo: "Qual è l'elemento chimico con simbolo 'Hg'?",
-                Risposte: ["Oro", "Mercurio", "Zinco", "Argento"],
-                RispostaCorretta: "Mercurio",
-                Grafico: false
-            },
-            {
-                Testo: "Qual è la valuta ufficiale degli Stati Uniti?",
-                Risposte: ["Euro", "Yen", "Dollaro", "Libra"],
-                RispostaCorretta: "Dollaro",
-                Grafico: false
-            }
-        ],
-        punteggioOttenuto: 0
+        questions:state.selectedChallenge.questions,
+        titolo:state.selectedChallenge.titolo,
+        argomento:state.selectedChallenge.argomento,
+        difficoltà:state.selectedChallenge.difficoltà,
+
+
+
+
     };
 
     const [progress, setProgress] = useState(0);
@@ -88,7 +34,7 @@ export default function PlayScreen() {
     };
 
     const handleAnswerPress = (risposta: string) => {
-        if (risposta === currentQuestion.RispostaCorretta) {
+        if (risposta === currentQuestion.Soluzione) {
             setPunteggioOttenuto(punteggioOttenuto + 1);
         }
 

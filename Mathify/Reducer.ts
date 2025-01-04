@@ -29,9 +29,9 @@ export function Reducer(state: State, action: Action) {
 }
 
 export const InitialState:State={
-    selectedChallenge:{id:"0",
-        punteggioOttenuto:0,
-        questions:[]}
+    selectedChallenge:{argomento:"Matematica",
+        difficoltà:1,
+        questions:[],titolo:"Sfida1"}
     ,
     utente:{id:"0",
         nome:"Giovanni",

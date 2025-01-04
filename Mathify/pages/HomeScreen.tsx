@@ -1,4 +1,4 @@
-import React, {useContext,useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {View, ScrollView, ImageBackground, } from "react-native";
 import {Appbar, Card, Button, Text,  Avatar, ProgressBar, Switch} from "react-native-paper";
 import { styles } from "../App";
@@ -13,9 +13,11 @@ export default function HomeScreen() {
     const [state] = useContext(StateContext);
     const [sfida, setSfida] = useState("");
     const [index, setIndex] = useState("0");
-    setCurrentChallenge(sfida);
-    console.log(state.selectedChallenge)
 
+    console.log(sfida);
+    console.log(state)
+
+    setCurrentChallenge(sfida);
     const { toggleTheme, isThemeDark } = React.useContext(PreferencesContext);
 
     const challenges = [
@@ -153,8 +155,9 @@ export default function HomeScreen() {
                         mode="contained"
                         onPress={() => {
                             navigate("Play");
+                            setSfida("Sfida1")
                             setIndex(Math.floor(Math.random()).toString());
-                            setSfida("Sfida1");
+
                         }}
                         contentStyle={{ height: 50 }}
                         labelStyle={{ fontSize: 16 }}
