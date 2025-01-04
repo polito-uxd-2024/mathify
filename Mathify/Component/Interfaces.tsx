@@ -1,13 +1,17 @@
 export interface Question {
     Testo: string;
+    Spiegazione:string;
     Risposte: string[];
-    RispostaCorretta: string;
+    Soluzione: string;
     Grafico:boolean;
+    GraficList:string[];
 }
 export interface Sfida{
-    id: string;
+
     questions: Question[];
-    punteggioOttenuto: number;
+    difficoltà:number;
+    argomento:string;
+    titolo:string;
 }
 export interface Utente{
     id:string;

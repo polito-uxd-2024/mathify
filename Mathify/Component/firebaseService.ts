@@ -19,14 +19,20 @@ export const fetchChallenge = async (challengeId: string) => {
     if (snapshot.exists()) {
         const data = snapshot.val();
         const challenge: Sfida = {
-            id: challengeId,
             questions: Object.keys(data.Domande).map(key => ({
-                Testo: data.Domande[key].testo,
+                Testo: data.Domande[key].Testo,
                 Risposte: [data.Domande[key].A, data.Domande[key].B, data.Domande[key].C, data.Domande[key].D],
-                RispostaCorretta: "", // Assuming you will set this later
-                Grafico: false // Assuming default value
+                RispostaCorretta: data.Domande[key].Soluzione, // Assuming you will set this later
+                Grafico: data.Domande[key].Grafico,
+                Spiegazione: data.Domande[key].Spiegazione,
+                GraficList: [data.Domande[key].GA, data.Domande[key].GB, data.Domande[key].GC, data.Domande[key].GD],
+                Soluzione: data.Domande[key].Soluzione
+                // Assuming default value
             })),
-            punteggioOttenuto: 0 // Assuming default value
+            difficoltà: data.Difficoltà,
+            argomento: data.Argomento,
+            titolo: data.Titolo
+            // Assuming default value
         };
         return challenge;
     } else {
