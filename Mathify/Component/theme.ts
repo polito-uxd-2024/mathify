@@ -17,3 +17,10 @@ const { LightTheme, DarkTheme } = adaptNavigationTheme({
 
 export const CombinedDefaultTheme = merge(MD3LightTheme, LightTheme);
 export const CombinedDarkTheme = merge(MD3DarkTheme, DarkTheme);
+export const myTheme = {...CombinedDarkTheme,  colors: {
+        ...CombinedDarkTheme.colors,
+        primary: 'rgb(255,176,58)',
+
+
+
+    },};
