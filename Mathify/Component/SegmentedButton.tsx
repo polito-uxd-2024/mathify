@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
-import { Avatar, Button, Card, SegmentedButtons, Text } from 'react-native-paper';
+import { Avatar, Button, Card, SegmentedButtons, Text,TextInput } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from '../App';
 import SfideCompletate from "../pages/SfideCompletate";
+import AllListChallenges from "../pages/AllListChallenges";
+
 
 interface Challenge {
     id: string;
@@ -30,30 +32,40 @@ const SegmentedButton = ({ filteredChallenges }: { filteredChallenges: Challenge
                 <SfideCompletate/>
             )}
             {value === 'esplora' && (
-                <FlatList
-                    data={filteredChallenges}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => (
-                        <Card style={{ flex: 1, width: '100%' }}>
-                            <Card.Title
-                                title={item.title}
-                                left={(props) => (
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                                        <Avatar.Icon icon={item.icon} size={20} style={{ marginRight: 8 }} />
-                                    </View>
-                                )}
-                            />
-                            <Card.Actions>
-                                <Button onPress={() => {
-                                    /* navigate(item.title) */
-                                    console.log(item.title + ' pressed');
-                                }} style={{ flex: 1 }}>
-                                    Mostra dettagli
-                                </Button>
-                            </Card.Actions>
-                        </Card>
+                <View>
+                    <FlatList
+                        data={filteredChallenges.slice(0, 5)} // Prendi solo le prime 5 sfide
+                        keyExtractor={(item) => item.id}
+                        renderItem={({ item }) => (
+                            <Card style={{ flex: 1, width: '100%' }}>
+                                <Card.Title
+                                    title={item.title}
+                                    left={(props) => (
+                                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                                            <Avatar.Icon icon={item.icon} size={20} style={{ marginRight: 8 }} />
+                                        </View>
+                                    )}
+                                />
+                                <Card.Actions>
+                                    <Button onPress={() => {
+                                        /* navigate(item.title) */
+                                        console.log(item.title + ' pressed');
+                                    }} style={{ flex: 1 }}>
+                                        Seleziona sfida
+                                    </Button>
+                                </Card.Actions>
+                            </Card>
+                        )}
+                    />
+                    {filteredChallenges.length > 5 && (
+                        <Button
+                            onPress={() => navigate('AllListChallenges', { filteredChallenges })}
+                            style={{ alignSelf: 'flex-end', marginTop: 16 }}>
+                            VEDI TUTTO
+                        </Button>
                     )}
-                />
+
+                </View>
             )}
         </SafeAreaView>
     );

@@ -29,9 +29,9 @@ export function Reducer(state: State, action: Action) {
 }
 
 export const InitialState:State={
-    selectedChallenge:{argomento:"Matematica",
+    selectedChallenge:{argomento:"Geometria Analitica",
         difficoltà:1,
-        questions:[],titolo:"Sfida1"}
+        questions:[],titolo:"Rette sul piano"}
     ,
     utente:{id:"0",
         nome:"Giovanni",
