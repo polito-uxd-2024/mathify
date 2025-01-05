@@ -4,76 +4,56 @@ import { Appbar, Card, Button, Text, ProgressBar, IconButton, useTheme } from "r
 import { Sfida } from "../Component/Interfaces";
 import { StateContext } from "../Reducer";
 
-
 export default function PlayScreen() {
-    const { colors } = useTheme(); //// Otteniamo i colori del tema
+    const { colors } = useTheme();
     const [state, dispatch] = useContext(StateContext);
 
     const challenge: Sfida = {
-        questions:state.selectedChallenge.questions,
-        titolo:state.selectedChallenge.titolo,
-        argomento:state.selectedChallenge.argomento,
-        difficoltà:state.selectedChallenge.difficoltà,
-
-
-
-
+        questions: state.selectedChallenge.questions,
+        titolo: state.selectedChallenge.titolo,
+        argomento: state.selectedChallenge.argomento,
+        difficoltà: state.selectedChallenge.difficoltà,
     };
 
     const [progress, setProgress] = useState(0);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [punteggioOttenuto, setPunteggioOttenuto] = useState(0);
-    const [timeProgress, setTimeProgress] = useState(1); // Per la barra del tempo
-    const [timerActive, setTimerActive] = useState(false); // Stato per controllare il timer
+    const [timerProgress, setTimerProgress] = useState(0); // Progresso del timer
+    const timerDuration = 10; // Durata del timer in secondi
+
     const currentQuestion = challenge.questions[currentQuestionIndex];
 
-    const resetTimer = () => {
-        setTimeProgress(1);
-        setTimerActive(false);
-        setTimeout(() => setTimerActive(true), 100); // Breve pausa per riattivare il timer
+    // Gestione del timer
+    useEffect(() => {
+        const timerInterval = setInterval(() => {
+            setTimerProgress((prev) => {
+                if (prev >= 1) {
+                    handleNextQuestion(); // Passa alla domanda successiva se il timer è pieno
+                    return 0; // Reset del timer
+                }
+                return prev + 1 / timerDuration; // Incrementa il progresso
+            });
+        }, 1000);
+
+        return () => clearInterval(timerInterval); // Pulisci l'intervallo quando cambia la domanda
+    }, [currentQuestionIndex]);
+
+    const handleNextQuestion = () => {
+        if (currentQuestionIndex < challenge.questions.length - 1) {
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+            setProgress((currentQuestionIndex + 1) / challenge.questions.length);
+            setTimerProgress(0); // Reset del timer
+        } else {
+            Alert.alert("Quiz Finito", `Punteggio ottenuto: ${punteggioOttenuto}`);
+        }
     };
 
     const handleAnswerPress = (risposta: string) => {
         if (risposta === currentQuestion.Soluzione) {
             setPunteggioOttenuto(punteggioOttenuto + 1);
         }
-
-        if (currentQuestionIndex < challenge.questions.length - 1) {
-            setCurrentQuestionIndex(currentQuestionIndex + 1);
-            setProgress((currentQuestionIndex + 1) / challenge.questions.length);
-            resetTimer(); // Reset del timer per la prossima domanda
-        } else {
-            alert(`Finito! Punteggio: ${punteggioOttenuto}`);
-        }
+        handleNextQuestion(); // Passa manualmente alla prossima domanda
     };
-
-    useEffect(() => {
-        if (!timerActive) return;
-
-        let timer = setInterval(() => {
-            setTimeProgress((prev) => {
-                if (prev <= 0) {
-                    clearInterval(timer);
-                    Alert.alert("Tempo scaduto", "Non hai risposto in tempo!");
-                    if (currentQuestionIndex < challenge.questions.length - 1) {
-                        setCurrentQuestionIndex(currentQuestionIndex + 1);
-                        setProgress((currentQuestionIndex + 1) / challenge.questions.length);
-                        resetTimer(); // Reset del timer per la prossima domanda
-                    } else {
-                        alert(`Finito! Punteggio: ${punteggioOttenuto}`);
-                    }
-                }
-                return prev - 0.01;
-            });
-        }, 100); // Aggiorniamo ogni 100ms per un timer fluido
-
-        return () => clearInterval(timer); // Pulizia al cambio di domanda
-    }, [timerActive, currentQuestionIndex]);
-
-    useEffect(() => {
-        resetTimer(); // Avvia il timer alla prima domanda
-        //setCurrentChallenge("Sfida1")
-    }, []);
 
     return (
         <View>
@@ -82,11 +62,7 @@ export default function PlayScreen() {
                 <IconButton icon="hourglass" />
                 <ProgressBar progress={progress} style={{ margin: 8 }} color={colors.primary} />
             </Appbar.Header>
-            <ProgressBar
-                progress={timeProgress}
-                style={{ height: 8, backgroundColor: colors.background }}
-                // Usa il colore "accent" del tema
-            />
+
             <View style={{ padding: 16 }}>
                 <Card>
                     <Card.Title title="Challenge Question" />
@@ -102,6 +78,14 @@ export default function PlayScreen() {
                                 {risposta}
                             </Button>
                         ))}
+                        <ProgressBar
+                            progress={timerProgress}
+                            style={{ marginTop: 16 }}
+                            color={colors.accent}
+                        />
+                        <Text style={{ marginTop: 8 }}>Tempo rimasto: {Math.ceil((1 - timerProgress) * timerDuration)}s</Text>
+                        <Text style={{ marginTop: 8 }}>Domande corrette: {punteggioOttenuto}</Text>
+                        <Text style={{ marginTop: 8 }}>Indice: {currentQuestionIndex}</Text>
                     </Card.Content>
                 </Card>
             </View>
