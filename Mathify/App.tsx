@@ -73,8 +73,9 @@ export const styles = StyleSheet.create({
         marginVertical: 6,
     },
     card: {
-        backgroundColor: 'white',
+        margin: 10,
         borderRadius: 20,
+        elevation: 50,
     },
     callout: {
         backgroundColor: 'gray',

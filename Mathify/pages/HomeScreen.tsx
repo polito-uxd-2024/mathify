@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {View, ScrollView, ImageBackground, } from "react-native";
+import {View, ScrollView, ImageBackground, SafeAreaView,} from "react-native";
 import {Appbar, Card, Button, Text, Avatar, ProgressBar, Switch, TextInput} from "react-native-paper";
 import { styles } from "../App";
 import { useNavigation } from "@react-navigation/native";
@@ -54,7 +54,9 @@ export default function HomeScreen() {
     const requiredScore = 100;
 
     return (
+
         <ScrollView>
+
             <Appbar.Header style={{justifyContent: "space-between", alignItems: "center"}}>
 
                 {/* Titolo Mathify */}
@@ -183,6 +185,8 @@ export default function HomeScreen() {
                     <SegmentedButton filteredChallenges={filteredChallenges}/>
                 </Card>
             </View>
+
         </ScrollView>
+
     );
 }

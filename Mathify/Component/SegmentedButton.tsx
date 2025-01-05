@@ -39,7 +39,7 @@ const SegmentedButton = ({ filteredChallenges }: { filteredChallenges: Challenge
                         data={filteredChallenges.slice(0, 5)} // Prendi solo le prime 5 sfide
                         keyExtractor={(item) => item.id}
                         renderItem={({ item }) => (
-                            <Card style={{ flex: 1, width: '100%' }}>
+                            <Card style={styles.card}>
                                 <Card.Title
                                     title={item.title}
                                     left={(props) => (
