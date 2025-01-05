@@ -1,18 +1,21 @@
 import React, {useContext, useEffect, useState} from "react";
 import {View, ScrollView, ImageBackground, } from "react-native";
-import {Appbar, Card, Button, Text,  Avatar, ProgressBar, Switch} from "react-native-paper";
+import {Appbar, Card, Button, Text, Avatar, ProgressBar, Switch, TextInput} from "react-native-paper";
 import { styles } from "../App";
 import { useNavigation } from "@react-navigation/native";
 import  {useSetCurrentChallenge} from "../Component/setCurrentChallenge";
 import {StateContext} from "../Reducer";
 import {PreferencesContext} from "../Component/PreferencesContext";
 import SegmentedButton from "../Component/SegmentedButton";
+import AllListChallenges from "./AllListChallenges";
 
 export default function HomeScreen() {
     const { navigate } = useNavigation();
     const [state] = useContext(StateContext);
     const [sfida, setSfida] = useState("Sfida1");
     const [index, setIndex] = useState("0");
+
+
     useSetCurrentChallenge(sfida);
     const handleChallengeChange = () => {
         navigate("Play");
@@ -26,10 +29,10 @@ export default function HomeScreen() {
     const { toggleTheme, isThemeDark } = React.useContext(PreferencesContext);
 
     const challenges = [
-        { id: "1", title: "Algebra", icon: "alpha-a-box" },
-        { id: "2", title: "Geometria", icon: "alpha-g-box" },
-        { id: "3", title: "Calcolo", icon: "alpha-c-box" },
-        { id: "4", title: "Logaritmo", icon: "alpha-t-box" },
+        { id: "1", title: "Tangente",  icon: "alpha-a-box" },
+        { id: "2", title: "Disequazioni di secondo grado", icon: "alpha-g-box" },
+        { id: "3", title: "Triangoli equilateri", icon: "alpha-c-box" },
+        { id: "4", title: "Studio della funzione", icon: "alpha-t-box" },
         { id: "5", title: "Equazioni", icon: "alpha-p-box" },
         { id: "6", title: "Statistica", icon: "alpha-s-box" },
         { id: "7", title: "Algebra", icon: "alpha-a-box" },
@@ -100,26 +103,27 @@ export default function HomeScreen() {
                         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                             {/* Titolo della sfida */}
                             <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                                Rette sul piano {/* nome della sfida */} {/*poi si dovrà prendere dallo stato*/}
+                                {state.selectedChallenge.titolo} {/* nome della sfida */}
                             </Text>
 
                             {/* Difficoltà (stelle) */}
                             <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                {[1, 2, 3].map((star, index) => (
+                                {[...Array(3)].map((star, index) => (
                                     <Avatar.Icon
                                         key={index}
                                         icon="star"
                                         size={20}
-                                        style={{ marginLeft: 8, /*color: index < 2 ? 'gold' : 'gray'*/}} // Colore delle stelle
+                                        color={index < state.selectedChallenge.difficoltà ? 'red' : 'black'} // Colore delle stelle
+                                        style={{ marginLeft: 8}}
+
                                     />
                                 ))}
-                                {/*la difficoltà poi si deve prendere dallo stato*/}
                             </View>
                         </View>
 
                         {/* Sottotitolo del macro argomento */}
                         <View style={{ flexDirection: "row", alignItems: "center", marginBottom:16 }}>
-                            <Text style={{ fontSize: 15, fontWeight:"bold" }}>Funzioni</Text> {/*si dovrà prendere dallo stato*/}
+                            <Text style={{ fontSize: 15, fontWeight:"bold" }}>{state.selectedChallenge.argomento}</Text>
                         </View>
                     </Card.Content>
 
@@ -135,7 +139,8 @@ export default function HomeScreen() {
                                 </View>
                             </View>
                         </ImageBackground>
-                    </Card.Content>
+                    </Card.Content> {/*si deve sistemare l'immagine prendendolo dal database*/}
+
 
                     <Card.Actions style={{justifyContent: 'center' }}>
                     {/* Bottone "Cambia sfida" */}
@@ -169,68 +174,10 @@ export default function HomeScreen() {
                 </Card> {/*deve partire con la sfida selezionata*/}
 
                 <Card style={{ flex: 1, padding: 16, borderRadius: 10, width: '100%' }}>
-
-                    {/* <TextInput
-    label="Cerca sfida"
-    mode="outlined"
-    value={searchQuery}
-    onChangeText={setSearchQuery}
-    style={{ marginBottom: 16 }}
-/> */}
-
-
+                    <TextInput label="Cerca sfida" mode="outlined" value={searchQuery} onChangeText={setSearchQuery} style={{ marginBottom: 16 }} />
                     <SegmentedButton filteredChallenges={filteredChallenges}/>
                 </Card>
             </View>
-
         </ScrollView>
     );
 }
-
-
-// import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-
-/*
-// Componente per Esplora
-const Esplora = () => {
-    return (
-        <View>
-            <Text>Contenuto di Esplora</Text>
-        </View>
-    );
-};
-
-// Componente per Completate
-const Completate = () => {
-    return (
-        <View>
-            <Text>Contenuto di Completate</Text>
-        </View>
-    );
-};
-
-// Componente per Programmate
-const Programmate = () => {
-    return (
-        <View>
-            <Text>Contenuto di Programmate</Text>
-        </View>
-    );
-};
-
-// Configura il TabNavigator
-const Tab = createMaterialTopTabNavigator();
-
-
-da mettere prima della card
-
-//<Tab.Navigator
- //   screenOptions={{
-   //     tabBarStyle: { backgroundColor: 'lightgray' },  // Aggiungi uno stile per il tab bar
-   // }}
-//>
- //   <Tab.Screen name="Esplora" component={Esplora} />
-  //  <Tab.Screen name="Completate" component={Completate} />
-  //  <Tab.Screen name="Programmate" component={Programmate} />
-//</Tab.Navigator>
-*/
