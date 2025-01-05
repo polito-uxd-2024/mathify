@@ -8,11 +8,13 @@ import {StateContext} from "../Reducer";
 import {PreferencesContext} from "../Component/PreferencesContext";
 import SegmentedButton from "../Component/SegmentedButton";
 import AllListChallenges from "./AllListChallenges";
+import {NativeStackNavigationProp} from "react-native-screens/native-stack";
+import {RootStackParamList} from "../Component/navigation";
 
 export default function HomeScreen() {
-    const { navigate } = useNavigation();
+    const { navigate } = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [state] = useContext(StateContext);
-    const [sfida, setSfida] = useState("Sfida1");
+    const [sfida, setSfida] = useState<string>("Sfida1");
     const [index, setIndex] = useState("0");
 
 
@@ -22,8 +24,7 @@ export default function HomeScreen() {
         setSfida("Sfida1")
         setIndex(Math.floor(Math.random()).toString());
     };
-    console.log(sfida);
-    console.log(state)
+
 
 
     const { toggleTheme, isThemeDark } = React.useContext(PreferencesContext);

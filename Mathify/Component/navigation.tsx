@@ -9,15 +9,38 @@ import PlayScreen from "../pages/PlayScreen";
 import Materiale from "../pages/Materiale";
 import Impostazioni from "../pages/Impostazioni";
 import Verifica from "../pages/Verifica";
-import {useReducer} from "react";
-import {InitialState, Reducer} from "../Reducer";
-import {CombinedDarkTheme, myTheme} from "./theme";
 
-const Tab = createBottomTabNavigator();
-const Play = createStackNavigator();
-const ProfileStack = createStackNavigator();
-const RootStack = createStackNavigator();
-const ImpostazioniStack = createStackNavigator();
+import {CombinedDarkTheme, myTheme} from "./theme";
+import AllListChallenges from "../pages/AllListChallenges";
+import {Challenge} from "./SegmentedButton";
+
+export type RootStackParamList = {
+    Main: undefined;
+    Play: undefined;
+    AllListChallenges: { filteredChallenges: Challenge[] };
+}
+export type TabParamList = {
+    Home: undefined;
+    Profile: undefined;
+    Classe: undefined;
+    Materiale: undefined;
+}
+export type ProfileStackParamList = {
+    Profile: undefined;
+    Impostazioni: undefined;
+    Classe: undefined;
+    Verifica: undefined;
+}
+export type PlayParamList = {
+    Play: undefined;
+}
+
+
+const Tab = createBottomTabNavigator<TabParamList>();
+const Play = createStackNavigator<PlayParamList>();
+const ProfileStack = createStackNavigator<ProfileStackParamList>();
+const RootStack = createStackNavigator<RootStackParamList>();
+
 function ProfileStackScreen() {
     return (
         <ProfileStack.Navigator screenOptions={{headerShown:false}}>
@@ -72,6 +95,7 @@ export default function Navigation() {
             <RootStack.Navigator screenOptions={{headerShown:false}}>
                 <RootStack.Screen name="Main" component={Tabs} />
                 <RootStack.Screen name="Play" component={PlayScreenStack} />
+                <RootStack.Screen name="AllListChallenges" component={AllListChallenges} />
             </RootStack.Navigator>
 
         </NavigationContainer>

@@ -5,9 +5,11 @@ import { useNavigation } from '@react-navigation/native';
 import { styles } from '../App';
 import SfideCompletate from "../pages/SfideCompletate";
 import AllListChallenges from "../pages/AllListChallenges";
+import {NativeStackNavigationProp} from "react-native-screens/native-stack";
+import Navigation, {RootStackParamList} from "./navigation";
 
 
-interface Challenge {
+export interface Challenge {
     id: string;
     title: string;
     icon: string;
@@ -15,7 +17,7 @@ interface Challenge {
 
 const SegmentedButton = ({ filteredChallenges }: { filteredChallenges: Challenge[] }) => {
     const [value, setValue] = React.useState('esplora');
-    const { navigate } = useNavigation();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     return (
         <SafeAreaView style={styles.container}>
@@ -48,18 +50,17 @@ const SegmentedButton = ({ filteredChallenges }: { filteredChallenges: Challenge
                                 />
                                 <Card.Actions>
                                     <Button onPress={() => {
-                                        /* navigate(item.title) */
+                                         /*navigation.navigate(item.title)*/
                                         console.log(item.title + ' pressed');
                                     }} style={{ flex: 1 }}>
                                         Seleziona sfida
                                     </Button>
                                 </Card.Actions>
-                            </Card>
-                        )}
+                            </Card>)}
                     />
                     {filteredChallenges.length > 5 && (
                         <Button
-                            onPress={() => navigate('AllListChallenges', { filteredChallenges })}
+                            onPress={() => navigation.navigate('AllListChallenges', { filteredChallenges })}
                             style={{ alignSelf: 'flex-end', marginTop: 16 }}>
                             VEDI TUTTO
                         </Button>

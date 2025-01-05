@@ -2,16 +2,13 @@ import * as React from 'react';
 import { FlatList, View, Button } from 'react-native';
 import { Card, Avatar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import {NativeStackNavigationProp} from "react-native-screens/native-stack";
+import {RootStackParamList} from "../Component/navigation";
 
-interface Challenge {
-    id: string;
-    title: string;
-    icon: string;
-}
 
 const AllListChallenges = ({ route }: { route: any }) => {
     const { filteredChallenges } = route.params;  // Ottieni i dati passati
-    const { goBack } = useNavigation();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     return (
         <View style={{ flex: 1 }}>
@@ -29,14 +26,14 @@ const AllListChallenges = ({ route }: { route: any }) => {
                             )}
                         />
                         <Card.Actions>
-                            <Button onPress={() => console.log(item.title + ' pressed')} style={{ flex: 1 }}>
+                            <Button onPress={() => console.log(item.title + ' pressed')} style={{ flex: 1 }} title={"Back"}>
                                 Seleziona sfida
                             </Button>
                         </Card.Actions>
                     </Card>
                 )}
             />
-            <Button title="Indietro" onPress={goBack} />
+            <Button title="Indietro" onPress={()=>(navigation.goBack())} />
         </View>
     );
 };
