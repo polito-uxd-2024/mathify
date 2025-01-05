@@ -19,9 +19,9 @@ export default function HomeScreen() {
 
 
     useSetCurrentChallenge(sfida);
-    const handleChallengeChange = () => {
-        navigate("Play");
-        setSfida("Sfida1")
+    const handleChallengeChange = (sfida:string) => {
+
+        setSfida(sfida)
         setIndex(Math.floor(Math.random()).toString());
     };
 
@@ -149,7 +149,7 @@ export default function HomeScreen() {
                         mode="outlined"
                         onPress={() => {
                             const randomChallenge = challenges[Math.floor(Math.random() * challenges.length)];
-                            setSfida(randomChallenge.title);
+                            handleChallengeChange(randomChallenge.title);
                             setIndex(Math.floor(Math.random()).toString());
                         }}
                         contentStyle={{ height: 40 }}
@@ -164,7 +164,11 @@ export default function HomeScreen() {
                     {/* Bottone "Play" */}
                     <Button
                         mode="contained"
-                        onPress={handleChallengeChange}
+                        onPress={()=> {
+                            (handleChallengeChange(sfida),
+                            navigate("Play")
+                        )
+                        }}
                         contentStyle={{ height: 50 }}
                         labelStyle={{ fontSize: 16 }}
                         style={{ width: '100%', alignSelf: 'center' }}
