@@ -25,7 +25,7 @@ export default function PlayScreen() {
     const currentQuestion = challenge.questions[currentQuestionIndex];
     const [risposte, setRisposte] = useState<boolean[]>([]);
     const [revisione, setRevisione] = useState(4)
-    const [listaRisposteDate, setListaRispsoteDate] = useState<string[]>([]) //da implementare
+    const [listaRisposteDate, setListaRispsoteDate] = useState<string[]>([])
 
     // Gestione del timer
     useEffect(() => {
@@ -36,6 +36,7 @@ export default function PlayScreen() {
                     if (prev >= 1) {
                         if (!changePage) {
                             setRisposte((prev) => [...prev, false]);
+                            setListaRispsoteDate((prev) => [...prev, "Nessuna risposat data"])
                         }
                         handleNextQuestion(); // Passa alla domanda successiva se il timer è pieno
                         return 0; // Reset del timer
@@ -62,9 +63,11 @@ export default function PlayScreen() {
         if (risposta === currentQuestion.Soluzione) {
             setPunteggioOttenuto(punteggioOttenuto + 1);
             setRisposte((prev) => [...prev, true]);
+            setListaRispsoteDate((prev) => [...prev, risposta])
         }
         else {
             setRisposte((prev) => [...prev, false]);
+            setListaRispsoteDate((prev) => [...prev, risposta])
         }
         handleNextQuestion(); // Passa manualmente alla prossima domanda
     };
@@ -129,10 +132,8 @@ export default function PlayScreen() {
                                     <Text>Dettagli di revisione per l'indice {index}</Text>
                                     <Card>
                                         {state.selectedChallenge.questions[index].Testo}
-                                        {state.selectedChallenge.questions[index].Risposte[0]}
-                                        {state.selectedChallenge.questions[index].Risposte[1]}
-                                        {state.selectedChallenge.questions[index].Risposte[2]}
-                                        {state.selectedChallenge.questions[index].Risposte[3]}
+                                        Risposta data: {listaRisposteDate[index]}
+                                        Risposta corretta: {state.selectedChallenge.questions[index].Soluzione}
                                         Spiegazione: {state.selectedChallenge.questions[index].Spiegazione}
                                     </Card>
                                 </View>
