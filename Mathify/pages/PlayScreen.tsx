@@ -26,7 +26,7 @@ export default function PlayScreen() {
     const timerDuration = 10;
     const [changePage, setChangePage] = useState(false);
     const currentQuestion = challenge.questions[currentQuestionIndex];
-    const [risposte, setRisposte] = useState<boolean[]>([]);
+    const [wrisposte, setRisposte] = useState<boolean[]>([]);
     const [revisione, setRevisione] = useState(4);
     const [listaRisposteDate, setListaRispsoteDate] = useState<string[]>([]);
 
@@ -93,7 +93,7 @@ export default function PlayScreen() {
                 xpGuadagnati: punteggioOttenuto * 100, // Formula XP guadagnati
             };
 
-            registraSfidaCompletata(user.uid, sfidaCompletata)
+            registraSfidaCompletata(sfidaCompletata)
 
         } else {
             Alert.alert("Errore", "Devi essere loggato per salvare la sfida.");

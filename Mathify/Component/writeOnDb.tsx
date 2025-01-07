@@ -3,9 +3,9 @@ import {SfidaCompletata} from "./Interfaces";
 import {db} from "../Firebase";
 
 // Funzione per registrare una sfida completata
-export default function registraSfidaCompletata(userId: string, sfidaCompletata: SfidaCompletata) {
+export default function registraSfidaCompletata(sfidaCompletata: SfidaCompletata) {
 
-    const userSfideRef = ref(db, `Utenti/${userId}/SfideCompletate`);
+    const userSfideRef = ref(db, `Utenti/Utente1/SfideCompletate`);
 
     // Genera un nuovo ID per il tentativo
     const newSfidaKey = push(userSfideRef).key;
@@ -23,13 +23,13 @@ export default function registraSfidaCompletata(userId: string, sfidaCompletata:
             Argomento: sfidaCompletata.sfida.argomento,
             Difficoltà: sfidaCompletata.sfida.difficoltà,
             Titolo: sfidaCompletata.sfida.titolo,
-            Domande: sfidaCompletata.sfida.questions.map((question) => ({
+            Domande: sfidaCompletata.domande.map((question, index) => ({
                 Testo: question.Testo,
-                Spiegazione: question.Spiegazione,
+                Spiegazione: sfidaCompletata.sfida.questions[index].Spiegazione,
                 Risposte: question.Risposte,
-                Soluzione: question.Soluzione,
-                Grafico: question.Grafico,
-                GraficList: question.GraficList,
+                Soluzione: sfidaCompletata.sfida.questions[index].Soluzione,
+                Grafico: sfidaCompletata.sfida.questions[index].Grafico,
+                GraficList: sfidaCompletata.sfida.questions[index].GraficList,
             })),
         },
         Punteggio: sfidaCompletata.punteggio,
@@ -38,7 +38,7 @@ export default function registraSfidaCompletata(userId: string, sfidaCompletata:
     };
 
     // Salva i dati nel database
-    set(ref(db, `Utenti/${userId}/SfideCompletate/${newSfidaKey}`), sfidaData)
+    set(ref(db, `Utenti/Utente1/SfideCompletate/${newSfidaKey}`), sfidaData)
         .then(() => {
             console.log("Sfida completata registrata con successo!");
         })
