@@ -83,8 +83,9 @@ export default function PlayScreen() {
                     Testo: domanda.Testo,
                     Risposte: domanda.Risposte,
                     RispostaCorretta: domanda.Soluzione,
-                    tempoImpiegato: timerDuration,
-                    correttezza: risposte[index] || false,
+                    RispostaData: listaRisposteDate[index] || "Nessuna risposta data", // Aggiunge la risposta data dall'utente
+                    tempoImpiegato: timerDuration, // Tempo per ogni domanda (puoi personalizzare per domanda)
+                    correttezza: risposte[index] || false, // Se la risposta è corretta o no
                 })),
                 punteggio: punteggioOttenuto,
                 tempoImpiegato: timerDuration * challenge.questions.length,
@@ -103,6 +104,7 @@ export default function PlayScreen() {
             Alert.alert("Errore", "Devi essere loggato per salvare la sfida.");
         }
     };
+
 
     if (!changePage) {
         return (
