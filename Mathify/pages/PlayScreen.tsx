@@ -74,12 +74,11 @@ export default function PlayScreen() {
 
     // Funzione per salvare la sfida completata
     const salvaSfida = () => {
-        const auth = getAuth();
-        const user = auth.currentUser;
 
-        if (user) {
+
+
+
             const sfidaCompletata = {
-                sfida: challenge,
                 domande: challenge.questions.map((domanda, index) => ({
                     Testo: domanda.Testo,
                     Risposte: domanda.Risposte,
@@ -95,9 +94,8 @@ export default function PlayScreen() {
 
             registraSfidaCompletata(sfidaCompletata)
 
-        } else {
-            Alert.alert("Errore", "Devi essere loggato per salvare la sfida.");
-        }
+
+
     };
 
 

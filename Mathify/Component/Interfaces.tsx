@@ -23,7 +23,7 @@ export interface Utente{
 
 }
 export interface SfidaCompletata{
-    sfida:Sfida;
+
     punteggio:number;
     tempoImpiegato:number;
     domande:QuestionDone[];
