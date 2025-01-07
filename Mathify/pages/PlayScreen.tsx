@@ -4,8 +4,9 @@ import { Appbar, Card, Button, Text, ProgressBar, IconButton, useTheme } from "r
 import { Sfida } from "../Component/Interfaces";
 import { StateContext } from "../Reducer";
 import Collapsible from "react-native-collapsible";
-import { registraSfidaCompletata } from "../utils/firebaseFunctions";
+
 import { getAuth } from "firebase/auth";
+import registraSfidaCompletata from "../Component/writeOnDb";
 
 export default function PlayScreen() {
     const { colors } = useTheme();
@@ -93,13 +94,7 @@ export default function PlayScreen() {
             };
 
             registraSfidaCompletata(user.uid, sfidaCompletata)
-                .then(() => {
-                    Alert.alert("Successo", "La sfida è stata salvata con successo!");
-                })
-                .catch((error) => {
-                    console.error("Errore durante il salvataggio:", error);
-                    Alert.alert("Errore", "Non è stato possibile salvare la sfida.");
-                });
+
         } else {
             Alert.alert("Errore", "Devi essere loggato per salvare la sfida.");
         }

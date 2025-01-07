@@ -1,9 +1,10 @@
-import { getDatabase, ref, set, push } from "firebase/database";
+import { ref, set, push } from "firebase/database";
 import {SfidaCompletata} from "./Interfaces";
+import {db} from "../Firebase";
 
 // Funzione per registrare una sfida completata
-function registraSfidaCompletata(userId: string, sfidaCompletata: SfidaCompletata) {
-    const db = getDatabase();
+export default function registraSfidaCompletata(userId: string, sfidaCompletata: SfidaCompletata) {
+
     const userSfideRef = ref(db, `Utenti/${userId}/SfideCompletate`);
 
     // Genera un nuovo ID per il tentativo
