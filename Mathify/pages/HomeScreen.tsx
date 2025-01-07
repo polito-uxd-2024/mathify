@@ -17,15 +17,11 @@ export default function HomeScreen() {
     const [sfida, setSfida] = useState<string>("Sfida1");
     const [index, setIndex] = useState("0");
 
-
     useSetCurrentChallenge(sfida);
     const handleChallengeChange = (sfida:string) => {
-
         setSfida(sfida)
         setIndex(Math.floor(Math.random()).toString());
     };
-
-
 
     const { toggleTheme, isThemeDark } = React.useContext(PreferencesContext);
 
@@ -54,6 +50,7 @@ export default function HomeScreen() {
     const requiredScore = 100;
 
     return (
+
 
         <ScrollView>
 
@@ -100,6 +97,7 @@ export default function HomeScreen() {
             </Appbar.Header>
 
             <View style={styles.content}>
+
                 <Card style={{ marginBottom: 16, width: "100%", position: "relative" }}>
                     <Card.Content>
                         {/* Titolo e Stelle affiancate */}

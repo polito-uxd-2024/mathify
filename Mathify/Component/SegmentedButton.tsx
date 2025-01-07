@@ -35,6 +35,7 @@ const SegmentedButton = ({ filteredChallenges }: { filteredChallenges: Challenge
             )}
             {value === 'esplora' && (
                 <View>
+
                     <FlatList
                         data={filteredChallenges.slice(0, 5)} // Prendi solo le prime 5 sfide
                         keyExtractor={(item) => item.id}
