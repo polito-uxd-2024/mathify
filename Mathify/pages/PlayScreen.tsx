@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
-import {View, Alert, ScrollView} from "react-native";
+import { View, Alert, ScrollView } from "react-native";
 import { Appbar, Card, Button, Text, ProgressBar, IconButton, useTheme } from "react-native-paper";
 import { Sfida } from "../Component/Interfaces";
 import { StateContext } from "../Reducer";
-import Collapsible from 'react-native-collapsible';
+import Collapsible from "react-native-collapsible";
+import { registraSfidaCompletata } from "../utils/firebaseFunctions";
+import { getAuth } from "firebase/auth";
 
 export default function PlayScreen() {
-    const {colors} = useTheme();
-    const [state, dispatch] = useContext(StateContext);
+    const { colors } = useTheme();
+    const [state] = useContext(StateContext);
 
     const challenge: Sfida = {
         questions: state.selectedChallenge.questions,
@@ -19,43 +21,41 @@ export default function PlayScreen() {
     const [progress, setProgress] = useState(0);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [punteggioOttenuto, setPunteggioOttenuto] = useState(0);
-    const [timerProgress, setTimerProgress] = useState(0); // Progresso del timer
-    const timerDuration = 10; // Durata del timer in secondi
-    const [changePage, setChangePage] = useState(false)
+    const [timerProgress, setTimerProgress] = useState(0);
+    const timerDuration = 10;
+    const [changePage, setChangePage] = useState(false);
     const currentQuestion = challenge.questions[currentQuestionIndex];
     const [risposte, setRisposte] = useState<boolean[]>([]);
-    const [revisione, setRevisione] = useState(4)
-    const [listaRisposteDate, setListaRispsoteDate] = useState<string[]>([])
+    const [revisione, setRevisione] = useState(4);
+    const [listaRisposteDate, setListaRispsoteDate] = useState<string[]>([]);
 
     // Gestione del timer
     useEffect(() => {
-
-            const timerInterval = setInterval(() => {
-
-                setTimerProgress((prev) => {
-                    if (prev >= 1) {
-                        if (!changePage) {
-                            setRisposte((prev) => [...prev, false]);
-                            setListaRispsoteDate((prev) => [...prev, "Nessuna risposat data"])
-                        }
-                        handleNextQuestion(); // Passa alla domanda successiva se il timer è pieno
-                        return 0; // Reset del timer
+        const timerInterval = setInterval(() => {
+            setTimerProgress((prev) => {
+                if (prev >= 1) {
+                    if (!changePage) {
+                        setRisposte((prev) => [...prev, false]);
+                        setListaRispsoteDate((prev) => [...prev, "Nessuna risposta data"]);
                     }
-                    return prev + 1 / timerDuration; // Incrementa il progresso
-                });
-            }, 1000);
+                    handleNextQuestion();
+                    return 0;
+                }
+                return prev + 1 / timerDuration;
+            });
+        }, 1000);
 
-            return () => clearInterval(timerInterval); // Pulisci l'intervallo quando cambia la domanda
-
+        return () => clearInterval(timerInterval);
     }, [currentQuestionIndex, changePage]);
 
     const handleNextQuestion = () => {
         if (currentQuestionIndex < challenge.questions.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
             setProgress((currentQuestionIndex + 1) / challenge.questions.length);
-            setTimerProgress(0); // Reset del timer
+            setTimerProgress(0);
         } else {
             setChangePage(true);
+            salvaSfida(); // Salva la sfida completata
         }
     };
 
@@ -63,36 +63,66 @@ export default function PlayScreen() {
         if (risposta === currentQuestion.Soluzione) {
             setPunteggioOttenuto(punteggioOttenuto + 1);
             setRisposte((prev) => [...prev, true]);
-            setListaRispsoteDate((prev) => [...prev, risposta])
-        }
-        else {
+            setListaRispsoteDate((prev) => [...prev, risposta]);
+        } else {
             setRisposte((prev) => [...prev, false]);
-            setListaRispsoteDate((prev) => [...prev, risposta])
+            setListaRispsoteDate((prev) => [...prev, risposta]);
         }
-        handleNextQuestion(); // Passa manualmente alla prossima domanda
+        handleNextQuestion();
     };
 
+    // Funzione per salvare la sfida completata
+    const salvaSfida = () => {
+        const auth = getAuth();
+        const user = auth.currentUser;
+
+        if (user) {
+            const sfidaCompletata = {
+                sfida: challenge,
+                domande: challenge.questions.map((domanda, index) => ({
+                    Testo: domanda.Testo,
+                    Risposte: domanda.Risposte,
+                    RispostaCorretta: domanda.Soluzione,
+                    tempoImpiegato: timerDuration,
+                    correttezza: risposte[index] || false,
+                })),
+                punteggio: punteggioOttenuto,
+                tempoImpiegato: timerDuration * challenge.questions.length,
+                xpGuadagnati: punteggioOttenuto * 100, // Formula XP guadagnati
+            };
+
+            registraSfidaCompletata(user.uid, sfidaCompletata)
+                .then(() => {
+                    Alert.alert("Successo", "La sfida è stata salvata con successo!");
+                })
+                .catch((error) => {
+                    console.error("Errore durante il salvataggio:", error);
+                    Alert.alert("Errore", "Non è stato possibile salvare la sfida.");
+                });
+        } else {
+            Alert.alert("Errore", "Devi essere loggato per salvare la sfida.");
+        }
+    };
 
     if (!changePage) {
-
         return (
             <View>
                 <Appbar.Header>
-                    <Appbar.Content title="Challenge Screen"/>
-                    <IconButton icon="hourglass"/>
-                    <ProgressBar progress={progress} style={{margin: 8}} color={colors.primary}/>
+                    <Appbar.Content title="Challenge Screen" />
+                    <IconButton icon="hourglass" />
+                    <ProgressBar progress={progress} style={{ margin: 8 }} color={colors.primary} />
                 </Appbar.Header>
 
-                <View style={{padding: 16}}>
+                <View style={{ padding: 16 }}>
                     <Card>
-                        <Card.Title title="Challenge Question"/>
+                        <Card.Title title="Challenge Question" />
                         <Card.Content>
-                            <Text style={{fontSize: 18, marginBottom: 16}}>{currentQuestion.Testo}</Text>
+                            <Text style={{ fontSize: 18, marginBottom: 16 }}>{currentQuestion.Testo}</Text>
                             {currentQuestion.Risposte.map((risposta, index) => (
                                 <Button
                                     key={index}
                                     mode="contained"
-                                    style={{marginBottom: 8}}
+                                    style={{ marginBottom: 8 }}
                                     onPress={() => handleAnswerPress(risposta)}
                                 >
                                     {risposta}
@@ -100,48 +130,47 @@ export default function PlayScreen() {
                             ))}
                             <ProgressBar
                                 progress={timerProgress}
-                                style={{marginTop: 16}}
+                                style={{ marginTop: 16 }}
                                 color={colors.accent}
                             />
-                            <Text style={{marginTop: 8}}>Tempo
-                                rimasto: {Math.ceil((1 - timerProgress) * timerDuration)}s</Text>
-                            <Text style={{marginTop: 8}}>Domande corrette: {punteggioOttenuto}</Text>
-                            <Text style={{marginTop: 8}}>Indice: {currentQuestionIndex}</Text>
-
+                            <Text style={{ marginTop: 8 }}>
+                                Tempo rimasto: {Math.ceil((1 - timerProgress) * timerDuration)}s
+                            </Text>
+                            <Text style={{ marginTop: 8 }}>Domande corrette: {punteggioOttenuto}</Text>
                         </Card.Content>
                     </Card>
                 </View>
             </View>
         );
-    }
-    else {
+    } else {
         return (
-            <View style={{ padding: 16 }}>
+            <ScrollView style={{ padding: 16 }}>
                 {risposte.map((valore, index) => (
-                    <Card key={index} style={{ marginBottom: 8, backgroundColor: valore? "green" : "red" }}>
+                    <Card key={index} style={{ marginBottom: 8, backgroundColor: valore ? "green" : "red" }}>
                         <Card.Content>
-                            <Text>{valore.toString()}</Text>
+                            <Text>Risposta corretta: {valore.toString()}</Text>
                             <Button
                                 mode="contained"
                                 onPress={() => setRevisione(index)}
                                 style={{ marginTop: 8 }}
                             >
+                                Rivedi domanda
                             </Button>
                             <Collapsible collapsed={revisione !== index}>
                                 <View>
                                     <Text>Dettagli di revisione per l'indice {index}</Text>
                                     <Card>
-                                        {state.selectedChallenge.questions[index].Testo}
-                                        Risposta data: {listaRisposteDate[index]}
-                                        Risposta corretta: {state.selectedChallenge.questions[index].Soluzione}
-                                        Spiegazione: {state.selectedChallenge.questions[index].Spiegazione}
+                                        <Text>{state.selectedChallenge.questions[index].Testo}</Text>
+                                        <Text>Risposta data: {listaRisposteDate[index]}</Text>
+                                        <Text>Risposta corretta: {state.selectedChallenge.questions[index].Soluzione}</Text>
+                                        <Text>Spiegazione: {state.selectedChallenge.questions[index].Spiegazione}</Text>
                                     </Card>
                                 </View>
                             </Collapsible>
                         </Card.Content>
                     </Card>
                 ))}
-            </View>
+            </ScrollView>
         );
     }
 }
