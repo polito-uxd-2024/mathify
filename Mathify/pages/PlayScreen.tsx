@@ -20,7 +20,7 @@ export default function PlayScreen() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [punteggioOttenuto, setPunteggioOttenuto] = useState(0);
     const [timerProgress, setTimerProgress] = useState(0); // Progresso del timer
-    const timerDuration = 10; // Durata del timer in secondi
+    const timerDuration = 60; // Durata del timer in secondi
     const [changePage, setChangePage] = useState(false)
     const currentQuestion = challenge.questions[currentQuestionIndex];
     const [risposte, setRisposte] = useState<boolean[]>([]);
@@ -31,6 +31,10 @@ export default function PlayScreen() {
     const [xp, setXp] = useState(0)
     const [tempoTotaleXP, settempoTotaleXP] = useState(0)
     const [xpCorrect, setXpCorrect] = useState(0)
+    const [graficoAttivo, setGraficoAttivo] = useState(true)
+    const [tempoMaggiore, setTempoMaggiore] = useState(true)
+    const [dueTentativi, setDueTentativi] = useState(true)
+    const [tentativiAttivo, setTentativiAttivo] = useState(false)
 
 
     // Gestione del timer
@@ -55,6 +59,22 @@ export default function PlayScreen() {
 
     }, [currentQuestionIndex, changePage]);
 
+    const bonusTempo = () => {
+        if (tempoMaggiore && timerProgress > 0.5) {
+            setTimerProgress((prev) => prev - 0.5)
+            setTempoMaggiore(false)
+        }
+        if (tempoMaggiore && timerProgress <= 0.5) {
+            setTimerProgress((prev) => 0)
+            setTempoMaggiore(false)
+        }
+    }
+
+    const bonusTentativi = () => {
+        setTentativiAttivo(true)
+        setDueTentativi(false)
+    }
+
     const handleNextQuestion = () => {
         const currentTime = Date.now();
         const timeTaken = (currentTime - startTime) / 1000; // Tempo in secondi
@@ -74,16 +94,29 @@ export default function PlayScreen() {
 
 
     const handleAnswerPress = (risposta: string) => {
-        if (risposta === currentQuestion.Soluzione) {
-            setPunteggioOttenuto(punteggioOttenuto + 1);
-            setRisposte((prev) => [...prev, true]);
-            setListaRispsoteDate((prev) => [...prev, risposta])
+        if (!tentativiAttivo) {
+            if (risposta === currentQuestion.Soluzione) {
+                setPunteggioOttenuto(punteggioOttenuto + 1);
+                setRisposte((prev) => [...prev, true]);
+                setListaRispsoteDate((prev) => [...prev, risposta])
+            } else {
+                setRisposte((prev) => [...prev, false]);
+                setListaRispsoteDate((prev) => [...prev, risposta])
+            }
+            handleNextQuestion(); // Passa manualmente alla prossima domanda
         }
-        else {
-            setRisposte((prev) => [...prev, false]);
-            setListaRispsoteDate((prev) => [...prev, risposta])
+        else{
+            if (risposta === currentQuestion.Soluzione) {
+                setPunteggioOttenuto(punteggioOttenuto + 1);
+                setRisposte((prev) => [...prev, true]);
+                setListaRispsoteDate((prev) => [...prev, risposta])
+                setTentativiAttivo(false)
+                handleNextQuestion()
+            }
+            else {
+                setTentativiAttivo(false)
+            }
         }
-        handleNextQuestion(); // Passa manualmente alla prossima domanda
     };
 
     useEffect(() => {
@@ -131,6 +164,7 @@ export default function PlayScreen() {
                                 rimasto: {Math.ceil((1 - timerProgress) * timerDuration)}s</Text>
                             <Text style={{marginTop: 8}}>Domande corrette: {punteggioOttenuto}</Text>
                             <Text style={{marginTop: 8}}>Indice: {currentQuestionIndex}</Text>
+                            <Text>ProgressTime: {timerProgress}</Text>
 
                         </Card.Content>
                     </Card>
@@ -139,11 +173,13 @@ export default function PlayScreen() {
                     <Card style={{ flex: 1, margin: 5 }}>
                         <Text style={{ textAlign: 'center', padding: 10 }}>Grafico</Text>
                     </Card>
-                    <Card style={{ flex: 1, margin: 5 }}>
-                        <Text style={{ textAlign: 'center', padding: 10 }}>Dimezzamento</Text>
+                    <Card style={{ flex: 1, margin: 5 }} onPress={bonusTempo}>
+                        <Text style={{ textAlign: 'center', padding: 10 }}>+30 secondi</Text>
+                        Disponibilità: {tempoMaggiore? "1" : "0"}
                     </Card>
                     <Card style={{ flex: 1, margin: 5 }}>
-                        <Text style={{ textAlign: 'center', padding: 10 }}>Skip</Text>
+                        <Text style={{ textAlign: 'center', padding: 10 }} onPress={bonusTentativi}>Doppio tentativo</Text>
+                        Disponibilità: {dueTentativi? "1" : "0"}
                     </Card>
                 </View>
             </View>
