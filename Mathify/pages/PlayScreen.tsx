@@ -7,6 +7,7 @@ import Collapsible from "react-native-collapsible";
 
 import { getAuth } from "firebase/auth";
 import registraSfidaCompletata from "../Component/writeOnDb";
+import {aggiornaLivello} from "../Component/aggiornaLivello";
 
 export default function PlayScreen() {
     const { colors } = useTheme();
@@ -113,6 +114,7 @@ export default function PlayScreen() {
             setTempoTotaleXP(tempoTotXP);
             setXp(state.selectedChallenge.difficoltà * 50 + xpCorretto + tempoTotXP);
             salvaSfida();
+
         }
     }, [changePage]);
     const salvaSfida = () => {
@@ -143,6 +145,7 @@ export default function PlayScreen() {
 
         console.log("XP inviati al database:", sfidaCompletata.xpGuadagnati);
         registraSfidaCompletata(sfidaCompletata);
+        aggiornaLivello(sfidaCompletata.xpGuadagnati);
     };
 
 
