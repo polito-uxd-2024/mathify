@@ -1,13 +1,35 @@
 import { getDatabase, ref, get } from "firebase/database";
 import {db} from "../Firebase";
-import {Sfida} from "./Interfaces";
+import {Sfida, SfidaCompletata, Utente} from "./Interfaces";
 
-export const fetchUser = async (userId: string) => {
-
+export const fetchUser = async (userId: string): Promise<Utente> => {
     const userRef = ref(db, `Utenti/${userId}`);
     const snapshot = await get(userRef);
     if (snapshot.exists()) {
-        return snapshot.val();
+        const data = snapshot.val();
+        const user: Utente = {
+            nome: data.Nome,
+            cognome: data.Cognome,
+            livello: {
+                numero: data.Livello.Numero,
+                xpTotali: data.Livello.XpLivello
+            },
+
+            sfideCompletate: Object.keys(data.SfideCompletate).map(key => ({
+                punteggio: data.SfideCompletate[key].Punteggio,
+                tempoImpiegato: data.SfideCompletate[key].TempoImpiegato,
+                domande: Object.keys(data.SfideCompletate[key].Domande).map(k => ({
+                    Testo: data.SfideCompletate[key].Domande[k].Testo,
+                    Risposte: [data.SfideCompletate[key].Domande[k].A, data.SfideCompletate[key].Domande[k].B, data.SfideCompletate[key].Domande[k].C, data.SfideCompletate[key].Domande[k].D],
+                    RispostaCorretta: data.SfideCompletate[key].Domande[k].Soluzione,
+                    tempoImpiegato: data.SfideCompletate[key].Domande[k].TempoImpiegato,
+                    correttezza: data.SfideCompletate[key].Domande[k].Correttezza
+                })),
+                xpGuadagnati: data.SfideCompletate[key].XpGuadagnati,
+                id: data.SfideCompletate[key].id
+            }))
+        };
+        return user;
     } else {
         throw new Error("User not found");
     }

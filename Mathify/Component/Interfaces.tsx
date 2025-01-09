@@ -14,11 +14,10 @@ export interface Sfida{
     titolo:string;
 }
 export interface Utente{
-    id:string;
     nome:string;
     cognome:string;
     livello:{numero:number,xpTotali:number};
-    xp:number;
+
     sfideCompletate:SfidaCompletata[];
 
 }

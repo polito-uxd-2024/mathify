@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { fetchChallenge } from "./firebaseService";
+import { fetchChallenge } from "./fetch";
 import { setSelectedChallenge } from "../Action";
 import { useContext } from "react";
 import { StateContext } from "../Reducer";

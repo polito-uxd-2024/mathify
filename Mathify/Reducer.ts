@@ -23,6 +23,11 @@ export function Reducer(state: State, action: Action) {
                 ...state,
                 selectedChallenge: action.challenge
             };
+            case "setCurrentUser":
+                return {
+                    ...state,
+                    utente: action.user
+                }
         default:
             return state;
     }
@@ -33,11 +38,10 @@ export const InitialState:State={
         difficoltà:1,
         questions:[],titolo:"Rette sul piano"}
     ,
-    utente:{id:"0",
+    utente:{
         nome:"Giovanni",
         cognome:"Rossi",
         livello:{numero:1,xpTotali:10},
-        xp:1,
         sfideCompletate:[]}
 }
 export const StateContext=
