@@ -8,10 +8,12 @@ import Collapsible from "react-native-collapsible";
 import { getAuth } from "firebase/auth";
 import registraSfidaCompletata from "../Component/writeOnDb";
 import {aggiornaLivello} from "../Component/aggiornaLivello";
+import {useSetCurrentUser} from "../Component/setUser";
 
 export default function PlayScreen() {
     const { colors } = useTheme();
     const [state] = useContext(StateContext);
+    useSetCurrentUser("Utente1");
 
     const challenge: Sfida = {
         questions: state.selectedChallenge.questions,
@@ -146,6 +148,7 @@ export default function PlayScreen() {
         console.log("XP inviati al database:", sfidaCompletata.xpGuadagnati);
         registraSfidaCompletata(sfidaCompletata);
         aggiornaLivello(sfidaCompletata.xpGuadagnati);
+
     };
 
 
