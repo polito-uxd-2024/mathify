@@ -9,11 +9,13 @@ import {PreferencesContext} from "../Component/PreferencesContext";
 import SegmentedButton from "../Component/SegmentedButton";
 import AllListChallenges from "./AllListChallenges";
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
-import {RootStackParamList} from "../Component/navigation";
+import {HomeStackParamList, RootStackParamList} from "../Component/navigation";
+import {useSetCurrentUser} from "../Component/setUser";
 
 export default function HomeScreen() {
-    const { navigate } = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const { navigate } = useNavigation<NativeStackNavigationProp<HomeStackParamList>>();
     const [state] = useContext(StateContext);
+    useSetCurrentUser("Utente1")
 
 
 
@@ -53,13 +55,13 @@ export default function HomeScreen() {
 
                     {/* Livello Utente */}
                     <Text style={{ color: 'orange', fontWeight: 'bold' }}>
-                        Liv {state.utente.livello.numero} - {Math.round((state.utente.xp / state.utente.livello.xpTotali) * 100)}% {/* Percentuale calcolata */}
+                        Liv {state.utente.livello.numero} - {Math.round((state.utente.livello.xpTotali / 5000) * 100)}% {/* Percentuale calcolata */}
                     </Text>
 
                     {/* Barra di Progresso */}
                     <View style={{ flexDirection: 'column', alignItems: 'center', marginTop:4 }}>
                         <ProgressBar
-                            progress={state.utente.xp / state.utente.livello.xpTotali} // Percentuale XP
+                            progress={state.utente.livello.xpTotali / 5000} // Percentuale XP
                             color="orange"
                             style={{ height: 8, borderRadius: 4, width: 100 }}
                         />

@@ -34,12 +34,25 @@ export type ProfileStackParamList = {
 export type PlayParamList = {
     Play: undefined;
 }
+export type HomeStackParamList = {
+    Home: undefined;
+    AllListChallenges: { filteredChallenges: Challenge[] };
+}
 
 
 const Tab = createBottomTabNavigator<TabParamList>();
 const Play = createStackNavigator<PlayParamList>();
 const ProfileStack = createStackNavigator<ProfileStackParamList>();
 const RootStack = createStackNavigator<RootStackParamList>();
+const HomeStack = createStackNavigator<HomeStackParamList>();
+function HomeStackScreen() {
+    return (
+        <HomeStack.Navigator screenOptions={{headerShown:false}}>
+            <HomeStack.Screen name="Home" component={HomeScreen} />
+            <HomeStack.Screen name="AllListChallenges" component={AllListChallenges} options={{headerShown:true}} />
+        </HomeStack.Navigator>
+    );
+}
 
 function ProfileStackScreen() {
     return (
@@ -79,7 +92,7 @@ function Tabs() {
             }, headerShown: false
         })}
         >
-            <Tab.Screen name="Home" component={HomeScreen} />
+            <Tab.Screen name="Home" component={HomeStackScreen} />
             <Tab.Screen name="Materiale" component={Materiale}/>
             <Tab.Screen name="Profile" component={ProfileStackScreen} />
             <Tab.Screen name="Classe" component={Classe} />
@@ -95,7 +108,7 @@ export default function Navigation() {
             <RootStack.Navigator screenOptions={{headerShown:false}}>
                 <RootStack.Screen name="Main" component={Tabs} />
                 <RootStack.Screen name="Play" component={PlayScreenStack} />
-                <RootStack.Screen name="AllListChallenges" component={AllListChallenges} />
+
             </RootStack.Navigator>
 
         </NavigationContainer>
