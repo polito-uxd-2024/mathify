@@ -56,9 +56,14 @@ export default function PlayScreen() {
             setTimerProgress(0);
         } else {
             setChangePage(true);
-            salvaSfida(); // Salva la sfida completata
         }
     };
+
+    useEffect(() => {
+        if (changePage) {
+            salvaSfida(); // Salva la sfida completata
+        }
+    }, [changePage]);
 
     const handleAnswerPress = (risposta: string) => {
         if (risposta === currentQuestion.Soluzione) {
@@ -73,6 +78,7 @@ export default function PlayScreen() {
     };
 
     // Funzione per salvare la sfida completata
+
     const salvaSfida = () => {
 
 
@@ -89,7 +95,8 @@ export default function PlayScreen() {
                 })),
                 punteggio: punteggioOttenuto,
                 tempoImpiegato: timerDuration * challenge.questions.length,
-                xpGuadagnati: punteggioOttenuto * 100, // Formula XP guadagnati
+                xpGuadagnati: punteggioOttenuto * 100,
+                id: state.selectedChallenge.titolo// Formula XP guadagnati
             };
 
             registraSfidaCompletata(sfidaCompletata)
@@ -126,7 +133,7 @@ export default function PlayScreen() {
                             <ProgressBar
                                 progress={timerProgress}
                                 style={{ marginTop: 16 }}
-                                color={colors.accent}
+                                color={timerProgress > 0.8 ? "red" : "green"}
                             />
                             <Text style={{ marginTop: 8 }}>
                                 Tempo rimasto: {Math.ceil((1 - timerProgress) * timerDuration)}s

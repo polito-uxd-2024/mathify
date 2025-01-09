@@ -28,6 +28,7 @@ export interface SfidaCompletata{
     tempoImpiegato:number;
     domande:QuestionDone[];
     xpGuadagnati:number;
+    id:string;
 
 }
 export interface QuestionDone {
@@ -36,4 +37,5 @@ export interface QuestionDone {
     RispostaCorretta: string;
     tempoImpiegato:number;
     correttezza:boolean;
+
 }
