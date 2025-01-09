@@ -112,23 +112,39 @@ export default function PlayScreen() {
             setXpCorrect(xpCorretto);
             setTempoTotaleXP(tempoTotXP);
             setXp(state.selectedChallenge.difficoltà * 50 + xpCorretto + tempoTotXP);
-
-            registraSfidaCompletata({
-                domande: challenge.questions.map((domanda, index) => ({
-                    Testo: domanda.Testo,
-                    Risposte: domanda.Risposte,
-                    RispostaCorretta: domanda.Soluzione,
-                    RispostaData: listaRisposteDate[index] || "Nessuna risposta data",
-                    tempoImpiegato: listaTempoDomande[index],
-                    correttezza: risposte[index],
-                })),
-                punteggio: punteggioOttenuto,
-                tempoImpiegato: listaTempoDomande.reduce((acc, cur) => acc + cur, 0),
-                xpGuadagnati: xp,
-                id: state.selectedChallenge.titolo,
-            });
+            salvaSfida();
         }
     }, [changePage]);
+    const salvaSfida = () => {
+        const correctAnswers = risposte.filter((risposta) => risposta === true).length;
+        const xpCorretto = 10 * correctAnswers;
+
+        const tempoTotXP = Math.max(
+            0,
+            Math.round(timerDuration * risposte.length - listaTempoDomande.reduce((accumulator, currentValue) => accumulator + currentValue, 0))
+        );
+
+        const totaleXP = state.selectedChallenge.difficoltà * 50 + xpCorretto + tempoTotXP;
+
+        const sfidaCompletata = {
+            domande: challenge.questions.map((domanda, index) => ({
+                Testo: domanda.Testo,
+                Risposte: domanda.Risposte,
+                RispostaCorretta: domanda.Soluzione,
+                RispostaData: listaRisposteDate[index] || "Nessuna risposta data",
+                tempoImpiegato: listaTempoDomande[index] || 0,
+                correttezza: risposte[index] || false,
+            })),
+            punteggio: punteggioOttenuto,
+            tempoImpiegato: timerDuration * challenge.questions.length,
+            xpGuadagnati: totaleXP, // Calcolo diretto qui
+            id: state.selectedChallenge.titolo
+        };
+
+        console.log("XP inviati al database:", sfidaCompletata.xpGuadagnati);
+        registraSfidaCompletata(sfidaCompletata);
+    };
+
 
     if (!changePage) {
         return (
