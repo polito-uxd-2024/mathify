@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Alert, ScrollView } from "react-native";
-import { Appbar, Card, Button, Text, ProgressBar, IconButton, useTheme } from "react-native-paper";
+import { View, ScrollView } from "react-native";
+import { Appbar, Card, Button, Text, ProgressBar, useTheme } from "react-native-paper";
 import { Sfida } from "../Component/Interfaces";
 import { StateContext } from "../Reducer";
 import Collapsible from "react-native-collapsible";
-
-import { getAuth } from "firebase/auth";
 import registraSfidaCompletata from "../Component/writeOnDb";
 import {aggiornaLivello} from "../Component/aggiornaLivello";
 import {useSetCurrentUser} from "../Component/setUser";
