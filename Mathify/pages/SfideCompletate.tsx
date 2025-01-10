@@ -28,9 +28,9 @@ export default function SfideCompletate() {
                         <Card.Content>
                             <Text>{item.argomento}</Text>
                             <Text style={styles.callout}>
-                                <Icon size={20} source="star" color='white' size={20}/>
+                                <Icon size={20} source="star" color='white' />
                                 <Text>{item.xp} XP</Text>
-                                <Icon size={20} source="star" color='white' size={20}/>
+                                <Icon size={20} source="star" color='white' />
                             </Text>
                             <Text>{item.stringacompletamento}</Text>
                         </Card.Content>

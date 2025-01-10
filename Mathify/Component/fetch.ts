@@ -14,6 +14,7 @@ export const fetchUser = async (userId: string): Promise<Utente> => {
                 numero: data.Livello.Numero,
                 xpTotali: data.Livello.XpLivello
             },
+            verifica: data.Verifica,
 
             sfideCompletate: Object.keys(data.SfideCompletate).map(key => ({
                 punteggio: data.SfideCompletate[key].Punteggio,
@@ -61,4 +62,26 @@ export const fetchChallenge = async (challengeId: string) => {
         throw new Error("Challenge not found");
     }
 };
+export const fetchChallengeList = async () => {
+    const challengesRef = ref(db, 'Sfide');
+    const snapshot = await get(challengesRef);
+    if (snapshot.exists()) {
+        const data = snapshot.val();
+        const challenges: Sfida[] = Object.keys(data).map(key => ({
+            questions: Object.keys(data[key].Domande).map(k => ({
+                Testo: data[key].Domande[k].Testo,
+                Risposte: [data[key].Domande[k].A, data[key].Domande[k].B, data[key].Domande[k].C, data[key].Domande[k].D],
+                RispostaCorretta: data[key].Domande[k].Soluzione,
+                Grafico: data[key].Domande[k].Grafico,
+                Spiegazione: data[key].Domande[k].Spiegazione,
+                GraficList: [data[key].Domande[k].GA, data[key].Domande[k].GB, data[key].Domande[k].GC, data[key].Domande[k].GD],
+                Soluzione: data[key].Domande[k].Soluzione
+            })),
+            difficoltà: data[key].Difficoltà,
+            argomento: data[key].Argomento,
+            titolo: data[key].Titolo
+        }));
+        return challenges;
+    }
+}
 

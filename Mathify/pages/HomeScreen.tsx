@@ -11,11 +11,13 @@ import AllListChallenges from "./AllListChallenges";
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
 import {HomeStackParamList, RootStackParamList} from "../Component/navigation";
 import {useSetCurrentUser} from "../Component/setUser";
+import {useSetChallengeList} from "../Component/useSetChallengeList";
 
 export default function HomeScreen() {
     const { navigate } = useNavigation<NativeStackNavigationProp<HomeStackParamList>>();
     const [state] = useContext(StateContext);
     useSetCurrentUser("Utente1")
+    useSetChallengeList()
 
     const currentScore = 75;
     const requiredScore = 100;
@@ -46,10 +48,15 @@ export default function HomeScreen() {
                     {/* Barra di Progresso */}
                     <View style={{ flexDirection: 'column', alignItems: 'center', marginTop:4 }}>
                         <ProgressBar
-                            progress={state.utente.livello.xpTotali / 5000} // Percentuale XP
+                            progress={
+
+                                    parseFloat((state.utente.livello.xpTotali / 5000).toFixed(1)) // Conversione esplicita
+
+                            }
                             color="orange"
                             style={{ height: 8, borderRadius: 4, width: 100 }}
                         />
+
                     </View>
                 </View>
             </Appbar.Header>
