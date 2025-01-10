@@ -1,22 +1,35 @@
 import * as React from 'react';
 import {StyleSheet,FlatList, View,ScrollView, SafeAreaView} from 'react-native';
-import {Card, Button, Avatar, TextInput, Appbar, IconButton, ProgressBar} from 'react-native-paper';
+import {Card, Button, Avatar, TextInput, Appbar, IconButton, ProgressBar, Text} from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
-import {RootStackParamList} from "../Component/navigation";
+import {PlayParamList, RootStackParamList} from "../Component/navigation";
 import {styles} from "../App";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {setSelectedChallenge} from "../Action";
+import {StateContext} from "../Reducer";
 
 
 const AllListChallenges = ({ route }: { route: any }) => {
     const { filteredChallenges: initialChallenges } = route.params;  // Ottieni i dati passati
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [searchQuery, setSearchQuery] = useState("");
+    const [state, dispatch]= useContext(StateContext)
+    const navigationPlay = useNavigation<NativeStackNavigationProp<PlayParamList>>();
 
     // Filtra ulteriormente i risultati
     const filteredChallenges = initialChallenges.filter(challenge =>
         challenge.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+    function handleClick(title: string) {
+        if (state.challengeList.some(challenge => challenge.titolo === title)) {
+            dispatch(setSelectedChallenge(state.challengeList.find(challenge => challenge.titolo === title)!));
+            navigationPlay.navigate("Play");
+        } else {
+            alert('Sfida non ancora implementata');
+        }
+    }
 
     return (
         <View style={{ flex: 1 }}>
@@ -37,12 +50,23 @@ const AllListChallenges = ({ route }: { route: any }) => {
                                     </View>
                                 )}
                             />
+
+                            {/* Visualizza Argomento e Difficoltà sotto il titolo */}
+                            <View style={{ paddingHorizontal: 16 }}>
+                                <Text style={{ fontSize: 14, color: 'gray' }}>
+                                    Argomento: {item.argomento}
+                                </Text>
+                                <Text style={{ fontSize: 14, color: 'gray' }}>
+                                    Difficoltà: {item.difficoltà}
+                                </Text>
+                            </View>
+                            
                             <Card.Actions>
                                 <Button onPress={() => {
-                                    /*navigation.navigate(item.title)*/
-                                    console.log(item.title + ' pressed');
+                                    /*navigationAll.navigate(item.title)*/
+                                    handleClick(item.title);
                                 }} style={{ flex: 1 }}>
-                                    Seleziona sfida
+                                    Vai alla sfida
                                 </Button>
                             </Card.Actions>
                         </Card>

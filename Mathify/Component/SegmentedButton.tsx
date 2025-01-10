@@ -19,18 +19,18 @@ export interface Challenge {
     icon: string;
 }
 const challenges = [
-    { id: "1", title: "Rette sul piano",  icon: "alpha-a-box" },
-    { id: "2", title: "Equazioni e disequazioni", icon: "alpha-g-box" },
-    { id: "3", title: "Triangoli equilateri", icon: "alpha-c-box" },
-    { id: "4", title: "Studio della funzione", icon: "alpha-t-box" },
-    { id: "5", title: "Equazioni", icon: "alpha-p-box" },
-    { id: "6", title: "Statistica", icon: "alpha-s-box" },
-    { id: "7", title: "Algebra", icon: "alpha-a-box" },
-    { id: "8", title: "Geometria", icon: "alpha-g-box" },
-    { id: "9", title: "Calcolo", icon: "alpha-c-box" },
-    { id: "10", title: "Logaritmo", icon: "alpha-t-box" },
-    { id: "11", title: "Equazioni", icon: "alpha-p-box" },
-    { id: "12", title: "Statistica", icon: "alpha-s-box" },
+    { id: "1", title: "Rette sul piano", icon: "alpha-a-box", argomento: "Geometria analitica", difficoltà: 1 },
+    { id: "2", title: "Equazioni e disequazioni", icon: "alpha-g-box", argomento: "Algebra", difficoltà: 1 },
+    { id: "3", title: "Triangoli equilateri", icon: "alpha-c-box", argomento: "Geometria", difficoltà: 1 },
+    { id: "4", title: "Studio della funzione", icon: "alpha-t-box", argomento: "Analisi", difficoltà: 3 },
+    { id: "5", title: "Equazioni", icon: "alpha-p-box", argomento: "Algebra", difficoltà: 2 },
+    { id: "6", title: "Statistica", icon: "alpha-s-box", argomento: "Statistica", difficoltà: 1 },
+    { id: "7", title: "Algebra", icon: "alpha-a-box", argomento: "Algebra", difficoltà: 2 },
+    { id: "8", title: "Geometria", icon: "alpha-g-box", argomento: "Geometria", difficoltà: 1 },
+    { id: "9", title: "Calcolo", icon: "alpha-c-box", argomento: "Analisi", difficoltà: 3 },
+    { id: "10", title: "Logaritmo", icon: "alpha-t-box", argomento: "Algebra", difficoltà: 2 },
+    { id: "11", title: "Equazioni", icon: "alpha-p-box", argomento: "Algebra", difficoltà: 2 },
+    { id: "12", title: "Statistica", icon: "alpha-s-box", argomento: "Statistica", difficoltà: 1 },
 ];
 
 const SegmentedButton = () => {
@@ -184,12 +184,23 @@ const SegmentedButton = () => {
                                         </View>
                                     )}
                                 />
+
+                                {/* Visualizza Argomento e Difficoltà sotto il titolo */}
+                                <View style={{ paddingHorizontal: 16 }}>
+                                    <Text style={{ fontSize: 14, color: 'gray' }}>
+                                        Argomento: {item.argomento}
+                                    </Text>
+                                    <Text style={{ fontSize: 14, color: 'gray' }}>
+                                        Difficoltà: {item.difficoltà}
+                                    </Text>
+                                </View>
+
                                 <Card.Actions>
                                     <Button onPress={() => {
                                          /*navigationAll.navigate(item.title)*/
                                         handleClick(item.title);
                                     }} style={{ flex: 1 }}>
-                                        Seleziona sfida
+                                        Vai alla sfida
                                     </Button>
                                 </Card.Actions>
                             </Card>)}
