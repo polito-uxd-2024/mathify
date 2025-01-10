@@ -13,6 +13,7 @@ import * as React from "react";
 export default function ProfilePage() {
     const navigation = useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
     const [state] = useContext(StateContext);
+    useSetCurrentUser("Utente1");
 
     return (
 
