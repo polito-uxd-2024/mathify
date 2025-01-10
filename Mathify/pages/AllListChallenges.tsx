@@ -53,10 +53,10 @@ const AllListChallenges = ({ route }: { route: any }) => {
 
                             {/* Visualizza Argomento e Difficoltà sotto il titolo */}
                             <View style={{ paddingHorizontal: 16 }}>
-                                <Text style={{ fontSize: 14, color: 'gray' }}>
+                                <Text style={{ fontSize: 14}}>
                                     Argomento: {item.argomento}
                                 </Text>
-                                <Text style={{ fontSize: 14, color: 'gray' }}>
+                                <Text style={{ fontSize: 14}}>
                                     Difficoltà: {item.difficoltà}
                                 </Text>
                             </View>

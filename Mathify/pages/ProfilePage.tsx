@@ -1,6 +1,6 @@
 import {FlatList, ImageBackground, View} from "react-native";
 import { styles } from "../App";
-import {Appbar, Card, Text, Button, IconButton} from "react-native-paper";
+import {Appbar, Card, Text, Button, IconButton, ProgressBar} from "react-native-paper";
 import {useFocusEffect, useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
@@ -9,6 +9,8 @@ import {useSetCurrentUser} from "../Component/setUser";
 import {StateContext} from "../Reducer";
 import {useCallback, useContext} from "react";
 import * as React from "react";
+import CardContent from "react-native-paper/lib/typescript/components/Card/CardContent";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 export default function ProfilePage() {
     const navigation = useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
@@ -18,7 +20,7 @@ export default function ProfilePage() {
     return (
 
             <View>
-                <Card >
+                <Card style={{ marginBottom: 16, width: "100%", position: "relative"}} >
                     {/* Immagine */}
                     <Card.Content>
                         <ImageBackground
@@ -46,45 +48,77 @@ export default function ProfilePage() {
                         </ImageBackground>
                     </Card.Content>
 
-                    {/* Nome e cognome */}
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                        <Text style={{ fontSize: 20, fontWeight: "bold", marginLeft:20}}>
-                            {state.utente.nome} {state.utente.cognome}
-                        </Text>
-                    </View>
+                    <Card.Content>
+                        {/* Nome e cognome */}
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                            <Text style={{ fontSize: 35, fontWeight: "bold", marginLeft:20}}>
+                                {state.utente.nome} {state.utente.cognome}
+                            </Text>
+                        </View>
 
-                    {/* Visualizza email */}
-                    <View style={{ paddingHorizontal: 16 }}>
-                        <Text style={{ fontSize: 14, color: 'gray' }}>
-                            {state.utente.email}
-                        </Text>
-                    </View>
+                        {/* Visualizza email */}
+                        <View style={{ paddingHorizontal: 16 }}>
+                            <Text style={{ fontSize: 14,marginLeft:7,color:"gray"}}>
+                                {state.utente.email}
+                            </Text>
+                        </View>
 
+                        {/* Visualizza Livello */}
+                        <View style={{ paddingHorizontal: 16, marginVertical:20}}>
+                            <Text style={{ fontSize: 25,marginLeft:7}}>
+                                Livello
+                            </Text>
+                        </View>
 
+                        <Card style={{ marginBottom: 16, position: "relative",alignSelf:"center",width:"70%" }}>
+                            {/*Livello e stella*/}
+                            <View style={{ top: 10, right: 10, alignItems: 'left', marginLeft:10}}>
+                                <MaterialCommunityIcons
+                                    name="star"
+                                    size={60}
+                                    color="gold" // Colore dorato
+                                    style={{ marginRight: 8 }}
+                                />
+                                <Text style={{ position:"absolute",fontSize: 20, fontWeight: 'bold', color: 'white',marginTop:22,marginLeft:18,textAlign: "center"}}>
+                                    {state.utente.livello.numero} {/* Numero del livello */}
+                                </Text>
+                            </View>
 
+                            {/* Livello Utente */}
+                            <Text style={{ color: 'white', fontWeight: 'bold',textAlign: "center", marginTop: 8  }}>
+                                 Apprendista {Math.round((state.utente.livello.xpTotali / 5000) * 100)}% {/* Percentuale calcolata */}
+                            </Text>
+
+                            {/* Barra di Progresso */}
+                            <View style={{ flexDirection: 'column', alignItems: 'center', marginTop:4,marginLeft:5,marginBottom:4,marginRight:5 }}>
+                                <ProgressBar
+                                    progress={
+                                        parseFloat((state.utente.livello.xpTotali / 5000).toFixed(1)) // Conversione esplicita
+                                    }
+                                    color="orange"
+                                    style={{ height: 8, borderRadius: 4, width: "100%" }}
+                                />
+                            </View>
+                        </Card>
+
+                        {/* Visualizza Attività */}
+                        <View style={{ paddingHorizontal: 16, marginVertical:20}}>
+                            <Text style={{ fontSize: 25,marginLeft:7}}>
+                                Attività
+                            </Text>
+                        </View>
+                        
+                    </Card.Content>
                 </Card>
 
-                <View >
-                    <Card >
-                        <Card.Title title="Profile Information" />
-                        <Card.Content>
-                            <View>
-                                <Text >Name: John Doe</Text>
-                                <Text>Email:</Text>
-                            </View>
-                        </Card.Content>
+            </View>
 
-                        <Card.Actions>
-                            <Button onPress={() => {
-                                navigation.navigate("Impostazioni");
-                            }}>
-                                Impostazioni
-                            </Button>
-                        </Card.Actions>
-                    </Card>
-                </View>
+    );
+}
 
-                <FlatList data={state.utente.sfideCompletate} renderItem={
+
+/*
+<FlatList data={state.utente.sfideCompletate} renderItem={
                     ({ item }) => (
                         <View style={styles.cardBase}>
                             <Card style={styles.card}>
@@ -100,7 +134,5 @@ export default function ProfilePage() {
                         </View>
                     )
                 }/>
-            </View>
 
-    );
-}
+ */
