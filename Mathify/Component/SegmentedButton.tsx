@@ -10,6 +10,7 @@ import {useContext, useState} from "react";
 import {useSetCurrentChallenge} from "./setCurrentChallenge";
 import {StateContext} from "../Reducer";
 import {setSelectedChallenge} from "../Action";
+import {handlePress} from "react-native-paper/lib/typescript/components/RadioButton/utils";
 
 
 export interface Challenge {
@@ -18,8 +19,8 @@ export interface Challenge {
     icon: string;
 }
 const challenges = [
-    { id: "1", title: "Tangente",  icon: "alpha-a-box" },
-    { id: "2", title: "Disequazioni di secondo grado", icon: "alpha-g-box" },
+    { id: "1", title: "Rette sul piano",  icon: "alpha-a-box" },
+    { id: "2", title: "Equazioni e disequazioni", icon: "alpha-g-box" },
     { id: "3", title: "Triangoli equilateri", icon: "alpha-c-box" },
     { id: "4", title: "Studio della funzione", icon: "alpha-t-box" },
     { id: "5", title: "Equazioni", icon: "alpha-p-box" },
@@ -39,6 +40,7 @@ const SegmentedButton = () => {
     const [sfida, setSfida] = useState<string>("Sfida1");
     const [index, setIndex] = useState(0);
     const [state, dispatch]= useContext(StateContext)
+    console.log(state.challengeList)
 
     useSetCurrentChallenge(sfida);
     const [searchQuery, setSearchQuery] = useState("");
@@ -51,6 +53,14 @@ const SegmentedButton = () => {
         setIndex(Math.floor(Math.random() * state.challengeList.length));
     };
 
+    function handleClick(title: string) {
+        if (state.challengeList.some(challenge => challenge.titolo === title)) {
+            dispatch(setSelectedChallenge(state.challengeList.find(challenge => challenge.titolo === title)!));
+            navigationPlay.navigate("Play");
+        } else {
+            alert('Sfida non ancora implementata');
+        }
+    }
     return (
         <>
             <SegmentedButtons
@@ -177,7 +187,7 @@ const SegmentedButton = () => {
                                 <Card.Actions>
                                     <Button onPress={() => {
                                          /*navigationAll.navigate(item.title)*/
-                                        console.log(item.title + ' pressed');
+                                        handleClick(item.title);
                                     }} style={{ flex: 1 }}>
                                         Seleziona sfida
                                     </Button>
