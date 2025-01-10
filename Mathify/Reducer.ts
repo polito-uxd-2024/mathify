@@ -7,6 +7,7 @@ import {Sfida, Utente} from "./Component/Interfaces";
 interface State{
     selectedChallenge:Sfida;
     utente:Utente;
+    challengeList:Sfida[];
 }
 export function Reducer(state: State, action: Action) {
     switch (action.type) {
@@ -28,6 +29,11 @@ export function Reducer(state: State, action: Action) {
                     ...state,
                     utente: action.user
                 }
+                case "setChallengeList":
+                    return {
+                        ...state,
+                        challengeList: action.challengeList
+                    }
         default:
             return state;
     }
@@ -36,13 +42,16 @@ export function Reducer(state: State, action: Action) {
 export const InitialState:State={
     selectedChallenge:{argomento:"Geometria Analitica",
         difficoltà:1,
-        questions:[],titolo:"Rette sul piano"}
+        questions:[],titolo:"Rette sul piano",
+    }
     ,
     utente:{
         nome:"Giovanni",
         cognome:"Rossi",
         livello:{numero:1,xpTotali:10},
-        sfideCompletate:[]}
+        sfideCompletate:[],
+        verifica:false},
+    challengeList:[]
 }
 export const StateContext=
     createContext<[State,React.Dispatch<Action>]>([InitialState,(_:Action)=>{}])

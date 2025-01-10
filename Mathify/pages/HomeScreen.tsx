@@ -11,12 +11,14 @@ import AllListChallenges from "./AllListChallenges";
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
 import {HomeStackParamList, RootStackParamList} from "../Component/navigation";
 import {useSetCurrentUser} from "../Component/setUser";
+import {useSetChallengeList} from "../Component/useSetChallengeList";
 
 export default function HomeScreen() {
     const { navigate } = useNavigation<NativeStackNavigationProp<HomeStackParamList>>();
     const [state] = useContext(StateContext);
     useSetCurrentUser("Utente1")
-
+    useSetChallengeList()
+    
 
 
 
