@@ -41,13 +41,13 @@ export default function ProfilePage() {
                 ({ item }) => (
                     <View style={styles.cardBase}>
                         <Card style={styles.card}>
-                            <Card.Title title={item.titolo} />
+                            <Card.Title title={item.id} />
                             <Card.Content>
-                                <Text>{item.argomento}</Text>
+                                <Text>{item.punteggio}</Text>
                                 <Text style={styles.callout}>
-                                    <Text>{item.xp} XP</Text>
+                                    <Text>{item.xpGuadagnati} XP</Text>
                                 </Text>
-                                <Text>{item.stringacompletamento}</Text>
+
                             </Card.Content>
                         </Card>
                     </View>

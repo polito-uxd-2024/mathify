@@ -17,7 +17,7 @@ export interface Utente{
     nome:string;
     cognome:string;
     livello:{numero:number,xpTotali:number};
-
+    verifica:boolean;
     sfideCompletate:SfidaCompletata[];
 
 }

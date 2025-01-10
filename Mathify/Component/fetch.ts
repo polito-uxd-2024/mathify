@@ -14,6 +14,7 @@ export const fetchUser = async (userId: string): Promise<Utente> => {
                 numero: data.Livello.Numero,
                 xpTotali: data.Livello.XpLivello
             },
+            verifica: data.Verifica,
 
             sfideCompletate: Object.keys(data.SfideCompletate).map(key => ({
                 punteggio: data.SfideCompletate[key].Punteggio,

@@ -4,7 +4,7 @@ import { Appbar, Card, Button, Text, ProgressBar, useTheme } from "react-native-
 import { Sfida } from "../Component/Interfaces";
 import { StateContext } from "../Reducer";
 import Collapsible from "react-native-collapsible";
-import registraSfidaCompletata from "../Component/writeOnDb";
+import {registraSfidaCompletata} from "../Component/writeOnDb";
 import {aggiornaLivello} from "../Component/aggiornaLivello";
 import {useSetCurrentUser} from "../Component/setUser";
 
@@ -134,7 +134,8 @@ export default function PlayScreen() {
             punteggio: punteggioOttenuto,
             tempoImpiegato: timerDuration * challenge.questions.length,
             xpGuadagnati: totaleXP, // Calcolo diretto qui
-            id: state.selectedChallenge.titolo
+            id: state.selectedChallenge.titolo,
+
         };
 
         console.log("XP inviati al database:", sfidaCompletata.xpGuadagnati);
