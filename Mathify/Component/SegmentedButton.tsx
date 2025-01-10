@@ -46,9 +46,9 @@ const SegmentedButton = () => {
     const filteredChallenges = challenges.filter(challenge =>
         challenge.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    const handleChallengeChange = (sfida:string) => {
-        setSfida(sfida)
-        setIndex(Math.floor(Math.random()));
+    const handleChallengeChange = () => {
+        dispatch(setSelectedChallenge(state.challengeList[index]));
+        setIndex(Math.floor(Math.random() * state.challengeList.length));
     };
 
     return (
@@ -124,9 +124,7 @@ const SegmentedButton = () => {
                             <Button
                                 mode="outlined"
                                 onPress={() => {
-                                    const randomChallenge = challenges[Math.floor(Math.random() * challenges.length)];
-                                    handleChallengeChange(randomChallenge.title);
-                                    setIndex(Math.floor(Math.random()));
+                                    handleChallengeChange();
                                 }}
                                 contentStyle={{ height: 40 }}
                                 labelStyle={{ fontSize: 14 }}
@@ -141,7 +139,7 @@ const SegmentedButton = () => {
                             <Button
                                 mode="contained"
                                 onPress={()=> {
-                                    (handleChallengeChange(sfida),
+                                    (
                                             navigationPlay.navigate("Play")
                                     )
                                 }}
