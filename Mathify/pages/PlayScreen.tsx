@@ -43,16 +43,10 @@ export default function PlayScreen() {
     useEffect(() => {
         const timerInterval = setInterval(() => {
             setTimerProgress((prev) => {
-                if (prev >= 1) {
-                    if (!changePage) {
-                        setRisposte((prev) => [...prev, false]);
-                        setListaRispsoteDate((prev) => [...prev, "Nessuna risposta data"]);
-                        handleNextQuestion();
-                        return 0;
-                    }
-                }
-                return prev + 1 / timerDuration;
+                const newProgress = prev + 1 / timerDuration;
+                return newProgress >= 1 ? 1 : parseFloat(newProgress.toFixed(3));
             });
+
         }, 1000);
 
         return () => clearInterval(timerInterval);
@@ -155,7 +149,11 @@ export default function PlayScreen() {
             <View>
                 <Appbar.Header>
                     <Appbar.Content title="Challenge Screen" />
-                    <ProgressBar progress={progress} style={{ margin: 8 }} color={colors.primary} />
+                    <ProgressBar
+                        progress={parseFloat(progress.toFixed(3))} // Round progress to 3 decimal places
+                        style={{ margin: 8 }}
+                        color={colors.primary}
+                    />
                 </Appbar.Header>
 
                 <View style={{ padding: 16 }}>
@@ -173,7 +171,11 @@ export default function PlayScreen() {
                                     {risposta}
                                 </Button>
                             ))}
-                            <ProgressBar progress={timerProgress} style={{ marginTop: 16 }} color={timerProgress > 0.8 ? "red" : "green"} />
+                            <ProgressBar
+                                progress={parseFloat(timerProgress.toFixed(3))} // Round timerProgress to 3 decimal places
+                                style={{ marginTop: 16 }}
+                                color={timerProgress > 0.8 ? "red" : "green"}
+                            />
                             <Text style={{ marginTop: 8 }}>
                                 Tempo rimasto: {Math.ceil((1 - timerProgress) * timerDuration)}s
                             </Text>
@@ -187,11 +189,12 @@ export default function PlayScreen() {
                     </Card>
                     <Card style={{ flex: 1, margin: 5 }} onPress={bonusTempo}>
                         <Text style={{ textAlign: "center", padding: 10 }}>+30 secondi</Text>
-                        Disponibilità: {tempoMaggiore ? "1" : "0"}
+                        <Text> Disponibilità: {tempoMaggiore ? "1" : "0"}</Text>
+
                     </Card>
                     <Card style={{ flex: 1, margin: 5 }} onPress={bonusTentativi}>
                         <Text style={{ textAlign: "center", padding: 10 }}>Doppio tentativo</Text>
-                        Disponibilità: {dueTentativi ? "1" : "0"}
+                        <Text>Disponibilità: {dueTentativi ? "1" : "0"}</Text>
                     </Card>
                 </View>
             </View>
@@ -212,11 +215,11 @@ export default function PlayScreen() {
                             </Button>
 
                             <Collapsible collapsed={revisione !== index}>
-                                <View>
+
                                     <Text>Tempo Impiegato: {listaTempoDomande[index]} s</Text>
                                     <Text>Risposta data: {listaRisposteDate[index]}</Text>
                                     <Text>Risposta corretta: {state.selectedChallenge.questions[index].Soluzione}</Text>
-                                </View>
+
                             </Collapsible>
                         </Card.Content>
                     </Card>
@@ -226,6 +229,7 @@ export default function PlayScreen() {
                     <Text>{state.selectedChallenge.titolo}</Text>
                 </Card>
                 <Card>
+
                     <Text>Conteggio punti</Text>
                     <Text>Punti guadagnati dal tempo: {tempoTotaleXP}</Text>
                     <Text>Punti in base alla difficoltà: {state.selectedChallenge.difficoltà * 50}</Text>

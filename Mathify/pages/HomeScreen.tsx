@@ -61,7 +61,7 @@ export default function HomeScreen() {
                     {/* Barra di Progresso */}
                     <View style={{ flexDirection: 'column', alignItems: 'center', marginTop:4 }}>
                         <ProgressBar
-                            progress={state.utente.livello.xpTotali / 5000} // Percentuale XP
+                            progress={Math.round(state.utente.livello.xpTotali / 5000)} // Percentuale XP // Percentuale XP
                             color="orange"
                             style={{ height: 8, borderRadius: 4, width: 100 }}
                         />
