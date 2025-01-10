@@ -130,7 +130,7 @@ const SegmentedButton = () => {
 
 
                         <Card.Actions style={{justifyContent: 'center' }}>
-                            {/* Bottone "Cambia sfida" */}
+                            {/* Bottone "Cambia sfida" con l'icona Shuffle */}
                             <Button
                                 mode="outlined"
                                 onPress={() => {
@@ -139,6 +139,7 @@ const SegmentedButton = () => {
                                 contentStyle={{ height: 40 }}
                                 labelStyle={{ fontSize: 14 }}
                                 style={{ width: 'auto', alignSelf: 'flex-end'}}  // Posizionato a destra sopra Play
+                                icon="shuffle"  // Utilizza "shuffle" direttamente come nome dell'icona
                             >
                                 Cambia sfida
                             </Button>
