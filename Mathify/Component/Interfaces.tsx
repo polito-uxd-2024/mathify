@@ -16,9 +16,11 @@ export interface Sfida{
 export interface Utente{
     nome:string;
     cognome:string;
+    email:string;
     livello:{numero:number,xpTotali:number};
     verifica:boolean;
     sfideCompletate:SfidaCompletata[];
+
 
 }
 export interface SfidaCompletata{
