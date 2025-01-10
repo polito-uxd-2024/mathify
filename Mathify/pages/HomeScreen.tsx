@@ -18,7 +18,7 @@ export default function HomeScreen() {
     const [state] = useContext(StateContext);
     useSetCurrentUser("Utente1")
     useSetChallengeList()
-    
+
 
 
 

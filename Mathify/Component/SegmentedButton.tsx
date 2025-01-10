@@ -9,6 +9,7 @@ import Navigation, {HomeStackParamList, PlayParamList, RootStackParamList} from 
 import {useContext, useState} from "react";
 import {useSetCurrentChallenge} from "./setCurrentChallenge";
 import {StateContext} from "../Reducer";
+import {setSelectedChallenge} from "../Action";
 
 
 export interface Challenge {
@@ -36,7 +37,7 @@ const SegmentedButton = () => {
     const navigationAll = useNavigation<NativeStackNavigationProp<HomeStackParamList>>();
     const navigationPlay = useNavigation<NativeStackNavigationProp<PlayParamList>>();
     const [sfida, setSfida] = useState<string>("Sfida1");
-    const [index, setIndex] = useState("0");
+    const [index, setIndex] = useState(0);
     const [state, dispatch]= useContext(StateContext)
 
     useSetCurrentChallenge(sfida);
@@ -47,7 +48,7 @@ const SegmentedButton = () => {
     );
     const handleChallengeChange = (sfida:string) => {
         setSfida(sfida)
-        setIndex(Math.floor(Math.random()).toString());
+        setIndex(Math.floor(Math.random()));
     };
 
     return (
@@ -118,7 +119,7 @@ const SegmentedButton = () => {
                                 onPress={() => {
                                     const randomChallenge = challenges[Math.floor(Math.random() * challenges.length)];
                                     handleChallengeChange(randomChallenge.title);
-                                    setIndex(Math.floor(Math.random()).toString());
+                                    setIndex(Math.floor(Math.random()));
                                 }}
                                 contentStyle={{ height: 40 }}
                                 labelStyle={{ fontSize: 14 }}
