@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { styles } from '../App';
 import SfideCompletate from "../pages/SfideCompletate";
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
-import Navigation, {HomeStackParamList, RootStackParamList} from "./navigation";
+import Navigation, {HomeStackParamList, PlayParamList, RootStackParamList} from "./navigation";
 import {useContext, useState} from "react";
 import {useSetCurrentChallenge} from "./setCurrentChallenge";
 import {StateContext} from "../Reducer";
@@ -33,7 +33,8 @@ const challenges = [
 
 const SegmentedButton = () => {
     const [value, setValue] = React.useState('esplora');
-    const navigation = useNavigation<NativeStackNavigationProp<HomeStackParamList>>();
+    const navigationAll = useNavigation<NativeStackNavigationProp<HomeStackParamList>>();
+    const navigationPlay = useNavigation<NativeStackNavigationProp<PlayParamList>>();
     const [sfida, setSfida] = useState<string>("Sfida1");
     const [index, setIndex] = useState("0");
     const [state, dispatch]= useContext(StateContext)
@@ -133,7 +134,7 @@ const SegmentedButton = () => {
                                 mode="contained"
                                 onPress={()=> {
                                     (handleChallengeChange(sfida),
-                                            navigation.navigate("Play")
+                                            navigationPlay.navigate("Play")
                                     )
                                 }}
                                 contentStyle={{ height: 50 }}
@@ -162,7 +163,7 @@ const SegmentedButton = () => {
                                 />
                                 <Card.Actions>
                                     <Button onPress={() => {
-                                         /*navigation.navigate(item.title)*/
+                                         /*navigationAll.navigate(item.title)*/
                                         console.log(item.title + ' pressed');
                                     }} style={{ flex: 1 }}>
                                         Seleziona sfida
@@ -172,7 +173,7 @@ const SegmentedButton = () => {
                     />
                     {filteredChallenges.length > 5 && (
                         <Button
-                            onPress={() => navigation.navigate('AllListChallenges', { filteredChallenges })}
+                            onPress={() => navigationAll.navigate('AllListChallenges', { filteredChallenges })}
                             style={{ alignSelf: 'flex-end', marginTop: 16 }}>
                             VEDI TUTTO
                         </Button>
