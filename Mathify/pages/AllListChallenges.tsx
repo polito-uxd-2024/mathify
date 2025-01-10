@@ -20,8 +20,6 @@ const AllListChallenges = ({ route }: { route: any }) => {
 
     return (
         <View style={{ flex: 1 }}>
-
-
             <Card style={{ flex: 1, padding: 16, borderRadius: 10, width: '100%' }}>
                 <TextInput label="Cerca sfida" mode="outlined" value={searchQuery} onChangeText={setSearchQuery} style={{ marginBottom: 16 }} />
 
@@ -58,6 +56,5 @@ const AllListChallenges = ({ route }: { route: any }) => {
         </View>
     );
 };
-
 
 export default AllListChallenges;

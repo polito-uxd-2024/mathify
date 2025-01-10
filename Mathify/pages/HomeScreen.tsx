@@ -17,26 +17,12 @@ export default function HomeScreen() {
     const [state] = useContext(StateContext);
     useSetCurrentUser("Utente1")
 
-
-
-
-
-
-
-
-
-
-
     const currentScore = 75;
     const requiredScore = 100;
 
     return (
-
-
         <ScrollView>
-
             <Appbar.Header style={{justifyContent: "space-between", alignItems: "center"}}>
-
                 {/* Titolo Mathify */}
                 <View style={{ flex: 1 }}>
                     <Appbar.Content
@@ -44,7 +30,6 @@ export default function HomeScreen() {
                         titleStyle={{textAlign: 'left', fontWeight: 'bold'}}
                     />
                 </View>
-                
 
                 {/* Informazioni Utente e Barra */}
                 <View style={{ flexDirection: 'column', alignItems: 'flex-end', flex: 1 }}>
@@ -67,19 +52,13 @@ export default function HomeScreen() {
                         />
                     </View>
                 </View>
-
             </Appbar.Header>
 
             <View style={styles.content}>
-
-
-
                 <Card style={{ flex: 1, padding: 16, borderRadius: 10, width: '100%' }}>
-
                     <SegmentedButton/>
                 </Card>
             </View>
-
         </ScrollView>
 
     );

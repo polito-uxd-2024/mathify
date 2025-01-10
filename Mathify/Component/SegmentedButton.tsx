@@ -67,6 +67,13 @@ const SegmentedButton = () => {
                 <View>
                     <Card style={{ marginBottom: 16, width: "100%", position: "relative" }}>
                         <Card.Content>
+                            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                                {/* Sfide randomiche */}
+                                <Text style={{ fontSize: 20 }}>
+                                    Sfida random
+                                </Text>
+                            </View>
+
                             {/* Titolo e Stelle affiancate */}
                             <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                                 {/* Titolo della sfida */}
@@ -145,6 +152,13 @@ const SegmentedButton = () => {
                         </Card.Actions>
                     </Card> {/*deve partire con la sfida selezionata*/}
                     <TextInput label="Cerca sfida" mode="outlined" value={searchQuery} onChangeText={setSearchQuery} style={{ marginBottom: 16 }} />
+
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                        {/* Lista sfide */}
+                        <Text style={{ fontSize: 20 }}>
+                            Scopri le sfide
+                        </Text>
+                    </View>
 
                     <FlatList
                         data={filteredChallenges.slice(0, 5)} // Prendi solo le prime 5 sfide
