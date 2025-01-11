@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
-import { View, ScrollView, Image } from 'react-native';
+import { View, ScrollView, Image, Modal, Text, TextInput, Button } from 'react-native';
 import { Appbar, Card, List, FAB, Searchbar, SegmentedButtons } from 'react-native-paper';
 import { styles } from '../App';
 
 export default function Materiale() {
     const [searchQuery, setSearchQuery] = useState('');
     const [activeTab, setActiveTab] = useState('explore');
+    const [modalVisible, setModalVisible] = useState(false);
+    const [newMaterial, setNewMaterial] = useState({ title: '', topic: '', content: '', image: '' });
 
     const onChangeSearch = (query: string) => setSearchQuery(query);
+
+    const handleAddMaterial = () => {
+        // Logic to save the new material (e.g., update state or send to backend)
+        console.log('New Material:', newMaterial);
+        setModalVisible(false);
+        setNewMaterial({ title: '', topic: '', content: '', image: '' });
+    };
 
     return (
         <View style={{ flex: 1 }}>
@@ -100,8 +109,51 @@ export default function Materiale() {
             <FAB
                 style={styles.fab}
                 icon="plus"
-                onPress={() => {}}
+                onPress={() => setModalVisible(true)}
             />
+
+            {/* Modal for Adding Material */}
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => setModalVisible(false)}
+            >
+                <View style={styles.modalContainer}>
+                    <View style={styles.modalContent}>
+                        <Text >Aggiungi Materiale</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Titolo"
+                            value={newMaterial.title}
+                            onChangeText={(text) => setNewMaterial({ ...newMaterial, title: text })}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Argomento"
+                            value={newMaterial.topic}
+                            onChangeText={(text) => setNewMaterial({ ...newMaterial, topic: text })}
+                        />
+                        <TextInput
+                            style={[styles.input, { height: 80 }]}
+                            placeholder="Contenuto"
+                            multiline
+                            value={newMaterial.content}
+                            onChangeText={(text) => setNewMaterial({ ...newMaterial, content: text })}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="URL Immagine"
+                            value={newMaterial.image}
+                            onChangeText={(text) => setNewMaterial({ ...newMaterial, image: text })}
+                        />
+                        <View style={styles.modalButtons}>
+                            <Button title="Annulla" onPress={() => setModalVisible(false)} />
+                            <Button title="Aggiungi" onPress={handleAddMaterial} />
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 }

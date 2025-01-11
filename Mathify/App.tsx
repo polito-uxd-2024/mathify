@@ -1,16 +1,10 @@
-import React, {ReducerState, useReducer, useState} from 'react';
+import React, { ReducerState, useReducer, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { MD3LightTheme as DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import Navigation from './Component/navigation';
-import {InitialState, Reducer, StateContext} from "./Reducer";
-import {State} from "react-native-paper/lib/typescript/components/TextInput/types";
-import {CombinedDarkTheme, CombinedDefaultTheme} from "./Component/theme";
-import {PreferencesContext} from "./Component/PreferencesContext";
-import {DarkTheme} from "@react-navigation/native";
-
-
-
-
+import { InitialState, Reducer, StateContext } from "./Reducer";
+import { CombinedDarkTheme, CombinedDefaultTheme } from "./Component/theme";
+import { PreferencesContext } from "./Component/PreferencesContext";
 
 export default function App() {
 
@@ -30,16 +24,12 @@ export default function App() {
         [toggleTheme, isThemeDark]
     );
 
-
     return (
-
-
-                <StateContext.Provider value={useReducer(Reducer, InitialState)}>
-                    <PreferencesContext.Provider value={preferences}>
-                        <Navigation />
-                    </PreferencesContext.Provider>
-                </StateContext.Provider>
-
+        <StateContext.Provider value={useReducer(Reducer, InitialState)}>
+            <PreferencesContext.Provider value={preferences}>
+                <Navigation />
+            </PreferencesContext.Provider>
+        </StateContext.Provider>
     );
 }
 
@@ -112,5 +102,64 @@ export const styles = StyleSheet.create({
         margin: 16,
         right: 0,
         bottom: 0,
+    },
+    accordion: {
+        margin: 10,
+        borderRadius: 20,
+        elevation: 50,
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Sfondo semi-trasparente
+    },
+    modalContent: {
+        width: '90%',
+        backgroundColor: '#ffffff', // Sfondo del contenuto del modale
+        borderRadius: 10,
+        padding: 20,
+        elevation: 5, // Ombra su Android
+        shadowColor: '#000', // Ombra su iOS
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+    },
+    header: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        textAlign: 'center',
+        color: '#333333',
+    },
+    modalInput: {
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 5,
+        padding: 10,
+        marginBottom: 15,
+        fontSize: 16,
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 20,
+    },
+    button: {
+        flex: 1,
+        marginHorizontal: 5,
+        paddingVertical: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+    },
+    buttonSave: {
+        backgroundColor: '#4CAF50',
+    },
+    buttonCancel: {
+        backgroundColor: '#f44336',
+    },
+    buttonText: {
+        color: '#ffffff',
+        fontWeight: 'bold',
     },
 });
