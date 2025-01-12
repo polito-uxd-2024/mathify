@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Appbar, Card, Text } from 'react-native-paper';
-import { styles } from '../App';
+import { styles } from '../Component/style';
 
 export default function Classe() {
     return (

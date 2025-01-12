@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {View, Text, FlatList, TextComponent} from 'react-native';
 import {Card, Icon, MD3Colors} from 'react-native-paper';
-import {styles} from "../App";
+import {styles} from "../Component/style";
 import {timeAgo} from "../Component/timeago";
 
 
@@ -17,28 +17,31 @@ export default function SfideCompletate() {
         stringacompletamento: timeAgo(sfida.datacompletamento)
     }));
     return (
-        <View>
+            <View style={styles.section}>
             <FlatList
                 data={sfideCompletate}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                    <View style={styles.cardBase}>
-                    <Card style={styles.card}>
-                        <Card.Title title={item.titolo} />
-                        <Card.Content>
-                            <Text>{item.argomento}</Text>
-                            <Text style={styles.callout}>
-                                <Icon size={20} source="star" color='white' />
-                                <Text>{item.xp} XP</Text>
-                                <Icon size={20} source="star" color='white' />
-                            </Text>
-                            <Text>{item.stringacompletamento}</Text>
-                        </Card.Content>
-                    </Card>
+                    <View style={styles.article}>
+                        <View style={styles.cardBase}>
+                            <Card style={styles.card}>
+                                <Card.Title title={item.titolo} />
+                                <Card.Content>
+                                    <Text>{item.argomento}</Text>
+                                    <Text style={styles.callout}>
+                                        <Icon size={20} source="star" color='white' />
+                                        <Text>{item.xp} XP</Text>
+                                        <Icon size={20} source="star" color='white' />
+                                    </Text>
+                                    <Text>{item.stringacompletamento}</Text>
+                                </Card.Content>
+                            </Card>
+                        </View>
                     </View>
                 )}
             />
-        </View>
+            </View>
+
     );
 }
 

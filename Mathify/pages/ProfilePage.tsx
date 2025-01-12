@@ -1,5 +1,5 @@
 import {FlatList, ImageBackground, View} from "react-native";
-import { styles } from "../App";
+import { styles } from "../Component/style";
 import {Appbar, Card, Text, Button, IconButton, ProgressBar} from "react-native-paper";
 import {useFocusEffect, useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";

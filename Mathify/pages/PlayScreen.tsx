@@ -7,6 +7,7 @@ import Collapsible from "react-native-collapsible";
 import {registraSfidaCompletata} from "../Component/writeOnDb";
 import {aggiornaLivello} from "../Component/aggiornaLivello";
 import {useSetCurrentUser} from "../Component/setUser";
+import {styles} from "../Component/style";
 
 export default function PlayScreen() {
     const { colors } = useTheme();
@@ -148,6 +149,7 @@ export default function PlayScreen() {
     if (!changePage) {
         return (
             <View>
+                {/*
                 <Appbar.Header>
                     <Appbar.Content title="Challenge Screen" />
                     <ProgressBar
@@ -156,47 +158,54 @@ export default function PlayScreen() {
                         color={colors.primary}
                     />
                 </Appbar.Header>
-
-                <View style={{ padding: 16 }}>
-                    <Card>
-                        <Card.Title title="Challenge Question" />
-                        <Card.Content>
-                            <Text style={{ fontSize: 18, marginBottom: 16 }}>{currentQuestion.Testo}</Text>
-                            {currentQuestion.Risposte.map((risposta, index) => (
-                                <Button
-                                    key={index}
-                                    mode="contained"
-                                    style={{ marginBottom: 8 }}
-                                    onPress={() => handleAnswerPress(risposta)}
-                                >
-                                    {risposta}
-                                </Button>
-                            ))}
-                            <ProgressBar
-                                progress={parseFloat(timerProgress.toFixed(3))} // Round timerProgress to 3 decimal places
-                                style={{ marginTop: 16 }}
-                                color={timerProgress > 0.8 ? "red" : "green"}
-                            />
-                            <Text style={{ marginTop: 8 }}>
-                                Tempo rimasto: {Math.ceil((1 - timerProgress) * timerDuration)}s
-                            </Text>
-                            <Text style={{ marginTop: 8 }}>Domande corrette: {punteggioOttenuto}</Text>
-                        </Card.Content>
-                    </Card>
+                */}
+                <View style={styles.content}>
+                    <View style={styles.cardBase}>
+                        <Card style={styles.mainCard}>
+                            <Card.Title title="Challenge Question" />
+                            <Card.Content>
+                                <Text style={{ fontSize: 18, marginBottom: 16 }}>{currentQuestion.Testo}</Text>
+                                {currentQuestion.Risposte.map((risposta, index) => (
+                                    <Button
+                                        key={index}
+                                        mode="contained"
+                                        style={styles.answerButton}
+                                        onPress={() => handleAnswerPress(risposta)}
+                                    >
+                                        {risposta}
+                                    </Button>
+                                ))}
+                                <ProgressBar
+                                    progress={parseFloat(timerProgress.toFixed(3))} // Round timerProgress to 3 decimal places
+                                    style={{ marginTop: 16 }}
+                                    color={timerProgress > 0.8 ? "red" : "green"}
+                                />
+                                <Text style={{ marginTop: 8 }}>
+                                    Tempo rimasto: {Math.ceil((1 - timerProgress) * timerDuration)}s
+                                </Text>
+                                <Text style={{ marginTop: 8 }}>Domande corrette: {punteggioOttenuto}</Text>
+                            </Card.Content>
+                        </Card>
+                    </View>
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", padding: 10 }}>
-                    <Card style={{ flex: 1, margin: 5 }}>
-                        <Text style={{ textAlign: "center", padding: 10 }}>Grafico</Text>
-                    </Card>
-                    <Card style={{ flex: 1, margin: 5 }} onPress={bonusTempo}>
-                        <Text style={{ textAlign: "center", padding: 10 }}>+30 secondi</Text>
-                        <Text> Disponibilità: {tempoMaggiore ? "1" : "0"}</Text>
-
-                    </Card>
-                    <Card style={{ flex: 1, margin: 5 }} onPress={bonusTentativi}>
-                        <Text style={{ textAlign: "center", padding: 10 }}>Doppio tentativo</Text>
-                        <Text>Disponibilità: {dueTentativi ? "1" : "0"}</Text>
-                    </Card>
+                    <View style={styles.miniCardBase}>
+                        <Card style={styles.miniCard}>
+                            <Text style={{ textAlign: "center", padding: 10 }}>Grafico</Text>
+                        </Card>
+                    </View>
+                    <View style={styles.miniCardBase}>
+                        <Card style={styles.miniCard} onPress={bonusTempo}>
+                            <Text style={{ textAlign: "center", padding: 10 }}>+30 secondi</Text>
+                            <Text style={{ textAlign: "center", padding: 10 }}> Disponibilità: {tempoMaggiore ? "1" : "0"}</Text>
+                        </Card>
+                    </View>
+                    <View style={styles.miniCardBase}>
+                        <Card style={styles.miniCard} onPress={bonusTentativi}>
+                            <Text style={{ textAlign: "center", padding: 10 }}>Doppio tentativo</Text>
+                            <Text style={{ textAlign: "center", padding: 10 }}>Disponibilità: {dueTentativi ? "1" : "0"}</Text>
+                        </Card>
+                    </View>
                 </View>
             </View>
         );

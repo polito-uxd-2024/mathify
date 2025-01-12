@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import { Appbar, Card, List, FAB, Searchbar, Menu, Divider } from 'react-native-paper';
-import { styles } from '../App';
+import { styles } from '../Component/style';
 
 export default function Materiale() {
     const [expanded, setExpanded] = useState<string | null>(null);
