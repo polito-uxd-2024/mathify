@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39542f42-9a80-4e54-af61-1f4385b67116" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Mathify/Component/style.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/Component/SegmentedButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/SegmentedButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/Component/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/theme.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/pages/AllListChallenges.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/AllListChallenges.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/pages/Classe.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/Classe.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/pages/HomeScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/HomeScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/pages/Impostazioni.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/Impostazioni.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/pages/Materiale.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/Materiale.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/pages/PlayScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/PlayScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/pages/ProfilePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/ProfilePage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mathify/pages/SfideCompletate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/SfideCompletate.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -55,7 +44,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "grafica",
+    "git-widget-placeholder": "pagina-sfide-completate-e-in-programma",
     "last_opened_file_path": "C:/Users/chicc/Documents/Lavoro e Studio/Università/UxDesign/mathify/Mathify",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -91,6 +80,7 @@
       <workItem from="1735998281368" duration="4540000" />
       <workItem from="1736275484372" duration="1808000" />
       <workItem from="1736629317579" duration="13642000" />
+      <workItem from="1736689046972" duration="918000" />
     </task>
     <servers />
   </component>
