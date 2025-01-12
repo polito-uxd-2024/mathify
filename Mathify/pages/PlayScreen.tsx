@@ -38,6 +38,7 @@ export default function PlayScreen() {
     const [tempoMaggiore, setTempoMaggiore] = useState(true);
     const [dueTentativi, setDueTentativi] = useState(true);
     const [tentativiAttivo, setTentativiAttivo] = useState(false);
+    const [grafico, setGrafico] = useState(true)
 
     // Gestione del timer
     useEffect(() => {
@@ -63,6 +64,10 @@ export default function PlayScreen() {
         setTentativiAttivo(true);
         setDueTentativi(false);
     };
+
+    const bonusGrafico = () => {
+        setGrafico(false)
+    }
 
     const handleNextQuestion = () => {
         const currentTime = Date.now();
@@ -186,7 +191,8 @@ export default function PlayScreen() {
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", padding: 10 }}>
                     <Card style={{ flex: 1, margin: 5 }}>
-                        <Text style={{ textAlign: "center", padding: 10 }}>Grafico</Text>
+                        <Text style={{ textAlign: "center", padding: 10 }} onPress={bonusGrafico}>Grafico</Text>
+                        <Text> Disponibilità: {grafico ? "1" : "0"}</Text>
                     </Card>
                     <Card style={{ flex: 1, margin: 5 }} onPress={bonusTempo}>
                         <Text style={{ textAlign: "center", padding: 10 }}>+30 secondi</Text>
