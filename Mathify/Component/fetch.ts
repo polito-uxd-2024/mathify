@@ -27,7 +27,7 @@ export const fetchUser = async (userId: string): Promise<Utente> => {
                     tempoImpiegato: data.SfideCompletate[key].Domande[k].TempoImpiegato,
                     correttezza: data.SfideCompletate[key].Domande[k].Correttezza
                 })),
-                xpGuadagnati: data.SfideCompletate[key].XpGuadagnati,
+                xpGuadagnati: data.SfideCompletate[key].XP,
                 id: data.SfideCompletate[key].id
             }))
         };
