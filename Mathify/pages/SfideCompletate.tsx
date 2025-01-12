@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, FlatList, TextComponent} from 'react-native';
+import {View, Text, FlatList, TextComponent, Button} from 'react-native';
 import {Card, Icon, MD3Colors} from 'react-native-paper';
 import {styles} from "../Component/style";
 import {timeAgo} from "../Component/timeago";
@@ -47,6 +47,7 @@ export default function SfideCompletate() {
                                     </Text>
                                     <Text>Argomento: aggiornare interfaces</Text>
                                     <Text>Data Completamento: aggiornare interfaces</Text>
+                                    <Button title={"Dettagli"} onPress={() => navigation.navigate("SfidaDetail", { sfida: item })} />
                                 </Card.Content>
                             </Card>
                         </View>

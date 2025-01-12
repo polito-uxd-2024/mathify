@@ -13,6 +13,8 @@ import Verifica from "../pages/Verifica";
 import {CombinedDarkTheme, myTheme} from "./theme";
 import AllListChallenges from "../pages/AllListChallenges";
 import {Challenge} from "./SegmentedButton";
+import {SfidaCompletata} from "./Interfaces";
+import SfidaDetail from "../pages/SfidaDetail";
 
 export type RootStackParamList = {
     Main: undefined;
@@ -37,6 +39,7 @@ export type PlayParamList = {
 export type HomeStackParamList = {
     Home: undefined;
     AllListChallenges: { filteredChallenges: Challenge[] };
+    SfidaDetail: { sfida: SfidaCompletata };
 }
 
 
@@ -50,6 +53,7 @@ function HomeStackScreen() {
         <HomeStack.Navigator screenOptions={{headerShown:false}}>
             <HomeStack.Screen name="Home" component={HomeScreen} />
             <HomeStack.Screen name="AllListChallenges" component={AllListChallenges} options={{headerShown:true}} />
+            <HomeStack.Screen name={"SfidaDetail"} component={SfidaDetail} options={{headerShown:true}} />
         </HomeStack.Navigator>
     );
 }
