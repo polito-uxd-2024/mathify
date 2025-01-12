@@ -27,7 +27,10 @@ export default function SfideCompletate() {
     const navigation = useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
     const [state] = useContext(StateContext);
     useSetCurrentUser("Utente1");
-    const sfideCompletate = state.utente.sfideCompletate
+    const sfideCompletate = state.utente.sfideCompletate.map(sfida => ({
+        ...sfida,
+        stringacompletamento: timeAgo(sfida.dataCompletamento.toISOString())
+    }));
     return (
             <View style={styles.section}>
             <FlatList
@@ -47,6 +50,7 @@ export default function SfideCompletate() {
                                     </Text>
                                     <Text>Argomento: {item.argomento}</Text>
                                     <Text>Data Completamento: {item.dataCompletamento.toISOString()}</Text>
+                                    <Text>Data Completamento: {item.stringacompletamento}</Text>
                                     <Button title={"Dettagli"} onPress={() => navigation.navigate("SfidaDetail", { sfida: item })} />
                                 </Card.Content>
                             </Card>
