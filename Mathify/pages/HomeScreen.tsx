@@ -38,7 +38,7 @@ export default function HomeScreen() {
                 {/* Informazioni Utente e Barra */}
                 <View style={{ flexDirection: 'column', alignItems: 'flex-end', flex: 1 }}>
                     {/* Nome Utente */}
-                    <Text style={{fontWeight: 'bold', color: '#fff' }}>
+                    <Text style={{fontWeight: 'bold', color: 'black' }}>
                         {state.utente.nome} {state.utente.cognome}
                     </Text>
 
