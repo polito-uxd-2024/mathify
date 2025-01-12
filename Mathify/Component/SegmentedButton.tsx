@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {FlatList, ImageBackground, SafeAreaView, StyleSheet, View} from 'react-native';
+import {FlatList, ImageBackground, SafeAreaView, StyleSheet, View, ViewComponent, VirtualizedList} from 'react-native';
 import { Avatar, Button, Card, SegmentedButtons, Text,TextInput } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import { styles } from '../App';
+import { styles } from './style';
 import SfideCompletate from "../pages/SfideCompletate";
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
 import Navigation, {HomeStackParamList, PlayParamList, RootStackParamList} from "./navigation";
@@ -63,9 +63,11 @@ const SegmentedButton = () => {
     }
     return (
         <>
+            <View style={styles.section}>
             <SegmentedButtons
                 value={value}
                 onValueChange={setValue}
+
                 buttons={[
                     { value: 'esplora', label: 'Esplora' },
                     { value: 'completate', label: 'Completate' },
@@ -77,145 +79,162 @@ const SegmentedButton = () => {
             )}
             {value === 'esplora' && (
                 <View>
-                    <Card style={{ marginBottom: 16, width: "100%", position: "relative" }}>
-                        <Card.Content>
-                            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                                {/* Sfide randomiche */}
-                                <Text style={{ fontSize: 20 }}>
-                                    Sfida random
-                                </Text>
-                            </View>
+                    <View style={styles.section}>
+                            {/* Sfide randomiche */}
+                            <Text style={styles.sectionText}>
+                                Sfida random
+                            </Text>
+                        <View style={styles.article}>
+                        <View style={styles.cardBase}>
+                            <Card style={styles.mainCard}>
+                                <Card.Content>
 
-                            {/* Titolo e Stelle affiancate */}
-                            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                                {/* Titolo della sfida */}
-                                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                                    {state.selectedChallenge.titolo} {/* nome della sfida */}
-                                </Text>
+                                    {/* Titolo e Stelle affiancate */}
+                                    <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                                        {/* Titolo della sfida */}
+                                        <Text style={styles.sectionText}>
+                                            {state.selectedChallenge.titolo} {/* nome della sfida */}
+                                        </Text>
 
-                                {/* Difficoltà (stelle) */}
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    {[...Array(3)].map((star, index) => (
-                                        <Avatar.Icon
-                                            key={index}
-                                            icon="star"
-                                            size={20}
-                                            color={index < state.selectedChallenge.difficoltà ? 'red' : 'black'} // Colore delle stelle
-                                            style={{ marginLeft: 8}}
+                                        {/* Difficoltà (stelle) */}
+                                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                            {[...Array(3)].map((star, index) => (
+                                                <Avatar.Icon
+                                                    key={index}
+                                                    icon="star"
+                                                    size={20}
+                                                    color={index < state.selectedChallenge.difficoltà ? 'red' : 'black'} // Colore delle stelle
+                                                    style={{ marginLeft: 8}}
 
-                                        />
-                                    ))}
-                                </View>
-                            </View>
-
-                            {/* Sottotitolo del macro argomento */}
-                            <View style={{ flexDirection: "row", alignItems: "center", marginBottom:16 }}>
-                                <Text style={{ fontSize: 15, fontWeight:"bold" }}>{state.selectedChallenge.argomento}</Text>
-                            </View>
-                        </Card.Content>
-
-                        {/* Immagine */}
-                        <Card.Content>
-                            <ImageBackground
-                                source={{ uri: 'https://cdn.pixabay.com/photo/2017/05/02/15/05/addition-2278415_1280.jpg' }}
-                                style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 10,}}
-                                imageStyle={{ borderRadius: 10}}
-                            >
-                                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center',}}>
-                                    <View style={{ alignItems: "center", marginVertical: 100 }}>
+                                                />
+                                            ))}
+                                        </View>
                                     </View>
+
+                                    {/* Sottotitolo del macro argomento */}
+                                    <View style={{ flexDirection: "row", alignItems: "center", marginBottom:16 }}>
+                                        <Text style={{ fontSize: 15, fontWeight:"bold" }}>{state.selectedChallenge.argomento}</Text>
+                                    </View>
+                                </Card.Content>
+
+                                {/* Immagine */}
+                                <Card.Content>
+                                    <ImageBackground
+                                        source={{ uri: 'https://cdn.pixabay.com/photo/2017/05/02/15/05/addition-2278415_1280.jpg' }}
+                                        style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 10,}}
+                                        imageStyle={{ borderRadius: 10}}
+                                    >
+                                        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center',}}>
+                                            <View style={{ alignItems: "center", marginVertical: 100 }}>
+                                            </View>
+                                        </View>
+                                    </ImageBackground>
+                                </Card.Content> {/*si deve sistemare l'immagine prendendolo dal database*/}
+
+                                <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
+                                    <Card.Actions>
+                                        {/* Bottone "Cambia sfida" con l'icona Shuffle */}
+                                        <Button
+                                            mode="outlined"
+                                            onPress={() => {
+                                                handleChallengeChange();
+                                            }}
+                                            contentStyle={{ height: 40 }}
+                                            labelStyle={{ fontSize: 14 }}
+                                            icon="shuffle"  // Utilizza "shuffle" direttamente come nome dell'icona
+                                        >
+                                            Cambia sfida
+                                        </Button>
+                                    </Card.Actions> {/*deve prendere sfide a caso dalla fetch*/}
                                 </View>
-                            </ImageBackground>
-                        </Card.Content> {/*si deve sistemare l'immagine prendendolo dal database*/}
-
-
-                        <Card.Actions style={{justifyContent: 'center' }}>
-                            {/* Bottone "Cambia sfida" con l'icona Shuffle */}
-                            <Button
-                                mode="outlined"
-                                onPress={() => {
-                                    handleChallengeChange();
-                                }}
-                                contentStyle={{ height: 40 }}
-                                labelStyle={{ fontSize: 14 }}
-                                style={{ width: 'auto', alignSelf: 'flex-end'}}  // Posizionato a destra sopra Play
-                                icon="shuffle"  // Utilizza "shuffle" direttamente come nome dell'icona
-                            >
-                                Cambia sfida
-                            </Button>
-                        </Card.Actions> {/*deve prendere sfide a caso dalla fetch*/}
-
-                        <Card.Actions style={{justifyContent: 'center' }}>
-                            {/* Bottone "Play" */}
-                            <Button
-                                mode="contained"
-                                onPress={()=> {
-                                    (
-                                            navigationPlay.navigate("Play")
-                                    )
-                                }}
-                                contentStyle={{ height: 50 }}
-                                labelStyle={{ fontSize: 16 }}
-                                style={{ width: '100%', alignSelf: 'center' }}
-                            >
-                                Play
-                            </Button>
-                        </Card.Actions>
-                    </Card> {/*deve partire con la sfida selezionata*/}
-                    <TextInput label="Cerca sfida" mode="outlined" value={searchQuery} onChangeText={setSearchQuery} style={{ marginBottom: 16 }} />
-
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                        {/* Lista sfide */}
-                        <Text style={{ fontSize: 20 }}>
-                            Scopri le sfide
-                        </Text>
+                                <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
+                                    <Card.Actions style={{justifyContent: 'center' }}>
+                                        {/* Bottone "Play" */}
+                                        <Button
+                                            mode="contained"
+                                            onPress={()=> {
+                                                (
+                                                        navigationPlay.navigate("Play")
+                                                )
+                                            }}
+                                            contentStyle={{ height: 50 }}
+                                            labelStyle={{ fontSize: 16 }}
+                                            style={styles.button}
+                                        >
+                                            Play
+                                        </Button>
+                                    </Card.Actions>
+                                </View>
+                            </Card>
+                        </View>
+                        </View>
                     </View>
 
-                    <FlatList
-                        data={filteredChallenges.slice(0, 5)} // Prendi solo le prime 5 sfide
-                        keyExtractor={(item) => item.id}
-                        renderItem={({ item }) => (
+                    <View style={styles.section}>
+                    {/*deve partire con la sfida selezionata*/}
+                        <TextInput label="Cerca sfida"
+                                   mode="outlined"
+                                   value={searchQuery}
+                                   onChangeText={setSearchQuery}
+                        />
+                        {/* Lista sfide */}
+                    <View style={styles.section}>
+                        <Text style={styles.sectionText}>
+                            Scopri le sfide
+                        </Text>
+                        <FlatList
+                            data={filteredChallenges.slice(0, 5)} // Prendi solo le prime 5 sfide
+                            keyExtractor={(item) => item.id}
+                            renderItem={({ item }) => (
+                            <View style={styles.article}>
+                                <View style={styles.cardBase}>
+                                    <Card style={styles.card}>
+                                        <Card.Title
+                                            title={item.title}
+                                            left={(props) => (
+                                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                                                    <Avatar.Icon icon={item.icon} size={20} style={{ marginRight: 8 }} />
+                                                </View>
+                                            )}
+                                        />
 
-                            <Card style={styles.card}>
-                                <Card.Title
-                                    title={item.title}
-                                    left={(props) => (
-                                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                                            <Avatar.Icon icon={item.icon} size={20} style={{ marginRight: 8 }} />
+                                        {/* Visualizza Argomento e Difficoltà sotto il titolo */}
+                                        <View style={{ paddingHorizontal: 16 }}>
+                                            <Text style={{ fontSize: 14 }}>
+                                                Argomento: {item.argomento}
+                                            </Text>
+                                            <Text style={{ fontSize: 14}}>
+                                                Difficoltà: {item.difficoltà}
+                                            </Text>
                                         </View>
-                                    )}
-                                />
 
-                                {/* Visualizza Argomento e Difficoltà sotto il titolo */}
-                                <View style={{ paddingHorizontal: 16 }}>
-                                    <Text style={{ fontSize: 14, color: 'gray' }}>
-                                        Argomento: {item.argomento}
-                                    </Text>
-                                    <Text style={{ fontSize: 14, color: 'gray' }}>
-                                        Difficoltà: {item.difficoltà}
-                                    </Text>
+                                        <Card.Actions>
+                                            <Button onPress={() => {
+                                                 /*navigationAll.navigate(item.title)*/
+                                                handleClick(item.title);
+                                            }} style={{ flex: 1 }}>
+                                                Vai alla sfida
+                                            </Button>
+                                        </Card.Actions>
+                                    </Card>
                                 </View>
+                            </View>
+                                    )}
+                        />
 
-                                <Card.Actions>
-                                    <Button onPress={() => {
-                                         /*navigationAll.navigate(item.title)*/
-                                        handleClick(item.title);
-                                    }} style={{ flex: 1 }}>
-                                        Vai alla sfida
-                                    </Button>
-                                </Card.Actions>
-                            </Card>)}
-                    />
-                    {filteredChallenges.length > 5 && (
-                        <Button
-                            onPress={() => navigationAll.navigate('AllListChallenges', { filteredChallenges })}
-                            style={{ alignSelf: 'flex-end', marginTop: 16 }}>
-                            VEDI TUTTO
-                        </Button>
-                    )}
 
+                        {filteredChallenges.length > 5 && (
+                            <Button
+                                onPress={() => navigationAll.navigate('AllListChallenges', { filteredChallenges })}
+                                style={{ alignSelf: 'flex-end', marginTop: 16 }}>
+                                VEDI TUTTO
+                            </Button>
+                        )}
+                        </View>
+                    </View>
                 </View>
             )}
+            </View>
         </>
 
     );

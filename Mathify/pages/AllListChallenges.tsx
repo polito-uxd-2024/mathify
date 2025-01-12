@@ -4,7 +4,7 @@ import {Card, Button, Avatar, TextInput, Appbar, IconButton, ProgressBar, Text} 
 import { useNavigation } from '@react-navigation/native';
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
 import {PlayParamList, RootStackParamList} from "../Component/navigation";
-import {styles} from "../App";
+import {styles} from "../Component/style";
 import {useContext, useState} from "react";
 import {setSelectedChallenge} from "../Action";
 import {StateContext} from "../Reducer";
@@ -34,7 +34,7 @@ const AllListChallenges = ({ route }: { route: any }) => {
     return (
         <View style={{ flex: 1 }}>
             <Card style={{ flex: 1, padding: 16, borderRadius: 10, width: '100%' }}>
-                <TextInput label="Cerca sfida" mode="outlined" value={searchQuery} onChangeText={setSearchQuery} style={{ marginBottom: 16 }} />
+                <TextInput label="Cerca sfida" mode="outlined" value={searchQuery} onChangeText={setSearchQuery}/>
 
                 {/* FlatList per visualizzare tutte le sfide */}
                 <FlatList
@@ -53,10 +53,10 @@ const AllListChallenges = ({ route }: { route: any }) => {
 
                             {/* Visualizza Argomento e Difficoltà sotto il titolo */}
                             <View style={{ paddingHorizontal: 16 }}>
-                                <Text style={{ fontSize: 14, color: 'gray' }}>
+                                <Text style={{ fontSize: 14}}>
                                     Argomento: {item.argomento}
                                 </Text>
-                                <Text style={{ fontSize: 14, color: 'gray' }}>
+                                <Text style={{ fontSize: 14}}>
                                     Difficoltà: {item.difficoltà}
                                 </Text>
                             </View>

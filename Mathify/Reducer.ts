@@ -48,10 +48,11 @@ export const InitialState:State={
     utente:{
         nome:"Giovanni",
         cognome:"Rossi",
+        email:"giovanni.rossi@gmail.com",
         livello:{numero:1,xpTotali:10},
         sfideCompletate:[],
         verifica:false},
-    challengeList:[]
+    challengeList:[],
 }
 export const StateContext=
     createContext<[State,React.Dispatch<Action>]>([InitialState,(_:Action)=>{}])

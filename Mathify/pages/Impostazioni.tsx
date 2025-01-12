@@ -1,4 +1,4 @@
-import {styles} from "../App";
+import {styles} from "../Component/style";
 import {Button, Card} from "react-native-paper";
 import {View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
