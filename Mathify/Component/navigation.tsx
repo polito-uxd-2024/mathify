@@ -15,6 +15,7 @@ import AllListChallenges from "../pages/AllListChallenges";
 import {Challenge} from "./SegmentedButton";
 import {SfidaCompletata} from "./Interfaces";
 import SfidaDetail from "../pages/SfidaDetail";
+import BadgeList from "./BadgeList";
 
 export type RootStackParamList = {
     Main: undefined;
@@ -32,6 +33,7 @@ export type ProfileStackParamList = {
     Impostazioni: undefined;
     Classe: undefined;
     Verifica: undefined;
+    ListaBadge: undefined;
 }
 export type PlayParamList = {
     Play: undefined;
@@ -65,6 +67,8 @@ function ProfileStackScreen() {
             <ProfileStack.Screen name="Impostazioni" component={Impostazioni}/>
             <ProfileStack.Screen name="Classe" component={Classe}/>
             <ProfileStack.Screen name="Verifica" component={Verifica} options={{ presentation: 'modal' }}/>
+            <ProfileStack.Screen name="ListaBadge" component={BadgeList}/>
+
         </ProfileStack.Navigator>
     );
 }

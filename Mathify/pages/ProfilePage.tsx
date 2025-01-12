@@ -143,7 +143,7 @@ export default function ProfilePage() {
                             <Button
                                 onPress={() => {
                                     // Azione per il tasto "Vedi Tutto"
-                                    navigation.navigate('TuttiIBadge');
+                                    navigation.navigate('ListaBadge');
                                 }}
                             >
                                 <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
