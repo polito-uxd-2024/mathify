@@ -152,74 +152,154 @@ export default function ProfilePage() {
                             </Button>
                         </View>
 
+                        {/* Visualizzazione dei primi 3 badge */}
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', paddingHorizontal: 16 }}>
-                            {/* Velocista */}
-                            <View style={{ alignItems: 'center',width:100 }}>
-                                <View style={{width: 80, height: 80, borderRadius: 40, backgroundColor: '#ff6f61', // Colore di sfondo distintivo
-                                    justifyContent: 'center', alignItems: 'center'}}>
-                                    <MaterialCommunityIcons
-                                        name="run-fast"
-                                        size={40}
-                                        color="white"
-                                    />
+
+                            {/* Mostra prima il badge con gli XP guadagnati */}
+                            {state.utente.sfideCompletate.map((item, index) =>  (
+                                <View key={index} style={{ alignItems: 'center', width: 100, marginRight: 16 }}>
+                                    <View
+                                        style={{width: 80, height: 80, borderRadius: 40, backgroundColor: '#3498db', // Colore fisso, può essere cambiato
+                                            justifyContent: 'center', alignItems: 'center',
+                                        }}
+                                    >
+                                        <MaterialCommunityIcons
+                                            name="trophy" // Icona generica per il badge
+                                            size={40}
+                                            color="white"
+                                        />
+                                    </View>
+                                    <View style={{ marginTop: 10 }}>
+                                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 8 }}>
+                                            {item.id} {/* Nome della sfida o del badge */}
+                                        </Text>
+                                        <Text style={{ fontSize: 14, color: 'gray', textAlign: 'center', marginTop: 4 }}>
+                                           Complimenti! Hai guadagnato {item.xpGuadagnati} XP {/* Punteggio guadagnato */}
+                                        </Text>
+                                    </View>
                                 </View>
-                                <View style={{marginTop:10}}>
-                                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 8 }}>
-                                        Velocista
+                            ))}
+
+                            {/* Mostra i badge fissi nella prima pagina */}
+                            {state.utente.sfideCompletate.length < 3 && ['Velocista', 'Stakanovista', 'Perfezionista'].slice(0, 3 - state.utente.sfideCompletate.length).map((badge, index) => (
+                                <View key={index} style={{ alignItems: 'center', width: 100 }}>
+                                    <View style={{width: 80, height: 80, borderRadius: 40, backgroundColor: badge === 'Velocista' ? '#ff6f61' : badge === 'Stakanovista' ? '#4caf50' : '#ffc107', // Colore distintivo
+                                        justifyContent: 'center', alignItems: 'center'
+                                    }}>
+                                        <MaterialCommunityIcons
+                                            name={badge === 'Velocista' ? 'run-fast' : badge === 'Stakanovista' ? 'arm-flex' : 'star'}
+                                            size={40}
+                                            color="white"
+                                        />
+                                    </View>
+                                    <View style={{ marginTop: 10 }}>
+                                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 8 }}>
+                                            {badge}
+                                        </Text>
+                                        <Text style={{ fontSize: 14, color: 'gray', textAlign: 'center', marginTop: 4 }}>
+                                            {badge === 'Velocista' ? 'Sfida completata in meno di due minuti' : badge === 'Stakanovista' ? '3 sfide nella stessa giornata' : '10 domande di fila'}
+                                        </Text>
+                                    </View>
+                                </View>
+                            ))}
+                        </View>
+
+                        {/* Visualizza Specialità */}
+                        <View style={{ paddingHorizontal: 16, marginVertical: 20 }}>
+                            <Text style={{ fontSize: 25, marginLeft: 7 }}>
+                                Le tue Specialità
+                            </Text>
+
+                            {/* Card per Logaritmi */}
+                            <View style={{backgroundColor: '#f5f5f5', borderRadius: 10, padding: 16, marginTop: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                                {/* Icona Trofeo */}
+                                <MaterialCommunityIcons
+                                    name="trophy"
+                                    size={40}
+                                    color="#f39c12"
+                                />
+
+                                {/* Dettagli della Specialità */}
+                                <View style={{ flex: 1, marginLeft: 10 }}>
+                                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+                                        Logaritmi
                                     </Text>
-                                    <Text style={{ fontSize: 14, color: 'gray', textAlign: 'center', marginTop: 4 }}>
-                                        Sfida completata in meno di due minuti
+                                    <Text style={{ fontSize: 14, color: 'gray', marginTop: 5 }}>
+                                        +1500 XP
+                                    </Text>
+                                    <Text style={{ fontSize: 14, color: 'gray' }}>
+                                        12 sfide completate
+                                    </Text>
+                                </View>
+
+                                {/* Badge Fuoriclasse */}
+                                <View style={{backgroundColor: '#3498db', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
+                                    <Text style={{ color: 'white', fontSize: 14 }}>
+                                        Fuoriclasse
                                     </Text>
                                 </View>
                             </View>
 
-                            {/* Stakanovista */}
-                            <View style={{ alignItems: 'center',width:100 }}>
-                                <View style={{width: 80, height: 80, borderRadius: 40, backgroundColor: '#4caf50', // Colore di sfondo distintivo
-                                    justifyContent: 'center',
-                                    alignItems: 'center'}}>
-                                    <MaterialCommunityIcons
-                                        name="arm-flex"
-                                        size={40}
-                                        color="white"
-                                    />
-                                </View>
-                                <View style={{marginTop:10}}>
-                                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 8 }}>
-                                        Stakanovista
+                            {/* Card per Trigonometria */}
+                            <View style={{backgroundColor: '#f5f5f5', borderRadius: 10, padding: 16, marginTop: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                                {/* Icona libro */}
+                                <MaterialCommunityIcons
+                                    name="book"
+                                    size={40}
+                                    color="#2ecc71"
+                                />
+
+                                {/* Dettagli della Specialità */}
+                                <View style={{ flex: 1, marginLeft: 10 }}>
+                                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+                                        Trigonometria
                                     </Text>
-                                    <Text style={{ fontSize: 14, color: 'gray', textAlign: 'center', marginTop: 4 }}>
-                                        3 sfide nella stessa giornata
+                                    <Text style={{ fontSize: 14, color: 'gray', marginTop: 5 }}>
+                                        +1200 XP
+                                    </Text>
+                                    <Text style={{ fontSize: 14, color: 'gray' }}>
+                                        10 sfide completate
+                                    </Text>
+                                </View>
+
+                                {/* Badge Maestro */}
+                                <View style={{backgroundColor: '#8e44ad', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
+                                    <Text style={{ color: 'white', fontSize: 14 }}>
+                                        Maestro
                                     </Text>
                                 </View>
                             </View>
 
-                            {/* Perfezionista */}
-                            <View style={{ alignItems: 'center',width:100 }}>
-                                <View style={{width: 80, height: 80, borderRadius: 40,
-                                    backgroundColor: '#ffc107', // Colore di sfondo distintivo
-                                    justifyContent: 'center', alignItems: 'center'}}>
-                                    <MaterialCommunityIcons
-                                        name="star"
-                                        size={40}
-                                        color="white"
-                                    />
-                                </View>
-                                <View style={{marginTop:10}}>
-                                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 8 }}>
-                                        Perfezionista
+                            {/* Card per Funzioni */}
+                            <View style={{backgroundColor: '#f5f5f5', borderRadius: 10, padding: 16, marginTop: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                                {/* Icona Telescopio */}
+                                <MaterialCommunityIcons
+                                    name="telescope"
+                                    size={40}
+                                    color="#9b59b6"
+                                />
+
+                                {/* Dettagli della Specialità */}
+                                <View style={{ flex: 1, marginLeft: 10 }}>
+                                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+                                        Funzioni
                                     </Text>
-                                    <Text style={{ fontSize: 14, color: 'gray', textAlign: 'center', marginTop: 4 }}>
-                                        10 domande di fila
+                                    <Text style={{ fontSize: 14, color: 'gray', marginTop: 5 }}>
+                                        +5000 XP
+                                    </Text>
+                                    <Text style={{ fontSize: 14, color: 'gray' }}>
+                                        5 sfide completate
+                                    </Text>
+                                </View>
+
+                                {/* Badge Esploratore */}
+                                <View style={{backgroundColor: '#9b59b6', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
+                                    <Text style={{ color: 'white', fontSize: 14 }}>
+                                        Esploratore
                                     </Text>
                                 </View>
                             </View>
                         </View>
-
-
-
-
-
                     </Card.Content>
                 </Card>
             </ScrollView>
@@ -227,24 +307,3 @@ export default function ProfilePage() {
 
     );
 }
-
-
-/*
-<FlatList data={state.utente.sfideCompletate} renderItem={
-                    ({ item }) => (
-                        <View style={styles.cardBase}>
-                            <Card style={styles.card}>
-                                <Card.Title title={item.id} />
-                                <Card.Content>
-                                    <Text>{item.punteggio}</Text>
-                                    <Text style={styles.callout}>
-                                        <Text>{item.xpGuadagnati} XP</Text>
-                                    </Text>
-
-                                </Card.Content>
-                            </Card>
-                        </View>
-                    )
-                }/>
-
- */
