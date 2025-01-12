@@ -33,7 +33,7 @@ export default function SfideCompletate() {
             <FlatList
                 data={sfideCompletate}
                 keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
+                renderItem={({ item}) => (
                     <View style={styles.article}>
                         <View style={styles.cardBase}>
                             <Card style={styles.card}>
@@ -42,11 +42,11 @@ export default function SfideCompletate() {
                                     <Text>punteggio {item.punteggio}</Text>
                                     <Text style={styles.callout}>
                                         <Icon size={20} source="star" color='white' />
-                                        <Text>{item.xpGuadagnati} XP non funziona</Text>
+                                        <Text>{item.xpGuadagnati}</Text>
                                         <Icon size={20} source="star" color='white' />
                                     </Text>
-                                    <Text>Argomento: aggiornare interfaces</Text>
-                                    <Text>Data Completamento: aggiornare interfaces</Text>
+                                    <Text>Argomento: {item.argomento}</Text>
+                                    <Text>Data Completamento: {item.dataCompletamento.toISOString()}</Text>
                                     <Button title={"Dettagli"} onPress={() => navigation.navigate("SfidaDetail", { sfida: item })} />
                                 </Card.Content>
                             </Card>

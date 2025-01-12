@@ -29,7 +29,8 @@ export const fetchUser = async (userId: string): Promise<Utente> => {
                 })),
                 xpGuadagnati: data.SfideCompletate[key].XP,
                 id: data.SfideCompletate[key].id,
-                dataCompletamento: new Date(data.SfideCompletate[key].DataCompletamento)
+                dataCompletamento: new Date(data.SfideCompletate[key].DataCompletamento),
+                argomento: data.SfideCompletate[key].Argomento
             }))
         };
         return user;

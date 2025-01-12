@@ -30,6 +30,7 @@ export interface SfidaCompletata{
     domande:QuestionDone[];
     xpGuadagnati:number;
     id:string;
+    argomento:string;
     dataCompletamento:Date;
 
 }
