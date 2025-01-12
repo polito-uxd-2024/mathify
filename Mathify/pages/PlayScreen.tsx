@@ -141,10 +141,11 @@ export default function PlayScreen() {
             xpGuadagnati: totaleXP, // Calcolo diretto qui
             id: state.selectedChallenge.titolo,
 
+
         };
 
         console.log("XP inviati al database:", sfidaCompletata.xpGuadagnati);
-        registraSfidaCompletata(sfidaCompletata);
+        registraSfidaCompletata(sfidaCompletata, state.selectedChallenge);
         aggiornaLivello(sfidaCompletata.xpGuadagnati);
 
     };

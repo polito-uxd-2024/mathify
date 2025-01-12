@@ -1,11 +1,14 @@
 import { ref, set, get } from "firebase/database";
-import { SfidaCompletata } from "./Interfaces";
+import {Sfida, SfidaCompletata} from "./Interfaces";
 import { db } from "../Firebase";
 import {fetchUser} from "./fetch";
+import {StateContext} from "../Reducer";
+import {useContext} from "react";
 
 // Funzione per registrare una sfida completata
-export async function registraSfidaCompletata(sfidaCompletata: SfidaCompletata) {
+export async function registraSfidaCompletata(sfidaCompletata: SfidaCompletata, selectedChallenge:Sfida) {
     const userSfideRef = ref(db, `Utenti/Utente1/SfideCompletate`);
+    
 
     try {
         // Fetch the current number of challenges
@@ -27,7 +30,9 @@ export async function registraSfidaCompletata(sfidaCompletata: SfidaCompletata) 
             Punteggio: sfidaCompletata.punteggio,
             TempoImpiegato: sfidaCompletata.tempoImpiegato,
             XP: sfidaCompletata.xpGuadagnati,
-            id: sfidaCompletata.id,
+            Titolo: sfidaCompletata.id,
+            Argomento: selectedChallenge.argomento,
+            Difficoltà: selectedChallenge.difficoltà,
         };
 
         // Save the data in the database
