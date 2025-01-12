@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {View, ScrollView, Image, Modal, Text, TextInput, Button, StyleSheet} from 'react-native';
 import { Appbar, Card, List, FAB, Searchbar, SegmentedButtons } from 'react-native-paper';
-import {styles} from "../App";
+import {styles} from "../Component/style";
+
 
 export default function Materiale() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -45,7 +46,7 @@ export default function Materiale() {
             />
 
             {/* Scrollable Content */}
-            <ScrollView style={styles.container}>
+            <ScrollView>
                 {activeTab === 'explore' && (
                     <>
                         {/* Function of the Day Section */}
