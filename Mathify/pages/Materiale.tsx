@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, ScrollView, Image, Modal, Text, TextInput, Button } from 'react-native';
+import {View, ScrollView, Image, Modal, Text, TextInput, Button, StyleSheet} from 'react-native';
 import { Appbar, Card, List, FAB, Searchbar, SegmentedButtons } from 'react-native-paper';
-import { styles } from '../App';
+import {styles} from "../App";
 
 export default function Materiale() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -119,35 +119,35 @@ export default function Materiale() {
                 visible={modalVisible}
                 onRequestClose={() => setModalVisible(false)}
             >
-                <View style={styles.modalContainer}>
-                    <View style={styles.modalContent}>
+                <View style={MaterialStyles.modalContainer}>
+                    <View style={MaterialStyles.modalContent}>
                         <Text >Aggiungi Materiale</Text>
                         <TextInput
-                            style={styles.input}
+                            style={MaterialStyles.input}
                             placeholder="Titolo"
                             value={newMaterial.title}
                             onChangeText={(text) => setNewMaterial({ ...newMaterial, title: text })}
                         />
                         <TextInput
-                            style={styles.input}
+                            style={MaterialStyles.input}
                             placeholder="Argomento"
                             value={newMaterial.topic}
                             onChangeText={(text) => setNewMaterial({ ...newMaterial, topic: text })}
                         />
                         <TextInput
-                            style={[styles.input, { height: 80 }]}
+                            style={[MaterialStyles.input, { height: 80 }]}
                             placeholder="Contenuto"
                             multiline
                             value={newMaterial.content}
                             onChangeText={(text) => setNewMaterial({ ...newMaterial, content: text })}
                         />
                         <TextInput
-                            style={styles.input}
+                            style={MaterialStyles.input}
                             placeholder="URL Immagine"
                             value={newMaterial.image}
                             onChangeText={(text) => setNewMaterial({ ...newMaterial, image: text })}
                         />
-                        <View style={styles.modalButtons}>
+                        <View style={MaterialStyles.modalButtons}>
                             <Button title="Annulla" onPress={() => setModalVisible(false)} />
                             <Button title="Aggiungi" onPress={handleAddMaterial} />
                         </View>
@@ -157,3 +157,31 @@ export default function Materiale() {
         </View>
     );
 }
+const MaterialStyles = StyleSheet.create({
+    content: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 20,
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Sfondo semi-trasparente
+    },
+    modalContent: {
+        width: '90%',
+        backgroundColor: '#ffffff', // Sfondo del contenuto del modale
+        borderRadius: 10,
+        padding: 20,
+        elevation: 5, // Ombra su Android
+        shadowColor: '#000', // Ombra su iOS
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+    },
+    input: {
+        marginBottom: 10,
+    }
+});

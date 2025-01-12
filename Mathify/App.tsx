@@ -108,23 +108,7 @@ export const styles = StyleSheet.create({
         borderRadius: 20,
         elevation: 50,
     },
-    modalContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Sfondo semi-trasparente
-    },
-    modalContent: {
-        width: '90%',
-        backgroundColor: '#ffffff', // Sfondo del contenuto del modale
-        borderRadius: 10,
-        padding: 20,
-        elevation: 5, // Ombra su Android
-        shadowColor: '#000', // Ombra su iOS
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.3,
-        shadowRadius: 4,
-    },
+
     header: {
         fontSize: 18,
         fontWeight: 'bold',
