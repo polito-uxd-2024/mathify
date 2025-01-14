@@ -14,13 +14,20 @@ const { LightTheme, DarkTheme } = adaptNavigationTheme({
     reactNavigationLight: NavigationDefaultTheme,
     reactNavigationDark: NavigationDarkTheme,
 });
-
-export const CombinedDefaultTheme = merge(MD3LightTheme, LightTheme);
+const fontConfig = {
+    regular: {
+        fontFamily: 'Itim-Regular',
+        fontWeight: 'normal',
+    },
+};
+export const CombinedDefaultTheme = {
+    ...merge(MD3LightTheme, LightTheme),
+    fonts: { ...MD3LightTheme.fonts, ...fontConfig },
+};
 export const CombinedDarkTheme = merge(MD3DarkTheme, DarkTheme);
-export const myTheme = {...CombinedDefaultTheme,  colors: {
+export const myTheme = {...CombinedDefaultTheme,
+    colors: {
         ...CombinedDefaultTheme.colors,
         primary: 'rgb(57,189,194)',
-
-
-
-    },};
+        },
+    };

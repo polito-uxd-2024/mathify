@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39542f42-9a80-4e54-af61-1f4385b67116" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Mathify/assets/fonts/Itim-Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mathify/declarations.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/pages/SfideCompletate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/SfideCompletate.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mathify/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mathify/Component/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/theme.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mathify/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mathify/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mathify/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +22,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -44,8 +50,8 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/chicc/Documents/Lavoro e Studio/Università/UxDesign/mathify/Mathify&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;grafica&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/ILARIA/mathify/Mathify/assets/fonts&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -56,6 +62,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\ILARIA\mathify\Mathify\assets\fonts" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -84,6 +95,17 @@
       <workItem from="1736694622864" duration="467000" />
       <workItem from="1736695507902" duration="39000" />
       <workItem from="1736695693144" duration="379000" />
+      <workItem from="1736809240037" duration="1592000" />
+      <workItem from="1736810867959" duration="1522000" />
+      <workItem from="1736812420484" duration="349000" />
+      <workItem from="1736812784574" duration="112000" />
+      <workItem from="1736812904138" duration="240000" />
+      <workItem from="1736813157693" duration="292000" />
+      <workItem from="1736813462604" duration="107000" />
+      <workItem from="1736813580349" duration="744000" />
+      <workItem from="1736814341268" duration="272000" />
+      <workItem from="1736814623888" duration="73000" />
+      <workItem from="1736814704815" duration="251000" />
     </task>
     <servers />
   </component>
