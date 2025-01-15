@@ -28,7 +28,7 @@ export const fetchUser = async (userId: string): Promise<Utente> => {
                     correttezza: data.SfideCompletate[key].Domande[k].Correttezza
                 })),
                 xpGuadagnati: data.SfideCompletate[key].XP,
-                id: data.SfideCompletate[key].id,
+                titolo: data.SfideCompletate[key].Titolo,
                 dataCompletamento: new Date(data.SfideCompletate[key].DataCompletamento),
                 argomento: data.SfideCompletate[key].Argomento
             }))

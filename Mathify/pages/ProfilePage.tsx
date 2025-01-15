@@ -171,7 +171,7 @@ export default function ProfilePage() {
                                     </View>
                                     <View style={{ marginTop: 10 }}>
                                         <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 8 }}>
-                                            {item.id} {/* Nome della sfida o del badge */}
+                                            {item.titolo} {/* Nome della sfida o del badge */}
                                         </Text>
                                         <Text style={{ fontSize: 14, color: 'gray', textAlign: 'center', marginTop: 4 }}>
                                            Complimenti! Hai guadagnato {item.xpGuadagnati} XP {/* Punteggio guadagnato */}

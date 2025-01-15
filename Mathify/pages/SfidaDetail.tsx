@@ -27,7 +27,7 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
             <Image source={require('../assets/placeholder.jpg')} style={styles.coverImage}/>
             <View style={styles.cover}>
                 <View style={{flexDirection: 'row', marginTop: 20, alignItems: 'center', justifyContent: 'space-between'}}>
-                    <Text style={styles.sectionText}>Titolo (non fetcha)</Text>
+                    <Text style={styles.sectionText}>{sfida.titolo}</Text>
                     <Text>{sfida.stringacompletamento}</Text>
                 </View>
                 <Text style={styles.subtitle}>{sfida.argomento}</Text>

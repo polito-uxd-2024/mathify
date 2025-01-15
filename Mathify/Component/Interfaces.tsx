@@ -29,7 +29,7 @@ export interface SfidaCompletata{
     tempoImpiegato:number;
     domande:QuestionDone[];
     xpGuadagnati:number;
-    id:string;
+    titolo:string;
     argomento:string;
     dataCompletamento:Date;
 
