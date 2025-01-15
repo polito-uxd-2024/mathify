@@ -21,7 +21,7 @@ export default function Impostazioni() {
                     </Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16 }}>
                         <Text style={{ fontSize: 14, marginLeft: 7, color: "gray",marginRight: 8 }}>
-                            Non verificato
+                            {state.utente.verifica ? "Verificato" : "Non verificato"}
                         </Text>
                         <MaterialCommunityIcons
                             name="information"
