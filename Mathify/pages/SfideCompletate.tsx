@@ -40,8 +40,9 @@ export default function SfideCompletate() {
                     <View style={styles.article}>
                         <View style={styles.cardBase}>
                             <Card style={styles.card}>
-                                <Card.Title title={item.id} />
+                                <Card.Title title={item.titolo} />
                                 <Card.Content>
+                                    <Text>titolo {item.id}</Text>
                                     <Text>punteggio {item.punteggio}</Text>
                                     <Text style={styles.callout}>
                                         <Icon size={20} source="star" color='white' />

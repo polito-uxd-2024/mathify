@@ -7,7 +7,6 @@ export const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         backgroundColor: 'rgb(255,255,255)',
-        justifyContent: 'center',
         paddingHorizontal: 25,
         paddingTop: 30,
     },
@@ -21,16 +20,32 @@ export const styles = StyleSheet.create({
         //borderColor: 'red',
         //borderWidth: 3,
     },
+    cover: {
+        padding: 20,
+        //borderColor: 'yellow',
+        //borderWidth: 3,
+        backgroundColor: 'lightgray',
+    },
     welcomeText: {
         fontSize: 30,
         fontWeight: 'bold',
-        paddingLeft: 10,
     },
     sectionText: {
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 0,
-        paddingLeft: 10,
+    },
+    calloutText: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: 'white',
+        marginBottom: 0,
+    },
+    subtitle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'gray',
+        marginBottom: 0,
     },
     cardBase: {
         flex: 1,
@@ -52,6 +67,17 @@ export const styles = StyleSheet.create({
         paddingBottom: 5,
         paddingRight: 4,
         borderRadius: 10,
+    },
+    answerCardBase: {
+        flex: 1,
+        width: '100%',
+        backgroundColor: 'black',
+        paddingLeft: 0,
+        paddingTop: 0,
+        paddingBottom: 5,
+        paddingRight: 4,
+        borderRadius: 6,
+        marginVertical: 7,
     },
     card: {
         margin: 0,
@@ -75,6 +101,14 @@ export const styles = StyleSheet.create({
         borderWidth: 3,
         backgroundColor: 'rgb(192,227,195)',
     },
+    answerCard: {
+        padding: 10,
+        margin: 0,
+        borderRadius: 6,
+        borderColor: 'black',
+        borderWidth: 2,
+        backgroundColor: 'rgb(192,227,195)',
+    },
     input: {
         marginBottom: 10,
         borderRadius: 20,
@@ -96,17 +130,29 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 60,
         marginVertical: 5,
     },
-
-
-
-
-
+    coverImage: {
+        width: '100%',
+        height: 200,
+        resizeMode: 'cover',
+    },
     callout: {
         backgroundColor: 'gray',
         padding: 2,
-        borderRadius: 10,
+        borderRadius: 20,
         width: 100,
     },
+    bookmark: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 0,
+        borderBottomRightRadius: 25,
+        borderBottomLeftRadius: 25,
+        paddingVertical: 8,
+        backgroundColor: 'lightgray',
+        width: '40%',
+    },
+
+
 
     footer: {
         padding: 20,
