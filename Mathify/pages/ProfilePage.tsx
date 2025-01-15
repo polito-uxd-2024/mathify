@@ -17,6 +17,7 @@ export default function ProfilePage() {
     const navigation = useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
     const [state] = useContext(StateContext);
     useSetCurrentUser("Utente1");
+    console.log(state.utente);
 
     return (
 
@@ -147,7 +148,7 @@ export default function ProfilePage() {
                                 }}
                             >
                                 <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
-                                    Vedi Tutti >
+                                    Vedi Tutti
                                 </Text>
                             </Button>
                         </View>

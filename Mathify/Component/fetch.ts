@@ -22,8 +22,8 @@ export const fetchUser = async (userId: string): Promise<Utente> => {
                 tempoImpiegato: data.SfideCompletate[key].TempoImpiegato,
                 domande: Object.keys(data.SfideCompletate[key].Domande).map(k => ({
                     Testo: data.SfideCompletate[key].Domande[k].Testo,
-                    Risposte: [data.SfideCompletate[key].Domande[k].A, data.SfideCompletate[key].Domande[k].B, data.SfideCompletate[key].Domande[k].C, data.SfideCompletate[key].Domande[k].D],
-                    RispostaCorretta: data.SfideCompletate[key].Domande[k].Soluzione,
+                    Risposte: [data.SfideCompletate[key].Domande[k].Risposte.map((risposta: string) => risposta)],
+                    RispostaCorretta: data.SfideCompletate[key].Domande[k].RispostaCorretta,
                     tempoImpiegato: data.SfideCompletate[key].Domande[k].TempoImpiegato,
                     correttezza: data.SfideCompletate[key].Domande[k].Correttezza
                 })),

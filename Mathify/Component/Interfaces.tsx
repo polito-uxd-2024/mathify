@@ -6,6 +6,8 @@ export interface Question {
     Grafico:boolean;
     GraficList:string[];
 }
+/*
+*/
 export interface Sfida{
 
     questions: Question[];
@@ -32,6 +34,7 @@ export interface SfidaCompletata{
     titolo:string;
     argomento:string;
     dataCompletamento:Date;
+
 
 }
 export interface QuestionDone {

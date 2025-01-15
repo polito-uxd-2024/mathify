@@ -139,7 +139,9 @@ export default function PlayScreen() {
             punteggio: punteggioOttenuto,
             tempoImpiegato: timerDuration * challenge.questions.length,
             xpGuadagnati: totaleXP, // Calcolo diretto qui
-            id: state.selectedChallenge.titolo,
+            titolo: state.selectedChallenge.titolo,
+            argomento: state.selectedChallenge.argomento,
+            dataCompletamento: new Date(),
 
 
         };
