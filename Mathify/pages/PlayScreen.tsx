@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, ScrollView } from "react-native";
-import { Appbar, Card, Button, Text, ProgressBar, useTheme } from "react-native-paper";
-import { Sfida } from "../Component/Interfaces";
+import {View, ScrollView} from "react-native";
+import {Appbar, Card, Button, Text, ProgressBar, useTheme, Portal, Dialog, TextInput, Modal} from "react-native-paper";
+import {DomandaSegnalata, Sfida} from "../Component/Interfaces";
 import { StateContext } from "../Reducer";
 import Collapsible from "react-native-collapsible";
 import {registraSfidaCompletata} from "../Component/writeOnDb";
 import {aggiornaLivello} from "../Component/aggiornaLivello";
 import {useSetCurrentUser} from "../Component/setUser";
+import {styles} from "../Component/style";
 
 export default function PlayScreen() {
     const { colors } = useTheme();
@@ -39,6 +40,25 @@ export default function PlayScreen() {
     const [dueTentativi, setDueTentativi] = useState(true);
     const [tentativiAttivo, setTentativiAttivo] = useState(false);
     const [grafico, setGrafico] = useState(true)
+
+    //Gestione della Segnalazione
+    const [segnalazioni, setSegnalazioni] = useState<DomandaSegnalata[]>([]);
+    const [motivo, setMotivo] = useState("");
+    const [isDialogVisible, setDialogVisible] = useState(false);
+    const handleSegnala=()=>{
+
+        const domanda=state.selectedChallenge.questions[currentQuestionIndex]
+        const sfida=state.selectedChallenge
+        const segnalazione={
+            domanda:{testo:domanda.Testo,risposte:domanda.Risposte,rispostaCorretta:domanda.Soluzione},
+            motivo:motivo,
+            sfida:{titolo:sfida.titolo,argomento:sfida.argomento}
+        }
+        setSegnalazioni([...segnalazioni,segnalazione])
+        setDialogVisible(false)
+        console.log(segnalazioni)
+    }
+
 
     // Gestione del timer
     useEffect(() => {
@@ -142,6 +162,7 @@ export default function PlayScreen() {
             titolo: state.selectedChallenge.titolo,
             argomento: state.selectedChallenge.argomento,
             dataCompletamento: new Date(),
+            segnalazioni: segnalazioni,
 
 
         };
@@ -189,6 +210,28 @@ export default function PlayScreen() {
                                 Tempo rimasto: {Math.ceil((1 - timerProgress) * timerDuration)}s
                             </Text>
                             <Text style={{ marginTop: 8 }}>Domande corrette: {punteggioOttenuto}</Text>
+                            <Button onPress={() => setDialogVisible(true)}>Apri Dialog</Button>
+
+                            <Portal>
+                                <Dialog visible={isDialogVisible} onDismiss={() => setDialogVisible(false)}>
+                                    <Dialog.Title>Motivo per segnalare</Dialog.Title>
+                                    <Dialog.Content>
+                                        <TextInput
+                                            label="Motivo"
+                                            value={motivo}
+                                            onChangeText={setMotivo}
+                                            multiline
+                                            numberOfLines={4}
+                                            style={styles.input}
+                                        />
+                                    </Dialog.Content>
+                                    <Dialog.Actions>
+                                        <Button onPress={() => setDialogVisible(false)}>Annulla</Button>
+                                        <Button onPress={handleSegnala}>Segnala</Button>
+                                    </Dialog.Actions>
+                                </Dialog>
+                            </Portal>
+
                         </Card.Content>
                     </Card>
                 </View>
@@ -206,6 +249,8 @@ export default function PlayScreen() {
                         <Text style={{ textAlign: "center", padding: 10 }}>Doppio tentativo</Text>
                         <Text>Disponibilità: {dueTentativi ? "1" : "0"}</Text>
                     </Card>
+
+
                 </View>
             </View>
         );

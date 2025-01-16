@@ -30,7 +30,8 @@ export const fetchUser = async (userId: string): Promise<Utente> => {
                 xpGuadagnati: data.SfideCompletate[key].XP,
                 titolo: data.SfideCompletate[key].Titolo,
                 dataCompletamento: new Date(data.SfideCompletate[key].DataCompletamento),
-                argomento: data.SfideCompletate[key].Argomento
+                argomento: data.SfideCompletate[key].Argomento,
+                segnalazioni:data.SfideCompletate[key].Segnalazioni
             }))
         };
         return user;

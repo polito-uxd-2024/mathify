@@ -33,6 +33,7 @@ export async function registraSfidaCompletata(sfidaCompletata: SfidaCompletata, 
             Titolo: sfidaCompletata.titolo,
             Argomento: selectedChallenge.argomento,
             Difficoltà: selectedChallenge.difficoltà,
+            Segnalazioni: sfidaCompletata.segnalazioni
         };
 
         // Save the data in the database

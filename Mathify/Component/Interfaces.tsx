@@ -34,6 +34,7 @@ export interface SfidaCompletata{
     titolo:string;
     argomento:string;
     dataCompletamento:Date;
+    segnalazioni:DomandaSegnalata[];
 
 
 }
@@ -44,4 +45,9 @@ export interface QuestionDone {
     tempoImpiegato:number;
     correttezza:boolean;
 
+}
+export interface DomandaSegnalata{
+    domanda:{testo:string,risposte:string[],rispostaCorretta:string},
+    motivo:string,
+    sfida:{titolo:string,argomento:string}
 }
