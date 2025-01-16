@@ -82,8 +82,6 @@ function ProfileStackScreen() {
             <ProfileStack.Screen name="Classe" component={Classe}/>
 
             <ProfileStack.Screen name="Verifica" component={Verifica} options={{ presentation: 'modal', headerShown:true }} />
-            <ProfileStack.Screen name="ListaBadge" component={BadgeList} />
-            <ProfileStack.Screen name="Verifica" component={Verifica} options={{headerShown:true}}/>
             <ProfileStack.Screen name="ListaBadge" component={BadgeList} options={{headerShown:true}}/>
 
         </ProfileStack.Navigator>
