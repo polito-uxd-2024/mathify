@@ -158,7 +158,7 @@ export default function ProfilePage() {
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', paddingHorizontal: 16 }}>
 
                             {/* Mostra tutti i badge vinti */}
-                            {state.utente.sfideCompletate.slice(0, 3).map((item, index) => ( // Limita a 3 badge vinti
+                            {state.utente.sfideCompletate.reverse().slice(0, 3).map((item, index) => ( // Limita a 3 badge vinti
                                 <View key={index} style={{ alignItems: 'center', width: 100, marginRight: 16 }}>
                                     <View
                                         style={{ width: 80, height: 80, borderRadius: 40, backgroundColor: '#3498db', justifyContent: 'center', alignItems: 'center' }}
@@ -184,6 +184,7 @@ export default function ProfilePage() {
                             {/* Mostra i badge fissi nella schermata del profilo */}
                             {['Velocista', 'Stakanovista', 'Perfezionista']
                                 .filter(badge => !state.utente.sfideCompletate.some(item => item.id === badge)) // Mostra solo i badge che non sono stati vinti
+                                .reverse()
                                 .slice(0, 3 - state.utente.sfideCompletate.length) // Limita il numero dei badge fissi per mantenere 3 badge in totale
                                 .map((badge, index) => (
                                     <View key={index} style={{ alignItems: 'center', width: 100 }}>
