@@ -18,6 +18,7 @@ export default function ProfilePage() {
     const [state] = useContext(StateContext);
     useSetCurrentUser("Utente1");
 
+
     return (
 
         <View style={{ flex: 1 }}>
@@ -155,53 +156,57 @@ export default function ProfilePage() {
                         {/* Visualizzazione dei primi 3 badge */}
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', paddingHorizontal: 16 }}>
 
-                            {/* Mostra prima il badge con gli XP guadagnati */}
-                            {state.utente.sfideCompletate.map((item, index) =>  (
+                            {/* Mostra tutti i badge vinti */}
+                            {state.utente.sfideCompletate.slice(0, 3).map((item, index) => ( // Limita a 3 badge vinti
                                 <View key={index} style={{ alignItems: 'center', width: 100, marginRight: 16 }}>
                                     <View
-                                        style={{width: 80, height: 80, borderRadius: 40, backgroundColor: '#3498db', // Colore fisso, può essere cambiato
-                                            justifyContent: 'center', alignItems: 'center',
-                                        }}
+                                        style={{ width: 80, height: 80, borderRadius: 40, backgroundColor: '#3498db', justifyContent: 'center', alignItems: 'center' }}
                                     >
                                         <MaterialCommunityIcons
-                                            name="trophy" // Icona generica per il badge
+                                            name="trophy"
                                             size={40}
                                             color="white"
                                         />
                                     </View>
                                     <View style={{ marginTop: 10 }}>
                                         <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 8 }}>
-                                            {item.id} {/* Nome della sfida o del badge */}
+                                            {item.argomento} {/* Nome della sfida o del badge */}
                                         </Text>
                                         <Text style={{ fontSize: 14, color: 'gray', textAlign: 'center', marginTop: 4 }}>
-                                           Complimenti! Hai guadagnato {item.xpGuadagnati} XP {/* Punteggio guadagnato */}
+                                            Complimenti! Hai guadagnato {item.xpGuadagnati} XP
                                         </Text>
                                     </View>
                                 </View>
                             ))}
 
-                            {/* Mostra i badge fissi nella prima pagina */}
-                            {state.utente.sfideCompletate.length < 3 && ['Velocista', 'Stakanovista', 'Perfezionista'].slice(0, 3 - state.utente.sfideCompletate.length).map((badge, index) => (
-                                <View key={index} style={{ alignItems: 'center', width: 100 }}>
-                                    <View style={{width: 80, height: 80, borderRadius: 40, backgroundColor: badge === 'Velocista' ? '#ff6f61' : badge === 'Stakanovista' ? '#4caf50' : '#ffc107', // Colore distintivo
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                        <MaterialCommunityIcons
-                                            name={badge === 'Velocista' ? 'run-fast' : badge === 'Stakanovista' ? 'arm-flex' : 'star'}
-                                            size={40}
-                                            color="white"
-                                        />
+                            {/* Mostra i badge fissi nella schermata del profilo */}
+                            {['Velocista', 'Stakanovista', 'Perfezionista']
+                                .filter(badge => !state.utente.sfideCompletate.some(item => item.id === badge)) // Mostra solo i badge che non sono stati vinti
+                                .slice(0, 3 - state.utente.sfideCompletate.length) // Limita il numero dei badge fissi per mantenere 3 badge in totale
+                                .map((badge, index) => (
+                                    <View key={index} style={{ alignItems: 'center', width: 100 }}>
+                                        <View style={{
+                                            width: 80, height: 80, borderRadius: 40,
+                                            backgroundColor: badge === 'Velocista' ? '#ff6f61' : badge === 'Stakanovista' ? '#4caf50' : '#ffc107',
+                                            justifyContent: 'center', alignItems: 'center'
+                                        }}>
+                                            <MaterialCommunityIcons
+                                                name={badge === 'Velocista' ? 'run-fast' : badge === 'Stakanovista' ? 'arm-flex' : 'star'}
+                                                size={40}
+                                                color="white"
+                                            />
+                                        </View>
+                                        <View style={{ marginTop: 10 }}>
+                                            <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 8 }}>
+                                                {badge}
+                                            </Text>
+                                            <Text style={{ fontSize: 14, color: 'gray', textAlign: 'center', marginTop: 4 }}>
+                                                {badge === 'Velocista' ? 'Sfida completata in meno di due minuti' : badge === 'Stakanovista' ? '3 sfide nella stessa giornata' : '10 domande di fila'}
+                                            </Text>
+                                        </View>
                                     </View>
-                                    <View style={{ marginTop: 10 }}>
-                                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 8 }}>
-                                            {badge}
-                                        </Text>
-                                        <Text style={{ fontSize: 14, color: 'gray', textAlign: 'center', marginTop: 4 }}>
-                                            {badge === 'Velocista' ? 'Sfida completata in meno di due minuti' : badge === 'Stakanovista' ? '3 sfide nella stessa giornata' : '10 domande di fila'}
-                                        </Text>
-                                    </View>
-                                </View>
-                            ))}
+                                ))}
+
                         </View>
 
                         {/* Visualizza Specialità */}
