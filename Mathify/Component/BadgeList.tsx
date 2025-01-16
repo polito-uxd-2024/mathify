@@ -21,7 +21,7 @@ export default function BadgeList(){
     ];
 
     // Combinare i badge non visibili e quelli fissi
-    const allBadgesToShow = [...previousBadges, ...fixedBadges];
+    const allBadgesToShow = [...previousBadges,...fixedBadges];
 
     return (
         <View style={{ flex: 1 }}>
