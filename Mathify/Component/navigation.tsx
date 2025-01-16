@@ -6,7 +6,7 @@ import Classe from "../pages/Classe";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { createStackNavigator } from "@react-navigation/stack";
 import PlayScreen from "../pages/PlayScreen";
-import Materiale from "../pages/Materiale";
+import Materiale, {PredefinedMaterial} from "../pages/Materiale";
 import Impostazioni from "../pages/Impostazioni";
 import Verifica from "../pages/Verifica";
 
@@ -16,6 +16,7 @@ import {Challenge} from "./SegmentedButton";
 import {SfidaCompletata} from "./Interfaces";
 import SfidaDetail from "../pages/SfidaDetail";
 import BadgeList from "./BadgeList";
+import MaterialeDetail from "../pages/MaterialeDetail";
 
 export type RootStackParamList = {
     Main: undefined;
@@ -43,6 +44,10 @@ export type HomeStackParamList = {
     AllListChallenges: { filteredChallenges: Challenge[] };
     SfidaDetail: { sfida: SfidaCompletata };
 }
+export type MaterialeStackParamList = {
+    MaterialeDetail: { Materiale: PredefinedMaterial };
+    Materiale: undefined;
+}
 
 
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -50,6 +55,15 @@ const Play = createStackNavigator<PlayParamList>();
 const ProfileStack = createStackNavigator<ProfileStackParamList>();
 const RootStack = createStackNavigator<RootStackParamList>();
 const HomeStack = createStackNavigator<HomeStackParamList>();
+const MaterialeStack = createStackNavigator<MaterialeStackParamList>();
+function MaterialeStackScreen() {
+    return (
+        <MaterialeStack.Navigator screenOptions={{headerShown:false}}>
+            <MaterialeStack.Screen name="Materiale" component={Materiale} />
+            <MaterialeStack.Screen name="MaterialeDetail" component={MaterialeDetail} options={{headerShown:true}} />
+        </MaterialeStack.Navigator>
+    );
+}
 function HomeStackScreen() {
     return (
         <HomeStack.Navigator screenOptions={{headerShown:false}}>
@@ -101,7 +115,7 @@ function Tabs() {
         })}
         >
             <Tab.Screen name="Home" component={HomeStackScreen} />
-            <Tab.Screen name="Materiale" component={Materiale}/>
+            <Tab.Screen name="Materiale" component={MaterialeStackScreen}/>
             <Tab.Screen name="Profile" component={ProfileStackScreen} />
             <Tab.Screen name="Classe" component={Classe} />
         </Tab.Navigator>
