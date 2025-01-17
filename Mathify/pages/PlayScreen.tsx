@@ -246,7 +246,27 @@ export default function PlayScreen() {
                     </Text>
                     <Text style={{ marginTop: 8 }}>Domande corrette: {punteggioOttenuto}</Text>
                     <Text>GraficoRisposteAttivo: {graficoRisposteAttivo.toString()}</Text>
+                    <Button onPress={() => setDialogVisible(true)}>Apri Dialog</Button>
 
+                    <Portal>
+                        <Dialog visible={isDialogVisible} onDismiss={() => setDialogVisible(false)}>
+                            <Dialog.Title>Motivo per segnalare</Dialog.Title>
+                            <Dialog.Content>
+                                <TextInput
+                                    label="Motivo"
+                                    value={motivo}
+                                    onChangeText={setMotivo}
+                                    multiline
+                                    numberOfLines={4}
+                                    style={styles.input}
+                                />
+                            </Dialog.Content>
+                            <Dialog.Actions>
+                                <Button onPress={() => setDialogVisible(false)}>Annulla</Button>
+                                <Button onPress={handleSegnala}>Segnala</Button>
+                            </Dialog.Actions>
+                        </Dialog>
+                    </Portal>
                 </Card.Content>
 
                 <View
