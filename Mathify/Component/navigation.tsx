@@ -80,8 +80,9 @@ function ProfileStackScreen() {
             <ProfileStack.Screen name="Profile" component={ProfilePage} />
             <ProfileStack.Screen name="Impostazioni" component={Impostazioni} options={{headerShown:true}}/>
             <ProfileStack.Screen name="Classe" component={Classe}/>
+
             <ProfileStack.Screen name="Verifica" component={Verifica} options={{ presentation: 'modal', headerShown:true }} />
-            <ProfileStack.Screen name="ListaBadge" component={BadgeList} />
+            <ProfileStack.Screen name="ListaBadge" component={BadgeList} options={{headerShown:true}}/>
 
         </ProfileStack.Navigator>
     );
