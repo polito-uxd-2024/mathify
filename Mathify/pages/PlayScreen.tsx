@@ -44,7 +44,9 @@ export default function PlayScreen() {
     const [grafico, setGrafico] = useState(true)
     const [graficoRisposteAttivo, setGraficoRisposteAttivo] = useState(false)
     const [graficoDomandaAttivo, setGraficoDomandaAttivo] = useState(false)
-    //const [segnalazioni, setSegnalazioni] = useState<DomandaSegnalata[]>([]);
+    const [clickedButtonIndex, setClickedButtonIndex] = useState<number | null>(null);
+    const [isCorrectAnswer, setIsCorrectAnswer] = useState<boolean | null>(null);
+
 
     //Gestione della Segnalazione
     const [segnalazioni, setSegnalazioni] = useState<DomandaSegnalata[]>([]);
@@ -68,12 +70,17 @@ export default function PlayScreen() {
     useEffect(() => {
         const timerInterval = setInterval(() => {
             setTimerProgress((prev) => {
-                const newProgress = prev + 1 / timerDuration;
-                return newProgress >= 1 ? 1 : parseFloat(newProgress.toFixed(3));
+                if (prev < 1) {
+                    const newProgress = prev + 1 / timerDuration;
+                    return newProgress >= 1 ? 1 : parseFloat(newProgress.toFixed(3));
+                } else {
+                    handleAnswerPress("Tempo scaduto!!", -1);
+                    return 0; // Assicurati che il timer si fermi
+                }
             });
-
         }, 1000);
 
+        // Pulizia per evitare timer duplicati
         return () => clearInterval(timerInterval);
     }, [currentQuestionIndex, changePage]);
 
@@ -99,11 +106,6 @@ export default function PlayScreen() {
             }
         }
     }
-    /*
-    const aggiungiSegnalazione = (segnalazione:DomandaSegnalata) => {
-        setSegnalazioni((prev) => [...prev, segnalazione])
-    }
-     */
 
     const handleNextQuestion = () => {
         const currentTime = Date.now();
@@ -122,9 +124,12 @@ export default function PlayScreen() {
         }
     };
 
-    const handleAnswerPress = (risposta: string) => {
+    const handleAnswerPress = (risposta: string, index: number) => {
+        const isCorrect = risposta === currentQuestion.Soluzione;
+        setIsCorrectAnswer(isCorrect);
+        setClickedButtonIndex(index);
+
         if (!tentativiAttivo) {
-            const isCorrect = risposta === currentQuestion.Soluzione;
             setPunteggioOttenuto((prev) => (isCorrect ? prev + 1 : prev));
             setRisposte((prev) => [...prev, isCorrect]);
             setListaRispsoteDate((prev) => [...prev, risposta]);
@@ -146,7 +151,12 @@ export default function PlayScreen() {
         if (changePage) {
             const correctAnswers = risposte.filter((risposta) => risposta).length;
             const xpCorretto = correctAnswers * 10;
-            const tempoTotXP = Math.round(timerDuration * risposte.length - listaTempoDomande.reduce((acc, cur) => acc + cur, 0));
+            //const tempoTotXP = Math.round(timerDuration * risposte.length - listaTempoDomande.reduce((acc, cur) => acc + cur, 0));
+            const tempoTotXP = listaTempoDomande.reduce((sum, num, index) => {
+                // Arrotonda il numero prima di moltiplicarlo
+                const numArrotondato = Math.round(timerDuration - num);
+                return sum + (numArrotondato * (risposte[index] ? 1 : 0));  // Moltiplica solo se il booleano è true
+            }, 0);
             setXpCorrect(xpCorretto);
             setTempoTotaleXP(tempoTotXP);
             setXp(state.selectedChallenge.difficoltà * 50 + xpCorretto + tempoTotXP);
@@ -229,8 +239,8 @@ export default function PlayScreen() {
                             )}
                             <Button
                                 mode="contained"
-                                style={{ flex: 1 }} // Il pulsante occupa tutto lo spazio rimanente
-                                onPress={() => handleAnswerPress(risposta)}
+                                style={{ flex: 1, backgroundColor: clickedButtonIndex===index ? isCorrectAnswer ? "green" : "red" : colors.primary }} // Il pulsante occupa tutto lo spazio rimanente
+                                onPress={() => handleAnswerPress(risposta, index)}
                             >
                                 {risposta} {/* Modifica "risposta" in base alla struttura del tuo oggetto */}
                             </Button>
@@ -244,29 +254,9 @@ export default function PlayScreen() {
                     <Text style={{ marginTop: 8 }}>
                         Tempo rimasto: {Math.ceil((1 - timerProgress) * timerDuration)}s
                     </Text>
+                    TimerProgress: {timerProgress.toString()}
                     <Text style={{ marginTop: 8 }}>Domande corrette: {punteggioOttenuto}</Text>
                     <Text>GraficoRisposteAttivo: {graficoRisposteAttivo.toString()}</Text>
-                    <Button onPress={() => setDialogVisible(true)}>Apri Dialog</Button>
-
-                    <Portal>
-                        <Dialog visible={isDialogVisible} onDismiss={() => setDialogVisible(false)}>
-                            <Dialog.Title>Motivo per segnalare</Dialog.Title>
-                            <Dialog.Content>
-                                <TextInput
-                                    label="Motivo"
-                                    value={motivo}
-                                    onChangeText={setMotivo}
-                                    multiline
-                                    numberOfLines={4}
-                                    style={styles.input}
-                                />
-                            </Dialog.Content>
-                            <Dialog.Actions>
-                                <Button onPress={() => setDialogVisible(false)}>Annulla</Button>
-                                <Button onPress={handleSegnala}>Segnala</Button>
-                            </Dialog.Actions>
-                        </Dialog>
-                    </Portal>
                 </Card.Content>
 
                 <View
@@ -296,6 +286,27 @@ export default function PlayScreen() {
                     </Card>
 
                 </View>
+                <Button style = {{width:"50%", alignSelf:"center"}} mode="contained-tonal" onPress={() => setDialogVisible(true)}>Apri Dialog</Button>
+
+                <Portal>
+                    <Dialog visible={isDialogVisible} onDismiss={() => setDialogVisible(false)}>
+                        <Dialog.Title>Motivo per segnalare</Dialog.Title>
+                        <Dialog.Content>
+                            <TextInput
+                                label="Motivo"
+                                value={motivo}
+                                onChangeText={setMotivo}
+                                multiline
+                                numberOfLines={4}
+                                style={styles.input}
+                            />
+                        </Dialog.Content>
+                        <Dialog.Actions>
+                            <Button onPress={() => setDialogVisible(false)}>Annulla</Button>
+                            <Button onPress={handleSegnala}>Segnala</Button>
+                        </Dialog.Actions>
+                    </Dialog>
+                </Portal>
             </View>
         );
 
@@ -316,9 +327,11 @@ export default function PlayScreen() {
 
                             <Collapsible collapsed={revisione !== index}>
 
-                                    <Text>Tempo Impiegato: {listaTempoDomande[index]} s</Text>
+                                    <Text>Tempo Impiegato: {Math.round(listaTempoDomande[index])} s</Text>
                                     <Text>Risposta data: {listaRisposteDate[index]}</Text>
                                     <Text>Risposta corretta: {state.selectedChallenge.questions[index].Soluzione}</Text>
+                                    <Text>Soluzione: {state.selectedChallenge.questions[index].Soluzione}</Text>
+                                    <Text>Punti guadagnati: {risposte[index]? Math.round(10 + timerDuration - listaTempoDomande[index])  : 0}</Text>
 
                             </Collapsible>
                         </Card.Content>
