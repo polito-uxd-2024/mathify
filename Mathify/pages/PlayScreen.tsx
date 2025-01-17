@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { View, ScrollView } from "react-native";
 import { Appbar, Card, Button, Text, ProgressBar, useTheme } from "react-native-paper";
-import { Sfida } from "../Component/Interfaces";
+import {DomandaSegnalata, Sfida} from "../Component/Interfaces";
 import { StateContext } from "../Reducer";
 import Collapsible from "react-native-collapsible";
 import {registraSfidaCompletata} from "../Component/writeOnDb";
@@ -44,6 +44,7 @@ export default function PlayScreen() {
     const [grafico, setGrafico] = useState(true)
     const [graficoRisposteAttivo, setGraficoRisposteAttivo] = useState(false)
     const [graficoDomandaAttivo, setGraficoDomandaAttivo] = useState(false)
+    //const [segnalazioni, setSegnalazioni] = useState<DomandaSegnalata[]>([]);
 
     // Gestione del timer
     useEffect(() => {
@@ -80,6 +81,11 @@ export default function PlayScreen() {
             }
         }
     }
+    /*
+    const aggiungiSegnalazione = (segnalazione:DomandaSegnalata) => {
+        setSegnalazioni((prev) => [...prev, segnalazione])
+    }
+     */
 
     const handleNextQuestion = () => {
         const currentTime = Date.now();
@@ -224,6 +230,9 @@ export default function PlayScreen() {
                     <Text>GraficoRisposteAttivo: {graficoRisposteAttivo.toString()}</Text>
 
                 </Card.Content>
+                <Button mode="contained" onPress={aggiungiSegnalazione(
+                    {domanda: {testo:state.selectedChallenge.questions[currentQuestionIndex].Testo, risposte: [state.selectedChallenge.]}}
+                )}>Segnala domanda</Button>
                 <View
                     style={{
                         flexDirection: "row",
