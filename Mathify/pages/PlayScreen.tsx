@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { View, ScrollView } from "react-native";
-import { Appbar, Card, Button, Text, ProgressBar, useTheme } from "react-native-paper";
+import {Appbar, Card, Button, Text, ProgressBar, useTheme, Dialog, TextInput, Portal} from "react-native-paper";
 import {DomandaSegnalata, Sfida} from "../Component/Interfaces";
 import { StateContext } from "../Reducer";
 import Collapsible from "react-native-collapsible";
@@ -46,6 +46,24 @@ export default function PlayScreen() {
     const [graficoDomandaAttivo, setGraficoDomandaAttivo] = useState(false)
     //const [segnalazioni, setSegnalazioni] = useState<DomandaSegnalata[]>([]);
 
+    //Gestione della Segnalazione
+    const [segnalazioni, setSegnalazioni] = useState<DomandaSegnalata[]>([]);
+    const [motivo, setMotivo] = useState("");
+    const [isDialogVisible, setDialogVisible] = useState(false);
+    const handleSegnala=()=>{
+
+        const domanda=state.selectedChallenge.questions[currentQuestionIndex]
+        const sfida=state.selectedChallenge
+        console.log("Domanda",domanda)
+        const segnalazione={
+            domanda:{testo:domanda.Testo,risposte:domanda.Risposte,rispostaCorretta:domanda.Soluzione},
+            motivo:motivo,
+            sfida:{titolo:sfida.titolo,argomento:sfida.argomento}
+        }
+        setSegnalazioni([...segnalazioni,segnalazione])
+        setDialogVisible(false)
+
+    }
     // Gestione del timer
     useEffect(() => {
         const timerInterval = setInterval(() => {
@@ -162,7 +180,7 @@ export default function PlayScreen() {
             titolo: state.selectedChallenge.titolo,
             argomento: state.selectedChallenge.argomento,
             dataCompletamento: new Date(),
-
+            segnalazioni: segnalazioni,
 
         };
 
@@ -230,9 +248,7 @@ export default function PlayScreen() {
                     <Text>GraficoRisposteAttivo: {graficoRisposteAttivo.toString()}</Text>
 
                 </Card.Content>
-                <Button mode="contained" onPress={aggiungiSegnalazione(
-                    {domanda: {testo:state.selectedChallenge.questions[currentQuestionIndex].Testo, risposte: [state.selectedChallenge.]}}
-                )}>Segnala domanda</Button>
+
                 <View
                     style={{
                         flexDirection: "row",
@@ -258,6 +274,7 @@ export default function PlayScreen() {
                         <Text style={{ textAlign: "center", padding: 10 }}>Doppio tentativo</Text>
                         <Text>Disponibilità: {dueTentativi ? "1" : "0"}</Text>
                     </Card>
+
                 </View>
             </View>
         );
