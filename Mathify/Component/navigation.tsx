@@ -17,6 +17,7 @@ import {SfidaCompletata} from "./Interfaces";
 import SfidaDetail from "../pages/SfidaDetail";
 import BadgeList from "./BadgeList";
 import MaterialeDetail from "../pages/MaterialeDetail";
+import Segnalazioni from "../pages/Segnalazioni";
 
 export type RootStackParamList = {
     Main: undefined;
@@ -35,6 +36,7 @@ export type ProfileStackParamList = {
     Classe: undefined;
     Verifica: undefined;
     ListaBadge: undefined;
+    Segnalazioni: undefined;
 }
 export type PlayParamList = {
     Play: undefined;
@@ -80,6 +82,7 @@ function ProfileStackScreen() {
             <ProfileStack.Screen name="Profile" component={ProfilePage} />
             <ProfileStack.Screen name="Impostazioni" component={Impostazioni} options={{headerShown:true}}/>
             <ProfileStack.Screen name="Classe" component={Classe}/>
+            <ProfileStack.Screen name={"Segnalazioni"} component={Segnalazioni} options={{headerShown:true}}/>
 
             <ProfileStack.Screen name="Verifica" component={Verifica} options={{ presentation: 'modal', headerShown:true }} />
             <ProfileStack.Screen name="ListaBadge" component={BadgeList} options={{headerShown:true}}/>
