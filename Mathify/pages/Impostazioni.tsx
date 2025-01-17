@@ -4,13 +4,53 @@ import {View, Text, ScrollView} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
 import {ProfileStackParamList} from "../Component/navigation";
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {StateContext} from "../Reducer";
+import { Modal, Pressable } from 'react-native';
+import {useSetCurrentUser} from "../Component/setUser";
+import {registraVerifica} from "../Component/writeOnDb";
 
 export default function Impostazioni() {
     const navigation=useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
     const [state] = useContext(StateContext);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [verificationModal, setVerificationModal] = useState(false);
+    const [successModal, setSuccessModal] = useState(false);
+    const [feedbackMessage, setFeedbackMessage] = useState("");
+    const [hasShownSuccessModal, setHasShownSuccessModal] = useState(false);  // Flag per controllare se il pop-up è già stato mostrato
+    useSetCurrentUser("Utente1");
+
+    const handleVerification = () => {
+        if (state.utente.verifica) {
+            setFeedbackMessage("Il tuo account è già verificato");
+            setVerificationModal(true);
+        } else {
+            registraVerifica("Utente1");
+            setFeedbackMessage("Ti abbiamo inviato una email a " + state.utente.email + ". Per completare la verifica clicca sul link presente nella email.");
+            setVerificationModal(true);
+        }
+    };
+
+    const closeVerificationModal = () => {
+        setVerificationModal(false);
+        if (state.utente.verifica && !hasShownSuccessModal) {
+            setSuccessModal(true);
+            setHasShownSuccessModal(true);  // Imposta il flag per non farlo ripetere
+        }
+    };
+
+    const closeSuccessModal = () => {
+        setSuccessModal(false);
+    };
+
+    useEffect(() => {
+        // Verifica se l'utente è verificato e il pop-up non è ancora stato mostrato
+        if (state.utente.verifica && !hasShownSuccessModal) {
+            setSuccessModal(true); // Mostra il pop-up di successo
+            setHasShownSuccessModal(true);  // Imposta il flag per non farlo ripetere
+        }
+    }, [state.utente.verifica]); // Ora dipende solo da `state.utente.verifica`
 
     return (
         <ScrollView>
@@ -23,14 +63,18 @@ export default function Impostazioni() {
                         <Text style={{ fontSize: 14, marginLeft: 7, color: "gray",marginRight: 8 }}>
                             {state.utente.verifica ? "Verificato" : "Non verificato"}
                         </Text>
-                        <MaterialCommunityIcons
-                            name="information"
-                            size={20}
-                            color="gray" />
+                        <Pressable onPress={() => setModalVisible(true)}>
+                            <MaterialCommunityIcons
+                                name="information"
+                                size={20}
+                                color="gray"
+                            />
+                        </Pressable>
                     </View>
                     <Button
-                        onPress={()=>navigation.navigate("Verifica")}
+                        onPress={handleVerification}
                         style={{backgroundColor: 'white', paddingVertical: 12, borderRadius: 8, elevation: 3, justifyContent: 'center', marginBottom: 10}}
+                        disabled={state.utente.verifica}  // Disabilita il pulsante se l'utente è verificato
                     >
                         <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
                             Verifica >
@@ -39,6 +83,124 @@ export default function Impostazioni() {
                 </Card.Content>
             </Card>
 
+            {/* Info Modal */}
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => setModalVisible(false)}
+            >
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                    <View style={{width: '80%', backgroundColor: 'white',borderRadius: 10, padding: 20, alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5,
+                        position: 'relative' // Posizione relativa per posizionare elementi assoluti all'interno
+                    }}>
+                        {/* Pulsante X in alto a destra */}
+                        <Pressable
+                            style={{position: 'absolute', top: 10, right: 10, backgroundColor: '#e74c3c', borderRadius: 15, padding: 5}}
+                            onPress={() => setModalVisible(false)}
+                        >
+                            <Text style={{ fontSize: 16, color: 'white', fontWeight: 'bold' }}>X</Text>
+                        </Pressable>
+
+                        <Text style={{ fontSize: 16, textAlign: 'center', marginVertical: 20 }}>
+                            Informazioni sul tuo account.
+                        </Text>
+
+                        {/* Controllo dello stato di verifica */}
+                        {state.utente.verifica ? (
+                            <>
+                                {parseInt(state.utente.livello.numero, 10)  >= 10 ? (
+                                    <Text style={{ fontSize: 16, marginBottom: 20, textAlign: 'center', marginTop: 20 }}>
+                                        Il tuo account è verificato e hai il livello necessario per modificare gli argomenti.
+                                    </Text>
+                                ) : (
+                                    <Text style={{ fontSize: 16, marginBottom: 20, textAlign: 'center', marginTop: 20 }}>
+                                        Il tuo account è verificato, ma il tuo livello attuale è {state.utente.livello.numero}. Devi avere il livello 10 o superiore per modificare gli argomenti.
+                                    </Text>
+                                )}
+                            </>
+                        ) : (
+                            <Text style={{ fontSize: 16, marginBottom: 20, textAlign: 'center', marginTop: 20 }}>
+                                Non hai effettuato la verifica della mail associata all'account.
+                                Gli utenti non verificati non possono modificare i contenuti dell'app.
+                            </Text>
+                        )}
+
+                        {/* Pulsante "Ho capito" in basso */}
+                        <Pressable
+                            style={{backgroundColor: '#ddd', padding: 10, borderRadius: 8, marginTop: 20, width: '80%'}}
+                            onPress={() => setModalVisible(false)}
+                        >
+                            <Text style={{ fontSize: 16, color: '#555', textAlign: 'center' }}>Ho capito</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </Modal>
+
+            {/* Verification Modal */}
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={verificationModal}
+                onRequestClose={closeVerificationModal}
+            >
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                    <View style={{width: '80%', backgroundColor: 'white', borderRadius: 10, padding: 20, alignItems: 'center', position: 'relative'}}>
+                        <Pressable
+                            style={{ position: 'absolute', top: 10, right: 10, backgroundColor: '#e74c3c', borderRadius: 15, padding: 5 }}
+                            onPress={closeVerificationModal}
+                        >
+                            <Text style={{ fontSize: 16, color: 'white', fontWeight: 'bold' }}>X</Text>
+                        </Pressable>
+                        <Text style={{ fontSize: 16, textAlign: 'center', marginVertical: 20 }}>
+                            {feedbackMessage}
+                        </Text>
+                        {!state.utente.verifica && (
+                            <Button onPress={() => setFeedbackMessage("Una nuova email è stata inviata!")}>
+                                Inviami un'altra email
+                            </Button>
+                        )}
+                        <Pressable
+                            style={{backgroundColor: '#ddd', padding: 10, borderRadius: 8, marginTop: 20, width: '80%'}}
+                            onPress={closeVerificationModal}
+                        >
+                            <Text style={{ fontSize: 16, color: '#555', textAlign: 'center' }}>Chiudi</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </Modal>
+
+            {/* Success Modal */}
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={successModal}
+                onRequestClose={closeSuccessModal}
+            >
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                    <View style={{width: '80%', backgroundColor: 'white', borderRadius: 10, padding: 20, alignItems: 'center', position: 'relative'}}>
+                        <Pressable
+                            style={{ position: 'absolute', top: 10, right: 10, backgroundColor: '#e74c3c', borderRadius: 15, padding: 5 }}
+                            onPress={closeSuccessModal}
+                        >
+                            <Text style={{ fontSize: 16, color: 'white', fontWeight: 'bold' }}>X</Text>
+                        </Pressable>
+                        <Text style={{ fontSize: 16, textAlign: 'center', marginVertical: 20 }}>
+                            Hai verificato il tuo account!
+                            {parseInt(state.utente.livello.numero, 10) >= 10 && (
+                                <Text> Ora puoi modificare gli argomenti.</Text>
+                            )}
+                        </Text>
+                        <Pressable
+                            style={{backgroundColor: '#ddd', padding: 10, borderRadius: 8, marginTop: 20, width: '80%'}}
+                            onPress={closeSuccessModal}
+                        >
+                            <Text style={{ fontSize: 16, color: '#555', textAlign: 'center' }}>Chiudi</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </Modal>
+
             <Card style={{  marginTop:15,padding: 16, borderRadius: 10, width: '80%', alignSelf: 'center' }}>
                 <Card.Content>
                     <Text style={{ fontSize: 25, fontWeight: "bold", marginLeft: 20 }}>
@@ -46,7 +208,7 @@ export default function Impostazioni() {
                     </Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16 }}>
                         <Text style={{ fontSize: 25, marginLeft: 7, color: "black",marginRight: 8 }}>
-                           5A
+                            5A
                         </Text>
                         <Text style={{ fontSize: 14, marginLeft: 7, color: "gray",marginRight: 8 }}>
                             Prof Giovanni Rossi
@@ -76,7 +238,7 @@ export default function Impostazioni() {
                 </Button>
                 <Button style={{backgroundColor: 'white', paddingVertical: 12, borderRadius: 8, elevation: 3, justifyContent: 'center', marginBottom: 10}}>
                     <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
-                      Pagine Modificate >
+                        Pagine Modificate >
                     </Text>
                 </Button>
                 <Button style={{backgroundColor: 'white', paddingVertical: 12, borderRadius: 8, elevation: 3, justifyContent: 'center', marginBottom: 10}}>
