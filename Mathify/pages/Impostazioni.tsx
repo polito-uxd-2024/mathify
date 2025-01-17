@@ -241,7 +241,8 @@ export default function Impostazioni() {
                         Pagine Modificate >
                     </Text>
                 </Button>
-                <Button style={{backgroundColor: 'white', paddingVertical: 12, borderRadius: 8, elevation: 3, justifyContent: 'center', marginBottom: 10}}>
+                <Button style={{backgroundColor: 'white', paddingVertical: 12, borderRadius: 8, elevation: 3, justifyContent: 'center', marginBottom: 10}}
+                onPress={()=>navigation.navigate("Segnalazioni")}>
                     <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
                         Segnalazioni >
                     </Text>

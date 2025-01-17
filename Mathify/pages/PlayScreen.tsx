@@ -49,6 +49,7 @@ export default function PlayScreen() {
 
         const domanda=state.selectedChallenge.questions[currentQuestionIndex]
         const sfida=state.selectedChallenge
+        console.log("Domanda",domanda)
         const segnalazione={
             domanda:{testo:domanda.Testo,risposte:domanda.Risposte,rispostaCorretta:domanda.Soluzione},
             motivo:motivo,
@@ -56,7 +57,7 @@ export default function PlayScreen() {
         }
         setSegnalazioni([...segnalazioni,segnalazione])
         setDialogVisible(false)
-        console.log(segnalazioni)
+
     }
 
 
