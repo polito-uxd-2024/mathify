@@ -7,6 +7,9 @@ import Collapsible from "react-native-collapsible";
 import {registraSfidaCompletata} from "../Component/writeOnDb";
 import {aggiornaLivello} from "../Component/aggiornaLivello";
 import {useSetCurrentUser} from "../Component/setUser";
+import { Image, StyleSheet  } from 'react-native';
+import {styles} from "../Component/style";
+
 
 export default function PlayScreen() {
     const { colors } = useTheme();
@@ -39,6 +42,8 @@ export default function PlayScreen() {
     const [dueTentativi, setDueTentativi] = useState(true);
     const [tentativiAttivo, setTentativiAttivo] = useState(false);
     const [grafico, setGrafico] = useState(true)
+    const [graficoRisposteAttivo, setGraficoRisposteAttivo] = useState(false)
+    const [graficoDomandaAttivo, setGraficoDomandaAttivo] = useState(false)
 
     // Gestione del timer
     useEffect(() => {
@@ -66,7 +71,14 @@ export default function PlayScreen() {
     };
 
     const bonusGrafico = () => {
-        setGrafico(false)
+        if (state.selectedChallenge.questions[currentQuestionIndex].Grafico) {
+            setGrafico(false)
+            if (state.selectedChallenge.questions[currentQuestionIndex].GraficList.length > 1) {
+                setGraficoRisposteAttivo(true)
+            } else {
+                setGraficoDomandaAttivo(true)
+            }
+        }
     }
 
     const handleNextQuestion = () => {
@@ -79,6 +91,8 @@ export default function PlayScreen() {
             setProgress((currentQuestionIndex + 1) / challenge.questions.length);
             setTimerProgress(0);
             setStartTime(Date.now());
+            setGraficoDomandaAttivo(false)
+            setGraficoRisposteAttivo(false)
         } else {
             setChangePage(true);
         }
@@ -156,51 +170,80 @@ export default function PlayScreen() {
     if (!changePage) {
         return (
             <View>
-                <Appbar.Header>
-                    <Appbar.Content title="Challenge Screen" />
+                <Card.Content>
+                    <Text style={{ fontSize: 18, marginBottom: 16 }}>{currentQuestion.Testo}</Text>
+                    {graficoDomandaAttivo && (
+                        <Image
+                            source={{ uri: 'https://cdn.pixabay.com/photo/2017/05/02/15/05/addition-2278415_1280.jpg' }}
+                            style={{
+                                width: 100,
+                                height: 100,
+                                marginRight: 8,
+                                borderRadius: 4,
+                            }}
+                        />
+                    )}
+                    {currentQuestion.Risposte.map((risposta, index) => (
+                        <View
+                            key={index}
+                            style={{
+                                flexDirection: 'row', // Layout in fila
+                                alignItems: 'center', // Allinea verticalmente
+                                marginBottom: 8,      // Spaziatura tra i pulsanti
+                            }}
+                        >
+                            {graficoRisposteAttivo && (
+                                <Image
+                                    source={{ uri: 'https://cdn.pixabay.com/photo/2017/05/02/15/05/addition-2278415_1280.jpg' }}
+                                    style={{
+                                        width: 100,
+                                        height: 100,
+                                        marginRight: 8,
+                                        borderRadius: 4,
+                                    }}
+                                />
+                            )}
+                            <Button
+                                mode="contained"
+                                style={{ flex: 1 }} // Il pulsante occupa tutto lo spazio rimanente
+                                onPress={() => handleAnswerPress(risposta)}
+                            >
+                                {risposta} {/* Modifica "risposta" in base alla struttura del tuo oggetto */}
+                            </Button>
+                        </View>
+                    ))}
                     <ProgressBar
-                        progress={parseFloat(progress.toFixed(3))} // Round progress to 3 decimal places
-                        style={{ margin: 8 }}
-                        color={colors.primary}
+                        progress={parseFloat(timerProgress.toFixed(3))}
+                        style={{ marginTop: 16 }}
+                        color={timerProgress > 0.8 ? "red" : "green"}
                     />
-                </Appbar.Header>
+                    <Text style={{ marginTop: 8 }}>
+                        Tempo rimasto: {Math.ceil((1 - timerProgress) * timerDuration)}s
+                    </Text>
+                    <Text style={{ marginTop: 8 }}>Domande corrette: {punteggioOttenuto}</Text>
+                    <Text>GraficoRisposteAttivo: {graficoRisposteAttivo.toString()}</Text>
 
-                <View style={{ padding: 16 }}>
-                    <Card>
-                        <Card.Title title="Challenge Question" />
-                        <Card.Content>
-                            <Text style={{ fontSize: 18, marginBottom: 16 }}>{currentQuestion.Testo}</Text>
-                            {currentQuestion.Risposte.map((risposta, index) => (
-                                <Button
-                                    key={index}
-                                    mode="contained"
-                                    style={{ marginBottom: 8 }}
-                                    onPress={() => handleAnswerPress(risposta)}
-                                >
-                                    {risposta}
-                                </Button>
-                            ))}
-                            <ProgressBar
-                                progress={parseFloat(timerProgress.toFixed(3))} // Round timerProgress to 3 decimal places
-                                style={{ marginTop: 16 }}
-                                color={timerProgress > 0.8 ? "red" : "green"}
-                            />
-                            <Text style={{ marginTop: 8 }}>
-                                Tempo rimasto: {Math.ceil((1 - timerProgress) * timerDuration)}s
-                            </Text>
-                            <Text style={{ marginTop: 8 }}>Domande corrette: {punteggioOttenuto}</Text>
-                        </Card.Content>
-                    </Card>
-                </View>
-                <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", padding: 10 }}>
+                </Card.Content>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        justifyContent: "space-around",
+                        alignItems: "center",
+                        padding: 10,
+                    }}
+                >
                     <Card style={{ flex: 1, margin: 5 }}>
-                        <Text style={{ textAlign: "center", padding: 10 }} onPress={bonusGrafico}>Grafico</Text>
-                        <Text> Disponibilità: {grafico ? "1" : "0"}</Text>
+                        <Text
+                            style={{ textAlign: "center", padding: 10 }}
+                            onPress={bonusGrafico}
+                        >
+                            Grafico
+                        </Text>
+                        <Text> Disponibilità: {(grafico && state.selectedChallenge.questions[currentQuestionIndex].Grafico) ? "1" : (state.selectedChallenge.questions[currentQuestionIndex].Grafico) ? "0" : "Non disponibile"}</Text>
                     </Card>
                     <Card style={{ flex: 1, margin: 5 }} onPress={bonusTempo}>
                         <Text style={{ textAlign: "center", padding: 10 }}>+30 secondi</Text>
                         <Text> Disponibilità: {tempoMaggiore ? "1" : "0"}</Text>
-
                     </Card>
                     <Card style={{ flex: 1, margin: 5 }} onPress={bonusTentativi}>
                         <Text style={{ textAlign: "center", padding: 10 }}>Doppio tentativo</Text>
@@ -209,6 +252,7 @@ export default function PlayScreen() {
                 </View>
             </View>
         );
+
     } else {
         return (
             <ScrollView style={{ padding: 16 }}>
