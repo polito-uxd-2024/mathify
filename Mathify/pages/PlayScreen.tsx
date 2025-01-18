@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { View, ScrollView } from "react-native";
-import {Appbar, Card, Button, Text, ProgressBar, useTheme, Dialog, TextInput, Portal} from "react-native-paper";
+import {Appbar, Card, Button, Text, ProgressBar, useTheme, Dialog, TextInput, Portal, Icon} from "react-native-paper";
 import {DomandaSegnalata, Sfida} from "../Component/Interfaces";
 import { StateContext } from "../Reducer";
 import Collapsible from "react-native-collapsible";
@@ -9,6 +9,7 @@ import {aggiornaLivello} from "../Component/aggiornaLivello";
 import {useSetCurrentUser} from "../Component/setUser";
 import { Image, StyleSheet  } from 'react-native';
 import {styles} from "../Component/style";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 
 export default function PlayScreen() {
@@ -46,6 +47,10 @@ export default function PlayScreen() {
     const [graficoDomandaAttivo, setGraficoDomandaAttivo] = useState(false)
     const [clickedButtonIndex, setClickedButtonIndex] = useState<number | null>(null);
     const [isCorrectAnswer, setIsCorrectAnswer] = useState<boolean | null>(null);
+    const [coloreRisposta, setColoreRisposta] = useState(false)
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    const [ricompensa, setRicompensa] = useState(true)
+    const [isWaiting, setIsWaiting] = useState(false)
 
 
     //Gestione della Segnalazione
@@ -68,21 +73,26 @@ export default function PlayScreen() {
     }
     // Gestione del timer
     useEffect(() => {
-        const timerInterval = setInterval(() => {
-            setTimerProgress((prev) => {
-                if (prev < 1) {
-                    const newProgress = prev + 1 / timerDuration;
-                    return newProgress >= 1 ? 1 : parseFloat(newProgress.toFixed(3));
-                } else {
-                    handleAnswerPress("Tempo scaduto!!", -1);
-                    return 0; // Assicurati che il timer si fermi
-                }
-            });
-        }, 1000);
+        if (!changePage) {
+            const timerInterval = setInterval(() => {
+                setTimerProgress((prev) => {
+                    if (prev < 1) {
+                        const newProgress = prev + 1 / timerDuration;
+                        return newProgress >= 1 ? 1 : parseFloat(newProgress.toFixed(3));
+                    } else {
+                        handleAnswerPress("Tempo scaduto!!", -1);
+                        return 0; // Assicurati che il timer si fermi
+                    }
+                });
+            }, 1000);
 
-        // Pulizia per evitare timer duplicati
-        return () => clearInterval(timerInterval);
-    }, [currentQuestionIndex, changePage]);
+            // Pulizia per evitare timer duplicati
+            return () => clearInterval(timerInterval);
+        }
+        else {
+            return
+        }
+        }, [currentQuestionIndex, changePage]);
 
     const bonusTempo = () => {
         if (tempoMaggiore) {
@@ -97,7 +107,7 @@ export default function PlayScreen() {
     };
 
     const bonusGrafico = () => {
-        if (state.selectedChallenge.questions[currentQuestionIndex].Grafico) {
+        if (state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) {
             setGrafico(false)
             if (state.selectedChallenge.questions[currentQuestionIndex].GraficList.length > 1) {
                 setGraficoRisposteAttivo(true)
@@ -119,33 +129,45 @@ export default function PlayScreen() {
             setStartTime(Date.now());
             setGraficoDomandaAttivo(false)
             setGraficoRisposteAttivo(false)
+            setColoreRisposta(false)
         } else {
             setChangePage(true);
         }
     };
 
-    const handleAnswerPress = (risposta: string, index: number) => {
-        const isCorrect = risposta === currentQuestion.Soluzione;
-        setIsCorrectAnswer(isCorrect);
-        setClickedButtonIndex(index);
+    const handleAnswerPress = async (risposta: string, index: number) => {
+        if (isWaiting) return;
+        else {
+            setIsWaiting(true)
+            setClickedButtonIndex(index); // Registra il pulsante cliccato
+            const isCorrect = risposta === currentQuestion.Soluzione;
+            setIsCorrectAnswer(isCorrect);
+            setColoreRisposta(true); // Attiva il colore
 
-        if (!tentativiAttivo) {
-            setPunteggioOttenuto((prev) => (isCorrect ? prev + 1 : prev));
-            setRisposte((prev) => [...prev, isCorrect]);
-            setListaRispsoteDate((prev) => [...prev, risposta]);
-            handleNextQuestion();
-        } else {
-            if (risposta === currentQuestion.Soluzione) {
-                setPunteggioOttenuto((prev) => prev + 1);
-                setRisposte((prev) => [...prev, true]);
+            // Aspetta 1 secondo per mostrare il colore
+            await sleep(1000);
+            setIsWaiting(false)
+
+            // Aggiorna il punteggio e passa alla prossima domanda
+            if (!tentativiAttivo) {
+                setPunteggioOttenuto((prev) => (isCorrect ? prev + 1 : prev));
+                setRisposte((prev) => [...prev, isCorrect]);
                 setListaRispsoteDate((prev) => [...prev, risposta]);
-                setTentativiAttivo(false);
                 handleNextQuestion();
             } else {
-                setTentativiAttivo(false);
+                if (isCorrect) {
+                    setPunteggioOttenuto((prev) => prev + 1);
+                    setRisposte((prev) => [...prev, true]);
+                    setListaRispsoteDate((prev) => [...prev, risposta]);
+                    setTentativiAttivo(false);
+                    handleNextQuestion();
+                } else {
+                    setTentativiAttivo(false);
+                }
             }
-        }
-    };
+
+            setColoreRisposta(false); // Resetta il colore dopo aver gestito la domanda
+    }};
 
     useEffect(() => {
         if (changePage) {
@@ -204,16 +226,28 @@ export default function PlayScreen() {
     if (!changePage) {
         return (
             <View>
+                <Image
+                    source={{ uri: 'https://raw.githubusercontent.com/ilariarduin0/MathifyStorage/main/S1D1A.jpg' }}
+                    "https://github.com/ilariarduin0/MathifyStorage/blob/main/S1D1A.jpg"
+                    style={{
+                        width: 100,
+                        height: 100,
+                        margin: 8,
+                        borderRadius: 4,
+                        alignSelf:"center"
+                    }}
+                />
                 <Card.Content>
                     <Text style={{ fontSize: 18, marginBottom: 16 }}>{currentQuestion.Testo}</Text>
                     {graficoDomandaAttivo && (
                         <Image
-                            source={{ uri: 'https://cdn.pixabay.com/photo/2017/05/02/15/05/addition-2278415_1280.jpg' }}
+                            source={{ uri: state.selectedChallenge.questions[currentQuestionIndex].GraficList[0] }}
                             style={{
                                 width: 100,
                                 height: 100,
-                                marginRight: 8,
+                                margin: 8,
                                 borderRadius: 4,
+                                alignSelf:"center"
                             }}
                         />
                     )}
@@ -228,7 +262,7 @@ export default function PlayScreen() {
                         >
                             {graficoRisposteAttivo && (
                                 <Image
-                                    source={{ uri: 'https://cdn.pixabay.com/photo/2017/05/02/15/05/addition-2278415_1280.jpg' }}
+                                    source={{ uri: state.selectedChallenge.questions[currentQuestionIndex].GraficList[index] }}
                                     style={{
                                         width: 100,
                                         height: 100,
@@ -239,7 +273,7 @@ export default function PlayScreen() {
                             )}
                             <Button
                                 mode="contained"
-                                style={{ flex: 1, backgroundColor: clickedButtonIndex===index ? isCorrectAnswer ? "green" : "red" : colors.primary }} // Il pulsante occupa tutto lo spazio rimanente
+                                style={{ flex: 1, backgroundColor: coloreRisposta && clickedButtonIndex===index ? isCorrectAnswer ? "green" : "red" : colors.primary }} // Il pulsante occupa tutto lo spazio rimanente
                                 onPress={() => handleAnswerPress(risposta, index)}
                             >
                                 {risposta} {/* Modifica "risposta" in base alla struttura del tuo oggetto */}
@@ -274,7 +308,7 @@ export default function PlayScreen() {
                         >
                             Grafico
                         </Text>
-                        <Text> Disponibilità: {(grafico && state.selectedChallenge.questions[currentQuestionIndex].Grafico) ? "1" : (state.selectedChallenge.questions[currentQuestionIndex].Grafico) ? "0" : "Non disponibile"}</Text>
+                        <Text> Disponibilità: {(grafico && state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) ? "1" : (state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) ? "0" : "Non disponibile"}</Text>
                     </Card>
                     <Card style={{ flex: 1, margin: 5 }} onPress={bonusTempo}>
                         <Text style={{ textAlign: "center", padding: 10 }}>+30 secondi</Text>
@@ -313,6 +347,39 @@ export default function PlayScreen() {
     } else {
         return (
             <ScrollView style={{ padding: 16 }}>
+                <Portal>
+                    <Dialog visible={ricompensa} onDismiss={() => setRicompensa(false)}>
+                        <Dialog.Title>
+                            CONGRATULAZIONI!!
+                        </Dialog.Title>
+                        <Dialog.Content>
+                            <Text style={{marginBottom:10}}>Nuovo badge sbloccato:</Text>
+                            {/* Simbolo del badge */}
+                            <View
+                                style={{ width: 80, height: 80, borderRadius: 40, backgroundColor: '#3498db', justifyContent: 'center', alignItems: 'center', alignSelf:"center" }}
+                            >
+                                <MaterialCommunityIcons
+                                    name="trophy"
+                                    size={40}
+                                    color="white"
+                                />
+                            </View>
+                            {/* Dettagli del badge */}
+                            <Text style={{ fontWeight: 'bold', fontSize: 16, textAlign: 'center' }}>
+                                {state.selectedChallenge.titolo}
+                            </Text>
+                            <Text style={{ fontSize: 14, textAlign: 'center' }}>
+                                {state.selectedChallenge.argomento}
+                            </Text>
+                            <Text style={{ fontSize: 14, textAlign: 'center', marginTop: 10 }}>
+                                Hai guadagnato {xp} XP
+                            </Text>
+                        </Dialog.Content>
+                        <Dialog.Actions>
+                        <Button onPress={() => setRicompensa(false)}>Vedi dettagli sfida</Button>
+                        </Dialog.Actions>
+                    </Dialog>
+                </Portal>
                 {risposte.map((valore, index) => (
                     <Card key={index} style={{ marginBottom: 8, backgroundColor: valore ? "green" : "red" }}>
                         <Card.Content>
