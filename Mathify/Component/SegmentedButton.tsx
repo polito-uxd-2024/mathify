@@ -37,7 +37,7 @@ const SegmentedButton = () => {
     const [value, setValue] = React.useState('esplora');
     const navigationAll = useNavigation<NativeStackNavigationProp<HomeStackParamList>>();
     const navigationPlay = useNavigation<NativeStackNavigationProp<PlayParamList>>();
-    const [sfida, setSfida] = useState<string>("Sfida1");
+    const [sfida] = useState<string>("Sfida1");
     const [index, setIndex] = useState(0);
     const [state, dispatch]= useContext(StateContext)
     console.log(state.challengeList)

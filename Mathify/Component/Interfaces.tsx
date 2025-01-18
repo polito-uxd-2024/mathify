@@ -3,7 +3,6 @@ export interface Question {
     Spiegazione:string;
     Risposte: string[];
     Soluzione: string;
-    Grafico:boolean;
     GraficList:string[];
 }
 /*
