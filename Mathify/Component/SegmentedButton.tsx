@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {FlatList, ImageBackground, SafeAreaView, StyleSheet, View, ViewComponent, VirtualizedList} from 'react-native';
-import { Avatar, Button, Card, SegmentedButtons, Text,TextInput } from 'react-native-paper';
+import {FlatList, ImageBackground, SafeAreaView, StyleSheet, View, ViewComponent, VirtualizedList, Text} from 'react-native';
+import { Avatar, Button, Card, SegmentedButtons, TextInput } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from './style';
 import SfideCompletate from "../pages/SfideCompletate";
@@ -50,7 +50,7 @@ const SegmentedButton = () => {
     );
     const handleChallengeChange = () => {
         dispatch(setSelectedChallenge(state.challengeList[index]));
-        setIndex(Math.floor(Math.random() * state.challengeList.length));
+        setIndex((index + 1) % state.challengeList.length);
     };
 
     function handleClick(title: string) {

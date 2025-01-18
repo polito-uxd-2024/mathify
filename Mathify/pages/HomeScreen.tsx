@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
-import {View, ScrollView, ImageBackground, SafeAreaView,} from "react-native";
-import {Appbar, Card, Button, Text, Avatar, ProgressBar, Switch, TextInput} from "react-native-paper";
+import {View, ScrollView, ImageBackground, SafeAreaView,Text,} from "react-native";
+import {Appbar, Card, Button,  Avatar, ProgressBar, Switch, TextInput} from "react-native-paper";
 import { styles } from "../Component/style";
 import { useNavigation } from "@react-navigation/native";
 import  {useSetCurrentChallenge} from "../Component/setCurrentChallenge";
