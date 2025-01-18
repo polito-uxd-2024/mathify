@@ -228,7 +228,6 @@ export default function PlayScreen() {
             <View>
                 <Image
                     source={{ uri: 'https://raw.githubusercontent.com/ilariarduin0/MathifyStorage/main/S1D1A.jpg' }}
-                    "https://github.com/ilariarduin0/MathifyStorage/blob/main/S1D1A.jpg"
                     style={{
                         width: 100,
                         height: 100,
