@@ -1,14 +1,28 @@
 import {StyleSheet} from "react-native";
+import {myTheme} from "./theme";
 
 
 export const styles = StyleSheet.create({
 
+
+    header: {
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        backgroundColor: 'white',
+        borderBottomColor: 'black',
+        borderBottomWidth: 3,
+    },
+
     content: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: 'rgb(255,255,255)',
-        paddingHorizontal: 25,
-        paddingTop: 30,
+    },
+    mainContent: {
+        flex: 1,
+        flexDirection: 'column',
+        paddingHorizontal: 20,
     },
     section: {
         paddingTop: 20,
@@ -22,40 +36,63 @@ export const styles = StyleSheet.create({
     },
     cover: {
         padding: 20,
-        //borderColor: 'yellow',
-        //borderWidth: 3,
+        borderColor: 'yellow',
+        borderWidth: 3,
         backgroundColor: 'lightgray',
     },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        //borderColor: 'green',
+        //borderWidth: 3,
+    },
+    column: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        //borderColor: 'green',
+        //borderWidth: 3,
+    },
+    cardLeft: {
+        marginLeft: 20,
+        marginTop: 10,
+    },
+
+    //Text
     welcomeText: {
-        fontSize: 30,
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    cardTitle: {
+        fontSize: 18,
         fontWeight: 'bold',
     },
     sectionText: {
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 0,
     },
+    subtitle: {
+        fontSize: 14,
+        marginBottom: 0,
+    },
+
+
     calloutText: {
         fontSize: 14,
         fontWeight: 'bold',
         color: 'white',
         marginBottom: 0,
     },
-    subtitle: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: 'gray',
-        marginBottom: 0,
-    },
+
     cardBase: {
         flex: 1,
         width: '100%',
         backgroundColor: 'black',
-        paddingLeft: 0,
-        paddingTop: 0,
+        paddingLeft: 2,
+        paddingTop: 2,
         paddingBottom: 5,
         paddingRight: 4,
-        borderRadius: 20,
+        borderRadius: 22,
     },
     miniCardBase: {
         flex: 1,
@@ -79,19 +116,13 @@ export const styles = StyleSheet.create({
         borderRadius: 6,
         marginVertical: 7,
     },
+
     card: {
         margin: 0,
         borderRadius: 20,
-        borderColor: 'black',
-        borderWidth: 3,
-        backgroundColor: 'rgb(250,230,185)',
-    },
-    mainCard: {
-        margin: 0,
-        borderRadius: 20,
-        borderColor: 'black',
-        borderWidth: 3,
-        backgroundColor: 'rgb(208,242,246)',
+        borderColor: myTheme.colors.cardBorder,
+        borderWidth: 10,
+        backgroundColor: 'rgb(255,255,255)',
     },
     miniCard: {
         margin: 0,
@@ -115,12 +146,18 @@ export const styles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 3,
     },
+
+    //Buttons
     button: {
         borderRadius: 15,
         borderColor: 'black',
         borderWidth: 3,
-        marginHorizontal: 0,
-        paddingHorizontal: 60,
+        paddingHorizontal: 20,
+    },
+    iconButton: {
+        borderRadius: 15,
+        borderColor: 'black',
+        borderWidth: 3,
     },
     answerButton: {
         borderRadius: 15,
@@ -129,17 +166,41 @@ export const styles = StyleSheet.create({
         marginHorizontal: 0,
         paddingHorizontal: 60,
         marginVertical: 5,
+
+
     },
     coverImage: {
         width: '100%',
         height: 200,
         resizeMode: 'cover',
     },
+    profileImage: {
+        width: 50,
+        height: 50,
+        borderRadius: 100,
+        borderWidth: 1,
+        borderColor: 'black',
+    },
+    cardImage: {
+        width: 80,
+        height: 80,
+        marginRight: 10,
+        borderRadius: 20
+    },
+
     callout: {
         backgroundColor: 'gray',
         padding: 2,
         borderRadius: 20,
         width: 100,
+    },
+    stars: {
+        flexDirection: "row",
+        alignItems: "center",
+        padding: 5,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        backgroundColor: myTheme.colors.cardBorder,
     },
     bookmark: {
         flexDirection: 'row',
@@ -151,8 +212,6 @@ export const styles = StyleSheet.create({
         backgroundColor: 'lightgray',
         width: '40%',
     },
-
-
 
     footer: {
         padding: 20,
@@ -168,10 +227,12 @@ export const styles = StyleSheet.create({
         fontSize: 20,
         marginBottom: 20,
     },
-
     progressBar: {
-        flex: 1,
-        marginHorizontal: 10,
+        height: 20,
+        borderRadius: 10,
+        width: '100%',
+        borderWidth: 1,
+        borderColor: 'black',
     },
     fab: {
         position: 'absolute',

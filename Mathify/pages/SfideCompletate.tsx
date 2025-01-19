@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, FlatList, TextComponent, Button} from 'react-native';
+import {View, Text, FlatList, TextComponent, Button, ScrollView} from 'react-native';
 import {Card, Icon, MD3Colors} from 'react-native-paper';
 import {styles} from "../Component/style";
 import {timeAgo} from "../Component/timeago";

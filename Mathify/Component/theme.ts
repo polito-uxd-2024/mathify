@@ -19,7 +19,8 @@ export const CombinedDefaultTheme = merge(MD3LightTheme, LightTheme);
 export const CombinedDarkTheme = merge(MD3DarkTheme, DarkTheme);
 export const myTheme = {...CombinedDefaultTheme,  colors: {
         ...CombinedDefaultTheme.colors,
-        primary: 'rgb(57,189,194)',
+        primary: 'rgb(82,165,232)',
+        cardBorder: 'rgb(201,228,243)',
 
 
 

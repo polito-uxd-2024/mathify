@@ -1,76 +1,32 @@
-import React, {useContext, useEffect, useState} from "react";
-import {View, ScrollView, ImageBackground, SafeAreaView,Text,} from "react-native";
-import {Appbar, Card, Button,  Avatar, ProgressBar, Switch, TextInput} from "react-native-paper";
+import React, { useContext } from "react";
+import { View, ScrollView, Image, Text } from "react-native";
+import { Appbar, ProgressBar } from "react-native-paper";
 import { styles } from "../Component/style";
-import { useNavigation } from "@react-navigation/native";
-import  {useSetCurrentChallenge} from "../Component/setCurrentChallenge";
-import {StateContext} from "../Reducer";
-import {PreferencesContext} from "../Component/PreferencesContext";
+import { StateContext } from "../Reducer";
 import SegmentedButton from "../Component/SegmentedButton";
-import AllListChallenges from "./AllListChallenges";
-import {NativeStackNavigationProp} from "react-native-screens/native-stack";
-import {HomeStackParamList, RootStackParamList} from "../Component/navigation";
-import {useSetCurrentUser} from "../Component/setUser";
-import {useSetChallengeList} from "../Component/useSetChallengeList";
 
 export default function HomeScreen() {
-    const { navigate } = useNavigation<NativeStackNavigationProp<HomeStackParamList>>();
     const [state] = useContext(StateContext);
-    useSetCurrentUser("Utente1")
-    useSetChallengeList()
-    console.log(state.utente)
-
-
-    const currentScore = 75;
-    const requiredScore = 100;
 
     return (
-        <ScrollView>
-            <Appbar.Header style={{justifyContent: "space-between", alignItems: "center"}}>
-                {/* Titolo Mathify */}
-                <View style={{ flex: 1 }}>
-                    <Appbar.Content
-                        title="Mathify"
-                        titleStyle={{textAlign: 'left', fontWeight: 'bold'}}
+        <View style={{ flex: 1 }}>
+            <Appbar.Header style={styles.header}>
+                <Appbar.Content title="Sfide" />
+                {/*}
+                <View style={{ width: 240 }}>
+                    <ProgressBar
+                        progress={parseFloat((state.utente.livello.xpTotali / 5000).toFixed(1))}
+                        color='orange'
+                        style={styles.progressBar}
                     />
                 </View>
-
-                {/* Informazioni Utente e Barra */}
-                <View style={{ flexDirection: 'column', alignItems: 'flex-end', flex: 1 }}>
-                    {/* Nome Utente */}
-                    <Text style={{fontWeight: 'bold', color: 'black' }}>
-                        {state.utente.nome} {state.utente.cognome}
-                    </Text>
-
-                    {/* Livello Utente */}
-                    <Text style={{ color: 'orange', fontWeight: 'bold' }}>
-                        Liv {state.utente.livello.numero} - {Math.round((state.utente.livello.xpTotali / 5000) * 100)}% {/* Percentuale calcolata */}
-                    </Text>
-
-                    {/* Barra di Progresso */}
-                    <View style={{ flexDirection: 'column', alignItems: 'center', marginTop:4 }}>
-                        <ProgressBar
-                            progress={
-                                    parseFloat((state.utente.livello.xpTotali / 5000).toFixed(1)) // Conversione esplicita
-                            }
-                            color="orange"
-                            style={{ height: 8, borderRadius: 4, width: 100 }}
-                        />
-                    </View>
-                </View>
+                <View>
+                    <Image source={require('../assets/placeholder.jpg')} style={styles.profileImage} />
+                </View>*/}
             </Appbar.Header>
-
             <View style={styles.content}>
-
-                {/* Titolo */}
-                <Text style={styles.welcomeText}>
-                    Sfide
-                </Text>
-
-                <SegmentedButton/>
-
+                <SegmentedButton />
             </View>
-        </ScrollView>
-
+        </View>
     );
 }
