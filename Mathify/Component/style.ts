@@ -52,10 +52,7 @@ export const styles = StyleSheet.create({
         //borderColor: 'green',
         //borderWidth: 3,
     },
-    cardLeft: {
-        marginLeft: 20,
-        marginTop: 10,
-    },
+
 
     //Text
     welcomeText: {

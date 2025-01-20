@@ -198,12 +198,12 @@ export const SegmentedButton = () => {
                                     <TouchableOpacity key={item.id} style={styles.article} onPress={() => handleCardPress(item)}>
                                         <View style={styles.cardBase}>
                                             <Card style={styles.card}>
-                                                <View style={{flexDirection: 'row', marginBottom: 10}}>
-                                                    <View style={styles.cardLeft}>
+                                                <View style={{flexDirection: 'row', marginBottom: 10, marginHorizontal: 10}}>
+                                                    <View style={{marginTop: 10}}>
                                                         <Image source={require('../assets/placeholder.jpg')} style={styles.cardImage}/>
                                                     </View>
-                                                    <View>
-                                                        <View style={{flexDirection: 'row', marginLeft: 110, marginBottom: 'auto'}}>
+                                                    <View style={{flex: 1}}>
+                                                        <View style={{flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 'auto', marginLeft: 'auto'}}>
                                                             <View style={styles.stars}>
                                                                 {[...Array(3)].map((star, index) => (
                                                                     <Avatar.Icon

@@ -41,7 +41,7 @@ const AllListChallenges = ({ route }: { route: any }) => {
 
     return (
         <View style={{ flex: 1 }}>
-            <Card style={{ flex: 1, padding: 16, borderRadius: 10, width: '100%' }}>
+
                 <TextInput label="Cerca sfida" mode="outlined" value={searchQuery} onChangeText={setSearchQuery}/>
 
                 {/* FlatList per visualizzare tutte le sfide */}
@@ -49,8 +49,8 @@ const AllListChallenges = ({ route }: { route: any }) => {
                     <TouchableOpacity key={item.id} style={styles.article} onPress={() => handleCardPress(item)}>
                         <View style={styles.cardBase}>
                             <Card style={styles.card}>
-                                <View style={{flexDirection: 'row', marginBottom: 10}}>
-                                    <View style={styles.cardLeft}>
+                                <View style={{flexDirection: 'row', marginVertical: 30, paddingHorizontal: 10}}>
+                                    <View>
                                         <Image source={require('../assets/placeholder.jpg')} style={styles.cardImage}/>
                                     </View>
                                     <View>
@@ -76,7 +76,7 @@ const AllListChallenges = ({ route }: { route: any }) => {
                         </View>
                     </TouchableOpacity>
                 ))}
-            </Card>
+
 
             {state.selectedChallenge && (
 

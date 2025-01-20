@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {View, Text, FlatList, TextComponent, Button, ScrollView} from 'react-native';
-import {Card, Icon, MD3Colors} from 'react-native-paper';
+import {View, Text, FlatList, TextComponent, Button, ScrollView, Image, TouchableOpacity} from 'react-native';
+import {Avatar, Card, Icon, MD3Colors} from 'react-native-paper';
 import {styles} from "../Component/style";
 import {timeAgo} from "../Component/timeago";
 import {useNavigation} from "@react-navigation/native";
@@ -33,6 +33,39 @@ export default function SfideCompletate() {
     }));
     return (
             <View style={styles.section}>
+                {sfideCompletate.map((item) => (
+                <TouchableOpacity key={item.id} style={styles.article} onPress={() => navigation.navigate("SfidaDetail", { sfida: item })}>
+                    <View style={styles.cardBase}>
+                        <Card style={styles.card}>
+                            <View style={{ paddingBottom: 10, paddingRight: 10, paddingLeft: 10, width: '100%'}}>
+
+                                    <View style={{flexDirection: 'row', marginBottom: 'auto', justifyContent: 'flex-end'}}>
+                                        <View style={styles.stars}>
+                                            {[...Array(3)].map((star, index) => (
+                                                <Avatar.Icon
+                                                    key={index}
+                                                    icon="star"
+                                                    size={20}
+                                                    color={index < state.selectedChallenge.difficoltà ? 'white' : 'black'} // Colore delle stelle
+                                                />
+                                            ))}
+                                        </View>
+                                    </View>
+                                    <View>
+                                        <Text style={styles.cardTitle}>{item.titolo}</Text>
+                                        <Text style={styles.subtitle}>{item.argomento}</Text>
+                                        <Text style={styles.subtitle}>{item.xpGuadagnati}</Text>
+                                        <View style={[styles.row,{justifyContent: 'space-between'}]}>
+                                            <Text style={styles.subtitle}>{item.punteggio}/{item.domande.length}</Text>
+                                            <Text style={styles.subtitle}>{item.stringacompletamento}</Text>
+                                        </View>
+                                    </View>
+
+                            </View>
+                        </Card>
+                    </View>
+                </TouchableOpacity>
+                ))}
             <FlatList
                 data={sfideCompletate}
                 keyExtractor={(item) => item.id}
