@@ -40,7 +40,7 @@ const AllListChallenges = ({ route }: { route: any }) => {
     }
 
     return (
-        <ScrollView style={{ flex: 1 }}>
+        <ScrollView style={styles.mainContent}>
 
                 <TextInput label="Cerca sfida" mode="outlined" value={searchQuery} onChangeText={setSearchQuery} outlineStyle={{borderRadius: 50, borderWidth: 2}}/>
 

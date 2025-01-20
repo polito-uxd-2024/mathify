@@ -8,6 +8,7 @@ import {Image, ScrollView, TouchableOpacity, View} from "react-native";
 import {styles} from "../Component/style";
 import {Card, Divider, Icon, ProgressBar, Text} from "react-native-paper";
 import Collapsible from "react-native-collapsible";
+import {myTheme} from "../Component/theme";
 
 export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackParamList, 'SfidaDetail'> }) {
     const { sfida } = route.params;
@@ -46,42 +47,46 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                     </Text>
                 </View>
             </View>
-            <View style={styles.content}>
+            <View style={styles.mainContent}>
                 {sfida.domande.map((valore, index) => (
-                    console.log(valore.RispostaCorretta, valore.Testo),
-                        <View style={styles.article} key={index}>
-                            <View style={styles.cardBase}>
-                                <Card style={styles.card}>
-                                    <Card.Title title={valore.Testo} />
-                                    <Card.Content>
-                                        <TouchableOpacity onPress={() => toggleExpand(index)}>
-                                            <Text>Show Details</Text>
-                                        </TouchableOpacity>
-                                        <Collapsible collapsed={expandedIndex !== index}>
-                                            <Text>{valore.correttezza.toString()}</Text>
-                                            <Text>Comunque alla fine come facciamo a capire se il grafico è nelle domande o nelle risposte?</Text>
-                                            {valore.Risposte.map((risposta, idx) => (
-                                                <View key={idx} style={styles.answerCardBase}>
-                                                    <View style={styles.answerCard}>
-                                                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                                            <Image source={require('../assets/placeholder.jpg')} style={{width: 80, height: 80, marginRight: 10}}/>
-                                                            <Text>Non fetcha la rispo e manca interfaccia grafico</Text>
-                                                        </View>
+                    <View style={styles.article} key={index}>
+                        <View style={styles.cardBase}>
+                            <Card style={styles.card}>
+
+                                <Card.Content>
+                                    <Text>{valore.Testo}</Text>
+                                    <Text>{valore.correttezza === false ? 'sbagliata' : 'coretta'}</Text>
+                                    <TouchableOpacity onPress={() => toggleExpand(index)}>
+                                        <Text style={{paddingTop: 6, color: myTheme.colors.primary}}>
+                                            {expandedIndex === index ? "Nascondi Dettagli ˄" : "Mostra Dettagli ˅"}
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <Collapsible collapsed={expandedIndex !== index}>
+                                        <View style={{paddingTop: 10}}>
+                                        <Divider />
+                                        {valore.Risposte.map((risposta, index2) => (
+                                            <View key={index2}>
+                                                    <View style={{marginVertical: 8, padding: 8, borderRadius: 10,
+                                                        backgroundColor:
+                                                            risposta === valore.RispostaData
+                                                            ? (risposta === valore.Soluzione ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer)
+                                                            : 'rgb(245,245,245)'}}>
+                                                        <Text style={{fontSize: 16}}>{risposta}</Text>
                                                     </View>
-                                                </View>
-                                            ))}
-                                            <Divider />
-                                            <View style={styles.section}>
-                                                <Text style={styles.sectionText}>Spiegazione</Text>
-                                                <Text>Qui metterei la spiegazione ma bisogna mettere l'interfaccia a questionDone</Text>
+                                                <Divider />
                                             </View>
-                                        </Collapsible>
-                                    </Card.Content>
-                                </Card>
-                            </View>
+                                        ))}
+                                        <View style={{paddingTop: 10}}>
+                                            <Text style={styles.sectionText}>Spiegazione</Text>
+                                            <Text>inserire la spiegazione nell'interface</Text>
+                                        </View>
+                                        </View>
+                                    </Collapsible>
+                                </Card.Content>
+                            </Card>
                         </View>
-                ))
-                }
+                    </View>
+                ))}
             </View>
         </ScrollView>
     );

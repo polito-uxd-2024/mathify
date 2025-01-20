@@ -73,6 +73,11 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         marginBottom: 0,
     },
+    secondary: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: 'gray'
+    },
 
 
     calloutText: {
@@ -131,6 +136,9 @@ export const styles = StyleSheet.create({
         backgroundColor: 'rgb(192,227,195)',
     },
     answerCard: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'flex-start',
         padding: 10,
         margin: 0,
         borderRadius: 6,
@@ -194,10 +202,12 @@ export const styles = StyleSheet.create({
     },
 
     callout: {
-        backgroundColor: 'gray',
-        padding: 2,
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        backgroundColor: 'rgb(208,225,240)',
+        padding: 3,
         borderRadius: 20,
-        width: 100,
+        alignSelf: 'flex-start',
     },
     stars: {
         flexDirection: "row",

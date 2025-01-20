@@ -233,7 +233,7 @@ export const SegmentedButton = () => {
                                 {filteredChallenges.length > 5 && (
                                     <Button
                                         onPress={() => navigationAll.navigate('AllListChallenges', { filteredChallenges })}
-                                        style={{ alignSelf: 'flex-end', marginTop: 16 }}>
+                                        style={{ alignSelf: 'flex-end', marginVertical: 16 }}>
                                         VEDI TUTTO
                                     </Button>
                                 )}
