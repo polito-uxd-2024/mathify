@@ -70,6 +70,7 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 0,
+        flexShrink: 1,
     },
     subtitle: {
         fontSize: 14,
@@ -239,5 +240,28 @@ export const styles = StyleSheet.create({
         margin: 16,
         right: 0,
         bottom: 0,
+    },
+
+    //Modal
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(255,255,255,0)',
+    },
+    modalContent: {
+        width: 300,
+        padding: 20,
+        backgroundColor: 'white',
+        borderRadius: 10,
+        alignItems: 'center',
+    },
+    modalTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    modalSubtitle: {
+        fontSize: 16,
+        marginTop: 10,
     },
 });

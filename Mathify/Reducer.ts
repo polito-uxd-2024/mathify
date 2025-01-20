@@ -39,20 +39,22 @@ export function Reducer(state: State, action: Action) {
     }
 }
 
-export const InitialState:State={
-    selectedChallenge:{argomento:"Geometria Analitica",
-        difficoltà:1,
-        questions:[],titolo:"Rette sul piano",
-    }
-    ,
-    utente:{
-        nome:"Giovanni",
-        cognome:"Rossi",
-        email:"giovanni.rossi@gmail.com",
-        livello:{numero:1,xpTotali:10},
-        sfideCompletate:[],
-        verifica:false},
-    challengeList:[],
-}
+export const InitialState: State = {
+    selectedChallenge: {
+        argomento: "Geometria Analitica",
+        difficoltà: 1,
+        questions: [],
+        titolo: "Rette sul piano",
+    },
+    utente: {
+        nome: "Giovanni",
+        cognome: "Rossi",
+        email: "giovanni.rossi@gmail.com",
+        livello: {numero: 1, xpTotali: 10},
+        sfideCompletate: [],
+        verifica: false,
+    },
+    challengeList: [],
+};
 export const StateContext=
     createContext<[State,React.Dispatch<Action>]>([InitialState,(_:Action)=>{}])
