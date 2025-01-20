@@ -345,7 +345,8 @@ export default function PlayScreen() {
 
     } else {
         return (
-            <ScrollView style={{ padding: 16 }}>
+            <View style={{flex:1}}>
+
                 <Portal>
                     <Dialog visible={ricompensa} onDismiss={() => setRicompensa(false)}>
                         <Dialog.Title>
@@ -379,6 +380,11 @@ export default function PlayScreen() {
                         </Dialog.Actions>
                     </Dialog>
                 </Portal>
+                <Text style={{fontSize:36, fontWeight:"bold", margin:5}}>COMPLIMENTI! HAI COMPLETATO LA SFIDA</Text>
+                <Text style={{fontSize:20, margin:3}}>{state.selectedChallenge.argomento}</Text>
+                <Text style={{fontSize:20,margin:3}}>{state.selectedChallenge.titolo}</Text>
+                <View style={{height:500, marginRight: 20, marginLeft: 20}}>
+                <ScrollView style={{ padding: 16, backgroundColor:"grey", borderRadius:5, flex:1 }} contentContainerStyle={{ flexGrow: 1 }}>
                 {risposte.map((valore, index) => (
                     <Card key={index} style={{ marginBottom: 8, backgroundColor: valore ? "green" : "red" }}>
                         <Card.Content>
@@ -398,24 +404,33 @@ export default function PlayScreen() {
                                     <Text>Risposta corretta: {state.selectedChallenge.questions[index].Soluzione}</Text>
                                     <Text>Soluzione: {state.selectedChallenge.questions[index].Soluzione}</Text>
                                     <Text>Punti guadagnati: {risposte[index]? Math.round(10 + timerDuration - listaTempoDomande[index])  : 0}</Text>
+                                    <Text>Grafico del testo: </Text>
+                                    {state.selectedChallenge.questions[index].GraficList.length===1 ? <Image
+                                        source={{ uri: state.selectedChallenge.questions[currentQuestionIndex].GraficList[0] }}
+                                        style={{
+                                            width: 100,
+                                            height: 100,
+                                            margin: 8,
+                                            borderRadius: 4,
+                                            alignSelf:"center"
+                                        }}
+                                    /> : "Grafico non disponibile"}
 
                             </Collapsible>
                         </Card.Content>
                     </Card>
                 ))}
+                </ScrollView>
+                </View>
                 <Card>
-                    <Text>COMPLIMENTI!! COMPLETANDO LA SFIDA HAI SBLOCCATO IL BADGE</Text>
-                    <Text>{state.selectedChallenge.titolo}</Text>
-                </Card>
-                <Card>
-
-                    <Text>Conteggio punti</Text>
+                    <Text>Conteggio punti:</Text>
                     <Text>Punti guadagnati dal tempo: {tempoTotaleXP}</Text>
                     <Text>Punti in base alla difficoltà: {state.selectedChallenge.difficoltà * 50}</Text>
                     <Text>Punti per le risposte corrette: {xpCorrect}</Text>
                     <Text>Punti totali: {xp}</Text>
                 </Card>
-            </ScrollView>
+
+            </View>
         );
     }
 }
