@@ -82,6 +82,7 @@ export const SegmentedButton = () => {
 
     function handleClick(title: string) {
         navigationPlay.navigate("Play");
+        setModalVisible(false);
     }
     return (
         <View style={styles.content}>
@@ -187,8 +188,9 @@ export const SegmentedButton = () => {
                             <Text style={styles.welcomeText}>Scopri le sfide</Text>
                             <View style={styles.article}>
                                 <TextInput label="Cerca sfida"
-                                           mode="outlined"
+                                           mode='outlined'
                                            value={searchQuery}
+                                           outlineStyle={{borderRadius: 50, borderWidth: 2}}
                                            onChangeText={setSearchQuery}
                                 />
                             </View>
@@ -245,22 +247,63 @@ export const SegmentedButton = () => {
 
 
                 <Modal
-                    animationType="slide"
+                    animationType="none"
                     transparent={true}
                     visible={modalVisible}
                     onRequestClose={handleCloseModal}
                 >
                     <View style={styles.modalContainer}>
-                        <View style={styles.modalContent}>
-                            <Text style={styles.modalTitle}>{state.selectedChallenge.titolo}</Text>
-                            <Text style={styles.modalSubtitle}>{state.selectedChallenge.argomento}</Text>
-                            <Button onPress={() => handleClick(state.selectedChallenge.titolo)} style={{ marginTop: 20 }}>
-                                Vai alla sfida
-                            </Button>
-                            <Button onPress={handleCloseModal} style={{ marginTop: 10 }}>
-                                Chiudi
-                            </Button>
+                        <View style={styles.modalBase}>
+                            <View style={styles.cardBase}>
+                                <View style={styles.card}>
+                                    <View style={styles.modalContent}>
+                                        <ImageBackground
+                                            source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
+                                            style={{flex: 1}}
+                                            imageStyle={{ borderRadius: 10, marginVertical: 8}}
+                                        >
+                                            <View style={{ paddingHorizontal: 20, marginVertical: 8, paddingBottom: 8}}>
+                                                <View style={{flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 80}}>
+                                                    <View style={styles.stars}>
+                                                        {[...Array(3)].map((star, index) => (
+                                                            <Avatar.Icon
+                                                                key={index}
+                                                                icon="star"
+                                                                size={25}
+                                                                color={index < state.selectedChallenge.difficolta ? 'white' : 'black'} // Colore delle stelle
+                                                            />
+                                                        ))}
+                                                    </View>
+                                                </View>
+                                            </View>
+                                        </ImageBackground>
+                                        <Text style={styles.modalTitle}>{state.selectedChallenge.titolo}</Text>
+                                        <Text style={styles.modalSubtitle}>{state.selectedChallenge.argomento}</Text>
+                                        <View style={{flexDirection: 'row', paddingTop: 10}}>
+                                            <Button
+                                                mode="outlined"
+                                                onPress={handleCloseModal}
+                                                contentStyle={{ height: 40 }}
+                                                labelStyle={{ fontSize: 16 }}
+                                                style={styles.expandButton}
+                                            >
+                                                Chiudi
+                                            </Button>
+                                            <Button
+                                                mode="contained"
+                                                onPress={() => handleClick(state.selectedChallenge.titolo)}
+                                                contentStyle={{ height: 40 }}
+                                                labelStyle={{ fontSize: 16 }}
+                                                style={styles.expandButton}
+                                            >
+                                                Play
+                                            </Button>
+                                        </View>
+                                    </View>
+                                </View>
+                            </View>
                         </View>
+
                     </View>
                 </Modal>
 

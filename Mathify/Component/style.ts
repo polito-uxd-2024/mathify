@@ -152,6 +152,13 @@ export const styles = StyleSheet.create({
         borderWidth: 3,
         paddingHorizontal: 20,
     },
+    expandButton: {
+        flex: 1,
+        marginHorizontal: 5,
+        borderRadius: 15,
+        borderColor: 'black',
+        borderWidth: 3,
+    },
     iconButton: {
         borderRadius: 15,
         borderColor: 'black',
@@ -244,14 +251,15 @@ export const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(255,255,255,0)',
+        backgroundColor: 'rgba(255,255,255,0.7)',
+    },
+    modalBase: {
+        height: 400,
+        width: 300,
     },
     modalContent: {
-        width: 300,
-        padding: 20,
-        backgroundColor: 'white',
-        borderRadius: 10,
-        alignItems: 'center',
+        height: '100%',
+        padding: 10,
     },
     modalTitle: {
         fontSize: 18,
@@ -259,6 +267,6 @@ export const styles = StyleSheet.create({
     },
     modalSubtitle: {
         fontSize: 16,
-        marginTop: 10,
+        marginTop: 4,
     },
 });

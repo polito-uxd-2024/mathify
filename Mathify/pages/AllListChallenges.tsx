@@ -40,17 +40,17 @@ const AllListChallenges = ({ route }: { route: any }) => {
     }
 
     return (
-        <View style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1 }}>
 
-                <TextInput label="Cerca sfida" mode="outlined" value={searchQuery} onChangeText={setSearchQuery}/>
+                <TextInput label="Cerca sfida" mode="outlined" value={searchQuery} onChangeText={setSearchQuery} outlineStyle={{borderRadius: 50, borderWidth: 2}}/>
 
                 {/* FlatList per visualizzare tutte le sfide */}
                 {filteredChallenges.map((item) => (
                     <TouchableOpacity key={item.id} style={styles.article} onPress={() => handleCardPress(item)}>
                         <View style={styles.cardBase}>
                             <Card style={styles.card}>
-                                <View style={{flexDirection: 'row', marginVertical: 30, paddingHorizontal: 10}}>
-                                    <View>
+                                <View style={{flexDirection: 'row', marginBottom: 10, paddingHorizontal: 10}}>
+                                    <View style={{marginTop: 10}}>
                                         <Image source={require('../assets/placeholder.jpg')} style={styles.cardImage}/>
                                     </View>
                                     <View>
@@ -101,7 +101,7 @@ const AllListChallenges = ({ route }: { route: any }) => {
                 </Modal>
             )}
 
-        </View>
+        </ScrollView>
     );
 };
 
