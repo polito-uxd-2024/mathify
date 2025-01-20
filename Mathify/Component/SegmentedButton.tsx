@@ -44,7 +44,7 @@ const challenges = [
     { id: "12", title: "Statistica", icon: "alpha-s-box", argomento: "Statistica", difficoltà: 1 },
 ];
 
-const SegmentedButton = () => {
+export const SegmentedButton = () => {
     const [value, setValue] = React.useState('esplora');
     const navigationAll = useNavigation<NativeStackNavigationProp<HomeStackParamList>>();
     const navigationPlay = useNavigation<NativeStackNavigationProp<PlayParamList>>();
@@ -74,7 +74,6 @@ const SegmentedButton = () => {
         } else {
             alert('Sfida non ancora implementata');
         }
-
     };
     const handleCloseModal = (title) => {
         setModalVisible(false);
@@ -82,7 +81,6 @@ const SegmentedButton = () => {
 
     function handleClick(title: string) {
         navigationPlay.navigate("Play");
-
     }
     return (
         <View style={styles.content}>
@@ -244,6 +242,7 @@ const SegmentedButton = () => {
 
 
             {state.selectedChallenge && (
+
                 <Modal
                     animationType="slide"
                     transparent={true}
