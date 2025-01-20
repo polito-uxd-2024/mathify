@@ -21,6 +21,7 @@ import {useSetCurrentChallenge} from "./setCurrentChallenge";
 import {StateContext} from "../Reducer";
 import {setSelectedChallenge} from "../Action";
 import {handlePress} from "react-native-paper/lib/typescript/components/RadioButton/utils";
+import {useSetChallengeList} from "./useSetChallengeList";
 
 
 
@@ -55,7 +56,7 @@ export const SegmentedButton = () => {
     //const [selectedChallenge, setSelectedChallenge] = useState<Challenge | null>(null);
 
     console.log(state.challengeList)
-
+    useSetChallengeList();
     useSetCurrentChallenge(sfida);
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -135,7 +136,7 @@ export const SegmentedButton = () => {
                                                                     key={index}
                                                                     icon="star"
                                                                     size={25}
-                                                                    color={index < state.selectedChallenge.difficoltà ? 'white' : 'black'} // Colore delle stelle
+                                                                    color={index < state.selectedChallenge.difficolta ? 'white' : 'black'} // Colore delle stelle
                                                                 />
                                                             ))}
                                                         </View>
@@ -210,7 +211,7 @@ export const SegmentedButton = () => {
                                                                         key={index}
                                                                         icon="star"
                                                                         size={20}
-                                                                        color={index < state.selectedChallenge.difficoltà ? 'white' : 'black'} // Colore delle stelle
+                                                                        color={index < state.selectedChallenge.difficolta ? 'white' : 'black'} // Colore delle stelle
                                                                     />
                                                                 ))}
                                                             </View>

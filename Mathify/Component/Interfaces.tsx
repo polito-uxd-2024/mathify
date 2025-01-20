@@ -10,7 +10,7 @@ export interface Question {
 export interface Sfida{
 
     questions: Question[];
-    difficoltà:number;
+    difficolta:number;
     argomento:string;
     titolo:string;
 }

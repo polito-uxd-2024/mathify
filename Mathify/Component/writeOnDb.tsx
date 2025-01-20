@@ -32,7 +32,7 @@ export async function registraSfidaCompletata(sfidaCompletata: SfidaCompletata, 
             XP: sfidaCompletata.xpGuadagnati,
             Titolo: sfidaCompletata.titolo,
             Argomento: selectedChallenge.argomento,
-            Difficoltà: selectedChallenge.difficoltà,
+            Difficoltà: selectedChallenge.difficolta,
             Segnalazioni: sfidaCompletata.segnalazioni
         };
 

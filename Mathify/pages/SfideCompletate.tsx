@@ -46,7 +46,7 @@ export default function SfideCompletate() {
                                                     key={index}
                                                     icon="star"
                                                     size={20}
-                                                    color={index < state.selectedChallenge.difficoltà ? 'white' : 'black'} // Colore delle stelle
+                                                    color={index < state.selectedChallenge.difficolta ? 'white' : 'black'} // Colore delle stelle
                                                 />
                                             ))}
                                         </View>

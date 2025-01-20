@@ -56,7 +56,7 @@ export const fetchChallenge = async (challengeId: string) => {
                 Soluzione: data.Domande[key].Soluzione
                 // Assuming default value
             })),
-            difficoltà: data.Difficoltà,
+            difficolta: data.Difficoltà,
             argomento: data.Argomento,
             titolo: data.Titolo
             // Assuming default value
@@ -71,6 +71,7 @@ export const fetchChallengeList = async () => {
     const snapshot = await get(challengesRef);
     if (snapshot.exists()) {
         const data = snapshot.val();
+        console.log(data);
         const challenges: Sfida[] = Object.keys(data).map(key => ({
             questions: Object.keys(data[key].Domande).map(k => ({
                 Testo: data[key].Domande[k].Testo,
@@ -82,7 +83,7 @@ export const fetchChallengeList = async () => {
 
                 Soluzione: data[key].Domande[k].Soluzione
             })),
-            difficoltà: data[key].Difficoltà,
+            difficolta: data[key].Difficoltà,
             argomento: data[key].Argomento,
             titolo: data[key].Titolo
         }));

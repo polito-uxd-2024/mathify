@@ -42,7 +42,7 @@ export function Reducer(state: State, action: Action) {
 export const InitialState: State = {
     selectedChallenge: {
         argomento: "Geometria Analitica",
-        difficoltà: 1,
+        difficolta: 1,
         questions: [],
         titolo: "Rette sul piano",
     },

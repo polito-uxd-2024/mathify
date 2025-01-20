@@ -21,7 +21,7 @@ export default function PlayScreen() {
         questions: state.selectedChallenge.questions,
         titolo: state.selectedChallenge.titolo,
         argomento: state.selectedChallenge.argomento,
-        difficoltà: state.selectedChallenge.difficoltà,
+        difficolta: state.selectedChallenge.difficolta,
     };
 
     const [progress, setProgress] = useState(0);
@@ -181,7 +181,7 @@ export default function PlayScreen() {
             }, 0);
             setXpCorrect(xpCorretto);
             setTempoTotaleXP(tempoTotXP);
-            setXp(state.selectedChallenge.difficoltà * 50 + xpCorretto + tempoTotXP);
+            setXp(state.selectedChallenge.difficolta * 50 + xpCorretto + tempoTotXP);
             salvaSfida();
 
         }
@@ -195,7 +195,7 @@ export default function PlayScreen() {
             Math.round(timerDuration * risposte.length - listaTempoDomande.reduce((accumulator, currentValue) => accumulator + currentValue, 0))
         );
 
-        const totaleXP = state.selectedChallenge.difficoltà * 50 + xpCorretto + tempoTotXP;
+        const totaleXP = state.selectedChallenge.difficolta * 50 + xpCorretto + tempoTotXP;
 
         const sfidaCompletata = {
             domande: challenge.questions.map((domanda, index) => ({
@@ -411,7 +411,7 @@ export default function PlayScreen() {
 
                     <Text>Conteggio punti</Text>
                     <Text>Punti guadagnati dal tempo: {tempoTotaleXP}</Text>
-                    <Text>Punti in base alla difficoltà: {state.selectedChallenge.difficoltà * 50}</Text>
+                    <Text>Punti in base alla difficoltà: {state.selectedChallenge.difficolta * 50}</Text>
                     <Text>Punti per le risposte corrette: {xpCorrect}</Text>
                     <Text>Punti totali: {xp}</Text>
                 </Card>
