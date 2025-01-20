@@ -55,7 +55,7 @@ export const SegmentedButton = () => {
     const [modalVisible, setModalVisible] = useState(false);
     //const [selectedChallenge, setSelectedChallenge] = useState<Challenge | null>(null);
 
-    console.log(state.challengeList)
+    console.log(state.selectedChallenge);
     useSetChallengeList();
     useSetCurrentChallenge(sfida);
     const [searchQuery, setSearchQuery] = useState("");
@@ -196,7 +196,7 @@ export const SegmentedButton = () => {
                             {/* Lista sfide */}
                             <View style={styles.section}>
                                 {filteredChallenges.slice(0, 5).map((item) => (
-                                    <TouchableOpacity key={item.id} style={styles.article} onPress={() => handleCardPress(item)}>
+                                    <TouchableOpacity key={item.id} style={styles.article} onPress={() => handleCardPress(item.title)}>
                                         <View style={styles.cardBase}>
                                             <Card style={styles.card}>
                                                 <View style={{flexDirection: 'row', marginBottom: 10, marginHorizontal: 10}}>
@@ -242,7 +242,7 @@ export const SegmentedButton = () => {
             </ScrollView>
 
 
-            {state.selectedChallenge && (
+
 
                 <Modal
                     animationType="slide"
@@ -263,7 +263,7 @@ export const SegmentedButton = () => {
                         </View>
                     </View>
                 </Modal>
-            )}
+
         </View>
     );
 };
