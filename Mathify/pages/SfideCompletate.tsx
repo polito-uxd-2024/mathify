@@ -33,12 +33,11 @@ export default function SfideCompletate() {
     }));
     return (
             <View style={styles.section}>
-                {sfideCompletate.map((item) => (
+                {sfideCompletate.reverse().map((item) => (
                 <TouchableOpacity key={item.id} style={styles.article} onPress={() => navigation.navigate("SfidaDetail", { sfida: item })}>
                     <View style={styles.cardBase}>
                         <Card style={styles.card}>
                             <View style={{ paddingBottom: 10, paddingRight: 10, paddingLeft: 10, width: '100%'}}>
-
                                     <View style={{flexDirection: 'row', marginBottom: 'auto', justifyContent: 'flex-end'}}>
                                         <View style={styles.stars}>
                                             {[...Array(3)].map((star, index) => (
@@ -54,10 +53,14 @@ export default function SfideCompletate() {
                                     <View>
                                         <Text style={styles.cardTitle}>{item.titolo}</Text>
                                         <Text style={styles.subtitle}>{item.argomento}</Text>
-                                        <Text style={styles.subtitle}>{item.xpGuadagnati}</Text>
+                                        <Text style={styles.callout}>
+                                            <Icon size={16} source="star" color='white' />
+                                            <Text style={{color: 'white', fontWeight: 'bold'}}>{item.xpGuadagnati} XP</Text>
+                                            <Icon size={16} source="star" color='white' />
+                                        </Text>
                                         <View style={[styles.row,{justifyContent: 'space-between'}]}>
-                                            <Text style={styles.subtitle}>{item.punteggio}/{item.domande.length}</Text>
-                                            <Text style={styles.subtitle}>{item.stringacompletamento}</Text>
+                                            <Text style={styles.subtitle}>{item.punteggio}/{item.domande.length} corrette</Text>
+                                            <Text style={styles.secondary}>{item.stringacompletamento}</Text>
                                         </View>
                                     </View>
 
@@ -66,32 +69,7 @@ export default function SfideCompletate() {
                     </View>
                 </TouchableOpacity>
                 ))}
-            <FlatList
-                data={sfideCompletate}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item}) => (
-                    <View style={styles.article}>
-                        <View style={styles.cardBase}>
-                            <Card style={styles.card}>
-                                <Card.Title title={item.titolo} />
-                                <Card.Content>
-                                    <Text>titolo {item.id}</Text>
-                                    <Text>punteggio {item.punteggio}</Text>
-                                    <Text style={styles.callout}>
-                                        <Icon size={20} source="star" color='white' />
-                                        <Text>{item.xpGuadagnati}</Text>
-                                        <Icon size={20} source="star" color='white' />
-                                    </Text>
-                                    <Text>Argomento: {item.argomento}</Text>
-                                    <Text>Data Completamento: {item.dataCompletamento.toISOString()}</Text>
-                                    <Text>Data Completamento: {item.stringacompletamento}</Text>
-                                    <Button title={"Dettagli"} onPress={() => navigation.navigate("SfidaDetail", { sfida: item })} />
-                                </Card.Content>
-                            </Card>
-                        </View>
-                    </View>
-                )}
-            />
+
             </View>
 
     );

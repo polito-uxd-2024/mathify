@@ -8,7 +8,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mathify/Component/SegmentedButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/SegmentedButton.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mathify/Component/style.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/style.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mathify/Component/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/theme.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mathify/pages/AllListChallenges.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/AllListChallenges.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mathify/pages/SfidaDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/SfidaDetail.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mathify/pages/SfideCompletate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/SfideCompletate.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,6 +95,7 @@
       <workItem from="1737294458137" duration="18540000" />
       <workItem from="1737333092703" duration="5361000" />
       <workItem from="1737374631514" duration="6605000" />
+      <workItem from="1737405073666" duration="9102000" />
     </task>
     <servers />
   </component>
