@@ -36,9 +36,9 @@ export const styles = StyleSheet.create({
     },
     cover: {
         padding: 20,
-        borderColor: 'yellow',
-        borderWidth: 3,
-        backgroundColor: 'lightgray',
+        paddingHorizontal: 40,
+        borderBottomWidth: 2,
+        backgroundColor: myTheme.colors.cardBorder,
     },
     row: {
         flexDirection: 'row',
@@ -52,7 +52,12 @@ export const styles = StyleSheet.create({
         //borderColor: 'green',
         //borderWidth: 3,
     },
-
+    questionBody: {
+        flex: 1,
+        flexDirection: 'column',
+        paddingHorizontal: 20,
+        marginTop: 30,
+    },
 
     //Text
     welcomeText: {
@@ -107,6 +112,7 @@ export const styles = StyleSheet.create({
         paddingBottom: 5,
         paddingRight: 4,
         borderRadius: 10,
+
     },
     answerCardBase: {
         flex: 1,
@@ -116,7 +122,7 @@ export const styles = StyleSheet.create({
         paddingTop: 0,
         paddingBottom: 5,
         paddingRight: 4,
-        borderRadius: 6,
+        borderRadius: 10,
         marginVertical: 7,
     },
 
@@ -129,18 +135,24 @@ export const styles = StyleSheet.create({
     },
     miniCard: {
         margin: 0,
-        height: 80,
         borderRadius: 10,
         borderColor: 'black',
         borderWidth: 3,
         backgroundColor: 'rgb(192,227,195)',
+        paddingVertical: 'auto'
+    },
+    insideCard: {
+        backgroundColor: 'white',
+        padding: 6,
+        margin: 5,
+        justifyContent: 'center',
+        borderRadius: 10,
     },
     answerCard: {
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'flex-start',
+        flexDirection: 'row',
+        alignItems: 'center',
         padding: 10,
-        margin: 0,
+        marginBottom: 8,
         borderRadius: 6,
         borderColor: 'black',
         borderWidth: 2,
@@ -160,6 +172,18 @@ export const styles = StyleSheet.create({
         borderWidth: 3,
         paddingHorizontal: 20,
     },
+    answerButton: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 15,
+        borderColor: 'black',
+        borderWidth: 3,
+        paddingHorizontal: 20,
+        paddingVertical: 30,
+        flex: 1,
+        flexDirection: 'row'
+    },
+
     expandButton: {
         flex: 1,
         marginHorizontal: 5,
@@ -172,20 +196,14 @@ export const styles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 3,
     },
-    answerButton: {
-        borderRadius: 15,
-        borderColor: 'black',
-        borderWidth: 3,
-        marginHorizontal: 0,
-        paddingHorizontal: 60,
-        marginVertical: 5,
 
-
-    },
     coverImage: {
         width: '100%',
         height: 200,
         resizeMode: 'cover',
+        marginVertical: 15,
+        borderRadius: 30,
+        borderWidth: 2,
     },
     profileImage: {
         width: 50,
@@ -204,8 +222,8 @@ export const styles = StyleSheet.create({
     callout: {
         flexDirection: 'row',
         alignItems: 'flex-start',
-        backgroundColor: 'rgb(208,225,240)',
-        padding: 3,
+        backgroundColor: myTheme.colors.cardBorder,
+        padding: 5,
         borderRadius: 20,
         alignSelf: 'flex-start',
     },
@@ -223,9 +241,11 @@ export const styles = StyleSheet.create({
         marginTop: 0,
         borderBottomRightRadius: 25,
         borderBottomLeftRadius: 25,
-        paddingVertical: 8,
-        backgroundColor: 'lightgray',
-        width: '40%',
+        paddingVertical: 3,
+        backgroundColor: myTheme.colors.cardBorder,
+        width: '60%',
+        borderWidth: 2,
+        borderTopWidth: 0,
     },
 
     footer: {

@@ -4,7 +4,7 @@ import {NativeStackNavigationProp} from "react-native-screens/native-stack";
 import {useContext, useState} from "react";
 import {StateContext} from "../Reducer";
 import {useSetCurrentUser} from "../Component/setUser";
-import {Image, ScrollView, TouchableOpacity, View} from "react-native";
+import {Animated, Image, ScrollView, TouchableOpacity, View} from "react-native";
 import {styles} from "../Component/style";
 import {Card, Divider, Icon, ProgressBar, Text} from "react-native-paper";
 import Collapsible from "react-native-collapsible";
@@ -24,19 +24,22 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
     };
 
     return (
-        <ScrollView>
-            <Image source={require('../assets/placeholder.jpg')} style={styles.coverImage}/>
+        <ScrollView >
             <View style={styles.cover}>
+                <Image source={require('../assets/placeholder.jpg')} style={styles.coverImage}/>
                 <View style={{flexDirection: 'row', marginTop: 20, alignItems: 'center', justifyContent: 'space-between'}}>
-                    <Text style={styles.sectionText}>{sfida.titolo}</Text>
-                    <Text>{sfida.stringacompletamento}</Text>
+                    <Text style={styles.welcomeText}>{sfida.titolo}</Text>
+                    <Text style={{fontWeight: 'bold'}}>{sfida.stringacompletamento}</Text>
                 </View>
                 <Text style={styles.subtitle}>{sfida.argomento}</Text>
-                <ProgressBar
-                    style={{ height: 10 }} // Cambia l'altezza se necessario
-                    progress={progress}
-                    color="green" // Colore della barra completata
-                />
+                <View style={{paddingTop: 15}}>
+                    <ProgressBar
+                        style={styles.progressBar} // Cambia l'altezza se necessario
+                        progress={progress}
+                        color={myTheme.colors.rightAnswer} // Colore della barra completata
+                    />
+                    <Text style={{alignSelf: 'center'}}>{progress.toString().substring(2)}% corretta</Text>
+                </View>
             </View>
             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                 <View style={styles.bookmark}>
@@ -54,9 +57,11 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                             <Card style={styles.card}>
 
                                 <Card.Content>
-                                    <Text>{valore.Testo}</Text>
-                                    <Text>{valore.correttezza === false ? 'sbagliata' : 'coretta'}</Text>
-                                    <TouchableOpacity onPress={() => toggleExpand(index)}>
+                                    <Text style={{fontSize: 16}}>{valore.Testo}</Text>
+                                    <View style={[styles.callout, {marginTop: 6, backgroundColor: valore.correttezza === false ? myTheme.colors.wrongAnswer : myTheme.colors.rightAnswer }]}>
+                                     <Text style={{paddingHorizontal: 6}}>{valore.correttezza === false ? 'sbagliata' : 'corretta'}</Text>
+                                    </View>
+                                        <TouchableOpacity onPress={() => toggleExpand(index)}>
                                         <Text style={{paddingTop: 6, color: myTheme.colors.primary}}>
                                             {expandedIndex === index ? "Nascondi Dettagli ˄" : "Mostra Dettagli ˅"}
                                         </Text>

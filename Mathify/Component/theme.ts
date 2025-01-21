@@ -20,8 +20,8 @@ export const CombinedDarkTheme = merge(MD3DarkTheme, DarkTheme);
 export const myTheme = {...CombinedDefaultTheme,  colors: {
         ...CombinedDefaultTheme.colors,
         primary: 'rgb(82,165,232)',
-        cardBorder: 'rgb(201,228,243)',
-        rightAnswer: 'rgb(201,238,186)',
+        cardBorder: 'rgb(197,226,250)',
+        rightAnswer: 'rgb(176,227,198)',
         wrongAnswer: 'rgb(238,186,186)',
 
 
