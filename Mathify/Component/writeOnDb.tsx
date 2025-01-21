@@ -20,13 +20,14 @@ export async function registraSfidaCompletata(sfidaCompletata: SfidaCompletata, 
 
         const sfidaData = {
             DataCompletamento: new Date().toISOString(),
-            Domande: sfidaCompletata.domande.map((domanda) => ({
+            Domande: sfidaCompletata.domande.map((domanda, index) => ({
                 Testo: domanda.Testo,
                 Risposte: domanda.Risposte,
                 RispostaCorretta: domanda.RispostaCorretta,
                 TempoImpiegato: domanda.tempoImpiegato,
                 Correttezza: domanda.correttezza,
-                Spiegazione: domanda.Spiegazione
+                Spiegazione: domanda.Spiegazione,
+                GraficList: selectedChallenge.questions[index].GraficList
             })),
             Punteggio: sfidaCompletata.punteggio,
             TempoImpiegato: sfidaCompletata.tempoImpiegato,
@@ -34,7 +35,8 @@ export async function registraSfidaCompletata(sfidaCompletata: SfidaCompletata, 
             Titolo: sfidaCompletata.titolo,
             Argomento: selectedChallenge.argomento,
             Difficoltà: selectedChallenge.difficolta,
-            Segnalazioni: sfidaCompletata.segnalazioni
+            Segnalazioni: sfidaCompletata.segnalazioni,
+
         };
 
         // Save the data in the database

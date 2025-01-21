@@ -36,6 +36,7 @@ export interface SfidaCompletata{
     segnalazioni:DomandaSegnalata[];
 
 
+
 }
 export interface QuestionDone {
     Testo: string;
@@ -44,6 +45,7 @@ export interface QuestionDone {
     tempoImpiegato:number;
     correttezza:boolean;
     Spiegazione:string;
+    GraficList?:string[];
 
 }
 export interface DomandaSegnalata{

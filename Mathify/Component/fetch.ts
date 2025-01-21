@@ -1,6 +1,6 @@
 import { getDatabase, ref, get } from "firebase/database";
 import {db} from "../Firebase";
-import {Sfida, SfidaCompletata, Utente} from "./Interfaces";
+import {Sfida, Utente} from "./Interfaces";
 
 export const fetchUser = async (userId: string): Promise<Utente> => {
     const userRef = ref(db, `Utenti/${userId}`);
@@ -26,7 +26,8 @@ export const fetchUser = async (userId: string): Promise<Utente> => {
                     RispostaCorretta: data.SfideCompletate[key].Domande[k].RispostaCorretta,
                     tempoImpiegato: data.SfideCompletate[key].Domande[k].TempoImpiegato,
                     correttezza: data.SfideCompletate[key].Domande[k].Correttezza,
-                    Spiegazione: data.SfideCompletate[key].Domande[k].Spiegazione
+                    Spiegazione: data.SfideCompletate[key].Domande[k].Spiegazione,
+                    GraficList: data.SfideCompletate[key].Domande[k].GraficList
                 })),
                 xpGuadagnati: data.SfideCompletate[key].XP,
                 titolo: data.SfideCompletate[key].Titolo,

@@ -221,6 +221,7 @@ export default function PlayScreen() {
                 tempoImpiegato: listaTempoDomande[index] || 0,
                 correttezza: risposte[index] || false,
                 Spiegazione: domanda.Spiegazione,
+                GraficList: domanda.GraficList,
             })),
             punteggio: punteggioOttenuto,
             tempoImpiegato: timerDuration * challenge.questions.length,
