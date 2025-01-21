@@ -32,9 +32,9 @@ export interface Challenge {
 }
 const challenges = [
     { id: "1", title: "Rette sul piano", icon: "alpha-a-box", argomento: "Geometria analitica", difficoltà: 1 },
-    { id: "2", title: "Equazioni e disequazioni", icon: "alpha-g-box", argomento: "Algebra", difficoltà: 1 },
-    { id: "3", title: "Triangoli equilateri", icon: "alpha-c-box", argomento: "Geometria", difficoltà: 1 },
-    { id: "4", title: "Studio della funzione", icon: "alpha-t-box", argomento: "Analisi", difficoltà: 3 },
+    { id: "2", title: "Equazioni", icon: "alpha-g-box", argomento: "Algebra", difficoltà: 1 },
+    { id: "3", title: "Dominio", icon: "alpha-c-box", argomento: "Funzioni", difficoltà: 1 },
+    { id: "4", title: "Triangoli equilateri", icon: "alpha-t-box", argomento: "Geometria", difficoltà: 3 },
     { id: "5", title: "Equazioni", icon: "alpha-p-box", argomento: "Algebra", difficoltà: 2 },
     { id: "6", title: "Statistica", icon: "alpha-s-box", argomento: "Statistica", difficoltà: 1 },
     { id: "7", title: "Algebra", icon: "alpha-a-box", argomento: "Algebra", difficoltà: 2 },
