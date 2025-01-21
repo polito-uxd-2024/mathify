@@ -58,7 +58,7 @@ export const SegmentedButton = () => {
 
     useSetChallengeList();
     useSetCurrentChallenge(sfida);
-    console.log(state.selectedChallenge);
+
     const [searchQuery, setSearchQuery] = useState("");
 
     const filteredChallenges = challenges.filter(challenge =>

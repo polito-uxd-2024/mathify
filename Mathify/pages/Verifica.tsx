@@ -8,12 +8,12 @@ import {useSetCurrentUser} from "../Component/setUser";
 export default function Verifica() {
     const [state] = useContext(StateContext);
     useSetCurrentUser("Utente1");
-    console.log(state.utente.verifica)
+
     return (
         <SafeAreaView>
             {state.utente.livello.numero >= 10 && !state.utente.verifica && (
                 <Button onPress={()=>{
-                    console.log("Verifica")
+
 
                     registraVerifica("Utente1")
 
