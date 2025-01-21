@@ -55,9 +55,10 @@ export const SegmentedButton = () => {
     const [modalVisible, setModalVisible] = useState(false);
     //const [selectedChallenge, setSelectedChallenge] = useState<Challenge | null>(null);
 
-    console.log(state.selectedChallenge);
+
     useSetChallengeList();
     useSetCurrentChallenge(sfida);
+    console.log(state.selectedChallenge);
     const [searchQuery, setSearchQuery] = useState("");
 
     const filteredChallenges = challenges.filter(challenge =>

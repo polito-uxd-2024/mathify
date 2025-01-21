@@ -83,7 +83,7 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                                         ))}
                                         <View style={{paddingTop: 10}}>
                                             <Text style={styles.sectionText}>Spiegazione</Text>
-                                            <Text>inserire la spiegazione nell'interface</Text>
+                                            <Text>{valore.Spiegazione}</Text>
                                         </View>
                                         </View>
                                     </Collapsible>

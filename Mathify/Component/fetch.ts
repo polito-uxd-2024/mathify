@@ -22,10 +22,11 @@ export const fetchUser = async (userId: string): Promise<Utente> => {
                 tempoImpiegato: data.SfideCompletate[key].TempoImpiegato,
                 domande: Object.keys(data.SfideCompletate[key].Domande).map(k => ({
                     Testo: data.SfideCompletate[key].Domande[k].Testo,
-                    Risposte: [data.SfideCompletate[key].Domande[k].Risposte.map((risposta: string) => risposta)],
+                    Risposte: data.SfideCompletate[key].Domande[k].Risposte.map((risposta: string) => risposta),
                     RispostaCorretta: data.SfideCompletate[key].Domande[k].RispostaCorretta,
                     tempoImpiegato: data.SfideCompletate[key].Domande[k].TempoImpiegato,
-                    correttezza: data.SfideCompletate[key].Domande[k].Correttezza
+                    correttezza: data.SfideCompletate[key].Domande[k].Correttezza,
+                    Spiegazione: data.SfideCompletate[key].Domande[k].Spiegazione
                 })),
                 xpGuadagnati: data.SfideCompletate[key].XP,
                 titolo: data.SfideCompletate[key].Titolo,

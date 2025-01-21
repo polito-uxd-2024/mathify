@@ -220,6 +220,7 @@ export default function PlayScreen() {
                 RispostaData: listaRisposteDate[index] || "Nessuna risposta data",
                 tempoImpiegato: listaTempoDomande[index] || 0,
                 correttezza: risposte[index] || false,
+                Spiegazione: domanda.Spiegazione,
             })),
             punteggio: punteggioOttenuto,
             tempoImpiegato: timerDuration * challenge.questions.length,

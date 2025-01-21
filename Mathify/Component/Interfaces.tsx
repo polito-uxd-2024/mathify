@@ -43,6 +43,7 @@ export interface QuestionDone {
     RispostaCorretta: string;
     tempoImpiegato:number;
     correttezza:boolean;
+    Spiegazione:string;
 
 }
 export interface DomandaSegnalata{

@@ -26,6 +26,7 @@ export async function registraSfidaCompletata(sfidaCompletata: SfidaCompletata, 
                 RispostaCorretta: domanda.RispostaCorretta,
                 TempoImpiegato: domanda.tempoImpiegato,
                 Correttezza: domanda.correttezza,
+                Spiegazione: domanda.Spiegazione
             })),
             Punteggio: sfidaCompletata.punteggio,
             TempoImpiegato: sfidaCompletata.tempoImpiegato,
