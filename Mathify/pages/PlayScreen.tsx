@@ -1,6 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import { View, ScrollView } from "react-native";
-import {Appbar, Card, Button, Text, ProgressBar, useTheme, Dialog, TextInput, Portal, Icon} from "react-native-paper";
+import {
+    Appbar,
+    Card,
+    Button,
+    Text,
+    ProgressBar,
+    useTheme,
+    Dialog,
+    TextInput,
+    Portal,
+    Icon,
+    Headline
+} from "react-native-paper";
 import {DomandaSegnalata, Sfida} from "../Component/Interfaces";
 import { StateContext } from "../Reducer";
 import Collapsible from "react-native-collapsible";
@@ -10,6 +22,9 @@ import {useSetCurrentUser} from "../Component/setUser";
 import { Image, StyleSheet  } from 'react-native';
 import {styles} from "../Component/style";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
+import {myTheme} from "../Component/theme";
+import {Header} from "@react-navigation/stack";
+import {ScreenFooter} from "react-native-screens";
 
 
 export default function PlayScreen() {
@@ -225,20 +240,18 @@ export default function PlayScreen() {
 
     if (!changePage) {
         return (
-            <View>
-                <Image
-                    source={{ uri: 'https://raw.githubusercontent.com/ilariarduin0/MathifyStorage/main/S1D1A.jpg' }}
-                    style={{
-                        width: 100,
-                        height: 100,
-                        margin: 8,
-                        borderRadius: 4,
-                        alignSelf:"center"
-                    }}
-                />
-                <Card.Content>
-                    <Text style={{ fontSize: 18, marginBottom: 16 }}>{currentQuestion.Testo}</Text>
-                    {graficoDomandaAttivo && (
+            <View style={styles.content}>
+                <View style={styles.content}>
+                    <View style={styles.cover}>
+                        <Text style={{ fontSize: 20, marginBottom: 10}}>{currentQuestion.Testo}</Text>
+                        <ProgressBar
+                            progress={parseFloat(timerProgress.toFixed(3))}
+                            style={styles.progressBar}
+                            color={timerProgress > 0.8 ? myTheme.colors.wrongAnswer : myTheme.colors.rightAnswer}
+                        />
+                    </View>
+                    <ScrollView style={styles.questionBody}>
+                        {graficoDomandaAttivo && (
                         <Image
                             source={{ uri: state.selectedChallenge.questions[currentQuestionIndex].GraficList[0] }}
                             style={{
@@ -249,17 +262,27 @@ export default function PlayScreen() {
                                 alignSelf:"center"
                             }}
                         />
-                    )}
-                    {currentQuestion.Risposte.map((risposta, index) => (
+                        )}
+                        {currentQuestion.Risposte.map((risposta, index) => (
                         <View
                             key={index}
                             style={{
                                 flexDirection: 'row', // Layout in fila
                                 alignItems: 'center', // Allinea verticalmente
-                                marginBottom: 8,      // Spaziatura tra i pulsanti
+                                marginBottom: 20,      // Spaziatura tra i pulsanti
                             }}
                         >
-                            {graficoRisposteAttivo && (
+
+                            <Button
+                                mode="contained"
+                                buttonColor={myTheme.colors.cardBorder}
+                                labelStyle={{ fontSize: 18 }}
+                                style={[styles.answerButton, {
+                                    backgroundColor: coloreRisposta && clickedButtonIndex===index ? isCorrectAnswer ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer : colors.primary }]} // Il pulsante occupa tutto lo spazio rimanente
+                                onPress={() => handleAnswerPress(risposta, index)}
+                            >
+                                {risposta} {/* Modifica "risposta" in base alla struttura del tuo oggetto */}
+                                {graficoRisposteAttivo && (
                                 <Image
                                     source={{ uri: state.selectedChallenge.questions[currentQuestionIndex].GraficList[index] }}
                                     style={{
@@ -270,28 +293,21 @@ export default function PlayScreen() {
                                     }}
                                 />
                             )}
-                            <Button
-                                mode="contained"
-                                style={{ flex: 1, backgroundColor: coloreRisposta && clickedButtonIndex===index ? isCorrectAnswer ? "green" : "red" : colors.primary }} // Il pulsante occupa tutto lo spazio rimanente
-                                onPress={() => handleAnswerPress(risposta, index)}
-                            >
-                                {risposta} {/* Modifica "risposta" in base alla struttura del tuo oggetto */}
                             </Button>
                         </View>
                     ))}
-                    <ProgressBar
-                        progress={parseFloat(timerProgress.toFixed(3))}
-                        style={{ marginTop: 16 }}
-                        color={timerProgress > 0.8 ? "red" : "green"}
-                    />
+                    </ScrollView>
+                </View>
+                    {/*
                     <Text style={{ marginTop: 8 }}>
                         Tempo rimasto: {Math.ceil((1 - timerProgress) * timerDuration)}s
                     </Text>
                     TimerProgress: {timerProgress.toString()}
                     <Text style={{ marginTop: 8 }}>Domande corrette: {punteggioOttenuto}</Text>
                     <Text>GraficoRisposteAttivo: {graficoRisposteAttivo.toString()}</Text>
-                </Card.Content>
+                    */}
 
+                <View>
                 <View
                     style={{
                         flexDirection: "row",
@@ -300,26 +316,40 @@ export default function PlayScreen() {
                         padding: 10,
                     }}
                 >
-                    <Card style={{ flex: 1, margin: 5 }}>
-                        <Text
-                            style={{ textAlign: "center", padding: 10 }}
-                            onPress={bonusGrafico}
-                        >
-                            Grafico
-                        </Text>
-                        <Text> Disponibilità: {(grafico && state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) ? "1" : (state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) ? "0" : "Non disponibile"}</Text>
-                    </Card>
-                    <Card style={{ flex: 1, margin: 5 }} onPress={bonusTempo}>
-                        <Text style={{ textAlign: "center", padding: 10 }}>+30 secondi</Text>
-                        <Text> Disponibilità: {tempoMaggiore ? "1" : "0"}</Text>
-                    </Card>
-                    <Card style={{ flex: 1, margin: 5 }} onPress={bonusTentativi}>
-                        <Text style={{ textAlign: "center", padding: 10 }}>Doppio tentativo</Text>
-                        <Text>Disponibilità: {dueTentativi ? "1" : "0"}</Text>
-                    </Card>
-
+                    <View style={styles.miniCardBase}>
+                        <Card style={styles.miniCard}>
+                            <Text
+                                style={{ textAlign: "center", padding: 10 }}
+                                onPress={bonusGrafico}
+                            >
+                                Mostra Grafico
+                            </Text>
+                            <View style={styles.insideCard}>
+                                <Text style={{fontSize: 20, fontWeight: 'bold'}}>{(grafico && state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) ? "1" : (state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) ? "0" : "Non disponibile"}</Text>
+                            </View>
+                        </Card>
+                    </View>
+                    <View style={styles.miniCardBase}>
+                        <Card style={styles.miniCard} onPress={bonusTempo}>
+                            <Text style={{ textAlign: "center", padding: 10 }}>+30 secondi</Text>
+                            <View style={styles.insideCard}>
+                                <Text style={{fontSize: 20, fontWeight: 'bold'}}>{tempoMaggiore ? "1" : "0"}</Text>
+                            </View>
+                        </Card>
+                    </View>
+                    <View style={styles.miniCardBase}>
+                        <Card style={styles.miniCard} onPress={bonusTentativi}>
+                            <Text style={{ textAlign: "center", padding: 10 }}>Doppio tentativo</Text>
+                            <View style={styles.insideCard}>
+                                <Text style={{fontSize: 20, fontWeight: 'bold'}}>{dueTentativi ? "1" : "0"}</Text>
+                            </View>
+                        </Card>
+                    </View>
                 </View>
+
+
                 <Button style = {{width:"50%", alignSelf:"center"}} mode="contained-tonal" onPress={() => setDialogVisible(true)}>Apri Dialog</Button>
+                </View>
 
                 <Portal>
                     <Dialog visible={isDialogVisible} onDismiss={() => setDialogVisible(false)}>
