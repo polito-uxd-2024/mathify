@@ -93,7 +93,8 @@ export default function PlayScreen() {
                 setTimerProgress((prev) => {
                     if (prev < 1) {
                         const newProgress = prev + 1 / timerDuration;
-                        return newProgress >= 1 ? 1 : parseFloat(newProgress.toFixed(3));
+                        return newProgress >= 1 ? 1 : parseFloat(newProgress.toFixed(2));
+
                     } else {
                         handleAnswerPress("Tempo scaduto!!", -1);
                         return 0; // Assicurati che il timer si fermi
@@ -247,7 +248,7 @@ export default function PlayScreen() {
                     <View style={styles.cover}>
                         <Text style={{ fontSize: 20, marginBottom: 10}}>{currentQuestion.Testo}</Text>
                         <ProgressBar
-                            progress={parseFloat(timerProgress.toFixed(3))}
+                            progress={timerProgress}
                             style={styles.progressBar}
                             color={timerProgress > 0.8 ? myTheme.colors.wrongAnswer : myTheme.colors.rightAnswer}
                         />
@@ -300,14 +301,15 @@ export default function PlayScreen() {
                     ))}
                     </ScrollView>
                 </View>
-                    {/*
-                    <Text style={{ marginTop: 8 }}>
-                        Tempo rimasto: {Math.ceil((1 - timerProgress) * timerDuration)}s
-                    </Text>
+
+                {/*<Text style={{marginTop: 8}}>
+                    Tempo rimasto: {Math.ceil((1 - timerProgress) * timerDuration)}s
+                </Text>
                     TimerProgress: {timerProgress.toString()}
-                    <Text style={{ marginTop: 8 }}>Domande corrette: {punteggioOttenuto}</Text>
-                    <Text>GraficoRisposteAttivo: {graficoRisposteAttivo.toString()}</Text>
-                    */}
+                    <Text style={{marginTop: 8}}>Domande corrette: {punteggioOttenuto}</Text>
+        <Text>GraficoRisposteAttivo: {graficoRisposteAttivo.toString()}</Text>
+    */}
+
 
                 <View>
                 <View
