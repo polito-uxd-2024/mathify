@@ -63,25 +63,30 @@ export const styles = StyleSheet.create({
     welcomeText: {
         fontSize: 20,
         fontWeight: 'bold',
+        fontFamily: 'Itim', // Nome del font
     },
     cardTitle: {
         fontSize: 18,
         fontWeight: 'bold',
+        fontFamily: 'Itim', // Nome del font
     },
     sectionText: {
         fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 0,
         flexShrink: 1,
+        fontFamily: 'Itim', // Nome del font
     },
     subtitle: {
         fontSize: 14,
         marginBottom: 0,
+        fontFamily: 'Itim', // Nome del font
     },
     secondary: {
         fontSize: 14,
         fontWeight: 'bold',
-        color: 'gray'
+        color: 'gray',
+        fontFamily: 'Itim', // Nome del font
     },
 
 
@@ -90,6 +95,7 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'white',
         marginBottom: 0,
+        fontFamily: 'Itim', // Nome del font
     },
 
     cardBase: {
@@ -257,10 +263,12 @@ export const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         marginVertical: 5,
+        fontFamily: 'Itim', // Nome del font
     },
     questionText: {
         fontSize: 20,
         marginBottom: 20,
+        fontFamily: 'Itim', // Nome del font
     },
     progressBar: {
         height: 20,
@@ -294,9 +302,11 @@ export const styles = StyleSheet.create({
     modalTitle: {
         fontSize: 18,
         fontWeight: 'bold',
+        fontFamily: 'Itim', // Nome del font
     },
     modalSubtitle: {
         fontSize: 16,
         marginTop: 4,
+        fontFamily: 'Itim', // Nome del font
     },
 });
