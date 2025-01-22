@@ -52,7 +52,7 @@ export const fetchChallenge = async (challengeId: string) => {
                 Testo: data.Domande[key].Testo,
                 Risposte: [data.Domande[key].A, data.Domande[key].B, data.Domande[key].C, data.Domande[key].D],
 
-                Spiegazione: data.Domande[key].Spiegazione,
+                Spiegazione: data.Domande[key].Spiegazione ?? "Spiegazione non presente",
                 GraficList: data.Domande[key].Grafico === "Risposte" ? [data.Domande[key].GA, data.Domande[key].GB, data.Domande[key].GC, data.Domande[key].GD]
                     : data.Domande[key].Grafico === "Domanda" ? [data.Domande[key].GT] : [],
                 Soluzione: data.Domande[key].Soluzione
@@ -81,7 +81,7 @@ export const fetchChallengeList = async () => {
 
                 GraficList: data[key].Domande[k].Grafico === "Risposte" ? [data[key].Domande[k].GA, data[key].Domande[k].GB, data[key].Domande[k].GC, data[key].Domande[k].GD]
                     : data[key].Domande[k].Grafico === "Domanda" ? [data[key].Domande[k].GT] : [],
-                Spiegazione: data[key].Domande[k].Spiegazione,
+                Spiegazione: data[key].Domande[k].Spiegazione??"Spiegazione non Presente",
 
                 Soluzione: data[key].Domande[k].Soluzione
             })),

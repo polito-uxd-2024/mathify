@@ -135,12 +135,12 @@ export default function PlayScreen() {
 
     const handleNextQuestion = () => {
         const currentTime = Date.now();
-        const timeTaken = (currentTime - startTime) / 1000;
+        const timeTaken = parseFloat(((currentTime - startTime) / 1000).toFixed(2));
         setListaTempoDomande((prev) => [...prev, timeTaken]);
 
         if (currentQuestionIndex < challenge.questions.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
-            setProgress((currentQuestionIndex + 1) / challenge.questions.length);
+            setProgress(parseFloat(((currentQuestionIndex + 1) / challenge.questions.length).toFixed(2)))
             setTimerProgress(0);
             setStartTime(Date.now());
             setGraficoDomandaAttivo(false)
@@ -436,7 +436,7 @@ export default function PlayScreen() {
                                     <Text>Tempo Impiegato: {Math.round(listaTempoDomande[index])} s</Text>
                                     <Text>Risposta data: {listaRisposteDate[index]}</Text>
                                     <Text>Risposta corretta: {state.selectedChallenge.questions[index].Soluzione}</Text>
-                                    <Text>Soluzione: {state.selectedChallenge.questions[index].Soluzione}</Text>
+                                    <Text>Spiegazione: {state.selectedChallenge.questions[index].Spiegazione}</Text>
                                     <Text>Punti guadagnati: {risposte[index]? Math.round(10 + timerDuration - listaTempoDomande[index])  : 0}</Text>
                                     <Text>Grafico del testo: </Text>
                                     {state.selectedChallenge.questions[index].GraficList.length===1 ? <Image

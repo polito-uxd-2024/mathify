@@ -5,7 +5,7 @@ import {styles} from "../Component/style";
 import {timeAgo} from "../Component/timeago";
 import {useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
-import {ProfileStackParamList} from "../Component/navigation";
+import {HomeStackParamList, ProfileStackParamList} from "../Component/navigation";
 import {useContext} from "react";
 import {StateContext} from "../Reducer";
 import {useSetCurrentUser} from "../Component/setUser";
@@ -24,7 +24,7 @@ export default function SfideCompletate() {
         stringacompletamento: timeAgo(sfida.datacompletamento)
     }));
     */
-    const navigation = useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<HomeStackParamList>>();
     const [state] = useContext(StateContext);
     useSetCurrentUser("Utente1");
     const sfideCompletate = state.utente.sfideCompletate.map(sfida => ({
@@ -34,7 +34,7 @@ export default function SfideCompletate() {
     return (
             <View style={styles.section}>
                 {sfideCompletate.reverse().map((item) => (
-                <TouchableOpacity key={item.id} style={styles.article} onPress={() => navigation.navigate("SfidaDetail", { sfida: item })}>
+                <TouchableOpacity key={item.dataCompletamento.toISOString()} style={styles.article} onPress={() => navigation.navigate("SfidaDetail", { sfida: item })}>
                     <View style={styles.cardBase}>
                         <Card style={styles.card}>
                             <View style={{ paddingBottom: 10, paddingRight: 10, paddingLeft: 10, width: '100%'}}>

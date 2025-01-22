@@ -71,7 +71,7 @@ function HomeStackScreen() {
         <HomeStack.Navigator screenOptions={{headerShown:false}}>
             <HomeStack.Screen name="Home" component={HomeScreen} />
             <HomeStack.Screen name="AllListChallenges" component={AllListChallenges} options={{headerShown:true}} />
-            <HomeStack.Screen name={"SfidaDetail"} component={SfidaDetail} options={{headerShown:true}} />
+            <HomeStack.Screen name={"SfidaDetail"} component={SfidaDetail} options={{headerShown:true, headerTitle:"Dettaglio Sfida"}} />
         </HomeStack.Navigator>
     );
 }
