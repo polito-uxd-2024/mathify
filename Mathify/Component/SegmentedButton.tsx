@@ -186,7 +186,7 @@ export const SegmentedButton = () => {
                         </View>
                         <Divider style={{marginTop: 20, backgroundColor: 'lightgray', height: 2}}/>
                         <View style={styles.section}>
-                            <Text style={styles.welcomeText}>Scopri le sfide</Text>
+                            <Text styyle={styles.welcomeText}>Scopri le sfide</Text>
                             <View style={styles.article}>
                                 <TextInput label="Cerca sfida"
                                            mode='outlined'
