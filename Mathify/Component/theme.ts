@@ -23,6 +23,7 @@ export const myTheme = {...CombinedDefaultTheme,  colors: {
         cardBorder: 'rgb(197,226,250)',
         rightAnswer: 'rgb(176,227,198)',
         wrongAnswer: 'rgb(238,186,186)',
+        gray: 'rgb(232,232,232)',
 
 
 

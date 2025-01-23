@@ -117,7 +117,6 @@ export const SegmentedButton = () => {
                 )}
                 {value === 'esplora' && (
                     <View>
-
                         {/* Sfida random */}
                         <View style={styles.section}>
                             <View style={styles.article}>
@@ -195,7 +194,6 @@ export const SegmentedButton = () => {
                                            onChangeText={setSearchQuery}
                                 />
                             </View>
-
                             {/* Lista sfide */}
                             <View style={styles.section}>
                                 {filteredChallenges.slice(0, 5).map((item) => (
@@ -229,8 +227,6 @@ export const SegmentedButton = () => {
                                         </View>
                                     </TouchableOpacity>
                                 ))}
-
-
                                 {filteredChallenges.length > 5 && (
                                     <Button
                                         onPress={() => navigationAll.navigate('AllListChallenges', { filteredChallenges })}

@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     },
     questionBody: {
         flex: 1,
-        flexDirection: 'column',
+        //flexDirection: 'column',
         paddingHorizontal: 20,
         marginTop: 30,
     },
@@ -113,23 +113,23 @@ export const styles = StyleSheet.create({
         marginHorizontal: 10,
         width: '100%',
         backgroundColor: 'black',
-        paddingLeft: 0,
-        paddingTop: 0,
+        paddingLeft: 2,
+        paddingTop: 2,
         paddingBottom: 5,
         paddingRight: 4,
-        borderRadius: 10,
+        borderRadius: 20,
 
     },
     answerCardBase: {
         flex: 1,
         width: '100%',
         backgroundColor: 'black',
-        paddingLeft: 0,
-        paddingTop: 0,
+        paddingLeft: 2,
+        paddingTop: 2,
         paddingBottom: 5,
         paddingRight: 4,
-        borderRadius: 10,
-        marginVertical: 7,
+        borderRadius: 18,
+
     },
 
     card: {
@@ -141,16 +141,17 @@ export const styles = StyleSheet.create({
     },
     miniCard: {
         margin: 0,
-        borderRadius: 10,
+        borderRadius: 18,
         borderColor: 'black',
-        borderWidth: 3,
-        backgroundColor: 'rgb(192,227,195)',
+        borderWidth: 0,
+        backgroundColor: 'white',
         paddingVertical: 'auto'
     },
     insideCard: {
-        backgroundColor: 'white',
+        backgroundColor: myTheme.colors.gray,
         padding: 6,
         margin: 5,
+        alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 10,
     },
@@ -159,7 +160,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 10,
         marginBottom: 8,
-        borderRadius: 6,
+        borderRadius: 10,
         borderColor: 'black',
         borderWidth: 2,
         backgroundColor: 'rgb(192,227,195)',
@@ -182,12 +183,12 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 15,
-        borderColor: 'black',
-        borderWidth: 3,
-        paddingHorizontal: 20,
-        paddingVertical: 30,
+        borderColor: myTheme.colors.cardBorder,
+        borderWidth: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 15,
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'column'
     },
 
     expandButton: {

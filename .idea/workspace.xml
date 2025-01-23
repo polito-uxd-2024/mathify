@@ -6,10 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="39542f42-9a80-4e54-af61-1f4385b67116" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mathify/Component/SegmentedButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/SegmentedButton.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mathify/Component/style.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/style.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mathify/Component/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/theme.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mathify/pages/PlayScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/PlayScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/pages/SfidaDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/SfidaDetail.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +47,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "reastyle",
     "last_opened_file_path": "C:/Users/chicc/Documents/Lavoro e Studio/Università/UxDesign/mathify/Mathify",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -94,6 +94,10 @@
       <workItem from="1737333092703" duration="5361000" />
       <workItem from="1737374631514" duration="6605000" />
       <workItem from="1737405073666" duration="9102000" />
+      <workItem from="1737456207547" duration="1173000" />
+      <workItem from="1737569345838" duration="10000" />
+      <workItem from="1737645564434" duration="591000" />
+      <workItem from="1737648855889" duration="6273000" />
     </task>
     <servers />
   </component>
