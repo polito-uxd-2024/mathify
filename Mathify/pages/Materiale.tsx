@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import { View, ScrollView, Image, Modal, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { Appbar, Card, List, FAB, Searchbar, SegmentedButtons, IconButton } from 'react-native-paper';
 import { styles } from '../Component/style';
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
 import {MaterialeStackParamList} from "../Component/navigation";
 import {useNavigation} from "@react-navigation/native";
+import {StateContext} from "../Reducer";
 
 type Material = {
     title: string;
@@ -84,11 +85,12 @@ export default function Materiale() {
     const [addedMaterials, setAddedMaterials] = useState<PredefinedMaterial[]>([]);
     const [savedMaterials, setSavedMaterials] = useState<PredefinedMaterial[]>([]);
     const navigation=useNavigation<NativeStackNavigationProp<MaterialeStackParamList>>();
-
+    const [state] = useContext(StateContext);
     const onChangeSearch = (query: string) => setSearchQuery(query);
 
     const handleAddMaterial = () => {
         // Controlla se i campi di newMaterial (escluso id) sono vuoti
+        if (state.utente.livello.numero < 10) {
         const isValid = Object.entries(newMaterial)
             .filter(([key]) => key !== 'id') // Esclude il campo 'id'
             .every(([, value]) => value.trim() !== "");
@@ -111,6 +113,9 @@ export default function Materiale() {
             icon: '',
             image: ''
         });
+        } else {
+            alert("Non hai il livello sufficiente per aggiungere materiale!, Raggiungi il livello 10"); // Messaggio di erro
+        }
     };
 
 
