@@ -277,7 +277,7 @@ export default function Materiale() {
             <FAB
                 style={styles.fab}
                 icon="plus"
-                onPress={() => state.utente.livello.numero>=10?setModalVisible(true):alert("Non hai il livello sufficiente per aggiungere materiale, Raggiungi il livello 10!!!")}
+                onPress={() => state.utente.livello.numero>=10?setModalVisible(true):alert("Non hai il livello sufficiente per aggiungere materiale, Raggiungi il livello 10 e verifica il tuo account!!!")}
             />
 
             {/* Modal for Adding Material */}
