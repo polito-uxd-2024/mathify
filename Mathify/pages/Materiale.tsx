@@ -6,6 +6,7 @@ import {NativeStackNavigationProp} from "react-native-screens/native-stack";
 import {MaterialeStackParamList} from "../Component/navigation";
 import {useNavigation} from "@react-navigation/native";
 import {StateContext} from "../Reducer";
+import {useSetCurrentUser} from "../Component/setUser";
 
 type Material = {
     title: string;
@@ -86,11 +87,14 @@ export default function Materiale() {
     const [savedMaterials, setSavedMaterials] = useState<PredefinedMaterial[]>([]);
     const navigation=useNavigation<NativeStackNavigationProp<MaterialeStackParamList>>();
     const [state] = useContext(StateContext);
+    console.log(state);
+    useSetCurrentUser("Utente1");
     const onChangeSearch = (query: string) => setSearchQuery(query);
 
     const handleAddMaterial = () => {
         // Controlla se i campi di newMaterial (escluso id) sono vuoti
-        if (state.utente.livello.numero < 10) {
+
+
         const isValid = Object.entries(newMaterial)
             .filter(([key]) => key !== 'id') // Esclude il campo 'id'
             .every(([, value]) => value.trim() !== "");
@@ -113,9 +117,7 @@ export default function Materiale() {
             icon: '',
             image: ''
         });
-        } else {
-            alert("Non hai il livello sufficiente per aggiungere materiale!, Raggiungi il livello 10"); // Messaggio di erro
-        }
+
     };
 
 
@@ -275,7 +277,7 @@ export default function Materiale() {
             <FAB
                 style={styles.fab}
                 icon="plus"
-                onPress={() => setModalVisible(true)}
+                onPress={() => state.utente.livello.numero>=10?setModalVisible(true):alert("Non hai il livello sufficiente per aggiungere materiale, Raggiungi il livello 10!!!")}
             />
 
             {/* Modal for Adding Material */}
