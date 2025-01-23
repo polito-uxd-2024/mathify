@@ -88,15 +88,31 @@ export default function Materiale() {
     const onChangeSearch = (query: string) => setSearchQuery(query);
 
     const handleAddMaterial = () => {
+        // Controlla se i campi di newMaterial (escluso id) sono vuoti
+        const isValid = Object.entries(newMaterial)
+            .filter(([key]) => key !== 'id') // Esclude il campo 'id'
+            .every(([, value]) => value.trim() !== "");
+
+        if (!isValid) {
+            alert("Tutti i campi devono essere compilati!"); // Messaggio di errore
+            return;
+        }
+
+        // Aggiungi il nuovo materiale se i campi sono validi
         setAddedMaterials([...addedMaterials, newMaterial]);
         setModalVisible(false);
-        setNewMaterial({ id: '',
+
+        // Resetta newMaterial
+        setNewMaterial({
+            id: '',
             title: '',
             description: '',
             longDescription: '',
             icon: '',
-            image: '' });
+            image: ''
+        });
     };
+
 
     const handleSaveMaterial = (material: PredefinedMaterial) => {
         if (!savedMaterials.find((m) => m.id === material.id)) {
