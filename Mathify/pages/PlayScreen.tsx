@@ -72,6 +72,8 @@ export default function PlayScreen() {
     const [motivo, setMotivo] = useState("");
     const [isDialogVisible, setDialogVisible] = useState(false);
     const [selectedSuggestion, setSelectedSuggestion] = useState('');
+    const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
 
     const handleCloseModal = (title) => {
         setMotivo("");
@@ -138,7 +140,9 @@ export default function PlayScreen() {
             }
         }
     }
-
+    const toggleExpand = (index: number) => {
+        setExpandedIndex(expandedIndex === index ? null : index);
+    };
     const handleNextQuestion = () => {
         const currentTime = Date.now();
         const timeTaken = parseFloat(((currentTime - startTime) / 1000).toFixed(2));
@@ -362,15 +366,13 @@ export default function PlayScreen() {
                                 <View style={{height: 40, alignItems: 'center', justifyContent: 'center'}}>
                                 <Text
                                     style={{ fontSize: 12, textAlign: "center", padding: 3 }}
-
                                 >
                                     Mostra Grafico
                                 </Text>
                                 </View>
                                 <View style={styles.insideCard}>
-
-                                        <Text style={{fontSize: 20, fontWeight: 'bold'}}>{(grafico && state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) ? "1" : (state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) ? "0" : "-"}</Text>
-                                    </View>
+                                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>{(grafico && state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) ? "1" : (state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) ? "0" : "-"}</Text>
+                                </View>
 
                             </Card>
                         </TouchableOpacity>)}
@@ -482,30 +484,83 @@ export default function PlayScreen() {
                         </Dialog.Actions>
                     </Dialog>
                 </Portal>
+<<<<<<< Updated upstream
                 <Text style={{fontSize:36, fontWeight:"bold", margin:5}}>COMPLIMENTI! HAI COMPLETATO LA SFIDA</Text>
                 <Text style={{fontSize:20, margin:3}}>{state.selectedChallenge.argomento}</Text>
                 <Text style={{fontSize:20,margin:3}}>{state.selectedChallenge.titolo}</Text>
                 <View style={{height:500, marginRight: 20, marginLeft: 20}}>
                     <ScrollView style={{ padding: 16, backgroundColor:"grey", borderRadius:5, flex:1 }} contentContainerStyle={{ flexGrow: 1 }}>
+=======
+
+
+
+                <View style={{flex: 1}}>
+                    <View>
+                        <Card style={styles.card}>
+                            <View style={{padding: 5, alignItems: 'center', justifyContent: 'center'}}>
+                                <Text style={{fontSize:24, fontWeight:"bold", margin:5}}>COMPLIMENTI! HAI COMPLETATO LA SFIDA</Text>
+                                <Text style={styles.subtitle}>{state.selectedChallenge.argomento}</Text>
+                                <Text style={styles.sectionText}>{state.selectedChallenge.titolo}</Text>
+                            </View>
+                        </Card>
+                    </View>
+                    <View style={{flex: 1, height: 400}}>
+
+                    <ScrollView>
+>>>>>>> Stashed changes
                     {risposte.map((valore, index) => (
-                        <Card key={index} style={{ marginBottom: 8, backgroundColor: valore ? "green" : "red" }}>
+                        <Card key={index} style={ styles.card}>
                             <Card.Content>
-                                <Text>{state.selectedChallenge.questions[index].Testo}</Text>
-                                <Button
-                                    mode="contained"
-                                    onPress={() => setRevisione(index)}
-                                    style={{ marginTop: 8 }}
-                                >
-                                    Dettagli
-                                </Button>
+                                <Text style={{fontSize: 16}}>{state.selectedChallenge.questions[index].Testo}</Text>
+                                <View style={[styles.callout, {marginTop: 6, backgroundColor: valore ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer }]}>
+                                    <Text style={{paddingHorizontal: 6}}>{valore ? 'corretta' : 'sbagliata'}</Text>
+                                </View>
 
-                                <Collapsible collapsed={revisione !== index}>
+                                <TouchableOpacity onPress={() => toggleExpand(index)}>
+                                    <Text style={{paddingTop: 6, color: myTheme.colors.primary}}>
+                                        {expandedIndex === index ? "Nascondi Dettagli ˄" : "Mostra Dettagli ˅"}
+                                    </Text>
+                                </TouchableOpacity>
+                                <Collapsible collapsed={expandedIndex !== index}>
+                                    <View style={{paddingTop: 10}}>
+                                        <Divider />
 
-                                        <Text>Tempo Impiegato: {Math.round(listaTempoDomande[index])} s</Text>
+                                        {state.selectedChallenge.questions[index].Risposte.map((risposta, index2) => (
+                                            <View key={index2}>
+                                                <View style={{marginVertical: 8, padding: 8, borderRadius: 10,
+                                                    backgroundColor:
+                                                        risposta === listaRisposteDate[index]
+                                                            ? (risposta === state.selectedChallenge.questions[index].Soluzione ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer)
+                                                            : 'rgb(245,245,245)'}}>
+                                                    <Text style={{fontSize: 16}}>{risposta}</Text>
+                                                </View>
+                                                <Divider />
+                                            </View>
+                                        ))}
+                                        <View style={{paddingTop: 10}}>
+                                            <Text style={styles.sectionText}>Spiegazione</Text>
+                                            <Text>{state.selectedChallenge.questions[index].Spiegazione}</Text>
+                                        </View>
+                                    <View style={styles.row}>
+                                        <View style={styles.miniCardBase}>
+                                            <View style={styles.miniCard}>
+                                                <Text>Tempo Impiegato</Text>
+                                                <Text>{Math.round(listaTempoDomande[index])} s</Text>
+                                            </View>
+                                        </View>
+                                        <View style={styles.miniCardBase}>
+                                            <View style={styles.miniCard}>
+                                                <Text>Punti Guadagnati</Text>
+                                                <Text>{risposte[index]? Math.round(10 + timerDuration - listaTempoDomande[index])  : 0}</Text>
+                                            </View>
+                                        </View>
+                                    </View>
+                                    </View>
+                                        {/*
                                         <Text>Risposta data: {listaRisposteDate[index]}</Text>
                                         <Text>Risposta corretta: {state.selectedChallenge.questions[index].Soluzione}</Text>
                                         <Text>Spiegazione: {state.selectedChallenge.questions[index].Spiegazione}</Text>
-                                        <Text>Punti guadagnati: {risposte[index]? Math.round(10 + timerDuration - listaTempoDomande[index])  : 0}</Text>
+                                        */}
                                         <Text>Grafico del testo: </Text>
                                         {state.selectedChallenge.questions[index].GraficList.length===1 ? <Image
                                             source={{ uri: state.selectedChallenge.questions[currentQuestionIndex].GraficList[0] }}
@@ -520,10 +575,17 @@ export default function PlayScreen() {
 
                                 </Collapsible>
                             </Card.Content>
+                        </Card>))}
+                        <Card>
+                            <Text>Conteggio punti:</Text>
+                            <Text>Punti guadagnati dal tempo: {tempoTotaleXP}</Text>
+                            <Text>Punti in base alla difficoltà: {state.selectedChallenge.difficolta * 50}</Text>
+                            <Text>Punti per le risposte corrette: {xpCorrect}</Text>
+                            <Text>Punti totali: {xp}</Text>
                         </Card>
-                    ))}
                     </ScrollView>
                 </View>
+<<<<<<< Updated upstream
                 <Card>
                     <Text>Conteggio punti:</Text>
                     <Text>Punti guadagnati dal tempo: {tempoTotaleXP}</Text>
@@ -532,6 +594,9 @@ export default function PlayScreen() {
                     <Text>Punti totali: {xp}</Text>
                 </Card>
 
+=======
+                </View>
+>>>>>>> Stashed changes
             </View>
         );
     }
