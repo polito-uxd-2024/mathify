@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="39542f42-9a80-4e54-af61-1f4385b67116" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/Component/style.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/style.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mathify/pages/PlayScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/PlayScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/pages/SfidaDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/SfidaDetail.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +44,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;reastyle&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/chicc/Documents/Lavoro e Studio/Università/UxDesign/mathify/Mathify&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -97,7 +95,8 @@
       <workItem from="1737569345838" duration="10000" />
       <workItem from="1737645564434" duration="591000" />
       <workItem from="1737648855889" duration="6273000" />
-      <workItem from="1737674489188" duration="13162000" />
+      <workItem from="1737674489188" duration="13370000" />
+      <workItem from="1737729273327" duration="1486000" />
     </task>
     <servers />
   </component>

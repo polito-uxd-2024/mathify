@@ -482,10 +482,20 @@ export default function PlayScreen() {
                         </Dialog.Actions>
                     </Dialog>
                 </Portal>
-                <Text style={{fontSize:36, fontWeight:"bold", margin:5}}>COMPLIMENTI! HAI COMPLETATO LA SFIDA</Text>
-                <Text style={{fontSize:20, margin:3}}>{state.selectedChallenge.argomento}</Text>
-                <Text style={{fontSize:20,margin:3}}>{state.selectedChallenge.titolo}</Text>
-                <View style={{height:500, marginRight: 20, marginLeft: 20}}>
+
+
+
+                <View style={styles.mainContent}>
+                    <View style={styles.cardBase}>
+                        <Card style={styles.card}>
+                            <View style={{padding: 5, }}>
+                                <Text style={{fontSize:24, fontWeight:"bold", margin:5}}>COMPLIMENTI! HAI COMPLETATO LA SFIDA</Text>
+                                <Text style={{fontSize:20, margin:3}}>{state.selectedChallenge.argomento}</Text>
+                                <Text style={{fontSize:20,margin:3}}>{state.selectedChallenge.titolo}</Text>
+                            </View>
+                        </Card>
+                    </View>
+                    <View style={{height:500, marginRight: 20, marginLeft: 20}}>
                     <ScrollView style={{ padding: 16, backgroundColor:"grey", borderRadius:5, flex:1 }} contentContainerStyle={{ flexGrow: 1 }}>
                     {risposte.map((valore, index) => (
                         <Card key={index} style={{ marginBottom: 8, backgroundColor: valore ? "green" : "red" }}>
@@ -531,7 +541,7 @@ export default function PlayScreen() {
                     <Text>Punti per le risposte corrette: {xpCorrect}</Text>
                     <Text>Punti totali: {xp}</Text>
                 </Card>
-
+                </View>
             </View>
         );
     }
