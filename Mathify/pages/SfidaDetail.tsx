@@ -38,7 +38,7 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                         progress={progress}
                         color={myTheme.colors.rightAnswer} // Colore della barra completata
                     />
-                    <Text style={{alignSelf: 'center'}}>{progress.toString().substring(2)}% corretta</Text>
+                    <Text style={{alignSelf: 'center'}}>{(progress * 100).toFixed(0).toString()}% corretta</Text>
                 </View>
             </View>
             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
@@ -60,6 +60,7 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                                     <Text style={{fontSize: 16}}>{valore.Testo}</Text>
                                     <View style={[styles.callout, {marginTop: 6, backgroundColor: valore.correttezza === false ? myTheme.colors.wrongAnswer : myTheme.colors.rightAnswer }]}>
                                      <Text style={{paddingHorizontal: 6}}>{valore.correttezza === false ? 'sbagliata' : 'corretta'}</Text>
+
                                     </View>
                                         <TouchableOpacity onPress={() => toggleExpand(index)}>
                                         <Text style={{paddingTop: 6, color: myTheme.colors.primary}}>
@@ -69,6 +70,7 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                                     <Collapsible collapsed={expandedIndex !== index}>
                                         <View style={{paddingTop: 10}}>
                                         <Divider />
+
                                         {valore.Risposte.map((risposta, index2) => (
                                             <View key={index2}>
                                                     <View style={{marginVertical: 8, padding: 8, borderRadius: 10,

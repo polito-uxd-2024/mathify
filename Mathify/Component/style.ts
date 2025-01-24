@@ -56,7 +56,14 @@ export const styles = StyleSheet.create({
         flex: 1,
         //flexDirection: 'column',
         paddingHorizontal: 20,
-        marginTop: 30,
+        marginVertical: 15,
+    },
+    challengeHeader: {
+        paddingHorizontal: 30,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: myTheme.colors.cardBorder,
     },
 
     //Text
@@ -129,11 +136,34 @@ export const styles = StyleSheet.create({
         paddingBottom: 5,
         paddingRight: 4,
         borderRadius: 18,
+        marginHorizontal: 25,
+        marginVertical: 5,
+    },
+    questionCardBase: {
+        flex: 1,
+        width: '100%',
+        backgroundColor: 'black',
+        paddingLeft: 2,
+        paddingTop: 2,
+        paddingBottom: 5,
+        paddingRight: 4,
+        borderRadius: 20,
 
     },
 
     card: {
         margin: 0,
+        borderRadius: 20,
+        borderColor: myTheme.colors.cardBorder,
+        borderWidth: 10,
+        backgroundColor: 'rgb(255,255,255)',
+    },
+    questionCard: {
+        margin: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: 150,
+        padding: 10,
         borderRadius: 20,
         borderColor: myTheme.colors.cardBorder,
         borderWidth: 10,
@@ -151,6 +181,7 @@ export const styles = StyleSheet.create({
         backgroundColor: myTheme.colors.gray,
         padding: 6,
         margin: 5,
+        marginTop: 3,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 10,
@@ -158,7 +189,7 @@ export const styles = StyleSheet.create({
     answerCard: {
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 10,
+        padding: 4,
         marginBottom: 8,
         borderRadius: 10,
         borderColor: 'black',
@@ -184,9 +215,10 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 15,
         borderColor: myTheme.colors.cardBorder,
-        borderWidth: 10,
-        paddingHorizontal: 10,
-        paddingVertical: 15,
+        borderWidth: 0,
+        paddingHorizontal: 5,
+        paddingVertical: 1,
+
         flex: 1,
         flexDirection: 'column'
     },
@@ -295,6 +327,20 @@ export const styles = StyleSheet.create({
     modalBase: {
         height: 400,
         width: 300,
+    },
+    drawerModalBase: {
+        width: '100%',
+
+        position: 'absolute',
+        paddingBottom: 30,
+        bottom: 0,
+        flex: 1,
+        borderWidth: 2,
+        borderBottomWidth: 0,
+        backgroundColor: 'white',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        padding: 20,
     },
     modalContent: {
         height: '100%',
