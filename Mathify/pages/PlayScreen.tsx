@@ -484,17 +484,15 @@ export default function PlayScreen() {
                         </Dialog.Actions>
                     </Dialog>
                 </Portal>
-<<<<<<< Updated upstream
-                <Text style={{fontSize:36, fontWeight:"bold", margin:5}}>COMPLIMENTI! HAI COMPLETATO LA SFIDA</Text>
-                <Text style={{fontSize:20, margin:3}}>{state.selectedChallenge.argomento}</Text>
-                <Text style={{fontSize:20,margin:3}}>{state.selectedChallenge.titolo}</Text>
-                <View style={{height:500, marginRight: 20, marginLeft: 20}}>
-                    <ScrollView style={{ padding: 16, backgroundColor:"grey", borderRadius:5, flex:1 }} contentContainerStyle={{ flexGrow: 1 }}>
-=======
 
 
 
-                <View style={{flex: 1}}>
+
+
+
+
+
+                <ScrollView style={{flex: 1}}>
                     <View>
                         <Card style={styles.card}>
                             <View style={{padding: 5, alignItems: 'center', justifyContent: 'center'}}>
@@ -504,10 +502,10 @@ export default function PlayScreen() {
                             </View>
                         </Card>
                     </View>
-                    <View style={{flex: 1, height: 400}}>
+                    <View style={{flex: 1}}>
 
-                    <ScrollView>
->>>>>>> Stashed changes
+
+
                     {risposte.map((valore, index) => (
                         <Card key={index} style={ styles.card}>
                             <Card.Content>
@@ -583,21 +581,21 @@ export default function PlayScreen() {
                             <Text>Punti per le risposte corrette: {xpCorrect}</Text>
                             <Text>Punti totali: {xp}</Text>
                         </Card>
-                    </ScrollView>
-                </View>
-<<<<<<< Updated upstream
-                <Card>
-                    <Text>Conteggio punti:</Text>
-                    <Text>Punti guadagnati dal tempo: {tempoTotaleXP}</Text>
-                    <Text>Punti in base alla difficoltà: {state.selectedChallenge.difficolta * 50}</Text>
-                    <Text>Punti per le risposte corrette: {xpCorrect}</Text>
-                    <Text>Punti totali: {xp}</Text>
-                </Card>
+                    </View>
+                    <Card>
+                        <Text>Conteggio punti:</Text>
+                        <Text>Punti guadagnati dal tempo: {tempoTotaleXP}</Text>
+                        <Text>Punti in base alla difficoltà: {state.selectedChallenge.difficolta * 50}</Text>
+                        <Text>Punti per le risposte corrette: {xpCorrect}</Text>
+                        <Text>Punti totali: {xp}</Text>
+                    </Card>
 
-=======
-                </View>
->>>>>>> Stashed changes
+                </ScrollView>
+
+
+
+
             </View>
-        );
+    );
     }
 }
