@@ -13,7 +13,7 @@ import CardContent from "react-native-paper/lib/typescript/components/Card/CardC
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import { ScrollView } from 'react-native'
 import {myTheme} from "../Component/theme";
-
+import { FontAwesome } from 'react-native-vector-icons';
 export default function ProfilePage() {
     const navigation = useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
     const [state] = useContext(StateContext);
@@ -27,7 +27,7 @@ export default function ProfilePage() {
             <ScrollView contentContainerStyle={{ paddingBottom: 20}}>
                 <View >
                     {/* Immagine */}
-                    <View style={styles.lightCover}>
+                    <View style={[styles.lightCover]}>
                         <View >
                             <ImageBackground
                                 source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
@@ -84,11 +84,10 @@ export default function ProfilePage() {
                         <Card style={{ marginBottom: 16, position: "relative", alignSelf: "center", width: "70%" }}>
                             {/* Livello e stella */}
                             <View style={{ top: 10, right: 10, alignItems: 'left', marginLeft: 10 }}>
-                                <MaterialCommunityIcons
-                                    name="star"
-                                    size={60}
-                                    color="gold" // Colore dorato
-                                    style={{ marginRight: 8 }}
+                                <FontAwesome
+                                    name="star-and-crescent"
+                                    size={40}
+                                    color="blue"
                                 />
                                 <Text style={{ position: "absolute", fontSize: 20, fontWeight: 'bold', color: 'white', marginTop: 22, marginLeft: 18, textAlign: "center" }}>
                                     {state.utente.livello.numero} {/* Numero del livello */}
@@ -225,7 +224,7 @@ export default function ProfilePage() {
                                 # 1
                             </Text>
                             {/* Card per Logaritmi */}
-                            <View style={{ backgroundColor: myTheme.colors.gray, borderWidth: 0, marginTop: 5, borderColor: myTheme.colors.cardBorder, borderRadius: 10, padding: 16 , flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                            <View style={{ backgroundColor: myTheme.colors.gray, borderWidth: 2, marginTop: 5, borderColor: 'gray', borderRadius: 10, padding: 16 , flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                                 {/* Icona Trofeo */}
                                 <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, backgroundColor: 'white', borderRadius: 10}}>
                                     <MaterialCommunityIcons
@@ -273,7 +272,7 @@ export default function ProfilePage() {
                                 <Text style={styles.sectionText}>
                                     # 2
                                 </Text>
-                            <View style={{ backgroundColor: myTheme.colors.gray, borderWidth: 0, marginTop: 5, borderColor: myTheme.colors.cardBorder, borderRadius: 10, padding: 16 , flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                            <View style={{ backgroundColor: myTheme.colors.gray, borderWidth: 2, marginTop: 5, borderColor: 'gray', borderRadius: 10, padding: 16 , flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                                 {/* Icona Trofeo */}
                                 <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, backgroundColor: 'white', borderRadius: 10}}>
                                     <MaterialCommunityIcons
@@ -323,7 +322,7 @@ export default function ProfilePage() {
                                 <Text style={styles.sectionText}>
                                     # 3
                                 </Text>
-                            <View style={{ backgroundColor: myTheme.colors.gray, borderWidth: 0, marginTop: 5, borderColor: myTheme.colors.cardBorder, borderRadius: 10, padding: 16 , flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                            <View style={{ backgroundColor: myTheme.colors.gray, borderWidth: 2, marginTop: 5, borderColor: 'gray', borderRadius: 10, padding: 16 , flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                                 {/* Icona Trofeo */}
                                 <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, backgroundColor: 'white', borderRadius: 10}}>
                                     <MaterialCommunityIcons

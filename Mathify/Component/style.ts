@@ -47,8 +47,9 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 40,
         borderBottomRightRadius: 30,
         borderBottomLeftRadius: 30,
-        borderWidth: 0,
-        backgroundColor: myTheme.colors.cardBorder,
+        borderWidth: 2,
+        borderColor: 'gray',
+        backgroundColor: myTheme.colors.gray,
     },
     row: {
         flexDirection: 'row',
