@@ -13,7 +13,7 @@ import {
     Icon,
     Headline, IconButton, Divider
 } from "react-native-paper";
-import {DomandaSegnalata, Sfida} from "../Component/Interfaces";
+import {DomandaSegnalata, Question, Sfida} from "../Component/Interfaces";
 import { StateContext } from "../Reducer";
 import Collapsible from "react-native-collapsible";
 import {registraSfidaCompletata} from "../Component/writeOnDb";
@@ -80,18 +80,19 @@ export default function PlayScreen() {
         setDialogVisible(false);
         setSelectedSuggestion("");
     };
-    const handleSegnala=()=>{
+    const handleSegnala=(domanda:Question, sfida:Sfida, index:number)=>{
 
-        const domanda=state.selectedChallenge.questions[currentQuestionIndex]
-        const sfida=state.selectedChallenge
+        console.log("Index", index)
         console.log("Domanda",domanda)
         const segnalazione={
             domanda:{testo:domanda.Testo,risposte:domanda.Risposte,rispostaCorretta:domanda.Soluzione},
             motivo:motivo,
             sfida:{titolo:sfida.titolo,argomento:sfida.argomento}
         }
+        console.log(segnalazione)
         setSegnalazioni([...segnalazioni,segnalazione])
         setDialogVisible(false)
+        console.log(segnalazioni)
 
     }
     // Gestione del timer
@@ -208,10 +209,15 @@ export default function PlayScreen() {
             setXpCorrect(xpCorretto);
             setTempoTotaleXP(tempoTotXP);
             setXp(state.selectedChallenge.difficolta * 50 + xpCorretto + tempoTotXP);
-            salvaSfida();
+
 
         }
     }, [changePage]);
+    useEffect(() => {
+        return () => {
+            salvaSfida();
+        };
+    }, []);
     const salvaSfida = () => {
         const correctAnswers = risposte.filter((risposta) => risposta === true).length;
         const xpCorretto = 10 * correctAnswers;
@@ -251,22 +257,14 @@ export default function PlayScreen() {
     };
 
 
+    const [segnalaIndex, setSegnalaIndex] = useState<number>(0);
+
     if (!changePage) {
         return (
             <View style={styles.content}>
                 <View style={styles.challengeHeader}>
                     <Text style={styles.welcomeText}>{state.selectedChallenge.titolo}</Text>
-                    <IconButton
-                        mode="contained-tonal"
-                        onPress={() => {
-                            setDialogVisible(true)
-                        }}
-                        contentStyle={{ height: 30}}
-                        labelStyle={{ fontSize: 14 }}
-                        style={{backgroundColor: 'transparent', margin: 0}}
-                        icon="alert"  // Utilizza "shuffle" direttamente come nome dell'icona
-                    >
-                    </IconButton>
+
                 </View>
                     <View style={{
                         borderBottomRightRadius: 20,
@@ -399,53 +397,7 @@ export default function PlayScreen() {
                     </View>
 
                 </View>
-                <View style={[styles.modalContainer, {backgroundColor: 'rgba(255,255,255,0)'}]}>
-                    <Modal
-                        visible={isDialogVisible}
-                        style={styles.drawerModalBase}
-                        transparent={true}
-                        animationType="slide"
-                        onRequestClose={() => setDialogVisible(false)}
-                    >
-                        <TouchableOpacity style={styles.modalContainer} activeOpacity={1} onPress={() => setDialogVisible(false)}>>
-                            <TouchableOpacity style={styles.drawerModalBase} activeOpacity={1} >
-                                <Dialog.Title><Text style={styles.welcomeText}>Perchè vuoi segnalare questa domanda?</Text></Dialog.Title>
-                                <Dialog.Content>
-                                    <RadioButton.Group onValueChange={value => setMotivo(value)} value={motivo}>
-                                        <RadioButton.Item label="Grammatica o scrittura" value="grammatica o scrittura" />
-                                        <RadioButton.Item label="Domanda ripetuta" value="domanda ripetuta" />
-                                        <RadioButton.Item label="Risposta sbagliata" value="risposta sbagliata" />
-                                    </RadioButton.Group>
 
-
-                                    <TextInput
-                                        label="Motivo"
-                                        value={motivo}
-                                        onChangeText={setMotivo}
-                                        multiline
-                                        style={{marginVertical: 5}}
-                                        numberOfLines={4}
-                                        mode="outlined"
-                                        outlineStyle={{borderRadius: 50, borderWidth: 2}}
-                                    />
-
-                                </Dialog.Content>
-                                <Dialog.Actions>
-
-                                    <Button
-                                        mode="outlined"
-                                        style={styles.expandButton}
-                                        onPress={handleCloseModal}>Annulla</Button>
-                                    <Button
-                                        mode="contained"
-                                        style={styles.expandButton}
-                                        onPress={handleSegnala}>Segnala</Button>
-
-                                </Dialog.Actions>
-                            </TouchableOpacity>
-                        </TouchableOpacity>
-                    </Modal>
-                </View>
 
             </View>
         );
@@ -545,6 +497,66 @@ export default function PlayScreen() {
                                 <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
                                     <Text style={{fontSize: 16, marginRight: 8, fontWeight: 'bold'}}>{index + 1}</Text>
                                     <Text style={{fontSize: 16}}>{state.selectedChallenge.questions[index].Testo}</Text>
+                                </View>
+                                <IconButton
+                                    mode="contained-tonal"
+                                    onPress={() => {
+                                        setDialogVisible(true),
+                                            setSegnalaIndex(index)
+
+                                    }}
+                                    contentStyle={{ height: 30}}
+                                    labelStyle={{ fontSize: 14 }}
+                                    style={{backgroundColor: 'transparent', margin: 0}}
+                                    icon="alert"  // Utilizza "shuffle" direttamente come nome dell'icona
+                                >
+                                </IconButton>
+                                <View style={[styles.modalContainer, {backgroundColor: 'rgba(255,255,255,0)'}]}>
+                                    <Modal
+                                        visible={isDialogVisible}
+                                        style={styles.drawerModalBase}
+                                        transparent={true}
+                                        animationType="slide"
+                                        onRequestClose={() => setDialogVisible(false)}
+                                    >
+                                        <TouchableOpacity style={styles.modalContainer} activeOpacity={1} onPress={() => setDialogVisible(false)}>>
+                                            <TouchableOpacity style={styles.drawerModalBase} activeOpacity={1} >
+                                                <Dialog.Title><Text style={styles.welcomeText}>Perchè vuoi segnalare questa domanda?</Text></Dialog.Title>
+                                                <Dialog.Content>
+                                                    <RadioButton.Group onValueChange={value => setMotivo(value)} value={motivo}>
+                                                        <RadioButton.Item label="Grammatica o scrittura" value="grammatica o scrittura" />
+                                                        <RadioButton.Item label="Domanda ripetuta" value="domanda ripetuta" />
+                                                        <RadioButton.Item label="Risposta sbagliata" value="risposta sbagliata" />
+                                                    </RadioButton.Group>
+
+
+                                                    <TextInput
+                                                        label="Motivo"
+                                                        value={motivo}
+                                                        onChangeText={setMotivo}
+                                                        multiline
+                                                        style={{marginVertical: 5}}
+                                                        numberOfLines={4}
+                                                        mode="outlined"
+                                                        outlineStyle={{borderRadius: 50, borderWidth: 2}}
+                                                    />
+
+                                                </Dialog.Content>
+                                                <Dialog.Actions>
+
+                                                    <Button
+                                                        mode="outlined"
+                                                        style={styles.expandButton}
+                                                        onPress={handleCloseModal}>Annulla</Button>
+                                                    <Button
+                                                        mode="contained"
+                                                        style={styles.expandButton}
+                                                        onPress={()=>handleSegnala(state.selectedChallenge.questions[segnalaIndex], state.selectedChallenge, segnalaIndex)}>Segnala</Button>
+
+                                                </Dialog.Actions>
+                                            </TouchableOpacity>
+                                        </TouchableOpacity>
+                                    </Modal>
                                 </View>
                                 <View>
                                     <View style={{flexDirection: 'row',justifyContent: 'center', alignItems: 'center'}}>
@@ -657,7 +669,8 @@ export default function PlayScreen() {
 
                         </Card>
                         </View>
-                        </View>))}
+
+                    </View>))}
                         <View style={styles.section}>
                             <Card style={{alignItems: 'flex-between',backgroundColor: myTheme.colors.cardBorder, padding: 20, borderRadius: 25}}>
                                 <Text style={styles.sectionText}>Conteggio punti</Text>
@@ -732,6 +745,7 @@ export default function PlayScreen() {
 
                     </View>
                 </ScrollView>
+
 
 
 
