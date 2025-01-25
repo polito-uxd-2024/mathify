@@ -37,8 +37,10 @@ export const styles = StyleSheet.create({
     cover: {
         padding: 20,
         paddingHorizontal: 40,
-        borderBottomWidth: 2,
-        backgroundColor: myTheme.colors.cardBorder,
+        borderBottomRightRadius: 30,
+        borderBottomLeftRadius: 30,
+        borderWidth: 0,
+        backgroundColor: myTheme.colors.primary,
     },
     row: {
         flexDirection: 'row',
@@ -95,6 +97,11 @@ export const styles = StyleSheet.create({
         color: 'gray',
         fontFamily: 'Itim', // Nome del font
     },
+    smallText: {
+        fontSize: 12,
+        fontFamily: 'Itim',
+        textAlign: 'center'
+    },
 
 
     calloutText: {
@@ -125,6 +132,15 @@ export const styles = StyleSheet.create({
         paddingBottom: 5,
         paddingRight: 4,
         borderRadius: 20,
+
+    },
+    miniWhiteCardBase: {
+        minHeight: 120,
+        flex: 1,
+        marginHorizontal: 3,
+        width: '100%',
+        backgroundColor: 'white',
+        borderRadius: 10,
 
     },
     answerCardBase: {
@@ -263,6 +279,7 @@ export const styles = StyleSheet.create({
         alignItems: 'flex-start',
         backgroundColor: myTheme.colors.cardBorder,
         padding: 5,
+        paddingHorizontal: 20,
         borderRadius: 20,
         alignSelf: 'flex-start',
     },
