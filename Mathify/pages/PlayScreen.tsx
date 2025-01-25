@@ -16,7 +16,7 @@ import {
 import {DomandaSegnalata, Sfida} from "../Component/Interfaces";
 import { StateContext } from "../Reducer";
 import Collapsible from "react-native-collapsible";
-import {registraSfidaCompletata} from "../Component/writeOnDb";
+import {registraSegnalazione, registraSfidaCompletata} from "../Component/writeOnDb";
 import {aggiornaLivello} from "../Component/aggiornaLivello";
 import {useSetCurrentUser} from "../Component/setUser";
 import { Image, StyleSheet  } from 'react-native';
@@ -94,7 +94,8 @@ export default function PlayScreen() {
             motivo:motivo,
             sfida:{titolo:sfida.titolo,argomento:sfida.argomento}
         }
-        setSegnalazioni([...segnalazioni,segnalazione])
+        registraSegnalazione(segnalazione)
+
         setDialogVisible(false)
 
     }
@@ -244,7 +245,7 @@ export default function PlayScreen() {
             titolo: state.selectedChallenge.titolo,
             argomento: state.selectedChallenge.argomento,
             dataCompletamento: new Date(),
-            segnalazioni: segnalazioni,
+            segnalazioni: [],
 
         };
 
@@ -260,17 +261,7 @@ export default function PlayScreen() {
             <View style={styles.content}>
                 <View style={styles.challengeHeader}>
                     <Text style={styles.welcomeText}>{state.selectedChallenge.titolo}</Text>
-                    <IconButton
-                        mode="contained-tonal"
-                        onPress={() => {
-                            setDialogVisible(true)
-                        }}
-                        contentStyle={{ height: 30}}
-                        labelStyle={{ fontSize: 14 }}
-                        style={{backgroundColor: 'transparent', margin: 0}}
-                        icon="alert"  // Utilizza "shuffle" direttamente come nome dell'icona
-                    >
-                    </IconButton>
+
                 </View>
                     <View style={{
                         borderBottomRightRadius: 20,
@@ -404,53 +395,7 @@ export default function PlayScreen() {
                     </View>
 
                 </View>
-                <View style={[styles.modalContainer, {backgroundColor: 'rgba(255,255,255,0)'}]}>
-                    <Modal
-                        visible={isDialogVisible}
-                        style={styles.drawerModalBase}
-                        transparent={true}
-                        animationType="slide"
-                        onRequestClose={() => setDialogVisible(false)}
-                    >
-                        <TouchableOpacity style={styles.modalContainer} activeOpacity={1} onPress={() => setDialogVisible(false)}>>
-                            <TouchableOpacity style={styles.drawerModalBase} activeOpacity={1} >
-                                <Dialog.Title><Text style={styles.welcomeText}>Perchè vuoi segnalare questa domanda?</Text></Dialog.Title>
-                                <Dialog.Content>
-                                    <RadioButton.Group onValueChange={value => setMotivo(value)} value={motivo}>
-                                        <RadioButton.Item label="Grammatica o scrittura" value="grammatica o scrittura" />
-                                        <RadioButton.Item label="Domanda ripetuta" value="domanda ripetuta" />
-                                        <RadioButton.Item label="Risposta sbagliata" value="risposta sbagliata" />
-                                    </RadioButton.Group>
 
-
-                                    <TextInput
-                                        label="Motivo"
-                                        value={motivo}
-                                        onChangeText={setMotivo}
-                                        multiline
-                                        style={{marginVertical: 5}}
-                                        numberOfLines={4}
-                                        mode="outlined"
-                                        outlineStyle={{borderRadius: 50, borderWidth: 2}}
-                                    />
-
-                                </Dialog.Content>
-                                <Dialog.Actions>
-
-                                    <Button
-                                        mode="outlined"
-                                        style={styles.expandButton}
-                                        onPress={handleCloseModal}>Annulla</Button>
-                                    <Button
-                                        mode="contained"
-                                        style={styles.expandButton}
-                                        onPress={handleSegnala}>Segnala</Button>
-
-                                </Dialog.Actions>
-                            </TouchableOpacity>
-                        </TouchableOpacity>
-                    </Modal>
-                </View>
 
             </View>
         );
@@ -552,6 +497,17 @@ export default function PlayScreen() {
                                     <Text style={{fontSize: 16, marginRight: 8, fontWeight: 'bold'}}>{index + 1}</Text>
                                     <Text style={{fontSize: 16}}>{state.selectedChallenge.questions[index].Testo}</Text>
                                 </View>
+                                <IconButton
+                                    mode="contained-tonal"
+                                    onPress={() => {
+                                        setDialogVisible(true)
+                                    }}
+                                    contentStyle={{ height: 30}}
+                                    labelStyle={{ fontSize: 14 }}
+                                    style={{backgroundColor: 'transparent', margin: 0}}
+                                    icon="alert"  // Utilizza "shuffle" direttamente come nome dell'icona
+                                >
+                                </IconButton>
                                 <View>
                                     <View style={{flexDirection: 'row',justifyContent: 'center', alignItems: 'center'}}>
                                         <View style={[styles.callout, {marginTop: 6, backgroundColor: valore ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer }]}>
@@ -677,7 +633,9 @@ export default function PlayScreen() {
                                                 <Text>Grafico non disponibile</Text>
                                             )}
 
+
                                 </Collapsible>
+
 
                         </Card>
                         </View>
@@ -757,7 +715,53 @@ export default function PlayScreen() {
 
                     </View>
                 </ScrollView>
+                <View style={[styles.modalContainer, {backgroundColor: 'rgba(255,255,255,0)'}]}>
+                    <Modal
+                        visible={isDialogVisible}
+                        style={styles.drawerModalBase}
+                        transparent={true}
+                        animationType="slide"
+                        onRequestClose={() => setDialogVisible(false)}
+                    >
+                        <TouchableOpacity style={styles.modalContainer} activeOpacity={1} onPress={() => setDialogVisible(false)}>>
+                            <TouchableOpacity style={styles.drawerModalBase} activeOpacity={1} >
+                                <Dialog.Title><Text style={styles.welcomeText}>Perchè vuoi segnalare questa domanda?</Text></Dialog.Title>
+                                <Dialog.Content>
+                                    <RadioButton.Group onValueChange={value => setMotivo(value)} value={motivo}>
+                                        <RadioButton.Item label="Grammatica o scrittura" value="grammatica o scrittura" />
+                                        <RadioButton.Item label="Domanda ripetuta" value="domanda ripetuta" />
+                                        <RadioButton.Item label="Risposta sbagliata" value="risposta sbagliata" />
+                                    </RadioButton.Group>
 
+
+                                    <TextInput
+                                        label="Motivo"
+                                        value={motivo}
+                                        onChangeText={setMotivo}
+                                        multiline
+                                        style={{marginVertical: 5}}
+                                        numberOfLines={4}
+                                        mode="outlined"
+                                        outlineStyle={{borderRadius: 50, borderWidth: 2}}
+                                    />
+
+                                </Dialog.Content>
+                                <Dialog.Actions>
+
+                                    <Button
+                                        mode="outlined"
+                                        style={styles.expandButton}
+                                        onPress={handleCloseModal}>Annulla</Button>
+                                    <Button
+                                        mode="contained"
+                                        style={styles.expandButton}
+                                        onPress={handleSegnala}>Segnala</Button>
+
+                                </Dialog.Actions>
+                            </TouchableOpacity>
+                        </TouchableOpacity>
+                    </Modal>
+                </View>
 
 
 

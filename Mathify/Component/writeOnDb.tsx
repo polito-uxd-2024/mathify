@@ -1,5 +1,5 @@
 import { ref, set, get } from "firebase/database";
-import {Sfida, SfidaCompletata} from "./Interfaces";
+import {DomandaSegnalata, Sfida, SfidaCompletata} from "./Interfaces";
 import { db } from "../Firebase";
 import {fetchUser} from "./fetch";
 import {StateContext} from "../Reducer";
@@ -73,5 +73,47 @@ export async function registraVerifica(userId: string) {
         }
     } catch (error) {
         console.error("Errore durante la registrazione della verifica:", error);
+    }
+}
+export async function registraSegnalazione(segnalazione: DomandaSegnalata) {
+    const segnalazioniRef = ref(db, `Utenti/Utente1/SfideCompletate`);
+
+    try {
+        // Fetch the current list of reports
+        const snapshot = await get(segnalazioniRef);
+        const index = snapshot.size;
+        const currentSegnalazioni = snapshot.val() || [];
+
+        // Verifica se la domanda contiene tutti i campi necessari
+        if (!segnalazione.domanda.testo || !segnalazione.domanda.risposte || !segnalazione.domanda.rispostaCorretta) {
+            console.error("Errore: la domanda contiene campi vuoti");
+            return;
+        }
+
+        // Verifica che il motivo e la sfida siano definiti
+        if (!segnalazione.motivo || !segnalazione.sfida) {
+            console.error("Errore: motivo o sfida non definiti");
+            return;
+        }
+
+        // Crea la segnalazione solo se tutte le informazioni sono corrette
+        const nuovaSegnalazione: DomandaSegnalata = {
+            domanda: {
+                testo: segnalazione.domanda.testo,
+                risposte: segnalazione.domanda.risposte,
+                rispostaCorretta: segnalazione.domanda.rispostaCorretta
+            },
+            motivo: segnalazione.motivo,
+            sfida: segnalazione.sfida
+        };
+
+        // Aggiungi la nuova segnalazione alla lista
+        const updatedSegnalazioni = [...currentSegnalazioni, nuovaSegnalazione];
+
+        // Salva la lista aggiornata nel database
+        await set(ref(db, `Utenti/Utente1/SfideCompletate/${index}/Segnalazioni`), updatedSegnalazioni);
+        console.log("Segnalazione registrata con successo!");
+    } catch (error) {
+        console.error("Errore durante la registrazione della segnalazione:", error);
     }
 }
