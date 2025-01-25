@@ -12,6 +12,7 @@ import * as React from "react";
 import CardContent from "react-native-paper/lib/typescript/components/Card/CardContent";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import { ScrollView } from 'react-native'
+import {myTheme} from "../Component/theme";
 
 export default function ProfilePage() {
     const navigation = useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
@@ -23,56 +24,59 @@ export default function ProfilePage() {
     return (
 
         <View style={{ flex: 1 }}>
-            <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
-                <Card style={{ marginBottom: 16, width: "100%", position: "relative",alignItems:"center" }}>
+            <ScrollView contentContainerStyle={{ paddingBottom: 20}}>
+                <View >
                     {/* Immagine */}
-                    <Card.Content>
-                        <ImageBackground
-                            source={{ uri: 'https://cdn.pixabay.com/photo/2017/05/02/15/05/addition-2278415_1280.jpg' }}
-                            style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 2, marginBottom: 10 }}
-                            imageStyle={{ borderRadius: 0 }}
-                        >
-                            {/* Tasto Impostazioni in alto a destra */}
-                            <IconButton
-                                icon="cog" // Icona per le impostazioni
-                                size={30}
-                                onPress={() => {
-                                    // Azione per il bottone delle impostazioni
-                                    navigation.navigate("Impostazioni");
-                                }}
-                                style={{
-                                    position: 'absolute',
-                                    top: 10,
-                                    right: 10,
-                                    backgroundColor: 'rgba(255, 255, 255, 0.2)', // Colore di sfondo semitrasparente per visibilità
-                                    borderRadius: 50, // Rende il bottone circolare
-                                }}
-                            />
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <View style={{ alignItems: "center", marginVertical: 100 }}>
+                    <View style={styles.lightCover}>
+                        <View >
+                            <ImageBackground
+                                source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
+                                style={{flex: 1}}
+                                imageStyle={{ borderRadius: 10, marginVertical: 8}}
+                            >
+                                {/* Tasto Impostazioni in alto a destra */}
+                                <IconButton
+                                    icon="cog" // Icona per le impostazioni
+                                    size={30}
+                                    onPress={() => {
+                                        // Azione per il bottone delle impostazioni
+                                        navigation.navigate("Impostazioni");
+                                    }}
+                                    style={{
+                                        position: 'absolute',
+                                        top: 10,
+                                        right: 10,
+                                        backgroundColor: 'rgba(255, 255, 255, 0.2)', // Colore di sfondo semitrasparente per visibilità
+                                        borderRadius: 50, // Rende il bottone circolare
+                                    }}
+                                />
+                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                    <View style={{ alignItems: "center", marginVertical: 100 }}>
+                                    </View>
                                 </View>
-                            </View>
-                        </ImageBackground>
-                    </Card.Content>
+                            </ImageBackground>
+                        </View>
 
-                    <Card.Content>
+
                         {/* Nome e cognome */}
                         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                            <Text style={{ fontSize: 35, fontWeight: "bold", marginLeft: 20 }}>
+                            <Text style={styles.bigWelcomeText}>
                                 {state.utente.nome} {state.utente.cognome}
                             </Text>
                         </View>
-
-                        {/* Visualizza email */}
-                        <View style={{ paddingHorizontal: 16 }}>
-                            <Text style={{ fontSize: 14, marginLeft: 7, color: "gray" }}>
+                        <View >
+                            <Text style={styles.subtitle}>
                                 {state.utente.email}
                             </Text>
                         </View>
+                    </View>
+                        <View>
+                        {/* Visualizza email */}
+
 
                         {/* Visualizza Livello */}
                         <View style={{ paddingHorizontal: 16, marginVertical: 20 }}>
-                            <Text style={{ fontSize: 25, marginLeft: 7 }}>
+                            <Text style={styles.welcomeText}>
                                 Livello
                             </Text>
                         </View>
@@ -108,7 +112,7 @@ export default function ProfilePage() {
 
                         {/* Visualizza Attività */}
                         <View style={{ paddingHorizontal: 16, marginVertical: 20 }}>
-                            <Text style={{ fontSize: 25, marginLeft: 7 }}>
+                            <Text style={styles.welcomeText}>
                                 Attività
                             </Text>
                         </View>
@@ -137,7 +141,7 @@ export default function ProfilePage() {
 
                         {/* Visualizza Badge */}
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 16, marginVertical: 20 }}>
-                            <Text style={{ fontSize: 25, marginLeft: 7 }}>
+                            <Text style={styles.welcomeText}>
                                 Badge
                             </Text>
 
@@ -214,13 +218,16 @@ export default function ProfilePage() {
 
                         {/* Visualizza Specialità */}
                         <View style={{ paddingHorizontal: 16, marginVertical: 20 }}>
-                            <Text style={{ fontSize: 25, marginLeft: 7 }}>
+                            <Text style={styles.welcomeText}>
                                 Le tue Specialità
                             </Text>
 
                             {/* Card per Logaritmi */}
-                            <View style={{backgroundColor: '#f5f5f5', borderRadius: 10, padding: 16, marginTop: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                                {/* Icona Trofeo */}
+                            <View style={styles.article}>
+                                <Card style={styles.card}>
+                            <View style={{  borderRadius: 10, padding: 16 , flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                            {/* Icona Trofeo */}
+
                                 <MaterialCommunityIcons
                                     name="trophy"
                                     size={40}
@@ -240,6 +247,7 @@ export default function ProfilePage() {
                                     </Text>
                                 </View>
 
+
                                 {/* Badge Fuoriclasse */}
                                 <View style={{backgroundColor: '#3498db', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
                                     <Text style={{ color: 'white', fontSize: 14 }}>
@@ -247,9 +255,12 @@ export default function ProfilePage() {
                                     </Text>
                                 </View>
                             </View>
-
+                                </Card>
+                            </View>
                             {/* Card per Trigonometria */}
-                            <View style={{backgroundColor: '#f5f5f5', borderRadius: 10, padding: 16, marginTop: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+
+
+                            <View style={{backgroundColor: '#f5f5f5', borderWidth: 10, marginTop: 20, borderColor: myTheme.colors.cardBorder, borderRadius: 10, padding: 16 , flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                                 {/* Icona libro */}
                                 <MaterialCommunityIcons
                                     name="book"
@@ -278,9 +289,10 @@ export default function ProfilePage() {
                                 </View>
                             </View>
 
+
                             {/* Card per Funzioni */}
-                            <View style={{backgroundColor: '#f5f5f5', borderRadius: 10, padding: 16, marginTop: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                                {/* Icona Telescopio */}
+                            <View style={{backgroundColor: '#f5f5f5', borderWidth: 10, marginTop: 20, borderColor: myTheme.colors.cardBorder, borderRadius: 10, padding: 16 , flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                            {/* Icona Telescopio */}
                                 <MaterialCommunityIcons
                                     name="telescope"
                                     size={40}
@@ -308,8 +320,8 @@ export default function ProfilePage() {
                                 </View>
                             </View>
                         </View>
-                    </Card.Content>
-                </Card>
+                    </View>
+                </View>
             </ScrollView>
         </View>
 

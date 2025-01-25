@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext, useRef} from "react";
-import {View, ScrollView, TouchableOpacity, Modal, Animated, Easing} from "react-native";
+import {View, ScrollView, TouchableOpacity, Modal, Animated, Easing, ViewStyle} from "react-native";
 import {
     Appbar,
     Card,
@@ -360,7 +360,7 @@ export default function PlayScreen() {
 
                         }}
                     >
-                        {(grafico) && (
+                        {(grafico) && (state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) && (
                         <TouchableOpacity style={styles.miniCardBase} onPress={bonusGrafico}>
                             <Card style={[styles.miniCard]}>
                                 <View style={{height: 40, alignItems: 'center', justifyContent: 'center'}}>
@@ -453,11 +453,15 @@ export default function PlayScreen() {
     } else {
         return (
             <View style={{flex:1}}>
-                <Portal>
-                    <Dialog visible={ricompensa} onDismiss={() => setRicompensa(false)}>
-                        <Dialog.Title>CONGRATULAZIONI!!</Dialog.Title>
-                        <Dialog.Content>
+                <Portal style={styles.modalContainer} >
+                    <Dialog visible={ricompensa} onDismiss={() => setRicompensa(false)} style={styles.modalBase}>
+                        <View style={[styles.cardBase, {marginTop: 0}]}>
+                            <View style={styles.card}>
+                        <View style={styles.modalContent}>
+                        <Dialog.Title style={styles.modalTitle}>CONGRATULAZIONI!!</Dialog.Title>
+                        <Dialog.Content >
                             <Text style={{marginBottom:10}}>Nuovo badge sbloccato:</Text>
+                            <View style={styles.insideCard}>
                             {/* Simbolo del badge */}
                             <View
                                 style={{ width: 80, height: 80, borderRadius: 40, backgroundColor: '#3498db', justifyContent: 'center', alignItems: 'center', alignSelf:"center" }}
@@ -474,14 +478,36 @@ export default function PlayScreen() {
                             </Text>
                             <Text style={{ fontSize: 14, textAlign: 'center' }}>
                                 {state.selectedChallenge.argomento}
-                            </Text>
+
+                            </Text></View>
                             <Text style={{ fontSize: 14, textAlign: 'center', marginTop: 10 }}>
+
                                 Hai guadagnato {xp} XP
                             </Text>
+                            <View  style={[styles.progressBar,{flexDirection: 'row', paddingTop: 0}]}>
+                                <View
+                                    style={
+                                        { width: `${Math.min((state.utente.livello.xpTotali / 5000) * 100)}%`,
+                                            backgroundColor: myTheme.colors.cardBorder,
+                                            paddingVertical: 10,
+                                            borderBottomLeftRadius: 10,
+                                            borderTopLeftRadius: 10,
+                                        } as ViewStyle}
+                                ></View>
+                                <View
+                                    style={{ width: `${Math.min((xp/5000) * 100)}%`,
+                                        backgroundColor: myTheme.colors.primary,
+                                        paddingVertical: 10,
+
+                                } as ViewStyle}
+                                /></View>
                         </Dialog.Content>
-                        <Dialog.Actions>
-                            <Button onPress={() => setRicompensa(false)}>Vedi dettagli sfida</Button>
+                        <Dialog.Actions style={{padding: 0, justifyContent: 'center', paddingTop: 0}}>
+                            <Button style={styles.button} onPress={() => setRicompensa(false)}>Vai al riepilogo</Button>
                         </Dialog.Actions>
+                        </View>
+                        </View>
+                        </View>
                     </Dialog>
                 </Portal>
 

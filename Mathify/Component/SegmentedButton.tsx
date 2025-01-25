@@ -93,18 +93,30 @@ export const SegmentedButton = () => {
                 buttons={[
                     {   value: 'esplora',
                         label: 'Esplora',
+                        labelStyle: {
+                            fontFamily: 'Itim',
+                            fontSize: 13
+                        },
                         style: {
                             borderBottomWidth:  value === 'esplora' ? 3 : 0,
                             borderRadius: 0, borderColor: 'black', borderWidth: 0}
                     },
                     {   value: 'completate',
                         label: 'Completate',
+                        labelStyle: {
+                            fontFamily: 'Itim',
+                            fontSize: 13
+                        },
                         style: {
                             borderBottomWidth:  value === 'completate' ? 3 : 0,
                             borderRadius: 0, borderColor: 'black', borderWidth: 0}
                     },
                     {   value: 'programmate',
                         label: 'Programmate',
+                        labelStyle: {
+                            fontFamily: 'Itim',
+                            fontSize: 13
+                        },
                         style: {
                             borderBottomWidth:  value === 'programmate' ? 3 : 0,
                             borderRadius: 0, borderColor: 'black', borderWidth: 0}
@@ -120,8 +132,8 @@ export const SegmentedButton = () => {
                         {/* Sfida random */}
                         <View style={styles.section}>
                             <View style={styles.article}>
-                                <View style={styles.cardBase}>
-                                    <Card style={styles.card}>
+
+                                    <Card style={styles.randomCard}>
                                         <Card.Content>
                                             <Text style={styles.welcomeText}>Sorteggia</Text>
                                             <ImageBackground
@@ -180,7 +192,7 @@ export const SegmentedButton = () => {
                                             </Card.Actions>
                                         </View>
                                     </Card>
-                                </View>
+
                             </View>
                         </View>
                         <Divider style={{marginTop: 20, backgroundColor: 'lightgray', height: 2}}/>
