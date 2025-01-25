@@ -26,10 +26,14 @@ import {myTheme} from "../Component/theme";
 import {Header} from "@react-navigation/stack";
 import {ScreenFooter} from "react-native-screens";
 import {RadioButton} from "react-native-paper";
+import {useNavigation} from "@react-navigation/native";
+import {NativeStackNavigationProp} from "react-native-screens/native-stack";
+import {PlayParamList} from "../Component/navigation";
 
 export default function PlayScreen() {
     const { colors } = useTheme();
     const [state] = useContext(StateContext);
+    const navigation = useNavigation<NativeStackNavigationProp<PlayParamList>>()
     useSetCurrentUser("Utente1");
 
     const challenge: Sfida = {
@@ -283,6 +287,7 @@ export default function PlayScreen() {
                         color={timerProgress > 0.8 ? myTheme.colors.wrongAnswer : myTheme.colors.rightAnswer}
                     />
 
+
                 </View>
                <View style={{minHeight: 430}}>
                     <ScrollView style={{flex: 1}}>
@@ -451,6 +456,7 @@ export default function PlayScreen() {
         );
 
     } else {
+       ;
         return (
             <View style={{flex:1}}>
                 <Portal style={styles.modalContainer} >
@@ -729,6 +735,7 @@ export default function PlayScreen() {
                             </Card>
                         </View>
                     </View>
+                        <Button onPress={()=>navigation.goBack()}>Torna alla Home</Button>
 
                     </View>
                 </ScrollView>
