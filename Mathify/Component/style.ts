@@ -42,6 +42,14 @@ export const styles = StyleSheet.create({
         borderWidth: 0,
         backgroundColor: myTheme.colors.primary,
     },
+    lightCover: {
+        padding: 20,
+        paddingHorizontal: 40,
+        borderBottomRightRadius: 30,
+        borderBottomLeftRadius: 30,
+        borderWidth: 0,
+        backgroundColor: myTheme.colors.cardBorder,
+    },
     row: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -69,6 +77,11 @@ export const styles = StyleSheet.create({
     },
 
     //Text
+    bigWelcomeText: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        fontFamily: 'Itim', // Nome del font
+    },
     welcomeText: {
         fontSize: 20,
         fontWeight: 'bold',
@@ -97,6 +110,12 @@ export const styles = StyleSheet.create({
         color: 'gray',
         fontFamily: 'Itim', // Nome del font
     },
+    primary: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: myTheme.colors.primary,
+        fontFamily: 'Itim', // Nome del font
+    },
     smallText: {
         fontSize: 12,
         fontFamily: 'Itim',
@@ -107,7 +126,7 @@ export const styles = StyleSheet.create({
     calloutText: {
         fontSize: 14,
         fontWeight: 'bold',
-        color: 'white',
+        color: myTheme.colors.primary,
         marginBottom: 0,
         fontFamily: 'Itim', // Nome del font
     },
@@ -173,6 +192,14 @@ export const styles = StyleSheet.create({
         borderColor: myTheme.colors.cardBorder,
         borderWidth: 10,
         backgroundColor: 'rgb(255,255,255)',
+    },
+    randomCard: {
+        margin: 0,
+        borderRadius: 20,
+        borderColor: myTheme.colors.cardBorder,
+        borderWidth: 10,
+        backgroundColor: myTheme.colors.cardBorder,
+        shadowOpacity: 0,
     },
     questionCard: {
         margin: 0,
@@ -300,7 +327,7 @@ export const styles = StyleSheet.create({
         paddingVertical: 3,
         backgroundColor: myTheme.colors.cardBorder,
         width: '60%',
-        borderWidth: 2,
+        borderWidth: 0,
         borderTopWidth: 0,
     },
 
