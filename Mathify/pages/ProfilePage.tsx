@@ -102,9 +102,9 @@ export default function ProfilePage() {
                             {/* Barra di Progresso */}
                             <View style={{ flexDirection: 'column', alignItems: 'center', marginTop: 4, marginLeft: 5, marginBottom: 4, marginRight: 5 }}>
                                 <ProgressBar
-                                    progress={parseFloat((state.utente.livello.xpTotali / 5000).toFixed(1))} // Conversione esplicita
+                                    progress={parseFloat((state.utente.livello.xpTotali / 5000).toFixed(2))} // Conversione esplicita
                                     color="orange"
-                                    style={{ height: 8, paddingVertical: 10, borderRadius: 4, width: "100%" }}
+                                    style={[styles.progressBar, { width: 200 }]}
                                 />
                             </View>
                         </Card>

@@ -1,5 +1,5 @@
 import { ref, set, get } from "firebase/database";
-import {Sfida, SfidaCompletata} from "./Interfaces";
+import {DomandaSegnalata, Sfida, SfidaCompletata} from "./Interfaces";
 import { db } from "../Firebase";
 import {fetchUser} from "./fetch";
 import {StateContext} from "../Reducer";
@@ -75,3 +75,51 @@ export async function registraVerifica(userId: string) {
         console.error("Errore durante la registrazione della verifica:", error);
     }
 }
+export async function registraSegnalazione(segnalazione: DomandaSegnalata) {
+    const sfideCompletateRef = ref(db, `Utenti/Utente1/SfideCompletate`);
+
+    try {
+        // Fetch the current list of completed challenges
+        const snapshot = await get(sfideCompletateRef);
+        const sfideCompletate = snapshot.val() || [];
+        const index = sfideCompletate.length-1; // Use length for the next index
+
+        // Verifica se la domanda contiene tutti i campi necessari
+        if (!segnalazione.domanda.testo || !segnalazione.domanda.risposte || !segnalazione.domanda.rispostaCorretta) {
+            console.error("Errore: la domanda contiene campi vuoti");
+            return;
+        }
+
+        // Verifica che il motivo e la sfida siano definiti
+        if (!segnalazione.motivo || !segnalazione.sfida) {
+            console.error("Errore: motivo o sfida non definiti");
+            return;
+        }
+
+        // Crea la nuova segnalazione
+        const nuovaSegnalazione: DomandaSegnalata = {
+            domanda: {
+                testo: segnalazione.domanda.testo,
+                risposte: segnalazione.domanda.risposte,
+                rispostaCorretta: segnalazione.domanda.rispostaCorretta
+            },
+            motivo: segnalazione.motivo,
+            sfida: segnalazione.sfida
+        };
+
+        // Controlla se il campo Segnalazioni esiste già per questa sfida
+        const segnalazioniRef = ref(db, `Utenti/Utente1/SfideCompletate/${index}/Segnalazioni`);
+        const segnalazioniSnapshot = await get(segnalazioniRef);
+        const segnalazioniEsistenti = segnalazioniSnapshot.val() || [];
+
+        // Aggiungi la nuova segnalazione
+        const updatedSegnalazioni = [...segnalazioniEsistenti, nuovaSegnalazione];
+
+        // Salva la lista aggiornata nel database
+        await set(segnalazioniRef, updatedSegnalazioni);
+        console.log("Segnalazione registrata con successo!");
+    } catch (error) {
+        console.error("Errore durante la registrazione della segnalazione:", error);
+    }
+}
+
