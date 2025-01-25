@@ -646,18 +646,36 @@ export default function PlayScreen() {
                                         <Text>Risposta corretta: {state.selectedChallenge.questions[index].Soluzione}</Text>
                                         <Text>Spiegazione: {state.selectedChallenge.questions[index].Spiegazione}</Text>
                                         */}
-                                    {/*
-                                        <Text>Grafico del testo: </Text>
-                                        {state.selectedChallenge.questions[index].GraficList.length===1 ? <Image
-                                            source={{ uri: state.selectedChallenge.questions[currentQuestionIndex].GraficList[0] }}
-                                            style={{
-                                                width: 100,
-                                                height: 100,
-                                                margin: 8,
-                                                borderRadius: 4,
-                                                alignSelf:"center"
-                                            }}
-                                        /> : "Grafico non disponibile"}*/}
+
+                                        {state.selectedChallenge.questions[index].GraficList.length === 1 ? (
+                                                <Image
+                                                    source={{ uri: state.selectedChallenge.questions[index].GraficList[0] }}
+                                                    style={{
+                                                        width: 100,
+                                                        height: 100,
+                                                        margin: 8,
+                                                        borderRadius: 4,
+                                                        alignSelf: "center"
+                                                    }}
+                                                />
+                                            ) : state.selectedChallenge.questions[index].GraficList.length === 4 ? (
+                                                state.selectedChallenge.questions[index].GraficList.map((grafico, index) => (
+                                                    <Image
+                                                        key={index}
+                                                        source={{ uri: grafico }}
+                                                        style={{
+                                                            width: 100,
+                                                            height: 100,
+                                                            margin: 8,
+                                                            borderRadius: 4,
+                                                            alignSelf: "center"
+                                                        }}
+                                                    />
+                                                ))
+
+                                            )   : (
+                                                <Text>Grafico non disponibile</Text>
+                                            )}
 
                                 </Collapsible>
 
