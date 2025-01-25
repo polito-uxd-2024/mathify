@@ -490,37 +490,69 @@ export default function PlayScreen() {
 
 
 
+                <View style={styles.cover}>
+                    <View style={{alignItems: 'center'}}>
+                        <Text style={{fontWeight: 'bold', fontSize: 30, color: 'white'}}>Complimenti! </Text>
+                        <Text style={{fontSize: 16, color: 'white'}}>Sfida Completata</Text>
 
-
-                <ScrollView style={{flex: 1}}>
-                    <View>
-                        <Card style={styles.card}>
-                            <View style={{padding: 5, alignItems: 'center', justifyContent: 'center'}}>
-                                <Text style={{fontSize:24, fontWeight:"bold", margin:5}}>COMPLIMENTI! HAI COMPLETATO LA SFIDA</Text>
-                                <Text style={styles.subtitle}>{state.selectedChallenge.argomento}</Text>
-                                <Text style={styles.sectionText}>{state.selectedChallenge.titolo}</Text>
-                            </View>
-                        </Card>
                     </View>
+                </View>
+
+                <ScrollView>
+
                     <View style={{flex: 1}}>
 
+                    <View style={styles.mainContent}>
+                    <View style={[styles.insideCard, {marginTop: 20, paddingHorizontal: 50, borderRadius: 25}]}>
 
-
+                        <Text style={styles.subtitle}>{state.selectedChallenge.argomento}</Text>
+                        <Text style={styles.sectionText}>{state.selectedChallenge.titolo}</Text>
+                        <View style={{marginVertical: 5, backgroundColor: 'white', paddingVertical: 5, paddingHorizontal: 25, borderRadius: 10}}>
+                            <Text style={{fontSize: 18}}>{punteggioOttenuto} / {challenge.questions.length}</Text>
+                        </View>
+                    </View>
                     {risposte.map((valore, index) => (
-                        <Card key={index} style={ styles.card}>
-                            <Card.Content>
-                                <Text style={{fontSize: 16}}>{state.selectedChallenge.questions[index].Testo}</Text>
-                                <View style={[styles.callout, {marginTop: 6, backgroundColor: valore ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer }]}>
-                                    <Text style={{paddingHorizontal: 6}}>{valore ? 'corretta' : 'sbagliata'}</Text>
+                        <View style={styles.article}>
+                        <View style={styles.cardBase}>
+                        <Card key={index} style={{borderRadius: 20, backgroundColor: myTheme.colors.cardBorder}}>
+                            <Card.Content style={[styles.card, {paddingBottom: 15, }]}>
+                                <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
+                                    <Text style={{fontSize: 16, marginRight: 8, fontWeight: 'bold'}}>{index + 1}</Text>
+                                    <Text style={{fontSize: 16}}>{state.selectedChallenge.questions[index].Testo}</Text>
                                 </View>
-
-                                <TouchableOpacity onPress={() => toggleExpand(index)}>
-                                    <Text style={{paddingTop: 6, color: myTheme.colors.primary}}>
-                                        {expandedIndex === index ? "Nascondi Dettagli ˄" : "Mostra Dettagli ˅"}
+                                <View>
+                                    <View style={{flexDirection: 'row',justifyContent: 'center', alignItems: 'center'}}>
+                                        <View style={[styles.callout, {marginTop: 6, backgroundColor: valore ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer }]}>
+                                            <Text style={{paddingHorizontal: 6}}>{valore ? 'corretta' : 'sbagliata'}</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                            </Card.Content>
+                                <TouchableOpacity onPress={() => toggleExpand(index)}
+                                                  style={{
+                                                      flex: 1,
+                                                      paddingTop: 0, paddingBottom: 10,
+                                                      backgroundColor: myTheme.colors.cardBorder,
+                                                      alignItems: 'flex-end',
+                                                      borderBottomLeftRadius: 20, borderBottomRightRadius: 20
+                                                    }}>
+                                    <Text style={{color: myTheme.colors.primary, paddingRight: 30, fontWeight: 'bold'}}>
+                                        {expandedIndex === index ?
+                                            <MaterialCommunityIcons
+                                            name="eye-off"
+                                            size={24}
+                                            color="black"
+                                        /> :
+                                            <MaterialCommunityIcons
+                                                name="eye"
+                                                size={24}
+                                                color="black"
+                                            />
+                                        }
                                     </Text>
                                 </TouchableOpacity>
-                                <Collapsible collapsed={expandedIndex !== index}>
-                                    <View style={{paddingTop: 10}}>
+                                <Collapsible collapsed={expandedIndex !== index} >
+                                    <View style={[styles.card, {padding: 15}]}>
                                         <Divider />
 
                                         {state.selectedChallenge.questions[index].Risposte.map((risposta, index2) => (
@@ -539,26 +571,50 @@ export default function PlayScreen() {
                                             <Text style={styles.sectionText}>Spiegazione</Text>
                                             <Text>{state.selectedChallenge.questions[index].Spiegazione}</Text>
                                         </View>
-                                    <View style={styles.row}>
-                                        <View style={styles.miniCardBase}>
-                                            <View style={styles.miniCard}>
-                                                <Text>Tempo Impiegato</Text>
-                                                <Text>{Math.round(listaTempoDomande[index])} s</Text>
+                                    </View>
+                                    <View style={{flexDirection: 'row', paddingBottom: 8, paddingHorizontal: 0, marginTop: 0}}>
+                                        <View style={[styles.miniCardBase, {borderRadius: 10, marginRight: 5, backgroundColor: 'white'}]}>
+                                            <View style={[styles.miniCard, {borderColor: 'white'}]}>
+                                                <View style={{paddingHorizontal: 3, paddingVertical: 5, alignItems: 'center'}}>
+                                                    <Text>Tempo Impiegato</Text>
+                                                </View>
+                                                <View style={styles.insideCard}>
+                                                    <View style={styles.row}>
+                                                        <MaterialCommunityIcons
+                                                            name="clock"
+                                                            size={24}
+                                                            color="black"
+                                                        />
+                                                        <Text style={{fontWeight: 'bold',marginLeft: 5,padding: 5, paddingHorizontal: 'auto'}}>{Math.round(listaTempoDomande[index])} s</Text>
+                                                    </View>
+                                                </View>
                                             </View>
                                         </View>
-                                        <View style={styles.miniCardBase}>
-                                            <View style={styles.miniCard}>
-                                                <Text>Punti Guadagnati</Text>
-                                                <Text>{risposte[index]? Math.round(10 + timerDuration - listaTempoDomande[index])  : 0}</Text>
+                                        <View style={[styles.miniCardBase, {borderRadius: 10, marginLeft: 5, backgroundColor: 'white'}]}>
+                                            <View style={[styles.miniCard, {borderColor: 'white'}]}>
+                                                <View style={{paddingHorizontal: 3, paddingVertical: 5, alignItems: 'center'}}>
+                                                    <Text>Punti Guadagnati</Text>
+                                                </View>
+                                                <View style={styles.insideCard}>
+                                                    <View style={styles.row}>
+                                                        <MaterialCommunityIcons
+                                                            name="trophy"
+                                                            size={24}
+                                                            color="black"
+                                                        />
+                                                        <Text style={{fontWeight: 'bold',marginLeft: 5,padding: 5, paddingHorizontal: 'auto'}}>{risposte[index]? Math.round(10 + timerDuration - listaTempoDomande[index])  : 0}</Text>
+                                                    </View>
+                                                </View>
                                             </View>
                                         </View>
                                     </View>
-                                    </View>
+
                                         {/*
                                         <Text>Risposta data: {listaRisposteDate[index]}</Text>
                                         <Text>Risposta corretta: {state.selectedChallenge.questions[index].Soluzione}</Text>
                                         <Text>Spiegazione: {state.selectedChallenge.questions[index].Spiegazione}</Text>
                                         */}
+                                    {/*
                                         <Text>Grafico del testo: </Text>
                                         {state.selectedChallenge.questions[index].GraficList.length===1 ? <Image
                                             source={{ uri: state.selectedChallenge.questions[currentQuestionIndex].GraficList[0] }}
@@ -569,27 +625,86 @@ export default function PlayScreen() {
                                                 borderRadius: 4,
                                                 alignSelf:"center"
                                             }}
-                                        /> : "Grafico non disponibile"}
+                                        /> : "Grafico non disponibile"}*/}
 
                                 </Collapsible>
-                            </Card.Content>
-                        </Card>))}
-                        <Card>
-                            <Text>Conteggio punti:</Text>
-                            <Text>Punti guadagnati dal tempo: {tempoTotaleXP}</Text>
-                            <Text>Punti in base alla difficoltà: {state.selectedChallenge.difficolta * 50}</Text>
-                            <Text>Punti per le risposte corrette: {xpCorrect}</Text>
-                            <Text>Punti totali: {xp}</Text>
-                        </Card>
-                    </View>
-                    <Card>
-                        <Text>Conteggio punti:</Text>
-                        <Text>Punti guadagnati dal tempo: {tempoTotaleXP}</Text>
-                        <Text>Punti in base alla difficoltà: {state.selectedChallenge.difficolta * 50}</Text>
-                        <Text>Punti per le risposte corrette: {xpCorrect}</Text>
-                        <Text>Punti totali: {xp}</Text>
-                    </Card>
 
+                        </Card>
+                        </View>
+                        </View>))}
+                        <View style={styles.section}>
+                            <Card style={{alignItems: 'flex-between',backgroundColor: myTheme.colors.cardBorder, padding: 20, borderRadius: 25}}>
+                                <Text style={styles.sectionText}>Conteggio punti</Text>
+                                <View style={{flexDirection: 'row', paddingTop: 10}}>
+                                <View style={styles.miniWhiteCardBase}>
+                                    <View style={[styles.miniCard, {borderColor: 'white'}]}>
+                                        <View style={styles.insideCard}>
+                                            <View style={styles.row}>
+                                                <MaterialCommunityIcons
+                                                    name="lightning-bolt"
+                                                    size={24}
+                                                    color="black"
+                                                />
+                                                <Text style={{fontWeight: 'bold',marginLeft: 5,padding: 5, paddingHorizontal: 'auto'}}>
+                                                    {tempoTotaleXP}
+                                                </Text>
+                                            </View>
+                                        </View>
+                                        <View style={{paddingHorizontal: 3, paddingVertical: 5, alignItems: 'center'}}>
+                                            <Text style={styles.smallText}>Punti guadagnati per la velocità</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                                <View style={styles.miniWhiteCardBase}>
+                                    <View style={[styles.miniCard, {borderColor: 'white'}]}>
+                                        <View style={styles.insideCard}>
+                                            <View style={styles.row}>
+                                                <MaterialCommunityIcons
+                                                    name="weight-lifter"
+                                                    size={24}
+                                                    color="black"
+                                                />
+                                                <Text style={{fontWeight: 'bold',marginLeft: 5,padding: 5, paddingHorizontal: 'auto'}}>
+                                                    {state.selectedChallenge.difficolta * 50}
+                                                </Text>
+                                            </View>
+                                        </View>
+                                        <View style={{paddingHorizontal: 3, paddingVertical: 5, alignItems: 'center'}}>
+                                            <Text style={styles.smallText}>Punti guadagnati in base alla difficoltà</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                                <View style={styles.miniWhiteCardBase}>
+                                    <View style={[styles.miniCard, {borderColor: 'white'}]}>
+                                        <View style={styles.insideCard}>
+                                            <View style={styles.row}>
+                                                <MaterialCommunityIcons
+                                                    name="check"
+                                                    size={24}
+                                                    color="black"
+                                                />
+                                                <Text style={{fontWeight: 'bold',marginLeft: 5,padding: 5, paddingHorizontal: 'auto'}}>
+                                                    {xpCorrect}
+                                                </Text>
+                                            </View>
+                                        </View>
+                                        <View style={{paddingHorizontal: 3, paddingVertical: 5, alignItems: 'center'}}>
+                                            <Text style={styles.smallText}>Punti per le risposte corrette</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                                </View>
+                                <View style={{paddingTop: 10, paddingRight: 5, alignItems: 'center'}}>
+                                    <Text>Punti totali</Text>
+                                    <View style={{backgroundColor: 'white', padding: 5, paddingHorizontal: 30, borderRadius: 10}}>
+                                    <Text style={{fontSize: 30, fontWeight: 'bold', fontFamily: 'Itim', color: myTheme.colors.primary}}>{xp}</Text>
+                                    </View>
+                                    </View>
+                            </Card>
+                        </View>
+                    </View>
+
+                    </View>
                 </ScrollView>
 
 
