@@ -76,13 +76,13 @@ export async function registraVerifica(userId: string) {
     }
 }
 export async function registraSegnalazione(segnalazione: DomandaSegnalata) {
-    const segnalazioniRef = ref(db, `Utenti/Utente1/SfideCompletate`);
+    const sfideCompletateRef = ref(db, `Utenti/Utente1/SfideCompletate`);
 
     try {
-        // Fetch the current list of reports
-        const snapshot = await get(segnalazioniRef);
-        const index = snapshot.size;
-        const currentSegnalazioni = snapshot.val() || [];
+        // Fetch the current list of completed challenges
+        const snapshot = await get(sfideCompletateRef);
+        const sfideCompletate = snapshot.val() || [];
+        const index = sfideCompletate.length-1; // Use length for the next index
 
         // Verifica se la domanda contiene tutti i campi necessari
         if (!segnalazione.domanda.testo || !segnalazione.domanda.risposte || !segnalazione.domanda.rispostaCorretta) {
@@ -96,7 +96,7 @@ export async function registraSegnalazione(segnalazione: DomandaSegnalata) {
             return;
         }
 
-        // Crea la segnalazione solo se tutte le informazioni sono corrette
+        // Crea la nuova segnalazione
         const nuovaSegnalazione: DomandaSegnalata = {
             domanda: {
                 testo: segnalazione.domanda.testo,
@@ -107,13 +107,19 @@ export async function registraSegnalazione(segnalazione: DomandaSegnalata) {
             sfida: segnalazione.sfida
         };
 
-        // Aggiungi la nuova segnalazione alla lista
-        const updatedSegnalazioni = [...currentSegnalazioni, nuovaSegnalazione];
+        // Controlla se il campo Segnalazioni esiste già per questa sfida
+        const segnalazioniRef = ref(db, `Utenti/Utente1/SfideCompletate/${index}/Segnalazioni`);
+        const segnalazioniSnapshot = await get(segnalazioniRef);
+        const segnalazioniEsistenti = segnalazioniSnapshot.val() || [];
+
+        // Aggiungi la nuova segnalazione
+        const updatedSegnalazioni = [...segnalazioniEsistenti, nuovaSegnalazione];
 
         // Salva la lista aggiornata nel database
-        await set(ref(db, `Utenti/Utente1/SfideCompletate/${index}/Segnalazioni`), updatedSegnalazioni);
+        await set(segnalazioniRef, updatedSegnalazioni);
         console.log("Segnalazione registrata con successo!");
     } catch (error) {
         console.error("Errore durante la registrazione della segnalazione:", error);
     }
 }
+
