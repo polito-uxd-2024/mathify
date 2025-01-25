@@ -7,7 +7,7 @@ import SegmentedButton from "../Component/SegmentedButton";
 
 export default function HomeScreen() {
     const [state] = useContext(StateContext);
-
+    console.log(state.segnalazioniList);
     return (
         <View style={{ flex: 1 }}>
             <Appbar.Header style={styles.header}>

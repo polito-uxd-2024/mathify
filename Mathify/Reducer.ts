@@ -1,13 +1,14 @@
 import {createContext} from "react";
 import {Action} from "./Action";
 
-import {Sfida, Utente} from "./Component/Interfaces";
+import {DomandaSegnalata, Sfida, Utente} from "./Component/Interfaces";
 
 
 interface State{
     selectedChallenge:Sfida;
     utente:Utente;
     challengeList:Sfida[];
+    segnalazioniList:DomandaSegnalata[];
 }
 export function Reducer(state: State, action: Action) {
     switch (action.type) {
@@ -34,6 +35,11 @@ export function Reducer(state: State, action: Action) {
                         ...state,
                         challengeList: action.challengeList
                     }
+                    case "setSegnalazioniList":
+                        return {
+                            ...state,
+                            segnalazioniList: action.segnalazioniList
+                        }
         default:
             return state;
     }
@@ -53,8 +59,10 @@ export const InitialState: State = {
         livello: {numero: 1, xpTotali: 10},
         sfideCompletate: [],
         verifica: false,
+
     },
     challengeList: [],
+    segnalazioniList: []
 };
 export const StateContext=
     createContext<[State,React.Dispatch<Action>]>([InitialState,(_:Action)=>{}])

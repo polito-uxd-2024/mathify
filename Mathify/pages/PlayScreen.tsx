@@ -1,5 +1,5 @@
-import React, {useState, useEffect, useContext, useRef} from "react";
-import {View, ScrollView, TouchableOpacity, Modal, Animated, Easing, ViewStyle} from "react-native";
+import React, {useState, useEffect, useContext, useRef, useCallback} from "react";
+import {View, ScrollView, TouchableOpacity, Modal, Animated, Easing, ViewStyle, Alert} from "react-native";
 import {
     Appbar,
     Card,
@@ -26,12 +26,16 @@ import {myTheme} from "../Component/theme";
 import {Header} from "@react-navigation/stack";
 import {ScreenFooter} from "react-native-screens";
 import {RadioButton} from "react-native-paper";
+import {useNavigation} from "@react-navigation/native";
+import {NativeStackNavigationProp} from "react-native-screens/native-stack";
+import {PlayParamList} from "../Component/navigation";
+import {setSegnalazioniList} from "../Action";
 
 export default function PlayScreen() {
     const { colors } = useTheme();
-    const [state] = useContext(StateContext);
+    const [state, dispatch] = useContext(StateContext);
     useSetCurrentUser("Utente1");
-
+    const navigation = useNavigation<NativeStackNavigationProp<PlayParamList>>();
     const challenge: Sfida = {
         questions: state.selectedChallenge.questions,
         titolo: state.selectedChallenge.titolo,
@@ -77,31 +81,36 @@ export default function PlayScreen() {
     const [selectedSuggestion, setSelectedSuggestion] = useState('');
     const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
+    const handleClose = () =>{
+        salvaSfida();
+        navigation.goBack();
+    }
 
     const handleCloseModal = (title) => {
         setMotivo("");
         setDialogVisible(false);
         setSelectedSuggestion("");
     };
-    const handleSegnala = (domanda: Question, sfida: Sfida, index: number) => {
+    const handleSegnala = ({ Testo, Risposte, Soluzione }: Question, { titolo, argomento }: Sfida, index: number) => {
         console.log("Index", index);
-        console.log("Domanda", domanda);
-        const segnalazione = {
-            domanda: { testo: domanda.Testo, risposte: domanda.Risposte, rispostaCorretta: domanda.Soluzione },
-            motivo: motivo,
-            sfida: { titolo: sfida.titolo, argomento: sfida.argomento }
+        const segnalazione:DomandaSegnalata = {
+            domanda: { testo: Testo, risposte: Risposte, rispostaCorretta: Soluzione },
+            motivo,
+            sfida: { titolo, argomento },
         };
         console.log(segnalazione);
-
         setSegnalazioni((prevSegnalazioni) => {
             const updatedSegnalazioni = [...prevSegnalazioni, segnalazione];
             console.log(updatedSegnalazioni);
             return updatedSegnalazioni;
         });
 
+
+
         setDialogVisible(false);
-        console.log(segnalazioni);
     };
+
+
     // Gestione del timer
     useEffect(() => {
         if (!changePage) {
@@ -220,11 +229,6 @@ export default function PlayScreen() {
 
         }
     }, [changePage]);
-    useEffect(() => {
-        return () => {
-            salvaSfida();
-        };
-    }, []);
     const salvaSfida = () => {
         const correctAnswers = risposte.filter((risposta) => risposta === true).length;
         const xpCorretto = 10 * correctAnswers;
@@ -252,15 +256,18 @@ export default function PlayScreen() {
             xpGuadagnati: totaleXP,
             titolo: state.selectedChallenge.titolo,
             argomento: state.selectedChallenge.argomento,
+            segnalazioni: state.segnalazioniList,
             dataCompletamento: new Date(),
-            segnalazioni: segnalazioni,
+
         };
+        console.log("Segnalazioni:", state.segnalazioniList);
 
         console.log("XP inviati al database:", sfidaCompletata.xpGuadagnati);
-        console.log(segnalazioni);
+
         registraSfidaCompletata(sfidaCompletata, state.selectedChallenge);
         aggiornaLivello(sfidaCompletata.xpGuadagnati);
-    };
+    }
+
 
 
     const [segnalaIndex, setSegnalaIndex] = useState<number>(0);
@@ -746,6 +753,7 @@ export default function PlayScreen() {
                                     </View>
                                     </View>
                             </Card>
+                            <Button onPress={handleClose}>Chiudi</Button>
                         </View>
                     </View>
 
