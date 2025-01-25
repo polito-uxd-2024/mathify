@@ -53,14 +53,14 @@ export default function Impostazioni() {
     }, [state.utente.verifica]); // Ora dipende solo da `state.utente.verifica`
 
     return (
-        <ScrollView>
-            <Card style={{  padding: 16, borderRadius: 10, width: '80%', alignSelf: 'center' }}>
+        <ScrollView style={styles.mainContent}>
+            <Card style={styles.randomCard}>
                 <Card.Content>
-                    <Text style={{ fontSize: 25, fontWeight: "bold", marginLeft: 20 }}>
+                    <Text style={styles.welcomeText}>
                         Account Studente
                     </Text>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16 }}>
-                        <Text style={{ fontSize: 14, marginLeft: 7, color: "gray",marginRight: 8 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+                        <Text style={styles.subtitle}>
                             {state.utente.verifica ? "Verificato" : "Non verificato"}
                         </Text>
                         <Pressable onPress={() => setModalVisible(true)}>
@@ -200,8 +200,8 @@ export default function Impostazioni() {
                     </View>
                 </View>
             </Modal>
-
-            <Card style={{  marginTop:15,padding: 16, borderRadius: 10, width: '80%', alignSelf: 'center' }}>
+            <View style={styles.section}>
+            <Card style={styles.randomCard}>
                 <Card.Content>
                     <Text style={{ fontSize: 25, fontWeight: "bold", marginLeft: 20 }}>
                         La mia Classe
@@ -224,35 +224,44 @@ export default function Impostazioni() {
                     </Button>
                 </Card.Content>
             </Card>
-
-            <Card style={{  marginTop:15,padding: 16, borderRadius: 10, width: '80%', alignSelf: 'center' }}>
-                <Button style={{backgroundColor: 'white', paddingVertical: 12, borderRadius: 8, elevation: 3, justifyContent: 'center', marginBottom: 10}}>
+            </View>
+            <View style={styles.section}>
+            <Card style={styles.randomCard}>
+                <View style={styles.settingsCardBase}>
+                <Button style={styles.settingsCard}>
                     <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
                         Preferenze >
                     </Text>
                 </Button>
-                <Button style={{backgroundColor: 'white', paddingVertical: 12, borderRadius: 8, elevation: 3, justifyContent: 'center', marginBottom: 10}}>
-                    <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
+                </View>
+                <View style={styles.settingsCardBase}>
+                    <Button style={styles.settingsCard}>    <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
                         Profilo >
                     </Text>
-                </Button>
-                <Button style={{backgroundColor: 'white', paddingVertical: 12, borderRadius: 8, elevation: 3, justifyContent: 'center', marginBottom: 10}}>
-                    <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
+                    </Button>
+                </View>
+                <View style={styles.settingsCardBase}>
+                    <Button style={styles.settingsCard}>    <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
                         Pagine Modificate >
                     </Text>
-                </Button>
-                <Button style={{backgroundColor: 'white', paddingVertical: 12, borderRadius: 8, elevation: 3, justifyContent: 'center', marginBottom: 10}}
-                onPress={()=>navigation.navigate("Segnalazioni")}>
+                    </Button>
+                </View>
+                <View style={styles.settingsCardBase}>
+                    <Button style={styles.settingsCard} onPress={()=>navigation.navigate("Segnalazioni")}>
                     <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
                         Segnalazioni >
                     </Text>
-                </Button>
-                <Button style={{backgroundColor: 'white', paddingVertical: 12, borderRadius: 8, elevation: 3, justifyContent: 'center', marginBottom: 10}}>
+                    </Button>
+                </View>
+                <View style={styles.settingsCardBase}>
+                    <Button style={styles.settingsCard}>
                     <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
                         Supporto >
                     </Text>
                 </Button>
+                </View>
             </Card>
+            </View>
 
             <Card style={{ flex: 1, marginTop: 15, padding: 16, borderRadius: 10, width: '100%', alignSelf: 'center' }}>
                 {/* Nome e cognome con il bottone "ESCI" */}
