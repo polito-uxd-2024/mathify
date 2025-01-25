@@ -67,6 +67,9 @@ export default function PlayScreen() {
     const [ricompensa, setRicompensa] = useState(true)
     const [isWaiting, setIsWaiting] = useState(false)
     const [modalVisible, setModalVisible] = useState(false);
+
+
+
     //Gestione della Segnalazione
     const [segnalazioni, setSegnalazioni] = useState<DomandaSegnalata[]>([]);
     const [motivo, setMotivo] = useState("");
@@ -80,21 +83,25 @@ export default function PlayScreen() {
         setDialogVisible(false);
         setSelectedSuggestion("");
     };
-    const handleSegnala=(domanda:Question, sfida:Sfida, index:number)=>{
+    const handleSegnala = (domanda: Question, sfida: Sfida, index: number) => {
+        console.log("Index", index);
+        console.log("Domanda", domanda);
+        const segnalazione = {
+            domanda: { testo: domanda.Testo, risposte: domanda.Risposte, rispostaCorretta: domanda.Soluzione },
+            motivo: motivo,
+            sfida: { titolo: sfida.titolo, argomento: sfida.argomento }
+        };
+        console.log(segnalazione);
 
-        console.log("Index", index)
-        console.log("Domanda",domanda)
-        const segnalazione={
-            domanda:{testo:domanda.Testo,risposte:domanda.Risposte,rispostaCorretta:domanda.Soluzione},
-            motivo:motivo,
-            sfida:{titolo:sfida.titolo,argomento:sfida.argomento}
-        }
-        console.log(segnalazione)
-        setSegnalazioni([...segnalazioni,segnalazione])
-        setDialogVisible(false)
-        console.log(segnalazioni)
+        setSegnalazioni((prevSegnalazioni) => {
+            const updatedSegnalazioni = [...prevSegnalazioni, segnalazione];
+            console.log(updatedSegnalazioni);
+            return updatedSegnalazioni;
+        });
 
-    }
+        setDialogVisible(false);
+        console.log(segnalazioni);
+    };
     // Gestione del timer
     useEffect(() => {
         if (!changePage) {
@@ -242,18 +249,17 @@ export default function PlayScreen() {
             })),
             punteggio: punteggioOttenuto,
             tempoImpiegato: timerDuration * challenge.questions.length,
-            xpGuadagnati: totaleXP, // Calcolo diretto qui
+            xpGuadagnati: totaleXP,
             titolo: state.selectedChallenge.titolo,
             argomento: state.selectedChallenge.argomento,
             dataCompletamento: new Date(),
             segnalazioni: segnalazioni,
-
         };
 
         console.log("XP inviati al database:", sfidaCompletata.xpGuadagnati);
+        console.log(segnalazioni);
         registraSfidaCompletata(sfidaCompletata, state.selectedChallenge);
         aggiornaLivello(sfidaCompletata.xpGuadagnati);
-
     };
 
 
