@@ -215,8 +215,9 @@ export const styles = StyleSheet.create({
     randomCard: {
         margin: 0,
         borderRadius: 20,
-        borderColor: myTheme.colors.cardBorder,
-        borderWidth: 10,
+        borderColor: 'black',
+        borderWidth: 2,
+        padding: 5,
         backgroundColor: myTheme.colors.cardBorder,
         shadowOpacity: 0,
     },
@@ -248,6 +249,66 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 10,
     },
+    insideCardWhite: {
+        backgroundColor: 'white',
+        paddingHorizontal: 30,
+        margin: 5,
+        marginTop: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10,
+
+    },
+    whiteCard: {
+        flex: 1,
+        marginHorizontal: 5,
+        //backgroundColor: 'white',
+        flexDirection: 'row',
+        //borderWidth: 4,
+        marginTop: 5,
+        //borderColor: myTheme.colors.primary,
+        borderRadius: 20,
+        padding: 16,
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    primaryCard: {
+        flex: 1,
+        marginHorizontal: 5,
+        backgroundColor: myTheme.colors.cardBorder,
+        flexDirection: 'row',
+        borderWidth: 2,
+        marginTop: 5,
+        borderColor: 'black',
+        borderRadius: 20,
+        padding: 16,
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    grayCard: {
+        flex: 1,
+        marginHorizontal: 5,
+        backgroundColor: myTheme.colors.gray,
+        borderWidth: 2,
+        marginTop: 5,
+        borderColor: 'black',
+        borderRadius: 20,
+        padding: 16,
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    }
+    ,
+    grayCardRow: {
+        backgroundColor: myTheme.colors.gray,
+        borderWidth: 2,
+        marginTop: 5,
+        borderColor: 'black',
+        borderRadius: 20,
+        padding: 16,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'}
+    ,
     answerCard: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -305,6 +366,7 @@ export const styles = StyleSheet.create({
         marginVertical: 15,
         borderRadius: 30,
         borderWidth: 2,
+
     },
     profileImage: {
         width: 50,

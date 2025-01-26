@@ -27,12 +27,12 @@ export default function ProfilePage() {
             <ScrollView contentContainerStyle={{ paddingBottom: 20}}>
                 <View >
                     {/* Immagine */}
-                    <View style={[styles.lightCover]}>
-                        <View >
+                    <View style={{padding: 20}}>
+
                             <ImageBackground
                                 source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
                                 style={{flex: 1}}
-                                imageStyle={{ borderRadius: 10, marginVertical: 8}}
+                                imageStyle={styles.coverImage}
                             >
                                 {/* Tasto Impostazioni in alto a destra */}
                                 <IconButton
@@ -44,7 +44,7 @@ export default function ProfilePage() {
                                     }}
                                     style={{
                                         position: 'absolute',
-                                        top: 10,
+                                        top: 20,
                                         right: 10,
                                         backgroundColor: 'rgba(255, 255, 255, 0.2)', // Colore di sfondo semitrasparente per visibilità
                                         borderRadius: 50, // Rende il bottone circolare
@@ -55,11 +55,11 @@ export default function ProfilePage() {
                                     </View>
                                 </View>
                             </ImageBackground>
-                        </View>
+
 
 
                         {/* Nome e cognome */}
-                        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                        <View style={{ flexDirection: "row", marginTop: 20, justifyContent: "space-between", alignItems: "center" }}>
                             <Text style={styles.bigWelcomeText}>
                                 {state.utente.nome} {state.utente.cognome}
                             </Text>
@@ -71,43 +71,51 @@ export default function ProfilePage() {
                         </View>
                     </View>
                         <View>
-                        {/* Visualizza email */}
 
-
-                        {/* Visualizza Livello */}
                         <View style={{ paddingHorizontal: 16, marginVertical: 20 }}>
                             <Text style={styles.welcomeText}>
                                 Livello
                             </Text>
                         </View>
-
-                        <Card style={{ marginBottom: 16, position: "relative", alignSelf: "center", width: "70%" }}>
+                        <View style={{paddingHorizontal: 16}}>
+                        <View style={styles.primaryCard}>
+                            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                             {/* Livello e stella */}
-                            <View style={{ top: 10, right: 10, alignItems: 'left', marginLeft: 10 }}>
-                                <FontAwesome
-                                    name="star-and-crescent"
-                                    size={40}
-                                    color="blue"
-                                />
-                                <Text style={{ position: "absolute", fontSize: 20, fontWeight: 'bold', color: 'white', marginTop: 22, marginLeft: 18, textAlign: "center" }}>
-                                    {state.utente.livello.numero} {/* Numero del livello */}
-                                </Text>
-                            </View>
+                                <View style={{alignItems: 'center', justifyContent: 'center' }}>
+                                    <FontAwesome
+                                        name="star"
+                                        size={70}
+                                        color= 'white'
+                                    />
+                                    <Text style={{ position: "absolute", fontSize: 20, fontWeight: 'bold', color: myTheme.colors.primary, textAlign: "center" }}>
+                                    {state.utente.livello.numero}{/* Numero del livello */}
+                                    </Text>
+                                </View>
+                                <View>
+                                {/* Livello Utente */}
 
-                            {/* Livello Utente */}
-                            <Text style={{ color: 'white', fontWeight: 'bold', textAlign: "center", marginTop: 8, color: "black" }}>
-                                Apprendista {Math.round((state.utente.livello.xpTotali / 5000) * 100)}% {/* Percentuale calcolata */}
-                            </Text>
 
-                            {/* Barra di Progresso */}
-                            <View style={{ flexDirection: 'column', alignItems: 'center', marginTop: 4, marginLeft: 5, marginBottom: 4, marginRight: 5 }}>
-                                <ProgressBar
-                                    progress={parseFloat((state.utente.livello.xpTotali / 5000).toFixed(2))} // Conversione esplicita
-                                    color="orange"
-                                    style={[styles.progressBar, { width: 200 }]}
-                                />
+                                {/* Barra di Progresso */}
+                                <View style={{ marginLeft: 10, backgroundColor: 'white', padding: 10, borderRadius: 10, flexDirection: 'column', alignItems: 'center', paddingLeft: 15, marginBottom: 4, marginRight: 5 }}>
+
+                                    <Text style={{ fontWeight: 'bold', textAlign: "center", marginBottom: 4 }}>
+                                        Apprendista{/* Percentuale calcolata */}
+                                    </Text>
+                                    <View style={{ position: 'relative', width: 180}}>
+                                        <ProgressBar
+                                            progress={parseFloat((state.utente.livello.xpTotali / 5000).toFixed(2))}
+                                            color={myTheme.colors.primary}
+                                            style={[styles.progressBar, { width: '100%'}]}
+                                        />
+                                        <Text style={{color: 'white', position: 'absolute', width: '100%', textAlign: 'left', fontWeight: 'bold', marginLeft: 20, }}>
+                                            {Math.round((state.utente.livello.xpTotali / 5000) * 100)}%
+                                        </Text>
+                                    </View>
+                                </View>
+                                </View>
                             </View>
-                        </Card>
+                        </View>
+                        </View>
 
                         {/* Visualizza Attività */}
                         <View style={{ paddingHorizontal: 16, marginVertical: 20 }}>
@@ -116,27 +124,32 @@ export default function ProfilePage() {
                             </Text>
                         </View>
 
-                        <View style={{ flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 16 }}>
+                        <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 16 }}>
                             {/* Prima Card */}
-                            <View style={{ flex: 1, backgroundColor: '#f0f0f0', marginRight: 8, padding: 16, borderRadius: 10, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ fontSize: 16, textAlign: 'center' }}>
+
+                            <View style={styles.grayCard}>
+                                <Text style={{ fontSize: 13, textAlign: 'center' }}>
                                     Sfide completate nell'ultima settimana
                                 </Text>
-                                <Text style={{ fontSize: 40, fontWeight: 'bold', marginTop: 10 }}>
+                                <View style={styles.insideCardWhite}>
+                                <Text style={{ fontSize: 40, fontWeight: 'bold', fontFamily: 'Itim', color: myTheme.colors.primary }}>
                                     4
                                 </Text>
+                                </View>
                             </View>
-
-                            {/* Seconda Card */}
-                            <View style={{ flex: 1, backgroundColor: '#f0f0f0', marginLeft: 8, padding: 16, borderRadius: 10, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ fontSize: 16, textAlign: 'center' }}>
+                            <View style={styles.grayCard}>
+                                <Text style={{ fontSize: 13, textAlign: 'center' }}>
                                     Sfide completate nell'ultimo mese
                                 </Text>
-                                <Text style={{ fontSize: 40, fontWeight: 'bold', marginTop: 10 }}>
-                                    12
-                                </Text>
+                                <View style={styles.insideCardWhite}>
+                                    <Text style={{ fontSize: 40, fontWeight: 'bold', fontFamily: 'Itim', color: myTheme.colors.primary }}>
+                                        12
+                                    </Text>
+                                </View>
                             </View>
                         </View>
+
+
 
                         {/* Visualizza Badge */}
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 16, marginVertical: 20 }}>
@@ -224,7 +237,7 @@ export default function ProfilePage() {
                                 # 1
                             </Text>
                             {/* Card per Logaritmi */}
-                            <View style={{ backgroundColor: myTheme.colors.gray, borderWidth: 2, marginTop: 5, borderColor: 'gray', borderRadius: 10, padding: 16 , flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                            <View style={styles.grayCardRow}>
                                 {/* Icona Trofeo */}
                                 <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, backgroundColor: 'white', borderRadius: 10}}>
                                     <MaterialCommunityIcons
@@ -272,8 +285,7 @@ export default function ProfilePage() {
                                 <Text style={styles.sectionText}>
                                     # 2
                                 </Text>
-                            <View style={{ backgroundColor: myTheme.colors.gray, borderWidth: 2, marginTop: 5, borderColor: 'gray', borderRadius: 10, padding: 16 , flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                                {/* Icona Trofeo */}
+                                <View style={styles.grayCardRow}>    {/* Icona Trofeo */}
                                 <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, backgroundColor: 'white', borderRadius: 10}}>
                                     <MaterialCommunityIcons
                                         name="account-star"
@@ -322,8 +334,7 @@ export default function ProfilePage() {
                                 <Text style={styles.sectionText}>
                                     # 3
                                 </Text>
-                            <View style={{ backgroundColor: myTheme.colors.gray, borderWidth: 2, marginTop: 5, borderColor: 'gray', borderRadius: 10, padding: 16 , flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                                {/* Icona Trofeo */}
+                                <View style={styles.grayCardRow}>    {/* Icona Trofeo */}
                                 <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, backgroundColor: 'white', borderRadius: 10}}>
                                     <MaterialCommunityIcons
                                         name="telescope"

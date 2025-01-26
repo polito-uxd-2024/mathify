@@ -60,26 +60,29 @@ export default function Impostazioni() {
                         Account Studente
                     </Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-                        <Text style={styles.subtitle}>
+                        <Text style={styles.sectionText}>
                             {state.utente.verifica ? "Verificato" : "Non verificato"}
                         </Text>
                         <Pressable onPress={() => setModalVisible(true)}>
                             <MaterialCommunityIcons
-                                name="information"
+                                name="information-outline"
                                 size={20}
-                                color="gray"
+                                color="black"
                             />
                         </Pressable>
                     </View>
-                    <Button
+                    <View style={styles.settingsCardBase}>
+
+                        <Button
                         onPress={handleVerification}
-                        style={{backgroundColor: 'white', paddingVertical: 12, borderRadius: 8, elevation: 3, justifyContent: 'center', marginBottom: 10}}
+                        style={styles.settingsCard}
                         disabled={state.utente.verifica}  // Disabilita il pulsante se l'utente è verificato
                     >
                         <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
                             Verifica >
                         </Text>
-                    </Button>
+                        </Button>
+                    </View>
                 </Card.Content>
             </Card>
 
@@ -145,7 +148,7 @@ export default function Impostazioni() {
                 onRequestClose={closeVerificationModal}
             >
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-                    <View style={{width: '80%', backgroundColor: 'white', borderRadius: 10, padding: 20, alignItems: 'center', position: 'relative'}}>
+                    <View style={{backgroundColor: 'white', borderRadius: 10, padding: 20, alignItems: 'center', position: 'relative'}}>
                         <Pressable
                             style={{ position: 'absolute', top: 10, right: 10, backgroundColor: '#e74c3c', borderRadius: 15, padding: 5 }}
                             onPress={closeVerificationModal}
@@ -178,7 +181,7 @@ export default function Impostazioni() {
                 onRequestClose={closeSuccessModal}
             >
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-                    <View style={{width: '80%', backgroundColor: 'white', borderRadius: 10, padding: 20, alignItems: 'center', position: 'relative'}}>
+                    <View style={{backgroundColor: 'white', borderRadius: 10, padding: 20, alignItems: 'center', position: 'relative'}}>
                         <Pressable
                             style={{ position: 'absolute', top: 10, right: 10, backgroundColor: '#e74c3c', borderRadius: 15, padding: 5 }}
                             onPress={closeSuccessModal}
@@ -207,27 +210,24 @@ export default function Impostazioni() {
                         La mia Classe
                     </Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16 }}>
-                        <Text style={{ fontSize: 25, marginLeft: 7, color: "black",marginRight: 8 }}>
-                            5A
-                        </Text>
-                        <Text style={{ fontSize: 14, marginLeft: 7, color: "gray",marginRight: 8 }}>
-                            Prof Giovanni Rossi
-                        </Text>
-                        <Text style={{ fontSize: 14, marginLeft: 7, color: "gray",marginRight: 8 }}>
-                            Alberto, Carlotta, Ilaria, Federico....
-                        </Text>
+                        <Text style={styles.sectionText}>
+                            5A, Prof. Giovanni Rossi</Text>
+
                     </View>
-                    <Button style={{backgroundColor: 'white', paddingVertical: 12, borderRadius: 8, elevation: 3, justifyContent: 'center', marginTop:10}}>
-                        <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
+                    <View style={styles.settingsCardBase}>
+                        <Button style={styles.settingsCard}>
+                            <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
                             Gestisci >
-                        </Text>
-                    </Button>
+                            </Text>
+                        </Button>
+                    </View>
                 </Card.Content>
             </Card>
             </View>
             <View style={styles.section}>
-            <Card style={styles.randomCard}>
+            <Card style={styles.randomCard}><View style={{padding: 20}}>
                 <View style={styles.settingsCardBase}>
+
                 <Button style={styles.settingsCard}>
                     <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
                         Preferenze >
@@ -235,13 +235,15 @@ export default function Impostazioni() {
                 </Button>
                 </View>
                 <View style={styles.settingsCardBase}>
-                    <Button style={styles.settingsCard}>    <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
+                    <Button style={styles.settingsCard}>
+                        <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
                         Profilo >
                     </Text>
                     </Button>
                 </View>
                 <View style={styles.settingsCardBase}>
-                    <Button style={styles.settingsCard}>    <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
+                    <Button style={styles.settingsCard}>
+                        <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
                         Pagine Modificate >
                     </Text>
                     </Button>
@@ -259,6 +261,7 @@ export default function Impostazioni() {
                         Supporto >
                     </Text>
                 </Button>
+                </View>
                 </View>
             </Card>
             </View>
