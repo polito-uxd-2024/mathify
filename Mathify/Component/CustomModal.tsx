@@ -3,42 +3,82 @@ import { Modal, View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 type CustomModalProps = {
     isVisible: boolean;
+    changePage: boolean;
     onConfirm: () => void;
     onCancel: () => void;
 };
 
-const CustomModal = ({ isVisible, onConfirm, onCancel }:CustomModalProps) => {
-    return (
-        <Modal
-            transparent
-            visible={isVisible}
-            animationType="fade"
-            onRequestClose={onCancel}
-        >
-            <View style={styles.modalBackground}>
-                <View style={styles.modalContainer}>
-                    <Text style={styles.modalTitle}>Sei sicuro?</Text>
-                    <Text style={styles.modalMessage}>
-                        Vuoi uscire dalla schermata di gioco? I progressi non salvati andranno persi.
-                    </Text>
-                    <View style={styles.modalButtons}>
-                        <TouchableOpacity
-                            style={[styles.modalButton, styles.cancelButton]}
-                            onPress={onCancel}
-                        >
-                            <Text style={styles.cancelButtonText}>Annulla</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.modalButton, styles.confirmButton]}
-                            onPress={onConfirm}
-                        >
-                            <Text style={styles.confirmButtonText}>Esci</Text>
-                        </TouchableOpacity>
+const CustomModal = ({ isVisible, changePage, onConfirm, onCancel }: CustomModalProps) => {
+    let modalContent;
+
+    // Condizione per determinare il contenuto del modal
+    if (!changePage) {
+        modalContent = (
+            <Modal
+                transparent
+                visible={isVisible}
+                animationType="fade"
+                onRequestClose={onCancel}
+            >
+                <View style={styles.modalBackground}>
+                    <View style={styles.modalContainer}>
+                        <Text style={styles.modalTitle}>Sei sicuro?</Text>
+                        <Text style={styles.modalMessage}>
+                            Vuoi uscire dalla schermata di gioco? I progressi non salvati andranno persi.
+                        </Text>
+                        <View style={styles.modalButtons}>
+                            <TouchableOpacity
+                                style={[styles.modalButton, styles.cancelButton]}
+                                onPress={onCancel}
+                            >
+                                <Text style={styles.cancelButtonText}>Annulla</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={[styles.modalButton, styles.confirmButton]}
+                                onPress={onConfirm}
+                            >
+                                <Text style={styles.confirmButtonText}>Esci</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-            </View>
-        </Modal>
-    );
+            </Modal>
+        );
+    } else {
+        modalContent = (
+            <Modal
+                transparent
+                visible={isVisible}
+                animationType="fade"
+                onRequestClose={onCancel}
+            >
+                <View style={styles.modalBackground}>
+                    <View style={styles.modalContainer}>
+                        <Text style={styles.modalTitle}>Sei sicuro?</Text>
+                        <Text style={styles.modalMessage}>
+                            Esci dal Riepilogo della Sfida?
+                        </Text>
+                        <View style={styles.modalButtons}>
+                            <TouchableOpacity
+                                style={[styles.modalButton, styles.cancelButton]}
+                                onPress={onCancel}
+                            >
+                                <Text style={styles.cancelButtonText}>Annulla</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={[styles.modalButton, styles.confirmButton]}
+                                onPress={onConfirm}
+                            >
+                                <Text style={styles.confirmButtonText}>Esci</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+        );
+    }
+
+    return modalContent;
 };
 
 const styles = StyleSheet.create({

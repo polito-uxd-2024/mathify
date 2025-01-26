@@ -47,13 +47,21 @@ export default function PlayScreen() {
 
     useEffect(() => {
         const unsubscribe = navigation.addListener("beforeRemove", (e: any) => {
-            e.preventDefault?.();
-            setModalVisible(true);
-            setPendingAction(e.data.action);
+            if (changePage) {
+                // Navigazione normale senza impedimenti
+                navigation.dispatch(e.data.action);
+            } else {
+                // Impedisce la navigazione predefinita e mostra il modal
+                e.preventDefault?.();
+                setModalVisible(true);
+                setPendingAction(e.data.action);
+            }
         });
 
-        return unsubscribe;
+        return unsubscribe; // Pulisce il listener quando il componente viene smontato
     }, [navigation]);
+
+
 
     const confirmExit = () => {
         setModalVisible(false);
@@ -94,7 +102,7 @@ export default function PlayScreen() {
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
     const [ricompensa, setRicompensa] = useState(true)
     const [isWaiting, setIsWaiting] = useState(false)
-    
+
     //Gestione della Segnalazione
     const [segnalazioni, setSegnalazioni] = useState<DomandaSegnalata[]>([]);
     const [motivo, setMotivo] = useState("");
@@ -309,6 +317,7 @@ export default function PlayScreen() {
                     isVisible={isModalVisible}
                     onConfirm={confirmExit}
                     onCancel={cancelExit}
+                    changePage={changePage}
                 />
                <View style={{flex: 1}}>
                     <ScrollView style={{flex: 1}}>
@@ -437,6 +446,12 @@ export default function PlayScreen() {
        ;
         return (
             <View style={{flex:1}}>
+                <CustomModal
+                    isVisible={isModalVisible}
+                    onConfirm={confirmExit}
+                    onCancel={cancelExit}
+                    changePage={changePage}
+                />
                 <Portal style={styles.modalContainer} >
                     <Dialog visible={ricompensa} onDismiss={() => setRicompensa(false)} style={styles.modalBase}>
                         <View style={[styles.cardBase, {marginTop: 0}]}>
@@ -658,7 +673,8 @@ export default function PlayScreen() {
                     </View>
                         <View style={{flex: 1, padding: 20, paddingHorizontal: 60}}>
                         <View style={styles.buttonBase}>
-                            <Button style={styles.whiteButton} onPress={()=>navigation.goBack()}>Torna alla Home</Button>
+                            <Button style={styles.whiteButton} onPress={()=>
+                                navigation.goBack()}>Torna alla Home</Button>
                         </View>
                         </View>
                     </View>
