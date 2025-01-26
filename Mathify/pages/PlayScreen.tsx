@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useContext, useRef} from "react";
+import * as Progress from 'react-native-progress';
 import {View, ScrollView, TouchableOpacity, Modal, Animated, Easing, ViewStyle} from "react-native";
 import {
     Appbar,
@@ -272,14 +273,15 @@ export default function PlayScreen() {
 
                     }}>
 
-                    <ProgressBar
-                        //progress={timerProgress}
-                        style={styles.progressBar}
-                        color={timerProgress > 0.8 ? myTheme.colors.wrongAnswer : myTheme.colors.rightAnswer}
-                    />
+                        <Progress.Bar
+                            progress={timerProgress}
+                            width={200}
+                            color={timerProgress > 0.8 ? 'red' : 'green'}
+                        />
 
 
-                </View>
+
+                    </View>
                <View style={{flex: 1}}>
                     <ScrollView style={{flex: 1}}>
                         <View style={styles.questionBody} contentContainerStyle={{ flexGrow: 1 }}>
