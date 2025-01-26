@@ -1,9 +1,7 @@
 import React, {useState, useEffect, useContext, useRef} from "react";
 import * as Progress from 'react-native-progress';
-import {View, ScrollView, TouchableOpacity, Modal, Animated, Easing, ViewStyle} from "react-native";
-import {
-    Appbar,
-    Card,
+import {View, ScrollView, TouchableOpacity, Modal, Animated, Easing, ViewStyle, Alert} from "react-native";
+import {Appbar, Card,
     Button,
     Text,
     ProgressBar,
@@ -30,6 +28,7 @@ import {RadioButton} from "react-native-paper";
 import {useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
 import {PlayParamList} from "../Component/navigation";
+import CustomModal from "../Component/CustomModal";
 
 export default function PlayScreen() {
     const { colors } = useTheme();
@@ -42,6 +41,30 @@ export default function PlayScreen() {
         titolo: state.selectedChallenge.titolo,
         argomento: state.selectedChallenge.argomento,
         difficolta: state.selectedChallenge.difficolta,
+    };
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [pendingAction, setPendingAction] = useState<any>(null);
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener("beforeRemove", (e: any) => {
+            e.preventDefault?.();
+            setModalVisible(true);
+            setPendingAction(e.data.action);
+        });
+
+        return unsubscribe;
+    }, [navigation]);
+
+    const confirmExit = () => {
+        setModalVisible(false);
+        if (pendingAction) {
+            navigation.dispatch(pendingAction);
+        }
+    };
+
+    const cancelExit = () => {
+        setModalVisible(false);
+        setPendingAction(null);
     };
 
     const [progress, setProgress] = useState(0);
@@ -71,7 +94,7 @@ export default function PlayScreen() {
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
     const [ricompensa, setRicompensa] = useState(true)
     const [isWaiting, setIsWaiting] = useState(false)
-    const [modalVisible, setModalVisible] = useState(false);
+    
     //Gestione della Segnalazione
     const [segnalazioni, setSegnalazioni] = useState<DomandaSegnalata[]>([]);
     const [motivo, setMotivo] = useState("");
@@ -282,6 +305,11 @@ export default function PlayScreen() {
 
 
                     </View>
+                <CustomModal
+                    isVisible={isModalVisible}
+                    onConfirm={confirmExit}
+                    onCancel={cancelExit}
+                />
                <View style={{flex: 1}}>
                     <ScrollView style={{flex: 1}}>
                         <View style={styles.questionBody} contentContainerStyle={{ flexGrow: 1 }}>
