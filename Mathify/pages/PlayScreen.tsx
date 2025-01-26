@@ -492,158 +492,71 @@ export default function PlayScreen() {
                             <Text style={{fontSize: 18}}>{punteggioOttenuto} / {challenge.questions.length}</Text>
                         </View>
                     </View>
-                    {risposte.map((valore, index) => (
-                        <View style={styles.article}>
-                        <View style={styles.cardBase}>
-                        <Card key={index} style={{borderRadius: 20, backgroundColor: myTheme.colors.cardBorder}}>
-                            <Card.Content style={[styles.card, {paddingBottom: 15, }]}>
-                                <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
-                                    <Text style={{fontSize: 16, marginRight: 8, fontWeight: 'bold'}}>{index + 1}</Text>
-                                    <Text style={{fontSize: 16}}>{state.selectedChallenge.questions[index].Testo}</Text>
-                                </View>
-                                <IconButton
-                                    mode="contained-tonal"
-                                    onPress={() => {
-                                        setDialogVisible(true)
-                                    }}
-                                    contentStyle={{ height: 30}}
-                                    labelStyle={{ fontSize: 14 }}
-                                    style={{backgroundColor: 'transparent', margin: 0}}
-                                    icon="alert"  // Utilizza "shuffle" direttamente come nome dell'icona
-                                >
-                                </IconButton>
-                                <View>
-                                    <View style={{flexDirection: 'row',justifyContent: 'center', alignItems: 'center'}}>
-                                        <View style={[styles.callout, {marginTop: 6, backgroundColor: valore ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer }]}>
-                                            <Text style={{paddingHorizontal: 6}}>{valore ? 'corretta' : 'sbagliata'}</Text>
-                                        </View>
-                                    </View>
-                                </View>
-                            </Card.Content>
-                                <TouchableOpacity onPress={() => toggleExpand(index)}
-                                                  style={{
-                                                      flex: 1,
-                                                      paddingTop: 0, paddingBottom: 10,
-                                                      backgroundColor: myTheme.colors.cardBorder,
-                                                      alignItems: 'flex-end',
-                                                      borderBottomLeftRadius: 20, borderBottomRightRadius: 20
-                                                    }}>
-                                    <Text style={{color: myTheme.colors.primary, paddingRight: 30, fontWeight: 'bold'}}>
-                                        {expandedIndex === index ?
-                                            <MaterialCommunityIcons
-                                            name="eye-off"
-                                            size={24}
-                                            color="black"
-                                        /> :
-                                            <MaterialCommunityIcons
-                                                name="eye"
-                                                size={24}
-                                                color="black"
+                        {risposte.map((valore, index) => (
+                            <View style={styles.article} key={`question-${index}`}>
+                                <View style={styles.cardBase}>
+                                    <Card style={{borderRadius: 20, backgroundColor: myTheme.colors.cardBorder}}>
+                                        <Card.Content style={[styles.card, {paddingBottom: 15}]}>
+                                            <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
+                                                <Text style={{fontSize: 16, marginRight: 8, fontWeight: 'bold'}}>{index + 1}</Text>
+                                                <Text style={{fontSize: 16}}>{state.selectedChallenge.questions[index].Testo}</Text>
+                                            </View>
+                                            <IconButton
+                                                mode="contained-tonal"
+                                                onPress={() => setDialogVisible(true)}
+                                                contentStyle={{ height: 30 }}
+                                                labelStyle={{ fontSize: 14 }}
+                                                style={{backgroundColor: 'transparent', margin: 0}}
+                                                icon="alert"
                                             />
-                                        }
-                                    </Text>
-                                </TouchableOpacity>
-                                <Collapsible collapsed={expandedIndex !== index} >
-                                    <View style={[styles.card, {padding: 15}]}>
-                                        <Divider />
-
-                                        {state.selectedChallenge.questions[index].Risposte.map((risposta, index2) => (
-                                            <View key={index2}>
-                                                <View style={{marginVertical: 8, padding: 8, borderRadius: 10,
-                                                    backgroundColor:
-                                                        risposta === listaRisposteDate[index]
+                                            <View>
+                                                <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                                                    <View style={[styles.callout, {marginTop: 6, backgroundColor: valore ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer}]}>
+                                                        <Text style={{paddingHorizontal: 6}}>{valore ? 'corretta' : 'sbagliata'}</Text>
+                                                    </View>
+                                                </View>
+                                            </View>
+                                        </Card.Content>
+                                        <TouchableOpacity onPress={() => toggleExpand(index)}
+                                                          style={{
+                                                              flex: 1,
+                                                              paddingTop: 0,
+                                                              paddingBottom: 10,
+                                                              backgroundColor: myTheme.colors.cardBorder,
+                                                              alignItems: 'flex-end',
+                                                              borderBottomLeftRadius: 20,
+                                                              borderBottomRightRadius: 20
+                                                          }}>
+                                            <Text style={{color: myTheme.colors.primary, paddingRight: 30, fontWeight: 'bold'}}>
+                                                {expandedIndex === index ?
+                                                    <MaterialCommunityIcons name="eye-off" size={24} color="black" /> :
+                                                    <MaterialCommunityIcons name="eye" size={24} color="black" />
+                                                }
+                                            </Text>
+                                        </TouchableOpacity>
+                                        <Collapsible collapsed={expandedIndex !== index}>
+                                            <View style={[styles.card, {padding: 15}]}>
+                                                <Divider />
+                                                {state.selectedChallenge.questions[index].Risposte.map((risposta, index2) => (
+                                                    <View key={`answer-${index}-${index2}`} style={{marginVertical: 8, padding: 8, borderRadius: 10,
+                                                        backgroundColor: risposta === listaRisposteDate[index]
                                                             ? (risposta === state.selectedChallenge.questions[index].Soluzione ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer)
                                                             : 'rgb(245,245,245)'}}>
-                                                    <Text style={{fontSize: 16}}>{risposta}</Text>
-                                                </View>
-                                                <Divider />
-                                            </View>
-                                        ))}
-                                        <View style={{paddingTop: 10}}>
-                                            <Text style={styles.sectionText}>Spiegazione</Text>
-                                            <Text>{state.selectedChallenge.questions[index].Spiegazione}</Text>
-                                        </View>
-                                    </View>
-                                    <View style={{flexDirection: 'row', paddingBottom: 8, paddingHorizontal: 0, marginTop: 0}}>
-                                        <View style={[styles.miniCardBase, {borderRadius: 10, marginRight: 5, backgroundColor: 'white'}]}>
-                                            <View style={[styles.miniCard, {borderColor: 'white'}]}>
-                                                <View style={{paddingHorizontal: 3, paddingVertical: 5, alignItems: 'center'}}>
-                                                    <Text>Tempo Impiegato</Text>
-                                                </View>
-                                                <View style={styles.insideCard}>
-                                                    <View style={styles.row}>
-                                                        <MaterialCommunityIcons
-                                                            name="clock"
-                                                            size={24}
-                                                            color="black"
-                                                        />
-                                                        <Text style={{fontWeight: 'bold',marginLeft: 5,padding: 5, paddingHorizontal: 'auto'}}>{Math.round(listaTempoDomande[index])} s</Text>
+                                                        <Text style={{fontSize: 16}}>{risposta}</Text>
+                                                        <Divider />
                                                     </View>
+                                                ))}
+                                                <View style={{paddingTop: 10}}>
+                                                    <Text style={styles.sectionText}>Spiegazione</Text>
+                                                    <Text>{state.selectedChallenge.questions[index].Spiegazione}</Text>
                                                 </View>
                                             </View>
-                                        </View>
-                                        <View style={[styles.miniCardBase, {borderRadius: 10, marginLeft: 5, backgroundColor: 'white'}]}>
-                                            <View style={[styles.miniCard, {borderColor: 'white'}]}>
-                                                <View style={{paddingHorizontal: 3, paddingVertical: 5, alignItems: 'center'}}>
-                                                    <Text>Punti Guadagnati</Text>
-                                                </View>
-                                                <View style={styles.insideCard}>
-                                                    <View style={styles.row}>
-                                                        <MaterialCommunityIcons
-                                                            name="trophy"
-                                                            size={24}
-                                                            color="black"
-                                                        />
-                                                        <Text style={{fontWeight: 'bold',marginLeft: 5,padding: 5, paddingHorizontal: 'auto'}}>{risposte[index]? Math.round(10 + timerDuration - listaTempoDomande[index])  : 0}</Text>
-                                                    </View>
-                                                </View>
-                                            </View>
-                                        </View>
-                                    </View>
+                                        </Collapsible>
+                                    </Card>
+                                </View>
+                            </View>
+                        ))}
 
-                                        {/*
-                                        <Text>Risposta data: {listaRisposteDate[index]}</Text>
-                                        <Text>Risposta corretta: {state.selectedChallenge.questions[index].Soluzione}</Text>
-                                        <Text>Spiegazione: {state.selectedChallenge.questions[index].Spiegazione}</Text>
-                                        */}
-
-                                        {state.selectedChallenge.questions[index].GraficList.length === 1 ? (
-                                                <Image
-                                                    source={{ uri: state.selectedChallenge.questions[index].GraficList[0] }}
-                                                    style={{
-                                                        width: 100,
-                                                        height: 100,
-                                                        margin: 8,
-                                                        borderRadius: 4,
-                                                        alignSelf: "center"
-                                                    }}
-                                                />
-                                            ) : state.selectedChallenge.questions[index].GraficList.length === 4 ? (
-                                                state.selectedChallenge.questions[index].GraficList.map((grafico, index) => (
-                                                    <Image
-                                                        key={index}
-                                                        source={{ uri: grafico }}
-                                                        style={{
-                                                            width: 100,
-                                                            height: 100,
-                                                            margin: 8,
-                                                            borderRadius: 4,
-                                                            alignSelf: "center"
-                                                        }}
-                                                    />
-                                                ))
-
-                                            )   : (
-                                                <Text>Grafico non disponibile</Text>
-                                            )}
-
-
-                                </Collapsible>
-
-
-                        </Card>
-                        </View>
-                        </View>))}
                         <View style={styles.section}>
                             <Card style={{alignItems: 'flex-between',backgroundColor: myTheme.colors.cardBorder, padding: 20, borderRadius: 25}}>
                                 <Text style={styles.sectionText}>Conteggio punti</Text>
