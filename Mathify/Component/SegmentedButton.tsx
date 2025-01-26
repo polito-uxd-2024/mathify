@@ -161,21 +161,24 @@ export const SegmentedButton = () => {
                                                 </View>
                                             </ImageBackground>
                                         </Card.Content>
-                                        <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
-                                            <Card.Actions>
+                                        <View style={{ flexDirection: 'row'}}>
+                                            <View style={styles.buttonBase}><Card.Actions style={{padding: 0, margin:0}}>
+
                                                 <IconButton
                                                     mode="outlined"
                                                     onPress={() => {
                                                         handleChallengeChange();
                                                     }}
                                                     contentStyle={{ height: 40 }}
-                                                    labelStyle={{ fontSize: 14 }}
+                                                    labelStyle={{ fontSize: 14, fontWeight: 'bold', fontFamily: 'Itim', color: 'black' }}
                                                     icon="shuffle"  // Utilizza "shuffle" direttamente come nome dell'icona
-                                                    style={styles.iconButton}
+                                                    style={[styles.whiteButton, {margin: 0}]}
                                                 >
                                                 </IconButton>
-                                            </Card.Actions>
-                                            <Card.Actions style={{justifyContent: 'center' }}>
+
+                                            </Card.Actions></View>
+                                            <View style={styles.buttonBase}><Card.Actions style={{padding: 0, margin:0}}>
+
                                                 <Button
                                                     mode="contained"
                                                     onPress={()=> {
@@ -184,12 +187,14 @@ export const SegmentedButton = () => {
                                                         )
                                                     }}
                                                     contentStyle={{ height: 40 }}
-                                                    labelStyle={{ fontSize: 16 }}
+                                                    labelStyle={{ margin: 0, fontSize: 14, fontWeight: 'bold', fontFamily: 'Itim', color: 'black' }}
+
                                                     style={styles.button}
                                                 >
                                                     Play
                                                 </Button>
-                                            </Card.Actions>
+
+                                            </Card.Actions></View>
                                         </View>
                                     </Card>
 

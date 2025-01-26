@@ -9,6 +9,7 @@ import {PreferencesContext} from "./Component/PreferencesContext";
 import {DarkTheme} from "@react-navigation/native";
 
 import useFonts from './useFonts';
+import AppLoading from "expo-app-loading";
 
 
 
@@ -29,9 +30,9 @@ export default function App() {
         }),
         [toggleTheme, isThemeDark]
     );
-
-    //const [fontsLoaded, setFontsLoaded] = useState(false);
     {/*
+    const [fontsLoaded, setFontsLoaded] = useState(false);
+
     useEffect(() => {
         async function loadFonts() {
             await useFonts();

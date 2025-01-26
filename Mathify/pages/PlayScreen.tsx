@@ -280,7 +280,7 @@ export default function PlayScreen() {
 
 
                 </View>
-               <View style={{minHeight: 430}}>
+               <View style={{flex: 1}}>
                     <ScrollView style={{flex: 1}}>
                         <View style={styles.questionBody} contentContainerStyle={{ flexGrow: 1 }}>
                             <View style={styles.questionCardBase}>
@@ -346,6 +346,10 @@ export default function PlayScreen() {
                 <View>
                     <View
                         style={{
+                            position: 'absolute',
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
                             flexDirection: "row",
                             justifyContent: "space-around",
                             alignItems: "center",
@@ -353,7 +357,6 @@ export default function PlayScreen() {
                             backgroundColor: myTheme.colors.cardBorder,
                             borderTopRightRadius: 20,
                             borderTopLeftRadius: 20,
-
                         }}
                     >
                         {(grafico) && (state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) && (
@@ -471,7 +474,6 @@ export default function PlayScreen() {
                     <View style={{alignItems: 'center'}}>
                         <Text style={{fontWeight: 'bold', fontSize: 30, color: 'white'}}>Complimenti! </Text>
                         <Text style={{fontSize: 16, color: 'white'}}>Sfida Completata</Text>
-
                     </View>
                 </View>
 
@@ -480,7 +482,7 @@ export default function PlayScreen() {
                     <View style={{flex: 1}}>
 
                     <View style={styles.mainContent}>
-                    <View style={[styles.insideCard, {marginTop: 20, paddingHorizontal: 50, borderRadius: 25}]}>
+                    <View style={[styles.grayCard, {marginTop: 20, paddingHorizontal: 50, borderRadius: 25}]}>
 
                         <Text style={styles.subtitle}>{state.selectedChallenge.argomento}</Text>
                         <Text style={styles.sectionText}>{state.selectedChallenge.titolo}</Text>
@@ -711,8 +713,11 @@ export default function PlayScreen() {
                             </Card>
                         </View>
                     </View>
-                        <Button onPress={()=>navigation.goBack()}>Torna alla Home</Button>
-
+                        <View style={{flex: 1, padding: 20, paddingHorizontal: 60}}>
+                        <View style={styles.buttonBase}>
+                            <Button style={styles.whiteButton} onPress={()=>navigation.goBack()}>Torna alla Home</Button>
+                        </View>
+                        </View>
                     </View>
                 </ScrollView>
                 <View style={[styles.modalContainer, {backgroundColor: 'rgba(255,255,255,0)'}]}>

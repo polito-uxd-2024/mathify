@@ -131,7 +131,26 @@ export const styles = StyleSheet.create({
         marginBottom: 0,
         fontFamily: 'Itim', // Nome del font
     },
+    buttonBase: {
+        flex: 1,
 
+        backgroundColor: 'black',
+        paddingLeft: 0,
+        paddingTop: 0,
+        paddingBottom: 4,
+        paddingRight: 3,
+        borderRadius: 18,
+    },
+    miniBase: {
+        flex: 1,
+
+        backgroundColor: 'black',
+        paddingLeft: 0,
+        paddingTop: 0,
+        paddingBottom: 1,
+        paddingRight: 1,
+        borderRadius: 18,
+    },
     cardBase: {
         flex: 1,
         width: '100%',
@@ -317,7 +336,7 @@ export const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: 'black',
         borderWidth: 2,
-        backgroundColor: 'rgb(192,227,195)',
+        backgroundColor: 'rgb(255,255,255)',
     },
     input: {
         marginBottom: 10,
@@ -327,11 +346,24 @@ export const styles = StyleSheet.create({
     },
 
     //Buttons
+
     button: {
-        borderRadius: 15,
+        flex: 1,
+        margin: 0,
+        padding: 0,
+        borderRadius: 16,
         borderColor: 'black',
-        borderWidth: 3,
-        paddingHorizontal: 20,
+        borderWidth: 2,
+        backgroundColor: 'gold',
+    },
+    whiteButton: {
+        flex: 1,
+        margin: 0,
+        padding: 0,
+        borderRadius: 16,
+        borderColor: 'black',
+        borderWidth: 2,
+        backgroundColor: 'white',
     },
     answerButton: {
         alignItems: 'center',
