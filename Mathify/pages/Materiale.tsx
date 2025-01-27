@@ -212,9 +212,9 @@ export default function Materiale() {
                         <View style={styles.section}>
                             {/* Suggested by Algorithm */}
                             <View style={[styles.article]}>
-                            <Card style={[styles.randomCard ,  {backgroundColor:myTheme.colors.gray }] }>
+                            <View style={[styles.mainWhiteCard] }>
 
-                                <Card.Content >
+
                                     <TouchableOpacity onPress={() => handleTopicPress(suggestedByAlgorithm)}>
                                     <Text style={[styles.bigWelcomeText, {color:myTheme.colors.text}]}>Argomento Proposto per Te</Text>
                                         <Text style={[styles.welcomeText, { fontWeight: "medium" }]}>Logaritmi</Text>
@@ -248,8 +248,8 @@ export default function Materiale() {
 
                                     </ImageBackground>
                                     </TouchableOpacity>
-                                </Card.Content>
-                            </Card>
+
+                            </View>
                             </View>
 
                             {/* Suggested Topics */}
@@ -257,19 +257,19 @@ export default function Materiale() {
 
 
 
-                                        <View style={[styles.section]}>
+                                        <View style={[styles.section, {paddingTop: 5}]}>
                                             <Text style={styles.bigWelcomeText}>Argomenti Del Giorno</Text>
 
                                             <View style={styles.article}>
                                         {predefinedMaterials.slice(0, 3).map((material) => (
                                             <TouchableOpacity key={material.id} onPress={() => handleTopicPress(material)}>
-                                                <Card style={[styles.grayCard, {marginVertical:8,}]}>
-                                                    <View style={[styles.article, ]}>
+                                                <View style={[styles.cardBase, {marginVertical:8,}]}>
+                                                    <View style={[styles.card, ]}>
                                                         <List.Item
                                                             title={material.title}
                                                             description={material.description}
                                                             left={() => <List.Icon icon={material.icon} />}
-                                                            style={{ paddingLeft: 30, paddingBottom: 20 }}
+                                                            style={{ paddingLeft: 30, paddingBottom: 10 }}
                                                             right={() => (
                                                                 <IconButton
                                                                     icon={savedMaterials.find((m) => m.id === material.id) ? "check" : "bookmark"}
@@ -280,7 +280,7 @@ export default function Materiale() {
                                                             )}
                                                         />
                                                     </View>
-                                                </Card>
+                                                </View>
                                             </TouchableOpacity>
                                         ))}
                                             </View>
@@ -294,8 +294,8 @@ export default function Materiale() {
                                     <View style={styles.article}>
                                         {predefinedMaterials.slice(3).map((material) => (
                                             <TouchableOpacity key={material.id} onPress={() => handleTopicPress(material)}>
-                                                <Card style={[styles.grayCard, {margin: 20}]}>
-                                                    <View style={[styles.article ]}>
+                                                <View style={[styles.cardBase, {marginVertical:10}]}>
+                                                    <View style={[styles.card ]}>
                                                         <List.Item
                                                             title={material.title}
                                                             description={material.description}
@@ -311,7 +311,7 @@ export default function Materiale() {
                                                             )}
                                                         />
                                                     </View>
-                                                </Card>
+                                                </View>
                                             </TouchableOpacity>
                                         ))}
                                     </View>
