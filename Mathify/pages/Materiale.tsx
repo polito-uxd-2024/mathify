@@ -183,7 +183,7 @@ export default function Materiale() {
                                 borderRadius: 0, borderColor: 'black', borderWidth: 0}
                         },
                         {   value: 'saved',
-                            label: 'Completate',
+                            label: 'Salvate',
                             labelStyle: {
                                 fontFamily: 'Itim',
                                 fontSize: 13
@@ -193,7 +193,7 @@ export default function Materiale() {
                                 borderRadius: 0, borderColor: 'black', borderWidth: 0}
                         },
                         {   value: 'created',
-                            label: 'Programmate',
+                            label: 'Aggiunte',
                             labelStyle: {
                                 fontFamily: 'Itim',
                                 fontSize: 13
@@ -300,13 +300,13 @@ export default function Materiale() {
                                                             title={material.title}
                                                             description={material.description}
                                                             left={() => <List.Icon icon={material.icon} />}
-                                                            style={{paddingLeft : 30, paddingBottom: 20}}
+                                                            style={{ paddingLeft: 30, paddingBottom: 20 }}
                                                             right={() => (
                                                                 <IconButton
-                                                                    icon="bookmark"
+                                                                    icon={savedMaterials.find((m) => m.id === material.id) ? "check" : "bookmark"}
                                                                     onPress={() => handleSaveMaterial(material)}
                                                                     iconColor={myTheme.colors.blue}
-                                                                    style={{backgroundColor:myTheme.colors.onBackground}}
+                                                                    style={{ backgroundColor: myTheme.colors.onBackground }}
                                                                 />
                                                             )}
                                                         />

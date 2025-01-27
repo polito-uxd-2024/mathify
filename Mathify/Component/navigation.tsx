@@ -63,7 +63,7 @@ function MaterialeStackScreen() {
     return (
         <MaterialeStack.Navigator screenOptions={{headerShown:false}}>
             <MaterialeStack.Screen name="Materiale" component={Materiale} />
-            <MaterialeStack.Screen name="MaterialeDetail" component={MaterialeDetail} options={{headerShown:true}} />
+            <MaterialeStack.Screen name="MaterialeDetail" component={MaterialeDetail} options={{headerShown:false}} />
         </MaterialeStack.Navigator>
     );
 }
