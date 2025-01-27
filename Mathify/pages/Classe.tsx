@@ -24,7 +24,7 @@ export default function Classe() {
     const [state] = useContext(StateContext)
     return (
         <ScrollView>
-            <Appbar.Header>
+            <Appbar.Header style={styles.header}>
                 <Appbar.Content title="Classe" />
             </Appbar.Header>
             <View style={[styles.content, {backgroundColor:myTheme.colors.gray}]}>

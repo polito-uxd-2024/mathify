@@ -24,6 +24,9 @@ export default function ProfilePage() {
     return (
 
         <View style={{ flex: 1 }}>
+            <Appbar.Header style={styles.header}>
+                <Appbar.Content title="Profilo" />
+            </Appbar.Header>
             <ScrollView contentContainerStyle={{ paddingBottom: 20}}>
                 <View >
                     {/* Immagine */}

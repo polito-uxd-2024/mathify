@@ -80,7 +80,7 @@ function HomeStackScreen() {
 function ProfileStackScreen() {
     return (
         <ProfileStack.Navigator screenOptions={{headerShown:false}} >
-            <ProfileStack.Screen name="Profile" component={ProfilePage} options={{headerShown:true}}/>
+            <ProfileStack.Screen name="Profile" component={ProfilePage} options={{headerShown:false}}/>
             <ProfileStack.Screen name="Impostazioni" component={Impostazioni} options={{headerShown:true}}/>
             <ProfileStack.Screen name="Classe" component={Classe}/>
             <ProfileStack.Screen name={"Segnalazioni"} component={Segnalazioni} options={{headerShown:true}}/>
