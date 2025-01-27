@@ -39,6 +39,7 @@ import {useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
 import {PlayParamList} from "../Component/navigation";
 import CustomModal from "../Component/CustomModal";
+import RewardModal from "../Component/RewardModal";
 
 export default function PlayScreen() {
     const { colors } = useTheme();
@@ -503,63 +504,7 @@ export default function PlayScreen() {
                     onCancel={cancelExit}
                     changePage={changePage}
                 />
-                <Portal style={styles.modalContainer} >
-                    <Dialog visible={ricompensa} onDismiss={() => setRicompensa(false)} style={styles.modalBase}>
-                        <View style={[styles.cardBase, {marginTop: 0}]}>
-                            <View style={styles.card}>
-                        <View style={styles.modalContent}>
-                        <Dialog.Title style={styles.modalTitle}>CONGRATULAZIONI!!</Dialog.Title>
-                        <Dialog.Content >
-                            <Text style={{marginBottom:10}}>Nuovo badge sbloccato:</Text>
-                            <View style={styles.insideCard}>
-                            {/* Simbolo del badge */}
-                            <View
-                                style={{ width: 80, height: 80, borderRadius: 40, backgroundColor: '#3498db', justifyContent: 'center', alignItems: 'center', alignSelf:"center" }}
-                            >
-                                <MaterialCommunityIcons
-                                    name="trophy"
-                                    size={40}
-                                    color="white"
-                                />
-                            </View>
-                            {/* Dettagli del badge */}
-                            <Text style={{ fontWeight: 'bold', fontSize: 16, textAlign: 'center' }}>
-                                {state.selectedChallenge.titolo}
-                            </Text>
-                            <Text style={{ fontSize: 14, textAlign: 'center' }}>
-                                {state.selectedChallenge.argomento}
-
-                            </Text></View>
-                            <Text style={{ fontSize: 14, textAlign: 'center', marginTop: 10 }}>
-
-                                Hai guadagnato {xp} XP
-                            </Text>
-                            <View  style={[styles.progressBar,{flexDirection: 'row', paddingTop: 0}]}>
-                                <View
-                                    style={
-                                        { width: `${Math.min((state.utente.livello.xpTotali / 5000) * 100)}%`,
-                                            backgroundColor: myTheme.colors.cardBorder,
-                                            paddingVertical: 10,
-                                            borderBottomLeftRadius: 10,
-                                            borderTopLeftRadius: 10,
-                                        } as ViewStyle}
-                                ></View>
-                                <View
-                                    style={{ width: `${Math.min((xp/5000) * 100)}%`,
-                                        backgroundColor: myTheme.colors.primary,
-                                        paddingVertical: 10,
-
-                                } as ViewStyle}
-                                /></View>
-                        </Dialog.Content>
-                        <Dialog.Actions style={{padding: 0, justifyContent: 'center', paddingTop: 0}}>
-                            <Button style={styles.button} onPress={() => setRicompensa(false)}>Vai al riepilogo</Button>
-                        </Dialog.Actions>
-                        </View>
-                        </View>
-                        </View>
-                    </Dialog>
-                </Portal>
+               <RewardModal state={state} xp={xp}  onClose={()=>{setRicompensa(false)}} visible={ricompensa}/>
 
 
 

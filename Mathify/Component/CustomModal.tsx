@@ -20,24 +20,24 @@ const CustomModal = ({ isVisible, changePage, onConfirm, onCancel }: CustomModal
                 animationType="fade"
                 onRequestClose={onCancel}
             >
-                <View style={styles.modalBackground}>
-                    <View style={styles.modalContainer}>
-                        <Text style={styles.modalTitle}>Sei sicuro?</Text>
-                        <Text style={styles.modalMessage}>
+                <View style={modalStyles.modalBackground}>
+                    <View style={modalStyles.modalContainer}>
+                        <Text style={modalStyles.modalTitle}>Sei sicuro?</Text>
+                        <Text style={modalStyles.modalMessage}>
                             Vuoi uscire dalla schermata di gioco? I progressi non salvati andranno persi.
                         </Text>
-                        <View style={styles.modalButtons}>
+                        <View style={modalStyles.modalButtons}>
                             <TouchableOpacity
-                                style={[styles.modalButton, styles.cancelButton]}
+                                style={[modalStyles.modalButton, modalStyles.cancelButton]}
                                 onPress={onCancel}
                             >
-                                <Text style={styles.cancelButtonText}>Annulla</Text>
+                                <Text style={modalStyles.cancelButtonText}>Annulla</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={[styles.modalButton, styles.confirmButton]}
+                                style={[modalStyles.modalButton, modalStyles.confirmButton]}
                                 onPress={onConfirm}
                             >
-                                <Text style={styles.confirmButtonText}>Esci</Text>
+                                <Text style={modalStyles.confirmButtonText}>Esci</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -52,24 +52,24 @@ const CustomModal = ({ isVisible, changePage, onConfirm, onCancel }: CustomModal
                 animationType="fade"
                 onRequestClose={onCancel}
             >
-                <View style={styles.modalBackground}>
-                    <View style={styles.modalContainer}>
-                        <Text style={styles.modalTitle}>Sei sicuro?</Text>
-                        <Text style={styles.modalMessage}>
+                <View style={modalStyles.modalBackground}>
+                    <View style={modalStyles.modalContainer}>
+                        <Text style={modalStyles.modalTitle}>Sei sicuro?</Text>
+                        <Text style={modalStyles.modalMessage}>
                             Esci dal Riepilogo della Sfida?
                         </Text>
-                        <View style={styles.modalButtons}>
+                        <View style={modalStyles.modalButtons}>
                             <TouchableOpacity
-                                style={[styles.modalButton, styles.cancelButton]}
+                                style={[modalStyles.modalButton, modalStyles.cancelButton]}
                                 onPress={onCancel}
                             >
-                                <Text style={styles.cancelButtonText}>Annulla</Text>
+                                <Text style={modalStyles.cancelButtonText}>Annulla</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={[styles.modalButton, styles.confirmButton]}
+                                style={[modalStyles.modalButton, modalStyles.confirmButton]}
                                 onPress={onConfirm}
                             >
-                                <Text style={styles.confirmButtonText}>Esci</Text>
+                                <Text style={modalStyles.confirmButtonText}>Esci</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -81,7 +81,7 @@ const CustomModal = ({ isVisible, changePage, onConfirm, onCancel }: CustomModal
     return modalContent;
 };
 
-const styles = StyleSheet.create({
+export const modalStyles = StyleSheet.create({
     modalBackground: {
         flex: 1,
         justifyContent: "center",
@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
     confirmButtonText: {
         color: "#fff",
         textAlign: "center",
+        textAlignVertical: "center",
         fontSize: 16,
     },
 });
