@@ -1,6 +1,16 @@
 import React, {useContext, useState} from 'react';
-import { View, ScrollView, Image, Modal, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
-import { Appbar, Card, List, FAB, Searchbar, SegmentedButtons, IconButton } from 'react-native-paper';
+import {
+    View,
+    ScrollView,
+    Image,
+    Modal,
+    Text,
+    Button,
+    StyleSheet,
+    TouchableOpacity,
+    ImageBackground
+} from 'react-native';
+import {Appbar, Card, List, FAB, Searchbar, SegmentedButtons, IconButton, TextInput, Avatar} from 'react-native-paper';
 import { styles } from '../Component/style';
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
 import {MaterialeStackParamList} from "../Component/navigation";
@@ -136,199 +146,273 @@ export default function Materiale() {
     return (
         <View style={{ flex: 1 }}>
             {/* Appbar */}
-            <Appbar.Header>
-                <Appbar.Content title="Materiale" />
+            <Appbar.Header style={styles.header}>
+                <Appbar.Content title="Materiale"  />
             </Appbar.Header>
 
             {/* Searchbar */}
-            <Searchbar
-                placeholder="Cerca un argomento"
-                onChangeText={onChangeSearch}
-                value={searchQuery}
-                style={{ margin: 10 }}
-            />
-
-            {/* Segmented Buttons */}
-            <SegmentedButtons
-                value={activeTab}
-                onValueChange={setActiveTab}
-                buttons={[
-                    { value: 'explore', label: 'Esplora' },
-                    { value: 'saved', label: 'Materiale Salvato' },
-                    { value: 'created', label: 'Materiale Aggiunto' },
-                ]}
-                style={{ margin: 10 }}
-            />
-
-            {/* Scrollable Content */}
-            <ScrollView>
-                {activeTab === 'explore' && (
-                    <>
-                        {/* Suggested by Algorithm */}
-                        <Card style={styles.card}>
-                            <Card.Title title="Argomento Proposto per Te" subtitle="Suggerito dall'algoritmo" />
-                            <Card.Content>
-                                <Image
-                                    source={{ uri: suggestedByAlgorithm.image }}
-                                    style={{ height: 150, marginBottom: 10, borderRadius: 8 }}
-                                />
-                                <TouchableOpacity onPress={() => handleTopicPress(suggestedByAlgorithm)}>
-                                    <List.Item
-                                        title={suggestedByAlgorithm.title}
-                                        description={suggestedByAlgorithm.description}
-                                        left={() => <List.Icon icon={suggestedByAlgorithm.icon} />}
-                                        right={() => (
-                                            <IconButton
-                                                icon="bookmark"
-                                                onPress={() => handleSaveMaterial(suggestedByAlgorithm)}
-                                            />
-                                        )}
-                                    />
-                                </TouchableOpacity>
-                            </Card.Content>
-                        </Card>
-
-                        {/* Suggested Topics */}
-                        <Card style={styles.card}>
-                            <Card.Title title="Argomenti Suggeriti" />
-                            <Card.Content>
-                                {predefinedMaterials.slice(0, 3).map((material) => (
-                                    <TouchableOpacity key={material.id} onPress={() => handleTopicPress(material)}>
-                                        <List.Item
-                                            title={material.title}
-                                            description={material.description}
-                                            left={() => <List.Icon icon={material.icon} />}
-                                            right={() => (
-                                                <IconButton
-                                                    icon="bookmark"
-                                                    onPress={() => handleSaveMaterial(material)}
-                                                />
-                                            )}
-                                        />
-                                    </TouchableOpacity>
-                                ))}
-                            </Card.Content>
-                        </Card>
-
-                        {/* Popular Topics */}
-                        <Card style={styles.card}>
-                            <Card.Title title="Argomenti Popolari" />
-                            <Card.Content>
-                                {predefinedMaterials.slice(3).map((material) => (
-                                    <TouchableOpacity key={material.id} onPress={() => handleTopicPress(material)}>
-                                        <List.Item
-                                            title={material.title}
-                                            description={material.description}
-                                            left={() => <List.Icon icon={material.icon} />}
-                                            right={() => (
-                                                <IconButton
-                                                    icon="bookmark"
-                                                    onPress={() => handleSaveMaterial(material)}
-                                                />
-                                            )}
-                                        />
-                                    </TouchableOpacity>
-                                ))}
-                            </Card.Content>
-                        </Card>
-                    </>
-                )}
-
-                {activeTab === 'saved' && (
-                    <Card style={styles.card}>
-                        <Card.Title title="Materiale Salvato" />
-                        <Card.Content>
-                            <List.Section>
-                                {savedMaterials.map((material) => (
-                                    <TouchableOpacity key={material.id} onPress={() => handleTopicPress(material)}>
-                                        <List.Item
-                                            title={material.title}
-                                            description={material.description}
-                                            left={() => <List.Icon icon={material.icon} />}
-                                        />
-                                    </TouchableOpacity>
-                                ))}
-                            </List.Section>
-                        </Card.Content>
-                    </Card>
-                )}
-
-                {activeTab === 'created' && (
-                    <>
-                        {addedMaterials.map((material, index) => (
-                            <Card style={styles.card} key={index}>
-                                <Card.Title title={material.title} subtitle={material.description} />
-                                <Card.Content>
-                                    <Text>{material.longDescription}</Text>
-                                    {material.image ? (
-                                        <Image
-                                            source={{ uri: material.image }}
-                                            style={{ height: 150, marginVertical: 10, borderRadius: 8 }}
-                                        />
-                                    ) : null}
-                                </Card.Content>
-                            </Card>
-                        ))}
-                    </>
-                )}
-            </ScrollView>
-
-            {/* Floating Action Button */}
-            <FAB
-                style={styles.fab}
-                icon="plus"
-                onPress={() => state.utente.livello.numero>=10?setModalVisible(true):alert("Non hai il livello sufficiente per aggiungere materiale, Raggiungi il livello 10 e verifica il tuo account!!!")}
-            />
-
-            {/* Modal for Adding Material */}
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => setModalVisible(false)}
-            >
-                <View style={MaterialStyles.modalContainer}>
-                    <View style={MaterialStyles.modalContent}>
-                        <Text>Aggiungi Materiale</Text>
-                        <TextInput
-                            style={MaterialStyles.input}
-                            placeholder="Titolo"
-                            value={newMaterial.title}
-                            onChangeText={(text) => setNewMaterial({ ...newMaterial, title: text })}
+            <View style={styles.content}>
+                <View style={styles.section}>
+                    <View style={styles.article}>
+                        <Text style={styles.welcomeText}>Scopri le sfide</Text>
+                        <TextInput label="Cerca sfida"
+                                   mode='outlined'
+                                   value={searchQuery}
+                                   outlineStyle={{borderRadius: 50, borderWidth: 2}}
+                                   onChangeText={onChangeSearch}
                         />
-                        <TextInput
-                            style={MaterialStyles.input}
-                            placeholder="Descrizione"
-                            value={newMaterial.description}
-                            onChangeText={(text) => setNewMaterial({ ...newMaterial, description: text })}
-                        />
-                        <TextInput
-                            style={[MaterialStyles.input, { height: 80 }]}
-                            placeholder="Descrizione Lunga"
-                            multiline
-                            value={newMaterial.longDescription}
-                            onChangeText={(text) => setNewMaterial({ ...newMaterial, longDescription: text })}
-                        />
-                        <TextInput
-                            style={MaterialStyles.input}
-                            placeholder="Icona"
-                            value={newMaterial.icon}
-                            onChangeText={(text) => setNewMaterial({ ...newMaterial, icon: text })}
-                        />
-                        <TextInput
-                            style={MaterialStyles.input}
-                            placeholder="URL Immagine"
-                            value={newMaterial.image}
-                            onChangeText={(text) => setNewMaterial({ ...newMaterial, image: text })}
-                        />
-                        <View style={MaterialStyles.modalButtons}>
-                            <Button title="Annulla" onPress={() => setModalVisible(false)} />
-                            <Button title="Aggiungi" onPress={handleAddMaterial} />
-                        </View>
                     </View>
                 </View>
-            </Modal>
-        </View>
+
+                <SegmentedButtons
+                    value={activeTab}
+                    onValueChange={setActiveTab}
+                    buttons={[
+                        {   value: 'explore',
+                            label: 'Esplora',
+                            labelStyle: {
+                                fontFamily: 'Itim',
+                                fontSize: 13
+                            },
+                            style: {
+                                borderBottomWidth:  activeTab === 'explore' ? 3 : 0,
+                                borderRadius: 0, borderColor: 'black', borderWidth: 0}
+                        },
+                        {   value: 'saved',
+                            label: 'Completate',
+                            labelStyle: {
+                                fontFamily: 'Itim',
+                                fontSize: 13
+                            },
+                            style: {
+                                borderBottomWidth:  activeTab === 'saved' ? 3 : 0,
+                                borderRadius: 0, borderColor: 'black', borderWidth: 0}
+                        },
+                        {   value: 'created',
+                            label: 'Programmate',
+                            labelStyle: {
+                                fontFamily: 'Itim',
+                                fontSize: 13
+                            },
+                            style: {
+                                borderBottomWidth:  activeTab === 'created' ? 3 : 0,
+                                borderRadius: 0, borderColor: 'black', borderWidth: 0}
+                        },
+                    ]}
+                    style={{ margin: 10 }}
+                />
+
+                {/* Scrollable Content */}
+                <ScrollView style={styles.mainContent}>
+                    {activeTab === 'explore' && (
+                        <View style={styles.section}>
+                            {/* Suggested by Algorithm */}
+                            <View style={styles.article}>
+                            <Card style={styles.randomCard}>
+
+                                <Card.Content >
+                                    <TouchableOpacity onPress={() => handleTopicPress(suggestedByAlgorithm)}>
+                                    <Text style={styles.bigWelcomeText}>Argomento Proposto per Te</Text>
+                                        <Text style={[styles.welcomeText, { fontWeight: "medium" }]}>Logaritmi</Text>
+                                    <ImageBackground
+                                        source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
+                                        style={{flex: 1, height:200}}
+                                        imageStyle={{ borderRadius: 10, marginVertical: 8}}
+                                    >
+
+                                        <View style={{ paddingLeft: 20, marginVertical: 8, paddingBottom: 8}}>
+
+                                                <List.Item
+                                                    title={suggestedByAlgorithm.title}
+                                                    description={suggestedByAlgorithm.description}
+                                                    style={{ marginTop: 125 }}
+                                                    left={() => <List.Icon icon={suggestedByAlgorithm.icon} />}
+                                                    right={() => (
+                                                        <IconButton
+                                                            icon="bookmark"
+                                                            onPress={() => handleSaveMaterial(suggestedByAlgorithm)}
+
+                                                        />
+                                                    )}
+                                                />
+
+
+                                        </View>
+
+
+                                    </ImageBackground>
+                                    </TouchableOpacity>
+                                </Card.Content>
+                            </Card>
+                            </View>
+
+                            {/* Suggested Topics */}
+                            <View style={[styles.article]}>
+                                <Card style={[styles.card]}>
+
+                                    <Card.Content>
+
+
+                                        <View style={[styles.section]}>
+                                            <Text style={styles.bigWelcomeText}>Argomenti Del Giorno</Text>
+
+                                            <View style={styles.article}>
+                                        {predefinedMaterials.slice(0, 3).map((material) => (
+                                            <TouchableOpacity key={material.id} onPress={() => handleTopicPress(material)}>
+                                                <Card style={[styles.card, {marginVertical:8,}]}>
+                                                    <View style={[styles.article, ]}>
+                                                <List.Item
+                                                    title={material.title}
+                                                    description={material.description}
+                                                    style={{paddingLeft : 20, paddingBottom: 20}}
+                                                    left={() => <List.Icon icon={material.icon} />}
+                                                    right={() => (
+                                                        <IconButton
+                                                            icon="bookmark"
+                                                            onPress={() => handleSaveMaterial(material)}
+                                                        />
+                                                    )}
+                                                />
+                                                    </View>
+                                                </Card>
+                                            </TouchableOpacity>
+                                        ))}
+                                            </View>
+                                        </View>
+                                    </Card.Content>
+                                </Card>
+                           </View>
+
+                            {/* Popular Topics */}
+                            <View style={styles.article}>
+                                <Card style={styles.card}>
+
+                                    <Card.Content>
+                                        <Text style={styles.bigWelcomeText}>Argomenti Popolari</Text>
+                                        {predefinedMaterials.slice(3).map((material) => (
+                                            <TouchableOpacity key={material.id} onPress={() => handleTopicPress(material)}>
+                                                <Card style={[styles.card, {marginVertical:8,}]}>
+                                                    <View style={[styles.article, ]}>
+                                                        <List.Item
+                                                            title={material.title}
+                                                            description={material.description}
+                                                            left={() => <List.Icon icon={material.icon} />}
+                                                            style={{paddingLeft : 20, paddingBottom: 20}}
+                                                            right={() => (
+                                                                <IconButton
+                                                                    icon="bookmark"
+                                                                    onPress={() => handleSaveMaterial(material)}
+                                                                />
+                                                            )}
+                                                        />
+                                                    </View>
+                                                </Card>
+                                            </TouchableOpacity>
+                                        ))}
+                                    </Card.Content>
+                                </Card>
+                            </View>
+                        </View>
+                    )}
+
+                    {activeTab === 'saved' && (
+                        <Card style={styles.card}>
+                            <Card.Title title="Materiale Salvato" />
+                            <Card.Content>
+                                <List.Section>
+                                    {savedMaterials.map((material) => (
+                                        <TouchableOpacity key={material.id} onPress={() => handleTopicPress(material)}>
+                                            <List.Item
+                                                title={material.title}
+                                                description={material.description}
+                                                left={() => <List.Icon icon={material.icon} />}
+                                            />
+                                        </TouchableOpacity>
+                                    ))}
+                                </List.Section>
+                            </Card.Content>
+                        </Card>
+                    )}
+
+                    {activeTab === 'created' && (
+                        <>
+                            {addedMaterials.map((material, index) => (
+                                <Card style={styles.card} key={index}>
+                                    <Card.Title title={material.title} subtitle={material.description} />
+                                    <Card.Content>
+                                        <Text>{material.longDescription}</Text>
+                                        {material.image ? (
+                                            <Image
+                                                source={{ uri: material.image }}
+                                                style={{ height: 150, marginVertical: 10, borderRadius: 8 }}
+                                            />
+                                        ) : null}
+                                    </Card.Content>
+                                </Card>
+                            ))}
+                        </>
+                    )}
+                </ScrollView>
+
+                {/* Floating Action Button */}
+                <FAB
+                    style={styles.fab}
+                    icon="plus"
+                    onPress={() => state.utente.livello.numero>=10?setModalVisible(true):alert("Non hai il livello sufficiente per aggiungere materiale, Raggiungi il livello 10 e verifica il tuo account!!!")}
+                />
+
+                {/* Modal for Adding Material */}
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => setModalVisible(false)}
+                >
+                    <View style={MaterialStyles.modalContainer}>
+                        <View style={MaterialStyles.modalContent}>
+                            <Text>Aggiungi Materiale</Text>
+                            <TextInput
+                                style={MaterialStyles.input}
+                                placeholder="Titolo"
+                                value={newMaterial.title}
+                                onChangeText={(text) => setNewMaterial({ ...newMaterial, title: text })}
+                            />
+                            <TextInput
+                                style={MaterialStyles.input}
+                                placeholder="Descrizione"
+                                value={newMaterial.description}
+                                onChangeText={(text) => setNewMaterial({ ...newMaterial, description: text })}
+                            />
+                            <TextInput
+                                style={[MaterialStyles.input, { height: 80 }]}
+                                placeholder="Descrizione Lunga"
+                                multiline
+                                value={newMaterial.longDescription}
+                                onChangeText={(text) => setNewMaterial({ ...newMaterial, longDescription: text })}
+                            />
+                            <TextInput
+                                style={MaterialStyles.input}
+                                placeholder="Icona"
+                                value={newMaterial.icon}
+                                onChangeText={(text) => setNewMaterial({ ...newMaterial, icon: text })}
+                            />
+                            <TextInput
+                                style={MaterialStyles.input}
+                                placeholder="URL Immagine"
+                                value={newMaterial.image}
+                                onChangeText={(text) => setNewMaterial({ ...newMaterial, image: text })}
+                            />
+                            <View style={MaterialStyles.modalButtons}>
+                                <Button title="Annulla" onPress={() => setModalVisible(false)} />
+                                <Button title="Aggiungi" onPress={handleAddMaterial} />
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+            </View>
+            </View>
+
+
     );
 }
 
