@@ -241,6 +241,15 @@ export const styles = StyleSheet.create({
         backgroundColor: myTheme.colors.cardBorder,
         shadowOpacity: 0,
     },
+    randomCardBlue: {
+        margin: 0,
+        borderRadius: 20,
+        borderColor: 'black',
+        borderWidth: 2,
+        padding: 5,
+        backgroundColor: 'rgb(113,190,248)',
+        shadowOpacity: 0,
+    },
     questionCard: {
         margin: 0,
         alignItems: 'center',
@@ -386,7 +395,7 @@ export const styles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 2,
         height: 40,
-        backgroundColor: 'gold',
+        backgroundColor: myTheme.colors.blue,
         justifyContent: 'center',
     },
     expandWhiteButton: {
