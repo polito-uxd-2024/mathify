@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
     },
     mainContent: {
         flex: 1,
+        backgroundColor: myTheme.colors.gray,
         flexDirection: 'column',
         paddingHorizontal: 20,
     },
@@ -155,12 +156,13 @@ export const styles = StyleSheet.create({
     cardBase: {
         flex: 1,
         width: '100%',
-        backgroundColor: 'black',
-        paddingLeft: 2,
-        paddingTop: 2,
-        paddingBottom: 5,
-        paddingRight: 4,
-        borderRadius: 22,
+        backgroundColor: myTheme.colors.violet,
+        paddingLeft: 0,
+        paddingTop: 0,
+        paddingBottom: 7,
+        paddingRight: 0,
+        borderRadius: 18,
+        borderWidth: 2,
     },
     settingsCardBase: {
         flex: 1,
@@ -220,7 +222,7 @@ export const styles = StyleSheet.create({
 
     card: {
         margin: 0,
-        borderRadius: 20,
+        borderRadius: 18,
         borderColor: myTheme.colors.cardBorder,
         borderWidth: 10,
         backgroundColor: 'rgb(255,255,255)',
@@ -234,13 +236,25 @@ export const styles = StyleSheet.create({
     },
     randomCard: {
         margin: 0,
-        borderRadius: 20,
+        borderRadius: 18,
         borderColor: 'black',
         borderWidth: 2,
-        padding: 5,
+        padding: 10,
+        paddingVertical: 15,
         backgroundColor: myTheme.colors.cardBorder,
         shadowOpacity: 0,
     },
+    mainWhiteCard: {
+        margin: 0,
+        borderRadius: 18,
+        borderColor: myTheme.colors.violet,
+        borderWidth: 3,
+        padding: 10,
+        paddingVertical: 15,
+        backgroundColor: 'white',
+        shadowOpacity: 0,
+
+},
     randomCardBlue: {
         margin: 0,
         borderRadius: 20,
@@ -391,8 +405,8 @@ export const styles = StyleSheet.create({
     expandButton: {
         flex: 1,
         //marginHorizontal: 5,
-        borderRadius: 12,
-        borderColor: 'black',
+        borderRadius: 10,
+        borderColor: 'rgb(24,49,81)',
         borderWidth: 2,
         height: 40,
         backgroundColor: myTheme.colors.blue,
@@ -402,36 +416,36 @@ export const styles = StyleSheet.create({
         flex: 1,
         height: 40,
         backgroundColor: 'white',
-        borderRadius: 12,
-        borderColor: 'black',
+        borderRadius: 10,
+        borderColor: 'rgb(24,49,81)',
         borderWidth: 2,
     },
     expandButtonBase: {
         flex: 1,
         marginHorizontal: 5,
-        borderRadius: 12,
+        borderRadius: 10,
         paddingTop: 0,
-        paddingBottom: 4,
+        paddingBottom: 5,
         paddingLeft: 0,
-        paddingRight: 3,
-        backgroundColor: 'black'
+        paddingRight: 0,
+        backgroundColor: 'rgb(24,49,81)'
     },
 
     iconButton: {
-        borderRadius: 12,
-        borderColor: 'black',
+        borderRadius: 10,
+        borderColor: 'rgb(24,49,81)',
         borderWidth: 2,
         margin: 0,
         backgroundColor: 'white'
     },
     iconButtonBase: {
         marginHorizontal: 5,
-        borderRadius: 12,
+        borderRadius: 10,
         paddingTop: 0,
-        paddingBottom: 3,
+        paddingBottom: 4,
         paddingLeft: 0,
-        paddingRight: 2,
-        backgroundColor: 'black'
+        paddingRight: 0,
+        backgroundColor: 'rgb(24,49,82)'
     },
 
     coverImage: {

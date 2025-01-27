@@ -136,16 +136,16 @@ export const SegmentedButton = () => {
                         <View style={styles.section}>
                             <View style={styles.article}>
 
-                                    <Card style={[styles.randomCard, {backgroundColor: myTheme.colors.gray}]}>
+                                    <View style={styles.mainWhiteCard}>
                                         <Card.Content>
                                             <Text style={styles.welcomeText}>Sorteggia</Text>
-                                            <View style={{borderWidth: 1, borderRadius: 10, marginVertical: 8,}}>
+                                            <View style={{borderWidth: 0, borderRadius: 10, marginVertical: 8,}}>
                                             <ImageBackground
                                                 source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
                                                 style={{flex: 1}}
-                                                imageStyle={{ borderRadius: 10,  margin: 0, borderWidth: 4, borderColor: myTheme.colors.cardBorder}}
+                                                imageStyle={{ borderRadius: 10,  margin: 0}}
                                             >
-                                                <View style={{ paddingHorizontal: 20, marginVertical: 0, paddingBottom: 8}}>
+                                                <View style={{ paddingHorizontal: 20, marginVertical: 0, paddingBottom: 8, marginTop: 0}}>
                                                     <View style={{flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 80}}>
                                                         <View style={styles.stars}>
                                                             {[...Array(3)].map((star, index) => (
@@ -200,7 +200,7 @@ export const SegmentedButton = () => {
                                             </View>
 
                                         </View>
-                                    </Card>
+                                    </View>
 
                             </View>
                         </View>
@@ -224,7 +224,7 @@ export const SegmentedButton = () => {
                                 {filteredChallenges.slice(0, 5).map((item) => (
                                     <TouchableOpacity key={item.id} style={styles.article} onPress={() => handleCardPress(item.title)}>
                                         <View style={styles.cardBase}>
-                                            <Card style={styles.card}>
+                                            <View style={styles.card}>
                                                 <View style={{flexDirection: 'row', marginBottom: 10, marginHorizontal: 10}}>
                                                     <View style={{marginTop: 10}}>
                                                         <Image source={require('../assets/placeholder.jpg')} style={styles.cardImage}/>
@@ -248,7 +248,7 @@ export const SegmentedButton = () => {
                                                         </View>
                                                     </View>
                                                 </View>
-                                            </Card>
+                                            </View>
                                         </View>
                                     </TouchableOpacity>
                                 ))}
