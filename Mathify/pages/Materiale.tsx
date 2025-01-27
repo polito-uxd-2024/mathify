@@ -217,45 +217,56 @@ export default function Materiale() {
                         <View style={styles.section}>
                             {/* Suggested by Algorithm */}
                             <View style={[styles.article]}>
-                            <View style={[styles.mainWhiteCard, {padding: 10}] }>
 
 
-                                    <TouchableOpacity onPress={() => handleTopicPress(suggestedByAlgorithm)}>
+
+
                                     <Text style={[styles.bigWelcomeText, {color:myTheme.colors.text}]}>Proposto Per Te</Text>
-                                        <Text style={[styles.welcomeText, { fontWeight: "medium" }]}>Logaritmi</Text>
-                                    <ImageBackground
-                                        source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
-                                        style={{flex: 1, height:200}}
-                                        imageStyle={{ borderRadius: 10, marginVertical: 8}}
-                                    >
 
-                                        <View style={{ paddingLeft: 20, marginVertical: 8, paddingBottom: 8}}>
-
-                                                <List.Item
-                                                    title={suggestedByAlgorithm.title}
-                                                    description={suggestedByAlgorithm.description}
-                                                    style={{ marginTop: 125 }}
-                                                    left={() => <List.Icon icon={suggestedByAlgorithm.icon} color={"gold"} />}
-                                                    right={() => (
-                                                        <IconButton
-                                                            icon="bookmark"
-                                                            iconColor={"white"}
-                                                            style={{ backgroundColor: myTheme.colors.blue}}
-                                                            onPress={() => handleSaveMaterial(suggestedByAlgorithm)}
-
-                                                        />
-                                                    )}
-                                                />
+                                        <View style={[styles.cardBase, {marginTop:10}]}>
+                                            <View style={[styles.card, {flex:1}]}>
 
 
+                                                <TouchableOpacity onPress={() => handleTopicPress(suggestedByAlgorithm)}>
+                                                    <ImageBackground
+                                                        source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
+                                                        style={{flex: 1, height:200}}
+                                                        imageStyle={{ borderRadius: 10}}
+                                                    >
+
+                                                        <View style={{ paddingLeft: 20, marginVertical: 8, paddingBottom: 8, justifyContent: "space-between", alignItems: "stretch" }}>
+                                                            <List.Item
+                                                                title={suggestedByAlgorithm.title}
+                                                                description={suggestedByAlgorithm.description}
+                                                                style={{
+                                                                    flexDirection: "row",
+                                                                    alignItems: "center",
+                                                                    paddingHorizontal: 3,
+                                                                    paddingRight: 8,
+                                                                    paddingVertical: 10,
+                                                                    marginTop: 115,
+                                                                }}
+                                                                left={() => <List.Icon icon={suggestedByAlgorithm.icon} color={"gold"} />}
+                                                                right={() => (
+                                                                    <IconButton
+                                                                        icon="bookmark"
+                                                                        iconColor={"white"}
+                                                                        style={{ backgroundColor: myTheme.colors.blue }}
+                                                                        onPress={() => handleSaveMaterial(suggestedByAlgorithm)}
+                                                                    />
+                                                                )}
+                                                            />
+                                                        </View>
+
+
+                                                    </ImageBackground>
+                                                </TouchableOpacity>
+                                            </View>
                                         </View>
 
 
-                                    </ImageBackground>
-                                    </TouchableOpacity>
+                            </View>
 
-                            </View>
-                            </View>
 
                             {/* Suggested Topics */}
                             <View style={[styles.section]}>
@@ -268,22 +279,39 @@ export default function Materiale() {
                                             <View style={styles.article}>
                                         {predefinedMaterials.slice(0, 3).map((material) => (
                                             <TouchableOpacity key={material.id} onPress={() => handleTopicPress(material)}>
-                                                <View style={[styles.cardBase, {marginVertical:8,}]}>
-                                                    <View style={[styles.card, ]}>
+                                                <View style={[styles.cardBase, {marginVertical:8, height:110}]}>
+                                                    <View style={[styles.card]}>
                                                         <List.Item
                                                             title={material.title}
                                                             description={material.description}
-                                                            left={() => <List.Icon icon={material.icon} color={"gold"} />}
-                                                            style={{ paddingLeft: 30, paddingBottom: 10 }}
+                                                            left={() => (
+                                                                <View style={{ justifyContent: "center", alignItems: "flex-start" }}>
+                                                                    <List.Icon icon={material.icon} color={"gold"} />
+                                                                </View>
+                                                            )}
+                                                            style={{
+                                                                flexDirection: "row",
+                                                                alignItems: "center",
+                                                                paddingHorizontal: 6,
+                                                                paddingRight: 3,
+                                                                paddingVertical: 10,
+                                                            }}
                                                             right={() => (
-                                                                <IconButton
-                                                                    icon={savedMaterials.find((m) => m.id === material.id) ? "check" : "bookmark"}
-                                                                    onPress={() => handleSaveMaterial(material)}
-                                                                    iconColor={"white"}
-                                                                    style={{ backgroundColor: myTheme.colors.blue}}
-                                                                />
+                                                                <View style={{ justifyContent: "center", alignItems: "flex-end" }}>
+                                                                    <IconButton
+                                                                        icon={
+                                                                            savedMaterials.some((m) => m.id === material.id)
+                                                                                ? "check"
+                                                                                : "bookmark"
+                                                                        }
+                                                                        onPress={() => handleSaveMaterial(material)}
+                                                                        iconColor={"white"}
+                                                                        style={{ backgroundColor: myTheme.colors.blue }}
+                                                                    />
+                                                                </View>
                                                             )}
                                                         />
+
                                                     </View>
                                                 </View>
                                             </TouchableOpacity>
@@ -305,7 +333,13 @@ export default function Materiale() {
                                                             title={material.title}
                                                             description={material.description}
                                                             left={() => <List.Icon icon={material.icon} color={"gold"}   />}
-                                                            style={{ paddingLeft: 30, paddingBottom: 20 }}
+                                                            style={{
+                                                                flexDirection: "row",
+                                                                alignItems: "center",
+                                                                paddingHorizontal: 6,
+                                                                paddingRight: 3,
+                                                                paddingVertical: 10,
+                                                            }}
                                                             right={() => (
                                                                 <IconButton
                                                                     icon={savedMaterials.find((m) => m.id === material.id) ? "check" : "bookmark"}
@@ -376,7 +410,7 @@ export default function Materiale() {
 
                     {activeTab === 'created' && (
                         <View style={styles.section}>
-                            <Text style={styles.bigWelcomeText}>Materiale Salvato</Text>
+                            <Text style={styles.bigWelcomeText}>Materiale Aggiunto</Text>
                             <View style={styles.article}>
 
                             {addedMaterials.map((material, index) => (
