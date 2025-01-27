@@ -8,6 +8,7 @@ import {styles} from "../Component/style";
 import {useContext, useState} from "react";
 import {setSelectedChallenge} from "../Action";
 import {StateContext} from "../Reducer";
+import {myTheme} from "../Component/theme";
 
 
 const AllListChallenges = ({ route }: { route: any }) => {
@@ -19,7 +20,8 @@ const AllListChallenges = ({ route }: { route: any }) => {
     const [modalVisible, setModalVisible] = useState(false);
     // Filtra ulteriormente i risultati
     const filteredChallenges = initialChallenges.filter(challenge =>
-        challenge.title.toLowerCase().includes(searchQuery.toLowerCase())
+        challenge.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        challenge.argomento.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     const handleCardPress = (title) => {
@@ -38,12 +40,45 @@ const AllListChallenges = ({ route }: { route: any }) => {
     function handleClick(title: string) {
         navigationPlay.navigate("Play");
     }
+    const buttonTitles = ["Geometria analitica", "Funzioni", "Geometria", "Algebra", "Trigonometria", "Analisi"];
 
+    const handleButtonClick = (title: string) => {
+        if (searchQuery === title) {
+            setSearchQuery("");
+        } else {
+            setSearchQuery(title);
+        }
+    };
     return (
         <ScrollView style={styles.mainContent}>
+            <View style={{paddingBottom: 30}}>
+            <View style={styles.section}>
+                <TextInput
+                    label="Cerca sfida"
+                    mode='outlined'
+                    value={searchQuery}
+                    outlineStyle={{ borderRadius: 15, borderWidth: 2, borderColor: 'black' }}
+                    onChangeText={setSearchQuery}
+                    left={<TextInput.Icon icon="magnify" color={myTheme.colors.primary} size={30} />}
+                />
 
-                <TextInput label="Cerca sfida" mode="outlined" value={searchQuery} onChangeText={setSearchQuery} outlineStyle={{borderRadius: 50, borderWidth: 2}}/>
+                <ScrollView horizontal={true} style={{ marginTop: 10 }}>
+                    <View style={{ flexDirection: 'row' }}>
+                        {buttonTitles.map((title, index) => (
+                            <Button
+                                key={index}
+                                mode={searchQuery === title ? "contained" : "outlined"}
+                                onPress={() => handleButtonClick(title)}
+                                style={styles.buttonTile}
 
+                            >
+                                {title}
+                            </Button>
+                        ))}
+                    </View>
+                </ScrollView>
+            </View>
+                <View style={styles.section}>
                 {/* FlatList per visualizzare tutte le sfide */}
                 {filteredChallenges.map((item) => (
                     <TouchableOpacity key={item.id} style={styles.article} onPress={() => handleCardPress(item)}>
@@ -76,8 +111,9 @@ const AllListChallenges = ({ route }: { route: any }) => {
                         </View>
                     </TouchableOpacity>
                 ))}
+                </View>
 
-
+            </View>
             {state.selectedChallenge && (
 
                 <Modal

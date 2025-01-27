@@ -33,13 +33,24 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                     <Text style={{ fontWeight: "bold" }}>{sfida.stringacompletamento}</Text>
                 </View>
                 <Text style={styles.subtitle}>{sfida.argomento}</Text>
-                <View style={[styles.callout, { backgroundColor: "white", marginTop: 10, flexDirection: "row", alignItems: "center" }]}>
-                    <Icon size={16} source="star" color={myTheme.colors.primary} />
-                    <Text style={{ color: myTheme.colors.primary, fontWeight: "bold", marginHorizontal: 4 }}>
+
+
+                <View style={styles.calloutXp}>
+                    <MaterialCommunityIcons
+                        name="star-four-points"
+                        size={18}
+                        color="gold"
+                    />
+                    <Text style={[styles.calloutText, {color: 'gray'}]}>
                         {sfida.xpGuadagnati} XP
                     </Text>
-                    <Icon size={16} source="star" color={myTheme.colors.primary} />
+                    <MaterialCommunityIcons
+                        name="star-four-points"
+                        size={18}
+                        color="gold"
+                    />
                 </View>
+                
                 <View style={{ paddingTop: 15 }}>
                     <ProgressBar
                         style={styles.progressBar} // Cambia l'altezza se necessario
