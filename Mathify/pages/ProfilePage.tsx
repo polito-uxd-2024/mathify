@@ -130,7 +130,7 @@ export default function ProfilePage() {
                             <View style={{borderColor: myTheme.colors.violet,
                                 flex: 1,
                                 marginHorizontal: 5,
-                                backgroundColor: myTheme.colors.gray,
+                                backgroundColor: "white",
                                 borderWidth: 2,
                                 marginTop: 5,
                                 borderRadius: 20,
@@ -141,8 +141,14 @@ export default function ProfilePage() {
                                 <Text style={{ fontSize: 13, textAlign: 'center',fontFamily:"Itim" }}>
                                     Sfide completate nell'ultima settimana
                                 </Text>
-                                <View style={styles.insideCardWhite}>
-                                <Text style={{ fontSize: 40, fontWeight: 'bold', fontFamily: 'Itim', color: myTheme.colors.primary }}>
+                                <View style={{backgroundColor: myTheme.colors.blue,
+                                    padding: 6,
+                                    margin: 5,
+                                    marginTop: 3,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    borderRadius: 10,}}>
+                                <Text style={{ fontSize: 40, fontWeight: 'bold', fontFamily: 'Itim', color: "white" }}>
                                     {state.utente.sfideCompletate.filter(item => new Date(item.dataCompletamento).getTime() >
                                         Date.now() - 7 * 24 * 60 * 60 * 1000).length}
                                 </Text>
@@ -152,7 +158,7 @@ export default function ProfilePage() {
                             <View style={{borderColor: myTheme.colors.violet,
                                 flex: 1,
                                 marginHorizontal: 5,
-                                backgroundColor: myTheme.colors.gray,
+                                backgroundColor: "white",
                                 borderWidth: 2,
                                 marginTop: 5,
                                 borderRadius: 20,
@@ -163,8 +169,14 @@ export default function ProfilePage() {
                                 <Text style={{ fontSize: 13, textAlign: 'center',fontFamily:"Itim" }}>
                                     Sfide completate nell'ultimo mese
                                 </Text>
-                                <View style={styles.insideCardWhite}>
-                                    <Text style={{ fontSize: 40, fontWeight: 'bold', fontFamily: 'Itim', color: myTheme.colors.primary }}>
+                                <View style={{backgroundColor: myTheme.colors.blue,
+                                    padding: 6,
+                                    margin: 5,
+                                    marginTop: 3,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    borderRadius: 10,}}>
+                                    <Text style={{ fontSize: 40, fontWeight: 'bold', fontFamily: 'Itim', color: "white" }}>
                                         {state.utente.sfideCompletate.filter(item => new Date(item.dataCompletamento).getTime() >
                                             Date.now() - 30 * 24 * 60 * 60 * 1000).length}
                                     </Text>
@@ -196,9 +208,9 @@ export default function ProfilePage() {
 
                             {/* Mostra tutti i badge vinti */}
                             {state.utente.sfideCompletate.reverse().slice(0, 3).map((item, index) => ( // Limita a 3 badge vinti
-                                <View key={index} style={{ alignItems: 'center', width: 100, marginRight: 16 }}>
+                                <View key={index} style={{ alignItems: 'center', width: 100, marginRight: 16, backgroundColor:"white",borderRadius:10 }}>
                                     <View
-                                        style={{ width: 80, height: 80, borderRadius: 40, backgroundColor: '#3498db', justifyContent: 'center', alignItems: 'center' }}
+                                        style={{ width: 80, height: 80, borderRadius: 40, backgroundColor: '#3498db', justifyContent: 'center', alignItems: 'center',marginTop:10 }}
                                     >
                                         <MaterialCommunityIcons
                                             name="trophy"
@@ -207,11 +219,11 @@ export default function ProfilePage() {
                                         />
                                     </View>
                                     <View style={{ marginTop: 10 }}>
-                                        <Text style={{ fontSize: 15, fontWeight: 'bold', marginTop: 8, textAlign:"center" }}>
+                                        <Text style={{ fontSize: 14, fontWeight: 'bold', marginTop: 8, textAlign:"center" }}>
                                             {item.titolo} {/* Nome della sfida o del badge */}
                                             {item.argomento} {/* Nome della sfida o del badge */}
                                         </Text>
-                                        <Text style={{ fontSize: 14, color: myTheme.colors.violet, textAlign: 'center', marginTop: 4 }}>
+                                        <Text style={{ fontSize: 12, color: myTheme.colors.violet, textAlign: 'center', marginTop: 4 }}>
                                             Complimenti! Hai guadagnato {item.xpGuadagnati} XP
                                         </Text>
                                     </View>
@@ -258,7 +270,7 @@ export default function ProfilePage() {
                                 # 1
                             </Text>
                             {/* Card per Logaritmi */}
-                            <View style={{backgroundColor: myTheme.colors.gray,
+                            <View style={{backgroundColor: "white",
                                 borderWidth: 2,
                                 marginTop: 5,
                                 borderColor: myTheme.colors.violet,
@@ -285,28 +297,29 @@ export default function ProfilePage() {
                                 </View>
 
                                 {/* Dettagli della Specialità */}
-                                <View style={{ flex: 1, marginLeft: 20 }}>
+                                <View style={{ flex: 1, marginLeft: 20  }}>
                                     <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10, fontFamily:"Itim"}}>
                                         Logaritmi
                                     </Text>
-                                    <View style={styles.calloutXp}>
-                                    <MaterialCommunityIcons
-                                        name="star-four-points"
-                                        size={18}
-                                        color="gold"
-                                    />
-                                    <Text style={[styles.calloutText, {color: myTheme.colors.violet}]}>
-                                        +1500 XP
-                                    </Text>
-                                    <MaterialCommunityIcons
-                                        name="star-four-points"
-                                        size={18}
-                                        color="gold"
-                                    />
-                                    </View>
-                                    <Text style={{ fontSize: 14, color: myTheme.colors.violet, fontFamily:"Itim",marginTop:10 }}>
+
+                                    <Text style={{ fontSize: 14, color: myTheme.colors.violet, fontFamily:"Itim",marginBottom:10 }}>
                                         12 sfide completate
                                     </Text>
+                                    <View style={[styles.calloutXp, { backgroundColor: myTheme.colors.blue }]}>
+                                        <MaterialCommunityIcons
+                                            name="star-four-points"
+                                            size={18}
+                                            color="gold"
+                                        />
+                                        <Text style={[styles.calloutText, {color: "white"}]}>
+                                            +1500 XP
+                                        </Text>
+                                        <MaterialCommunityIcons
+                                            name="star-four-points"
+                                            size={18}
+                                            color="gold"
+                                        />
+                                    </View>
                                 </View>
                             </View>
                             </View>
@@ -316,7 +329,7 @@ export default function ProfilePage() {
                                 <Text style={styles.sectionText}>
                                     # 2
                                 </Text>
-                                <View style={{backgroundColor: myTheme.colors.gray,
+                                <View style={{backgroundColor: "white",
                                     borderWidth: 2,
                                     marginTop: 5,
                                     borderColor: myTheme.colors.violet,
@@ -347,13 +360,17 @@ export default function ProfilePage() {
                                     <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10, fontFamily:"Itim"}}>
                                         Funzioni
                                     </Text>
-                                    <View style={styles.calloutXp}>
+
+                                    <Text style={{ fontSize: 14, color: myTheme.colors.violet, fontFamily:"Itim",marginBottom:10 }}>
+                                        10 sfide completate
+                                    </Text>
+                                    <View style={[styles.calloutXp, { backgroundColor: myTheme.colors.blue }]}>
                                         <MaterialCommunityIcons
                                             name="star-four-points"
                                             size={18}
                                             color="gold"
                                         />
-                                        <Text style={[styles.calloutText, {color: myTheme.colors.violet}]}>
+                                        <Text style={[styles.calloutText, {color: 'white'}]}>
                                             +1200 XP
                                         </Text>
                                         <MaterialCommunityIcons
@@ -362,9 +379,6 @@ export default function ProfilePage() {
                                             color="gold"
                                         />
                                     </View>
-                                    <Text style={{ fontSize: 14, color: myTheme.colors.violet, fontFamily:"Itim",marginTop:10 }}>
-                                        10 sfide completate
-                                    </Text>
                                 </View>
                             </View>
                             </View>
@@ -375,7 +389,7 @@ export default function ProfilePage() {
                                 <Text style={styles.sectionText}>
                                     # 3
                                 </Text>
-                                <View style={{backgroundColor: myTheme.colors.gray,
+                                <View style={{backgroundColor: "white",
                                     borderWidth: 2,
                                     marginTop: 5,
                                     borderColor: myTheme.colors.violet,
@@ -391,7 +405,7 @@ export default function ProfilePage() {
                                     <MaterialCommunityIcons
                                         name="telescope"
                                         size={40}
-                                        color="white"
+                                        color={"white"}
                                         style={{backgroundColor: myTheme.colors.cardBorder, padding: 5, borderRadius: 100, borderWidth: 5, borderColor: 'gold'}}
                                     />
 
@@ -403,17 +417,21 @@ export default function ProfilePage() {
                                 </View>
 
                                 {/* Dettagli della Specialità */}
-                                <View style={{ flex: 1, marginLeft: 20 }}>
+                                <View style={{ flex: 1, marginLeft: 20}}>
                                     <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10, fontFamily:"Itim"}}>
                                         Trigonometria
                                     </Text>
-                                    <View style={styles.calloutXp}>
+
+                                    <Text style={{ fontSize: 14, color: myTheme.colors.violet, fontFamily:"Itim",marginBottom:10 }}>
+                                        5 sfide completate
+                                    </Text>
+                                    <View style={[styles.calloutXp, { backgroundColor: myTheme.colors.blue }]}>
                                         <MaterialCommunityIcons
                                             name="star-four-points"
                                             size={18}
                                             color="gold"
                                         />
-                                        <Text style={[styles.calloutText, {color: myTheme.colors.violet}]}>
+                                        <Text style={[styles.calloutText, {color: "white"}]}>
                                             +500 XP
                                         </Text>
                                         <MaterialCommunityIcons
@@ -422,9 +440,6 @@ export default function ProfilePage() {
                                             color="gold"
                                         />
                                     </View>
-                                    <Text style={{ fontSize: 14, color: myTheme.colors.violet, fontFamily:"Itim",marginTop:10 }}>
-                                        5 sfide completate
-                                    </Text>
                                 </View>
                             </View>
                             </View>
