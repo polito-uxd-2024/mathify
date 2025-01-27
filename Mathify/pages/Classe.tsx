@@ -94,7 +94,7 @@ export default function Classe() {
 
                 <View style={[styles.section,{marginRight:30, marginLeft:30}]}>
                     <Text style={[styles.welcomeText, {marginTop:8, marginLeft:5}]}>La tua classe</Text>
-                    <View style={{flexDirection: 'row', flexWrap: 'wrap', paddingTop: 30, backgroundColor:myTheme.colors.gray, borderWidth: 2, marginTop: 5, borderColor: 'black', borderRadius: 20, padding: 16, marginLeft:15, marginRight:15, marginBottom:5}}>
+                    <View style={[styles.mainContent, {backgroundColor:"white"}]}>
                     {classmates.map((classmate, index) => (
                         <View style={{width: '100%' }}>
                             <View style={{padding: 10}}>
