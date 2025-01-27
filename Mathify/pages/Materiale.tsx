@@ -17,6 +17,7 @@ import {MaterialeStackParamList} from "../Component/navigation";
 import {useNavigation} from "@react-navigation/native";
 import {StateContext} from "../Reducer";
 import {useSetCurrentUser} from "../Component/setUser";
+import {myTheme} from "../Component/theme";
 
 type Material = {
     title: string;
@@ -199,7 +200,7 @@ export default function Materiale() {
                                 borderRadius: 0, borderColor: 'black', borderWidth: 0}
                         },
                     ]}
-                    style={{ margin: 10 }}
+                    style={{ margin: 10}}
                 />
 
                 {/* Scrollable Content */}
@@ -207,8 +208,8 @@ export default function Materiale() {
                     {activeTab === 'explore' && (
                         <View style={styles.section}>
                             {/* Suggested by Algorithm */}
-                            <View style={styles.article}>
-                            <Card style={styles.randomCard}>
+                            <View style={[styles.article]}>
+                            <Card style={[styles.randomCard ,  {backgroundColor:myTheme.colors.gray }] }>
 
                                 <Card.Content >
                                     <TouchableOpacity onPress={() => handleTopicPress(suggestedByAlgorithm)}>
@@ -247,10 +248,8 @@ export default function Materiale() {
                             </View>
 
                             {/* Suggested Topics */}
-                            <View style={[styles.article]}>
-                                <Card style={[styles.card]}>
+                            <View style={[styles.section]}>
 
-                                    <Card.Content>
 
 
                                         <View style={[styles.section]}>
@@ -259,12 +258,12 @@ export default function Materiale() {
                                             <View style={styles.article}>
                                         {predefinedMaterials.slice(0, 3).map((material) => (
                                             <TouchableOpacity key={material.id} onPress={() => handleTopicPress(material)}>
-                                                <Card style={[styles.card, {marginVertical:8,}]}>
+                                                <Card style={[styles.grayCard, {marginVertical:8,}]}>
                                                     <View style={[styles.article, ]}>
                                                 <List.Item
                                                     title={material.title}
                                                     description={material.description}
-                                                    style={{paddingLeft : 20, paddingBottom: 20}}
+                                                    style={{paddingLeft : 30, paddingBottom: 20}}
                                                     left={() => <List.Icon icon={material.icon} />}
                                                     right={() => (
                                                         <IconButton
@@ -279,25 +278,22 @@ export default function Materiale() {
                                         ))}
                                             </View>
                                         </View>
-                                    </Card.Content>
-                                </Card>
+
                            </View>
 
                             {/* Popular Topics */}
-                            <View style={styles.article}>
-                                <Card style={styles.card}>
-
-                                    <Card.Content>
-                                        <Text style={styles.bigWelcomeText}>Argomenti Popolari</Text>
+                            <View style={styles.section}>
+                                <Text style={styles.bigWelcomeText}>Argomenti Popolari</Text>
+                                    <View style={styles.article}>
                                         {predefinedMaterials.slice(3).map((material) => (
                                             <TouchableOpacity key={material.id} onPress={() => handleTopicPress(material)}>
-                                                <Card style={[styles.card, {marginVertical:8,}]}>
-                                                    <View style={[styles.article, ]}>
+                                                <Card style={[styles.grayCard, {margin: 20}]}>
+                                                    <View style={[styles.article ]}>
                                                         <List.Item
                                                             title={material.title}
                                                             description={material.description}
                                                             left={() => <List.Icon icon={material.icon} />}
-                                                            style={{paddingLeft : 20, paddingBottom: 20}}
+                                                            style={{paddingLeft : 30, paddingBottom: 20}}
                                                             right={() => (
                                                                 <IconButton
                                                                     icon="bookmark"
@@ -309,8 +305,7 @@ export default function Materiale() {
                                                 </Card>
                                             </TouchableOpacity>
                                         ))}
-                                    </Card.Content>
-                                </Card>
+                                    </View>
                             </View>
                         </View>
                     )}
