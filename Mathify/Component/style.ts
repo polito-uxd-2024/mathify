@@ -249,7 +249,7 @@ export const styles = StyleSheet.create({
         borderRadius: 18,
         borderColor: myTheme.colors.violet,
         borderWidth: 3,
-        padding: 10,
+        padding: 0,
         paddingVertical: 15,
         backgroundColor: 'white',
         shadowOpacity: 0,
@@ -379,6 +379,12 @@ export const styles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 2,
         backgroundColor: 'gold',
+    },
+    buttonTile: {
+        marginHorizontal: 6,
+        borderRadius: 10,
+        borderColor: myTheme.colors.primary,
+        borderWidth: 2,
     },
     whiteButton: {
         flex: 1,

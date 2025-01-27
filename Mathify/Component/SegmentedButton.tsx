@@ -65,13 +65,23 @@ export const SegmentedButton = () => {
     const [searchQuery, setSearchQuery] = useState("");
 
     const filteredChallenges = challenges.filter(challenge =>
-        challenge.title.toLowerCase().includes(searchQuery.toLowerCase())
+        challenge.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        challenge.argomento.toLowerCase().includes(searchQuery.toLowerCase())
     );
     const handleChallengeChange = () => {
         dispatch(setSelectedChallenge(state.challengeList[index]));
         setIndex((index + 1) % state.challengeList.length);
     };
 
+    const buttonTitles = ["Geometria analitica", "Funzioni", "Geometria", "Algebra", "Trigonometria"];
+
+    const handleButtonClick = (title: string) => {
+        if (searchQuery === title) {
+            setSearchQuery("");
+        } else {
+            setSearchQuery(title);
+        }
+    };
     const handleCardPress = (title) => {
         if (state.challengeList.some(challenge => challenge.titolo === title)) {
             dispatch(setSelectedChallenge(state.challengeList.find(challenge => challenge.titolo === title)!));
@@ -131,15 +141,15 @@ export const SegmentedButton = () => {
                     <SfideCompletate/>
                 )}
                 {value === 'esplora' && (
-                    <View>
+                    <View style={{marginBottom: 30}}>
                         {/* Sfida random */}
                         <View style={styles.section}>
                             <View style={styles.article}>
 
                                     <View style={styles.mainWhiteCard}>
                                         <Card.Content>
-                                            <Text style={styles.welcomeText}>Sorteggia</Text>
-                                            <View style={{borderWidth: 0, borderRadius: 10, marginVertical: 8,}}>
+
+                                            <View style={{borderWidth: 0, borderRadius: 10, marginBottom: 12}}>
                                             <ImageBackground
                                                 source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
                                                 style={{flex: 1}}
@@ -174,9 +184,10 @@ export const SegmentedButton = () => {
                                                         onPress={() => {
                                                             handleChallengeChange();
                                                         }}
-                                                        contentStyle={{ height: 40 }}
+                                                        contentStyle={{ height: 40, color: myTheme.colors.darkBlue }}
                                                         labelStyle={{ fontSize: 14, fontWeight: 'bold', fontFamily: 'Itim', color: 'black' }}
                                                         icon="shuffle"  // Utilizza "shuffle" direttamente come nome dell'icona
+                                                        color={myTheme.colors.darkBlue}
                                                         style={styles.iconButton}
                                                     >
                                                     </IconButton>
@@ -190,11 +201,10 @@ export const SegmentedButton = () => {
                                                             )
                                                         }}
                                                         contentStyle={{ height: 40}}
-                                                        labelStyle={{  fontSize: 18, fontWeight: 'bold', fontFamily: 'Itim', color: 'white' }}
-
+                                                        labelStyle={{  fontSize: 14, fontWeight: 'bold', fontFamily: 'Itim', color: 'white' }}
                                                         style={styles.expandButton}
                                                     >
-                                                        Play
+                                                        Gioca Subito!
                                                     </Button>
                                                 </View>
                                             </View>
@@ -209,14 +219,30 @@ export const SegmentedButton = () => {
                         <View style={styles.section}>
                             <Text style={styles.welcomeText}>Scopri le sfide</Text>
                             <View style={styles.article}>
-                                <TextInput label="Cerca sfida"
-                                           mode='outlined'
-                                           value={searchQuery}
-                                           outlineStyle={{borderRadius: 15, borderWidth: 2, borderColor: 'black'}}
-                                           onChangeText={setSearchQuery}
-                                           left={<TextInput.Icon icon="magnify" color={myTheme.colors.primary} size={30}/>}
-
+                                <TextInput
+                                    label="Cerca sfida"
+                                    mode='outlined'
+                                    value={searchQuery}
+                                    outlineStyle={{ borderRadius: 15, borderWidth: 2, borderColor: 'black' }}
+                                    onChangeText={setSearchQuery}
+                                    left={<TextInput.Icon icon="magnify" color={myTheme.colors.primary} size={30} />}
                                 />
+
+                                <ScrollView horizontal={true} style={{ marginTop: 10 }}>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        {buttonTitles.map((title, index) => (
+                                            <Button
+                                                key={index}
+                                                mode={searchQuery === title ? "contained" : "outlined"}
+                                                onPress={() => handleButtonClick(title)}
+                                                style={styles.buttonTile}
+
+                                            >
+                                                {title}
+                                            </Button>
+                                        ))}
+                                    </View>
+                                </ScrollView>
                             </View>
 
                             {/* Lista sfide */}
@@ -255,7 +281,7 @@ export const SegmentedButton = () => {
                                 {filteredChallenges.length > 5 && (
                                     <Button
                                         onPress={() => navigationAll.navigate('AllListChallenges', { filteredChallenges })}
-                                        style={{ alignSelf: 'flex-end', marginVertical: 16 }}>
+                                        style={{ alignSelf: 'flex-end', marginTop: 16 }}>
                                         VEDI TUTTO
                                     </Button>
                                 )}

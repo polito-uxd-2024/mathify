@@ -8,7 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mathify/Component/SegmentedButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/SegmentedButton.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mathify/Component/style.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/style.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/Component/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/theme.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +102,7 @@
       <workItem from="1737855335286" duration="657000" />
       <workItem from="1737856011914" duration="3101000" />
       <workItem from="1737971109337" duration="8278000" />
-      <workItem from="1737982062337" duration="2629000" />
+      <workItem from="1737982062337" duration="7362000" />
     </task>
     <servers />
   </component>
