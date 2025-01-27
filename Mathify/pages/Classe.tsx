@@ -27,11 +27,11 @@ export default function Classe() {
             <Appbar.Header>
                 <Appbar.Content title="Classe" />
             </Appbar.Header>
-            <View style={styles.content}>
+            <View style={[styles.content, {backgroundColor:myTheme.colors.gray}]}>
                 <View style={[styles.section, {marginRight:30, marginLeft:30}]}>
 
                         <View>
-                            <Card style={[styles.card, {backgroundColor: myTheme.colors.gray}]}>
+                            <Card style={[styles.card, {backgroundColor: "white"}]}>
                                 <View style={{flexDirection: 'row', marginBottom: 10, marginHorizontal: 10}}>
                                     <View style={{marginTop: 10}}>
                                         <Image source={require('../assets/placeholder.jpg')} style={styles.cardImage}/>
@@ -53,7 +53,7 @@ export default function Classe() {
                 </View>
                 <View style={[styles.section ,{marginRight:30, marginLeft:30}]}>
                 <Text style={[styles.welcomeText, {marginTop:8, marginLeft:5}]}>Classifica</Text>
-                <View style={styles.grayCard}>
+                <View style={[styles.grayCard, {backgroundColor: "white"}]}>
 
                     <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-end', marginTop: 10, width: "100%"}}>
                         <View style={{flex: 1, flexDirection: 'column', alignItems:"flex-end"}}>
@@ -94,12 +94,12 @@ export default function Classe() {
 
                 <View style={[styles.section,{marginRight:30, marginLeft:30}]}>
                     <Text style={[styles.welcomeText, {marginTop:8, marginLeft:5}]}>La tua classe</Text>
-                    <View style={[styles.mainContent, {backgroundColor:"white"}]}>
+                    <View style={[{backgroundColor:myTheme.colors.gray}]}>
                     {classmates.map((classmate, index) => (
                         <View style={{width: '100%' }}>
-                            <View style={{padding: 10}}>
+                            <View >
                                 <View >
-                                    <Card style={[styles.card, {}]}>
+                                    <Card style={[styles.card, {margin: 10}]}>
                                         <ImageBackground source={require('../assets/placeholder.jpg')} style={{ width: '100%', height: 125, borderRadius: 10, overflow: 'hidden' }} imageStyle={{ borderRadius: 10 }}/>
                                         <View style={{ position: 'absolute', top: 10, right: 10 }}>
                                             <FontAwesome
@@ -123,8 +123,8 @@ export default function Classe() {
                                         </View>
                                         <Card.Content>
                                             <View>
-                                                <Text style={[styles.welcomeText, {margin: 5}]}>{classmate.firstName + " " + classmate.lastName} </Text>
-                                                <Text style={[styles.sectionText, {margin: 5}]}>Specialità: {classmate.specialita}</Text>
+                                                <Text style={[styles.questionText, {margin: 5}]}>{classmate.firstName + " " + classmate.lastName} </Text>
+                                                <Text style={[styles.subtitle, {margin: 5}]}>Specialità: {classmate.specialita}</Text>
                                             </View>
                                         </Card.Content>
                                     </Card>
