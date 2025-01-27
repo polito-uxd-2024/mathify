@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Image, ScrollView, View} from 'react-native';
+import {Image, ImageBackground, ScrollView, View} from 'react-native';
 import {Appbar, Avatar, Card, Text} from 'react-native-paper';
 import { styles } from '../Component/style';
 import {StateContext} from "../Reducer";
@@ -11,14 +11,14 @@ export default function Classe() {
 
     const classmates = [
         { firstName: 'Mario', lastName: 'Rossi', level: 11, specialita: 'Algebra' },
-        { firstName: 'Carlotta', lastName: 'La Greca', level: 7, specialita: 'Geometria' },
+        { firstName: 'Alice Carlotta', lastName: 'La Greca', level: 22, specialita: 'Geometria' },
         { firstName: 'Giulia', lastName: 'Bianchi', level: 14, specialita: 'Logaritmi' },
         { firstName: 'Alberto', lastName: 'Fulcheri', level: 10, specialita: 'Trigonometria' },
-        { firstName: 'Ilaria', lastName: 'Arduino', level: 8, specialita: 'Calcolo' },
+        { firstName: 'Ilaria', lastName: 'Arduino', level: 35, specialita: 'Calcolo' },
         { firstName: 'Federico', lastName: 'Colombo', level: 12, specialita: 'Statistica' },
-        { firstName: 'Marco', lastName: 'Colonna', level: 9, specialita: 'Probabilità' },
+        { firstName: 'Marco', lastName: 'Colonna', level: 21, specialita: 'Probabilità' },
         { firstName: 'Sara', lastName: 'Marchese', level: 13, specialita: 'Equazioni' },
-        { firstName: 'Paolo', lastName: 'Lazzarato', level: 6, specialita: 'Logaritmi' },
+        { firstName: 'Paolo', lastName: 'Lazzarato', level: 45, specialita: 'Logaritmi' },
         { firstName: 'Chiara', lastName: 'Di Mella', level: 15, specialita: 'Algebra' },
     ];
     const [state] = useContext(StateContext)
@@ -95,22 +95,31 @@ export default function Classe() {
                             <View style={{padding: 10}}>
                                 <View >
                                     <Card style={[styles.card, {backgroundColor: myTheme.colors.gray}]}>
+                                        <ImageBackground source={require('../assets/placeholder.jpg')} style={{ width: '100%', height: 200, borderRadius: 10, overflow: 'hidden' }} imageStyle={{ borderRadius: 10 }}/>
+                                        <View style={{ position: 'absolute', top: 10, right: 10 }}>
+                                            <FontAwesome
+                                                name="star"
+                                                size={70}
+                                                color={myTheme.colors.blue}
+                                            />
+                                            <Text
+                                                style={{
+                                                    position: "absolute",
+                                                    fontSize: 20,
+                                                    fontWeight: 'bold',
+                                                    color: myTheme.colors.primary,
+                                                    textAlign: 'center',
+                                                    top: 23,
+                                                    left: 20,
+                                                }}
+                                            >
+                                                {classmate.level}
+                                            </Text>
+                                        </View>
                                         <Card.Content>
-                                            <Image source={require('../assets/placeholder.jpg')} style={{width: 80, height: 80, marginRight: 10, borderRadius: 100}}/>
                                             <View>
                                                 <Card.Title title={classmate.firstName + " " + classmate.lastName} />
-                                                <View style={{alignItems: 'center', justifyContent: 'center' }}>
-                                                    <FontAwesome
-                                                        name="star"
-                                                        size={70}
-                                                        color= 'white'
-                                                    />
-                                                    <Text style={{ position: "absolute", fontSize: 20, fontWeight: 'bold', color: myTheme.colors.primary, textAlign: "center" }}>
-                                                        {classmate.level}{/* Numero del livello */}
-                                                    </Text>
-                                                </View>
-                                                <Text>Livello {classmate.level}</Text>
-                                                <Text>Specialità: {classmate.specialita}</Text>
+                                                <Text style={styles.sectionText}>Specialità: {classmate.specialita}</Text>
                                             </View>
                                         </Card.Content>
                                     </Card>
