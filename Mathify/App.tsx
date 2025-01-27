@@ -17,6 +17,7 @@ export default function App() {
 
     const [isThemeDark, setIsThemeDark] = React.useState(false);
 
+
     let theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
 
     const toggleTheme = React.useCallback(() => {
