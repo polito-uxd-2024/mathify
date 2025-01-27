@@ -135,8 +135,11 @@ export default function Materiale() {
     const handleSaveMaterial = (material: PredefinedMaterial) => {
         if (!savedMaterials.find((m) => m.id === material.id)) {
             setSavedMaterials([...savedMaterials, material]);
+        } else {
+            setSavedMaterials(savedMaterials.filter((m) => m.id !== material.id));
         }
     };
+
 
     const handleTopicPress = (material: PredefinedMaterial) => {
         // Handle the topic press event here
@@ -213,7 +216,7 @@ export default function Materiale() {
 
                                 <Card.Content >
                                     <TouchableOpacity onPress={() => handleTopicPress(suggestedByAlgorithm)}>
-                                    <Text style={styles.bigWelcomeText}>Argomento Proposto per Te</Text>
+                                    <Text style={[styles.bigWelcomeText, {color:myTheme.colors.text}]}>Argomento Proposto per Te</Text>
                                         <Text style={[styles.welcomeText, { fontWeight: "medium" }]}>Logaritmi</Text>
                                     <ImageBackground
                                         source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
@@ -231,6 +234,8 @@ export default function Materiale() {
                                                     right={() => (
                                                         <IconButton
                                                             icon="bookmark"
+                                                            iconColor={myTheme.colors.blue}
+                                                            style={{backgroundColor:myTheme.colors.onBackground}}
                                                             onPress={() => handleSaveMaterial(suggestedByAlgorithm)}
 
                                                         />
@@ -260,18 +265,20 @@ export default function Materiale() {
                                             <TouchableOpacity key={material.id} onPress={() => handleTopicPress(material)}>
                                                 <Card style={[styles.grayCard, {marginVertical:8,}]}>
                                                     <View style={[styles.article, ]}>
-                                                <List.Item
-                                                    title={material.title}
-                                                    description={material.description}
-                                                    style={{paddingLeft : 30, paddingBottom: 20}}
-                                                    left={() => <List.Icon icon={material.icon} />}
-                                                    right={() => (
-                                                        <IconButton
-                                                            icon="bookmark"
-                                                            onPress={() => handleSaveMaterial(material)}
+                                                        <List.Item
+                                                            title={material.title}
+                                                            description={material.description}
+                                                            left={() => <List.Icon icon={material.icon} />}
+                                                            style={{ paddingLeft: 30, paddingBottom: 20 }}
+                                                            right={() => (
+                                                                <IconButton
+                                                                    icon={savedMaterials.find((m) => m.id === material.id) ? "check" : "bookmark"}
+                                                                    onPress={() => handleSaveMaterial(material)}
+                                                                    iconColor={myTheme.colors.blue}
+                                                                    style={{ backgroundColor: myTheme.colors.onBackground }}
+                                                                />
+                                                            )}
                                                         />
-                                                    )}
-                                                />
                                                     </View>
                                                 </Card>
                                             </TouchableOpacity>
@@ -298,6 +305,8 @@ export default function Materiale() {
                                                                 <IconButton
                                                                     icon="bookmark"
                                                                     onPress={() => handleSaveMaterial(material)}
+                                                                    iconColor={myTheme.colors.blue}
+                                                                    style={{backgroundColor:myTheme.colors.onBackground}}
                                                                 />
                                                             )}
                                                         />
