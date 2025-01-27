@@ -370,10 +370,13 @@ export const styles = StyleSheet.create({
         backgroundColor: 'rgb(255,255,255)',
     },
     input: {
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 15,
         marginBottom: 10,
-        borderRadius: 20,
+        borderRadius: 15,
         borderColor: 'black',
         borderWidth: 3,
+
     },
 
     //Buttons

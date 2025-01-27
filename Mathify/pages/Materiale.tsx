@@ -485,11 +485,16 @@ export default function Materiale() {
                                 style={styles.input}
                                 placeholder="Titolo"
                                 value={newMaterial.title}
+                                numberOfLines={4}
+                                underlineColor={"none"}
+                                activeUnderlineColor={"white"}
                                 onChangeText={(text) => setNewMaterial({ ...newMaterial, title: text })}
                             />
                             <TextInput
                                 style={styles.input}
                                 placeholder="Descrizione"
+                                underlineColor={"none"}
+
                                 value={newMaterial.description}
                                 onChangeText={(text) => setNewMaterial({ ...newMaterial, description: text })}
                             />
@@ -497,18 +502,21 @@ export default function Materiale() {
                                 style={[styles.input, { height: 80 }]}
                                 placeholder="Descrizione Lunga"
                                 multiline
+                                underlineColor={"none"}
                                 value={newMaterial.longDescription}
                                 onChangeText={(text) => setNewMaterial({ ...newMaterial, longDescription: text })}
                             />
                             <TextInput
                                 style={styles.input}
                                 placeholder="Icona"
+                                underlineColor={"none"}
                                 value={newMaterial.icon}
                                 onChangeText={(text) => setNewMaterial({ ...newMaterial, icon: text })}
                             />
                             <TextInput
                                 style={styles.input}
                                 placeholder="URL Immagine"
+                                underlineColor={"none"}
                                 value={newMaterial.image}
                                 onChangeText={(text) => setNewMaterial({ ...newMaterial, image: text })}
                             />
