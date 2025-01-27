@@ -131,9 +131,10 @@ export const styles = StyleSheet.create({
         marginBottom: 0,
         fontFamily: 'Itim', // Nome del font
     },
+
+
     buttonBase: {
         flex: 1,
-
         backgroundColor: 'black',
         paddingLeft: 0,
         paddingTop: 0,
@@ -238,6 +239,15 @@ export const styles = StyleSheet.create({
         borderWidth: 2,
         padding: 5,
         backgroundColor: myTheme.colors.cardBorder,
+        shadowOpacity: 0,
+    },
+    randomCardBlue: {
+        margin: 0,
+        borderRadius: 20,
+        borderColor: 'black',
+        borderWidth: 2,
+        padding: 5,
+        backgroundColor: 'rgb(113,190,248)',
         shadowOpacity: 0,
     },
     questionCard: {
@@ -380,15 +390,48 @@ export const styles = StyleSheet.create({
 
     expandButton: {
         flex: 1,
-        marginHorizontal: 5,
-        borderRadius: 15,
+        //marginHorizontal: 5,
+        borderRadius: 12,
         borderColor: 'black',
-        borderWidth: 3,
+        borderWidth: 2,
+        height: 40,
+        backgroundColor: myTheme.colors.blue,
+        justifyContent: 'center',
     },
-    iconButton: {
-        borderRadius: 15,
+    expandWhiteButton: {
+        flex: 1,
+        height: 40,
+        backgroundColor: 'white',
+        borderRadius: 12,
         borderColor: 'black',
-        borderWidth: 3,
+        borderWidth: 2,
+    },
+    expandButtonBase: {
+        flex: 1,
+        marginHorizontal: 5,
+        borderRadius: 12,
+        paddingTop: 0,
+        paddingBottom: 4,
+        paddingLeft: 0,
+        paddingRight: 3,
+        backgroundColor: 'black'
+    },
+
+    iconButton: {
+        borderRadius: 12,
+        borderColor: 'black',
+        borderWidth: 2,
+        margin: 0,
+        backgroundColor: 'white'
+    },
+    iconButtonBase: {
+        marginHorizontal: 5,
+        borderRadius: 12,
+        paddingTop: 0,
+        paddingBottom: 3,
+        paddingLeft: 0,
+        paddingRight: 2,
+        backgroundColor: 'black'
     },
 
     coverImage: {
@@ -496,7 +539,6 @@ export const styles = StyleSheet.create({
     },
     drawerModalBase: {
         width: '100%',
-
         position: 'absolute',
         paddingBottom: 30,
         bottom: 0,

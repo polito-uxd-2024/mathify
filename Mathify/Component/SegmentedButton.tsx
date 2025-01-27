@@ -22,6 +22,9 @@ import {StateContext} from "../Reducer";
 import {setSelectedChallenge} from "../Action";
 import {handlePress} from "react-native-paper/lib/typescript/components/RadioButton/utils";
 import {useSetChallengeList} from "./useSetChallengeList";
+import {getBackgroundColor} from "@expo/metro-runtime/build/error-overlay/UI/LogBoxStyle";
+import {myTheme} from "./theme";
+import {FontAwesome} from "react-native-vector-icons";
 
 
 
@@ -133,23 +136,24 @@ export const SegmentedButton = () => {
                         <View style={styles.section}>
                             <View style={styles.article}>
 
-                                    <Card style={styles.randomCard}>
+                                    <Card style={[styles.randomCard, {backgroundColor: myTheme.colors.gray}]}>
                                         <Card.Content>
                                             <Text style={styles.welcomeText}>Sorteggia</Text>
+                                            <View style={{borderWidth: 1, borderRadius: 10, marginVertical: 8,}}>
                                             <ImageBackground
                                                 source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
                                                 style={{flex: 1}}
-                                                imageStyle={{ borderRadius: 10, marginVertical: 8}}
+                                                imageStyle={{ borderRadius: 10,  margin: 0, borderWidth: 4, borderColor: myTheme.colors.cardBorder}}
                                             >
-                                                <View style={{ paddingHorizontal: 20, marginVertical: 8, paddingBottom: 8}}>
+                                                <View style={{ paddingHorizontal: 20, marginVertical: 0, paddingBottom: 8}}>
                                                     <View style={{flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 80}}>
                                                         <View style={styles.stars}>
                                                             {[...Array(3)].map((star, index) => (
-                                                                <Avatar.Icon
+                                                                <FontAwesome
                                                                     key={index}
-                                                                    icon="star"
-                                                                    size={25}
-                                                                    color={index < state.selectedChallenge.difficolta ? 'white' : 'black'} // Colore delle stelle
+                                                                    name="star"
+                                                                    size={20}
+                                                                    color={index < state.selectedChallenge.difficolta ? 'gold' : 'rgba(255,255,255,0.5)'} // Colore delle stelle
                                                                 />
                                                             ))}
                                                         </View>
@@ -160,57 +164,61 @@ export const SegmentedButton = () => {
                                                     </View>
                                                 </View>
                                             </ImageBackground>
+                                            </View>
                                         </Card.Content>
-                                        <View style={{ flexDirection: 'row'}}>
-                                            <View style={styles.buttonBase}><Card.Actions style={{padding: 0, margin:0}}>
+                                        <View style={{alignItems: 'center'}}>
+                                            <View style={{width: 200, flexDirection: 'row'}}>
+                                                <View style={styles.iconButtonBase}>
+                                                    <IconButton
+                                                        mode="outlined"
+                                                        onPress={() => {
+                                                            handleChallengeChange();
+                                                        }}
+                                                        contentStyle={{ height: 40 }}
+                                                        labelStyle={{ fontSize: 14, fontWeight: 'bold', fontFamily: 'Itim', color: 'black' }}
+                                                        icon="shuffle"  // Utilizza "shuffle" direttamente come nome dell'icona
+                                                        style={styles.iconButton}
+                                                    >
+                                                    </IconButton>
+                                                </View>
+                                                <View style={styles.expandButtonBase}>
+                                                    <Button
+                                                        mode="contained"
+                                                        onPress={()=> {
+                                                            (
+                                                                navigationPlay.navigate("Play")
+                                                            )
+                                                        }}
+                                                        contentStyle={{ height: 40}}
+                                                        labelStyle={{  fontSize: 18, fontWeight: 'bold', fontFamily: 'Itim', color: 'white' }}
 
-                                                <IconButton
-                                                    mode="outlined"
-                                                    onPress={() => {
-                                                        handleChallengeChange();
-                                                    }}
-                                                    contentStyle={{ height: 40 }}
-                                                    labelStyle={{ fontSize: 14, fontWeight: 'bold', fontFamily: 'Itim', color: 'black' }}
-                                                    icon="shuffle"  // Utilizza "shuffle" direttamente come nome dell'icona
-                                                    style={[styles.whiteButton, {margin: 0}]}
-                                                >
-                                                </IconButton>
+                                                        style={styles.expandButton}
+                                                    >
+                                                        Play
+                                                    </Button>
+                                                </View>
+                                            </View>
 
-                                            </Card.Actions></View>
-                                            <View style={styles.buttonBase}><Card.Actions style={{padding: 0, margin:0}}>
-
-                                                <Button
-                                                    mode="contained"
-                                                    onPress={()=> {
-                                                        (
-                                                            navigationPlay.navigate("Play")
-                                                        )
-                                                    }}
-                                                    contentStyle={{ height: 40 }}
-                                                    labelStyle={{ margin: 0, fontSize: 14, fontWeight: 'bold', fontFamily: 'Itim', color: 'black' }}
-
-                                                    style={styles.button}
-                                                >
-                                                    Play
-                                                </Button>
-
-                                            </Card.Actions></View>
                                         </View>
                                     </Card>
 
                             </View>
                         </View>
                         <Divider style={{marginTop: 20, backgroundColor: 'lightgray', height: 2}}/>
+
                         <View style={styles.section}>
                             <Text style={styles.welcomeText}>Scopri le sfide</Text>
                             <View style={styles.article}>
                                 <TextInput label="Cerca sfida"
                                            mode='outlined'
                                            value={searchQuery}
-                                           outlineStyle={{borderRadius: 50, borderWidth: 2}}
+                                           outlineStyle={{borderRadius: 15, borderWidth: 2, borderColor: 'black'}}
                                            onChangeText={setSearchQuery}
+                                           left={<TextInput.Icon icon="magnify" color={myTheme.colors.primary} size={30}/>}
+
                                 />
                             </View>
+
                             {/* Lista sfide */}
                             <View style={styles.section}>
                                 {filteredChallenges.slice(0, 5).map((item) => (
@@ -225,11 +233,11 @@ export const SegmentedButton = () => {
                                                         <View style={{flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 'auto', marginLeft: 'auto'}}>
                                                             <View style={styles.stars}>
                                                                 {[...Array(3)].map((star, index) => (
-                                                                    <Avatar.Icon
+                                                                    <FontAwesome
                                                                         key={index}
-                                                                        icon="star"
+                                                                        name="star"
                                                                         size={20}
-                                                                        color={index < state.selectedChallenge.difficolta ? 'white' : 'black'} // Colore delle stelle
+                                                                        color={index < state.selectedChallenge.difficolta ? 'gold' : 'rgba(255,255,255,0.5)'} // Colore delle stelle
                                                                     />
                                                                 ))}
                                                             </View>
