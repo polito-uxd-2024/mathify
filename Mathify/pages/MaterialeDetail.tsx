@@ -10,24 +10,36 @@ export default function MaterialeDetail({ route }: { route: RouteProp<MaterialeS
     const { Materiale } = route.params;
     const navigation= useNavigation<NativeStackNavigationProp<MaterialeStackParamList>>();
     return (
-        <ScrollView style={styles.mainContent}>
-            <SafeAreaView>
+
                 <View style={styles.content}>
-                    <View style={styles.section}>
-                        <View style={styles.header}>
-                            
-                            <IconButton icon={'arrow-left'} size={20} color={'black'} onPress={()=>navigation.goBack()}/>
+                    <SafeAreaView style={styles.section}>
+                        <View style={[styles.header, { flexDirection: "row", alignItems: "center", justifyContent: "center" }]}>
+                            {/* Back Icon */}
+                            <View style={{ flex: 1 }}>
+                                <IconButton
+                                    icon="arrow-left"
+                                    size={24}
+                                    color="black"
+                                    onPress={() => navigation.goBack()}
+                                    style={{ marginRight: 10 }}
+                                />
+                            </View>
+                            {/* Title */}
+                            <Text style={[styles.welcomeText, { flex: 1, textAlign: "center" }]}>Dettaglio Materiale</Text>
+                            <View style={{ flex: 1 }} />
                         </View>
 
-                        <Card style={styles.card}>
+
+                        <View style={styles.section}>
+                        <Card style={[styles.card, {marginHorizontal:10}]}>
 
                             <Card.Content>
-                                {Materiale.image && (
+                                {Materiale.image ? (
                                     <Image
                                         source={{ uri: Materiale.image }}
                                         style={styles.coverImage}
                                     />
-                                )}
+                                ): (<Image source={{uri: 'https://i.sstatic.net/y9DpT.jpg'}} style={styles.coverImage}/> )}
                                 <View style={styles.article}>
                                 <Text style={styles.bigWelcomeText}>{Materiale.title}</Text>
                                 </View>
@@ -40,10 +52,14 @@ export default function MaterialeDetail({ route }: { route: RouteProp<MaterialeS
                                 </View>
                             </Card.Content>
                         </Card>
-                    </View>
+                        </View>
+
+
+                    </SafeAreaView>
                 </View>
-            </SafeAreaView>
-        </ScrollView>
+
+
+
     );
 }
 

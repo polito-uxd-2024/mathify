@@ -8,7 +8,7 @@ import {
     Button,
     StyleSheet,
     TouchableOpacity,
-    ImageBackground
+    ImageBackground, SafeAreaView
 } from 'react-native';
 import {Appbar, Card, List, FAB, Searchbar, SegmentedButtons, IconButton, TextInput, Avatar} from 'react-native-paper';
 import { styles } from '../Component/style';
@@ -18,6 +18,7 @@ import {useNavigation} from "@react-navigation/native";
 import {StateContext} from "../Reducer";
 import {useSetCurrentUser} from "../Component/setUser";
 import {myTheme} from "../Component/theme";
+import {white} from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 
 type Material = {
     title: string;
@@ -150,24 +151,15 @@ export default function Materiale() {
     return (
         <View style={{ flex: 1 }}>
             {/* Appbar */}
-            <Appbar.Header style={styles.header}>
+            <Appbar.Header style={[styles.header, {borderBottomWidth:0 }]}>
                 <Appbar.Content title="Materiale"  />
             </Appbar.Header>
 
             {/* Searchbar */}
-            <View style={styles.content}>
-                <View style={styles.section}>
-                    <View style={styles.article}>
-                        <Text style={styles.welcomeText}>Scopri le sfide</Text>
-                        <TextInput label="Cerca sfida"
-                                   mode='outlined'
-                                   value={searchQuery}
-                                   outlineStyle={{borderRadius: 50, borderWidth: 2}}
-                                   onChangeText={onChangeSearch}
-                        />
-                    </View>
-                </View>
 
+
+                <View style={styles.content}>
+                    <View style={{borderBottomWidth: 3, borderBottomColor: 'black', marginTop:5}}/>
                 <SegmentedButtons
                     value={activeTab}
                     onValueChange={setActiveTab}
@@ -203,11 +195,24 @@ export default function Materiale() {
                                 borderRadius: 0, borderColor: 'black', borderWidth: 0}
                         },
                     ]}
-                    style={{ margin: 10}}
+
                 />
+                    <SafeAreaView style={styles.section}>
+                        <View style={styles.article}>
+
+                            <TextInput label="Cerca sfida"
+                                       mode='outlined'
+                                       value={searchQuery}
+                                       outlineStyle={{borderRadius: 50, borderWidth: 2}}
+                                       onChangeText={onChangeSearch}
+                                       style={{marginHorizontal: 10, marginVertical: 10}}
+                            />
+                        </View>
+                    </SafeAreaView>
+            <View style={styles.mainContent}>
 
                 {/* Scrollable Content */}
-                <ScrollView style={styles.mainContent}>
+                <ScrollView style={styles.content}>
                     {activeTab === 'explore' && (
                         <View style={styles.section}>
                             {/* Suggested by Algorithm */}
@@ -216,7 +221,7 @@ export default function Materiale() {
 
 
                                     <TouchableOpacity onPress={() => handleTopicPress(suggestedByAlgorithm)}>
-                                    <Text style={[styles.bigWelcomeText, {color:myTheme.colors.text}]}>Argomento Proposto per Te</Text>
+                                    <Text style={[styles.bigWelcomeText, {color:myTheme.colors.text}]}>Proposto Per Te</Text>
                                         <Text style={[styles.welcomeText, { fontWeight: "medium" }]}>Logaritmi</Text>
                                     <ImageBackground
                                         source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
@@ -230,12 +235,12 @@ export default function Materiale() {
                                                     title={suggestedByAlgorithm.title}
                                                     description={suggestedByAlgorithm.description}
                                                     style={{ marginTop: 125 }}
-                                                    left={() => <List.Icon icon={suggestedByAlgorithm.icon} />}
+                                                    left={() => <List.Icon icon={suggestedByAlgorithm.icon} color={"gold"} />}
                                                     right={() => (
                                                         <IconButton
                                                             icon="bookmark"
-                                                            iconColor={myTheme.colors.blue}
-                                                            style={{backgroundColor:myTheme.colors.onBackground}}
+                                                            iconColor={"white"}
+                                                            style={{ backgroundColor: myTheme.colors.blue}}
                                                             onPress={() => handleSaveMaterial(suggestedByAlgorithm)}
 
                                                         />
@@ -249,7 +254,7 @@ export default function Materiale() {
                                     </ImageBackground>
                                     </TouchableOpacity>
 
-                            </View>
+                            </View> 
                             </View>
 
                             {/* Suggested Topics */}
@@ -258,7 +263,7 @@ export default function Materiale() {
 
 
                                         <View style={[styles.section, {paddingTop: 5}]}>
-                                            <Text style={styles.bigWelcomeText}>Argomenti Del Giorno</Text>
+                                            <Text style={styles.bigWelcomeText}>Ricerche Recenti</Text>
 
                                             <View style={styles.article}>
                                         {predefinedMaterials.slice(0, 3).map((material) => (
@@ -268,14 +273,14 @@ export default function Materiale() {
                                                         <List.Item
                                                             title={material.title}
                                                             description={material.description}
-                                                            left={() => <List.Icon icon={material.icon} />}
+                                                            left={() => <List.Icon icon={material.icon} color={"gold"} />}
                                                             style={{ paddingLeft: 30, paddingBottom: 10 }}
                                                             right={() => (
                                                                 <IconButton
                                                                     icon={savedMaterials.find((m) => m.id === material.id) ? "check" : "bookmark"}
                                                                     onPress={() => handleSaveMaterial(material)}
-                                                                    iconColor={myTheme.colors.blue}
-                                                                    style={{ backgroundColor: myTheme.colors.onBackground }}
+                                                                    iconColor={"white"}
+                                                                    style={{ backgroundColor: myTheme.colors.blue}}
                                                                 />
                                                             )}
                                                         />
@@ -299,14 +304,14 @@ export default function Materiale() {
                                                         <List.Item
                                                             title={material.title}
                                                             description={material.description}
-                                                            left={() => <List.Icon icon={material.icon} />}
+                                                            left={() => <List.Icon icon={material.icon} color={"gold"}   />}
                                                             style={{ paddingLeft: 30, paddingBottom: 20 }}
                                                             right={() => (
                                                                 <IconButton
                                                                     icon={savedMaterials.find((m) => m.id === material.id) ? "check" : "bookmark"}
                                                                     onPress={() => handleSaveMaterial(material)}
-                                                                    iconColor={myTheme.colors.blue}
-                                                                    style={{ backgroundColor: myTheme.colors.onBackground }}
+                                                                    iconColor={"white"}
+                                                                    style={{ backgroundColor: myTheme.colors.blue}}
                                                                 />
                                                             )}
                                                         />
@@ -320,7 +325,7 @@ export default function Materiale() {
                     )}
 
                     {activeTab === 'saved' && (
-                        <Card style={styles.card}>
+                        /*<Card style={styles.card}>
                             <Card.Title title="Materiale Salvato" />
                             <Card.Content>
                                 <List.Section>
@@ -335,29 +340,71 @@ export default function Materiale() {
                                     ))}
                                 </List.Section>
                             </Card.Content>
-                        </Card>
-                    )}
+                        </Card>*/
+                        <View style={styles.section}>
+                            <Text style={styles.bigWelcomeText}>Materiale Salvato</Text>
+                            <View style={styles.article}>
+                                {savedMaterials.map((material) => (
+                                    <TouchableOpacity
+                                        key={material.id}
+                                        onPress={() => handleTopicPress(material)}
+                                        style={{ marginVertical: 8 }}
+                                    >
+                                        <View style={[styles.cardBase]}>
+                                            <View style={[styles.card]}>
+                                                <List.Item
+                                                    title={material.title}
+                                                    description={material.description}
+                                                    left={() => <List.Icon icon={material.icon} color="gold" />}
+                                                    style={{ paddingLeft: 20, paddingBottom: 10 }}
+                                                    right={() => (
+                                                        <IconButton
+                                                            icon={savedMaterials.some((m) => m.id === material.id) ? "check" : "bookmark"}
+                                                            onPress={() => handleSaveMaterial(material)}
+                                                            iconColor="white"
+                                                            style={{ backgroundColor: myTheme.colors.blue }}
+                                                        />
+                                                    )}
+                                                />
+                                            </View>
+                                        </View>
+                                    </TouchableOpacity>
+                                ))}
+                            </View>
+                        </View>)}
+
 
                     {activeTab === 'created' && (
-                        <>
-                            {addedMaterials.map((material, index) => (
-                                <Card style={styles.card} key={index}>
-                                    <Card.Title title={material.title} subtitle={material.description} />
-                                    <Card.Content>
-                                        <Text>{material.longDescription}</Text>
-                                        {material.image ? (
-                                            <Image
-                                                source={{ uri: material.image }}
-                                                style={{ height: 150, marginVertical: 10, borderRadius: 8 }}
-                                            />
-                                        ) : null}
-                                    </Card.Content>
-                                </Card>
-                            ))}
-                        </>
-                    )}
-                </ScrollView>
+                        <View style={styles.section}>
+                            <Text style={styles.bigWelcomeText}>Materiale Salvato</Text>
+                            <View style={styles.article}>
 
+                            {addedMaterials.map((material, index) => (
+                                <TouchableOpacity
+                                    key={material.id}
+                                    onPress={() => handleTopicPress(material)}
+                                    style={{ marginVertical: 8 }}
+                                >
+                                    <View style={[styles.cardBase]}>
+                                        <View style={[styles.card]}>
+                                            <List.Item
+                                                title={material.title}
+                                                description={material.description}
+                                                left={() => <List.Icon icon={material.icon} color="gold" />}
+                                                style={{ paddingLeft: 20, paddingBottom: 10 }}
+
+                                            />
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                            ))}
+                            </View>
+                        </View>
+                    )}
+
+                </ScrollView>
+                </View>
+                </View>
                 {/* Floating Action Button */}
                 <FAB
                     style={styles.fab}
@@ -413,7 +460,7 @@ export default function Materiale() {
                         </View>
                     </View>
                 </Modal>
-            </View>
+
             </View>
 
 
