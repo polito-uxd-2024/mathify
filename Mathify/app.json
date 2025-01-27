@@ -6,6 +6,7 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "assets": ["./assets/fonts/Itim-Regular.ttf"],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",

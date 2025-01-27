@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 const useFonts = async () => {
     await Font.loadAsync({
-        'Itim': require('../assets/fonts/Itim-Regular.ttf'),
+        'Itim': require('./assets/fonts/Itim-Regular.ttf'),
     });
 };
 
