@@ -300,10 +300,10 @@ export const SegmentedButton = () => {
                     visible={modalVisible}
                     onRequestClose={handleCloseModal}
                 >
-                    <View style={styles.modalContainer}>
-                        <View style={styles.modalBase}>
-                            <View style={styles.cardBase}>
-                                <View style={styles.card}>
+                    <View style={[styles.modalContainer]}>
+                        <View style={[styles.modalBase]}>
+                            <View>
+                                <View style={[styles.card, {borderWidth: 5, borderColor: "black"}]}>
                                     <View style={styles.modalContent}>
                                         <ImageBackground
                                             source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
@@ -314,11 +314,11 @@ export const SegmentedButton = () => {
                                                 <View style={{flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 80}}>
                                                     <View style={styles.stars}>
                                                         {[...Array(3)].map((star, index) => (
-                                                            <Avatar.Icon
+                                                            <FontAwesome
                                                                 key={index}
-                                                                icon="star"
-                                                                size={25}
-                                                                color={index < state.selectedChallenge.difficolta ? 'white' : 'black'} // Colore delle stelle
+                                                                name="star"
+                                                                size={20}
+                                                                color={index < state.selectedChallenge.difficolta ? 'gold' : 'rgba(255,255,255,0.5)'} // Colore delle stelle
                                                             />
                                                         ))}
                                                     </View>
@@ -328,24 +328,28 @@ export const SegmentedButton = () => {
                                         <Text style={styles.modalTitle}>{state.selectedChallenge.titolo}</Text>
                                         <Text style={styles.modalSubtitle}>{state.selectedChallenge.argomento}</Text>
                                         <View style={{flexDirection: 'row', paddingTop: 10}}>
+                                            <View style={[styles.expandButtonBase, {marginRight: 10}]}>
                                             <Button
                                                 mode="outlined"
                                                 onPress={handleCloseModal}
                                                 contentStyle={{ height: 40 }}
-                                                labelStyle={{ fontSize: 16 }}
-                                                style={styles.expandButton}
+                                                labelStyle={{ fontSize: 16, color:"black" }}
+                                                style={[styles.expandButton, {backgroundColor: "white"}]}
                                             >
                                                 Chiudi
                                             </Button>
+                                            </View>
+                                            <View style={[styles.expandButtonBase, {marginLeft: 10}]}>
                                             <Button
                                                 mode="contained"
                                                 onPress={() => handleClick(state.selectedChallenge.titolo)}
                                                 contentStyle={{ height: 40 }}
-                                                labelStyle={{ fontSize: 16 }}
-                                                style={styles.expandButton}
+                                                labelStyle={{ fontSize: 16, color:"white" }}
+                                                style={[styles.expandButton]}
                                             >
                                                 Play
                                             </Button>
+                                            </View>
                                         </View>
                                     </View>
                                 </View>
