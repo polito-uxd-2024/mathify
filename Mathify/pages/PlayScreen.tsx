@@ -533,13 +533,13 @@ export default function PlayScreen() {
                     </View>
                         {risposte.map((valore, index) => (
                             <View style={styles.article} key={`question-${index}`}>
-                                <View style={styles.cardBase}>
-                                    <Card style={{borderRadius: 20, backgroundColor: myTheme.colors.cardBorder}}>
+                                <View style={styles.cardBase} >
+                                    <Card onPress={() => toggleExpand(index)} style={{borderRadius: 20, backgroundColor: myTheme.colors.cardBorder}}>
                                         <Card.Content style={[styles.card, {paddingBottom: 15}]}>
                                             <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
                                                 <Text style={{fontSize: 16, marginRight: 8, fontWeight: 'bold'}}>{index + 1}</Text>
                                                 <Text style={{fontSize: 16}}>{state.selectedChallenge.questions[index].Testo}</Text>
-                                            </View>
+
                                             <IconButton
                                                 mode="contained-tonal"
                                                 onPress={() => setDialogVisible(true)}
@@ -548,6 +548,7 @@ export default function PlayScreen() {
                                                 style={{backgroundColor: 'transparent', margin: 0}}
                                                 icon="alert"
                                             />
+                                            </View>
                                             <View>
                                                 <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                                                     <View style={[styles.callout, {marginTop: 6, backgroundColor: valore ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer}]}>
@@ -555,24 +556,11 @@ export default function PlayScreen() {
                                                     </View>
                                                 </View>
                                             </View>
+
                                         </Card.Content>
-                                        <TouchableOpacity onPress={() => toggleExpand(index)}
-                                                          style={{
-                                                              flex: 1,
-                                                              paddingTop: 0,
-                                                              paddingBottom: 10,
-                                                              backgroundColor: myTheme.colors.cardBorder,
-                                                              alignItems: 'flex-end',
-                                                              borderBottomLeftRadius: 20,
-                                                              borderBottomRightRadius: 20
-                                                          }}>
-                                            <Text style={{color: myTheme.colors.primary, paddingRight: 30, fontWeight: 'bold'}}>
-                                                {expandedIndex === index ?
-                                                    <MaterialCommunityIcons name="eye-off" size={24} color="black" /> :
-                                                    <MaterialCommunityIcons name="eye" size={24} color="black" />
-                                                }
-                                            </Text>
-                                        </TouchableOpacity>
+
+
+
                                         <Collapsible collapsed={expandedIndex !== index}>
                                             <View style={[styles.card, {padding: 15}]}>
                                                 <Divider />

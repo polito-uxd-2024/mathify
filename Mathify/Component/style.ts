@@ -223,6 +223,12 @@ export const styles = StyleSheet.create({
 
     card: {
         margin: 0,
+        elevation: 0,
+        shadowColor: 'transparent',
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0,
+        shadowRadius: 0,
+
         borderRadius: 18,
         borderColor: myTheme.colors.cardBorder,
         borderWidth: 10,

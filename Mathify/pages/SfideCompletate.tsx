@@ -92,7 +92,7 @@ export default function SfideCompletate() {
     );
 
     return (
-        <View style={styles.section}>
+        <View>
             {sfideOggi.length > 0 && (
                 <View style={styles.section}>
                     <Text style={styles.welcomeText}>
