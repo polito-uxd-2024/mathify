@@ -42,15 +42,17 @@ export default function Classe() {
                                         </View>
                                         <View>
                                             <Text style={styles.cardTitle}>Giovanni Rossi</Text>
-                                            <Text style={styles.subtitle}>Professoressa di matematica</Text>
+                                            <Text style={styles.subtitle}>Professore di matematica</Text>
                                         </View>
                                     </View>
                                 </View>
                             </Card>
                     </View>
+                    <View style={{ height: 2, backgroundColor: myTheme.colors.gray, marginTop: 40 }} />
+
                 </View>
-                <View style={styles.section}>
-                <Text style={[styles.welcomeText, {marginTop:30, marginLeft:5}]}>Classifica</Text>
+                <View style={[styles.section ,{marginRight:30, marginLeft:30}]}>
+                <Text style={[styles.welcomeText, {marginTop:8, marginLeft:5}]}>Classifica</Text>
                 <View style={styles.grayCard}>
 
                     <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-end', marginTop: 10, width: "100%"}}>
@@ -86,31 +88,34 @@ export default function Classe() {
                         </View>
                     </View>
                 </View>
+                    <View style={{ height: 2, backgroundColor: myTheme.colors.gray, marginTop:40 }} />
                 </View>
-                <View style={styles.section}>
-                    <Text style={[styles.welcomeText, {marginTop:30, marginLeft:5}]}>La tua classe</Text>
+
+
+                <View style={[styles.section,{marginRight:30, marginLeft:30}]}>
+                    <Text style={[styles.welcomeText, {marginTop:8, marginLeft:5}]}>La tua classe</Text>
                     <View style={{flexDirection: 'row', flexWrap: 'wrap', paddingTop: 30, backgroundColor:myTheme.colors.gray, borderWidth: 2, marginTop: 5, borderColor: 'black', borderRadius: 20, padding: 16, marginLeft:15, marginRight:15, marginBottom:5}}>
                     {classmates.map((classmate, index) => (
                         <View style={{width: '100%' }}>
                             <View style={{padding: 10}}>
                                 <View >
-                                    <Card style={[styles.card, {backgroundColor: myTheme.colors.gray}]}>
-                                        <ImageBackground source={require('../assets/placeholder.jpg')} style={{ width: '100%', height: 200, borderRadius: 10, overflow: 'hidden' }} imageStyle={{ borderRadius: 10 }}/>
+                                    <Card style={[styles.card, {}]}>
+                                        <ImageBackground source={require('../assets/placeholder.jpg')} style={{ width: '100%', height: 125, borderRadius: 10, overflow: 'hidden' }} imageStyle={{ borderRadius: 10 }}/>
                                         <View style={{ position: 'absolute', top: 10, right: 10 }}>
                                             <FontAwesome
                                                 name="star"
-                                                size={70}
+                                                size={50}
                                                 color={myTheme.colors.blue}
                                             />
                                             <Text
                                                 style={{
                                                     position: "absolute",
-                                                    fontSize: 20,
+                                                    fontSize: 15,
                                                     fontWeight: 'bold',
-                                                    color: myTheme.colors.primary,
+                                                    color: "white",
                                                     textAlign: 'center',
-                                                    top: 23,
-                                                    left: 20,
+                                                    top: 18,
+                                                    left: 14,
                                                 }}
                                             >
                                                 {classmate.level}
@@ -118,8 +123,8 @@ export default function Classe() {
                                         </View>
                                         <Card.Content>
                                             <View>
-                                                <Card.Title title={classmate.firstName + " " + classmate.lastName} />
-                                                <Text style={styles.sectionText}>Specialità: {classmate.specialita}</Text>
+                                                <Text style={[styles.welcomeText, {margin: 5}]}>{classmate.firstName + " " + classmate.lastName} </Text>
+                                                <Text style={[styles.sectionText, {margin: 5}]}>Specialità: {classmate.specialita}</Text>
                                             </View>
                                         </Card.Content>
                                     </Card>
