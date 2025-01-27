@@ -1,6 +1,16 @@
 import React, {useState, useEffect, useContext, useRef} from "react";
 import * as Progress from 'react-native-progress';
-import {View, ScrollView, TouchableOpacity, Modal, Animated, Easing, ViewStyle, Alert} from "react-native";
+import {
+    View,
+    ScrollView,
+    TouchableOpacity,
+    Modal,
+    Animated,
+    Easing,
+    ViewStyle,
+    Alert,
+    SafeAreaView
+} from "react-native";
 import {Appbar, Card,
     Button,
     Text,
@@ -290,6 +300,22 @@ export default function PlayScreen() {
 
     if (!changePage) {
         return (
+            <>
+            <SafeAreaView style={[styles.header, { flexDirection: "row", alignItems: "center", justifyContent: "center" }]}>
+                {/* Back Icon */}
+                <View style={{ flex: 1 }}>
+                    <IconButton
+                        icon="arrow-left"
+                        size={24}
+                        color="black"
+                        onPress={() => navigation.goBack()}
+                        style={{ marginRight: 10 }}
+                    />
+                </View>
+                {/* Title */}
+                <Text style={[styles.welcomeText, { flex: 1, textAlign: "center"}]}>Play</Text>
+                <View style={{ flex: 1 }} />
+            </SafeAreaView>
             <View style={styles.content}>
                 <View style={styles.challengeHeader}>
                     <Text style={styles.welcomeText}>{state.selectedChallenge.titolo}</Text>
@@ -448,11 +474,28 @@ export default function PlayScreen() {
 
 
             </View>
+            </>
         );
 
     } else {
        ;
         return (
+            <>
+                <SafeAreaView style={[styles.header, { flexDirection: "row", alignItems: "center", justifyContent: "center" }]}>
+                    {/* Back Icon */}
+                    <View style={{ flex: 1 }}>
+                        <IconButton
+                            icon="arrow-left"
+                            size={24}
+                            color="black"
+                            onPress={() => navigation.goBack()}
+                            style={{ marginRight: 10 }}
+                        />
+                    </View>
+                    {/* Title */}
+                    <Text style={[styles.welcomeText, { flex: 1, textAlign: "center"}]}>Play</Text>
+                    <View style={{ flex: 1 }} />
+                </SafeAreaView>
             <View style={{flex:1}}>
                 <CustomModal
                     isVisible={isModalVisible}
@@ -738,6 +781,7 @@ export default function PlayScreen() {
 
 
             </View>
+            </>
     );
     }
 }

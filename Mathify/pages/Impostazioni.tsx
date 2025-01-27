@@ -1,6 +1,6 @@
 import {styles} from "../Component/style";
-import {Button, Card} from "react-native-paper";
-import {View, Text, ScrollView} from "react-native";
+import {Appbar, Button, Card, IconButton} from "react-native-paper";
+import {View, Text, ScrollView, SafeAreaView} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
 import {ProfileStackParamList} from "../Component/navigation";
@@ -10,6 +10,7 @@ import {StateContext} from "../Reducer";
 import { Modal, Pressable } from 'react-native';
 import {useSetCurrentUser} from "../Component/setUser";
 import {registraVerifica} from "../Component/writeOnDb";
+import {myTheme} from "../Component/theme";
 
 export default function Impostazioni() {
     const navigation=useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
@@ -53,7 +54,26 @@ export default function Impostazioni() {
     }, [state.utente.verifica]); // Ora dipende solo da `state.utente.verifica`
 
     return (
-        <ScrollView style={styles.mainContent}>
+        <>
+        <SafeAreaView style={[styles.header, { flexDirection: "row", alignItems: "center", justifyContent: "center" }]}>
+            {/* Back Icon */}
+            <View style={{ flex: 1 }}>
+                <IconButton
+                    icon="arrow-left"
+                    size={24}
+                    color="black"
+                    onPress={() => navigation.goBack()}
+                    style={{ marginRight: 10 }}
+                />
+            </View>
+            {/* Title */}
+            <Text style={[styles.welcomeText, { flex: 1, textAlign: "center"}]}>Impostazioni</Text>
+            <View style={{ flex: 1 }} />
+        </SafeAreaView>
+
+        <ScrollView style={[styles.mainContent]}>
+            <SafeAreaView>
+
             <Card style={styles.randomCard}>
                 <Card.Content>
                     <Text style={styles.welcomeText}>
@@ -296,7 +316,8 @@ export default function Impostazioni() {
                     </Text>
                 </View>
             </Card>
-
+            </SafeAreaView>
         </ScrollView>
+        </>
     );
 }

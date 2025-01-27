@@ -81,7 +81,7 @@ function ProfileStackScreen() {
     return (
         <ProfileStack.Navigator screenOptions={{headerShown:false}} >
             <ProfileStack.Screen name="Profile" component={ProfilePage} options={{headerShown:false}}/>
-            <ProfileStack.Screen name="Impostazioni" component={Impostazioni} options={{headerShown:true}}/>
+            <ProfileStack.Screen name="Impostazioni" component={Impostazioni} options={{headerShown:false}}/>
             <ProfileStack.Screen name="Classe" component={Classe}/>
             <ProfileStack.Screen name={"Segnalazioni"} component={Segnalazioni} options={{headerShown:true}}/>
 
@@ -96,7 +96,7 @@ function ProfileStackScreen() {
 function PlayScreenStack() {
     return (
         <Play.Navigator>
-            <Play.Screen name="Play" component={PlayScreen} />
+            <Play.Screen name="Play" component={PlayScreen} options={{headerShown:false}}/>
         </Play.Navigator>
     );
 }
