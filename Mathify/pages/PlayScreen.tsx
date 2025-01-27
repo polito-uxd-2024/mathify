@@ -304,10 +304,11 @@ export default function PlayScreen() {
 
                     }}>
 
-                        <Progress.Bar
+                        <Progress.Pie
                             progress={timerProgress}
-                            width={200}
+                            //width={200}
                             color={timerProgress > 0.8 ? 'red' : 'green'}
+                            size={30}
                         />
 
 
@@ -325,6 +326,7 @@ export default function PlayScreen() {
                             <View style={styles.questionCardBase}>
                             <Card style={styles.questionCard}>
                                 <Text>
+
                                     {currentQuestionIndex + 1}/{challenge.questions.length}
                                 </Text>
                                 <Progress.Bar

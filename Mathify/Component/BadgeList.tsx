@@ -11,7 +11,7 @@ export default function BadgeList(){
     const [state] = useContext(StateContext);
 
     // I badge che non sono visibili nel profilo (ovvero quelli prima delle ultime 3 sfide completate)
-    const previousBadges = state.utente.sfideCompletate.slice(3); // Badge prima delle ultime 3 sfide completate
+    const previousBadges = state.utente.sfideCompletate; // Badge prima delle ultime 3 sfide completate
 
     // I badge fissi (velocista, stakanovista, perfezionista) trattati come oggetti
     const fixedBadges = [
@@ -43,8 +43,12 @@ export default function BadgeList(){
 
                             <View style={{ marginTop: 10 }}>
                                 <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 8 }}>
+                                    {item.titolo} {/* Nome della sfida o del badge */}
+                                </Text>
+                                <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 8 }}>
                                     {item.argomento || item.id} {/* Nome della sfida o del badge */}
                                 </Text>
+
                                 <Text style={{ fontSize: 14, color: 'gray', textAlign: 'center', marginTop: 4 }}>
                                     {item.xpGuadagnati ? `Complimenti! Hai guadagnato ${item.xpGuadagnati} XP` : item.description}
                                 </Text>
