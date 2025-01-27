@@ -696,6 +696,7 @@ export default function PlayScreen() {
                                     />
                                 </Dialog.Content>
                                 <Dialog.Actions>
+                                    <View style={styles.expandButtonBase}>
                                     <Button
                                         mode="outlined"
                                         style={[styles.expandButton, {backgroundColor: "white"}]}
@@ -703,6 +704,8 @@ export default function PlayScreen() {
                                     >
                                         Annulla
                                     </Button>
+                                    </View>
+                                    <View style={styles.expandButtonBase}>
                                     <Button
                                         mode="contained"
                                         style={[styles.expandButton, {backgroundColor: "gold"}]}
@@ -711,6 +714,7 @@ export default function PlayScreen() {
                                         <Text style={{color:"black"}}>Segnala</Text>
 
                                     </Button>
+                                    </View>
                                 </Dialog.Actions>
                             </TouchableOpacity>
                         </TouchableOpacity>
