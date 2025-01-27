@@ -151,7 +151,7 @@ export default function Materiale() {
     return (
         <View style={{ flex: 1 }}>
             {/* Appbar */}
-            <Appbar.Header style={[styles.header, {borderBottomWidth:0 }]}>
+            <Appbar.Header style={[styles.header]}>
                 <Appbar.Content title="Materiale"  />
             </Appbar.Header>
 
@@ -159,7 +159,7 @@ export default function Materiale() {
 
 
                 <View style={styles.content}>
-                    <View style={{borderBottomWidth: 3, borderBottomColor: 'black', marginTop:5}}/>
+                    <View style={{borderBottomColor: 'black'}}/>
                 <SegmentedButtons
                     value={activeTab}
                     onValueChange={setActiveTab}
