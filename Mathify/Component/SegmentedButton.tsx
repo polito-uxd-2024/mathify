@@ -25,6 +25,7 @@ import {useSetChallengeList} from "./useSetChallengeList";
 import {getBackgroundColor} from "@expo/metro-runtime/build/error-overlay/UI/LogBoxStyle";
 import {myTheme} from "./theme";
 import {FontAwesome} from "react-native-vector-icons";
+import SfideProgrammate from "../pages/SfideProgrammate";
 
 
 
@@ -139,6 +140,9 @@ export const SegmentedButton = () => {
             <ScrollView style={styles.mainContent}>
                 {value === 'completate' && (
                     <SfideCompletate/>
+                )}
+                {value === 'programmate' && (
+                    <SfideProgrammate/>
                 )}
                 {value === 'esplora' && (
                     <View style={{marginBottom: 30}}>
