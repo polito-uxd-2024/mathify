@@ -56,7 +56,7 @@ const CustomModal = ({ isVisible, changePage, onConfirm, onCancel }: CustomModal
                     <View style={modalStyles.modalContainer}>
                         <Text style={modalStyles.modalTitle}>Sei sicuro?</Text>
                         <Text style={modalStyles.modalMessage}>
-                            Esci dal Riepilogo della Sfida?
+                            Esci dal Riepilogo della Sfida
                         </Text>
                         <View style={modalStyles.modalButtons}>
                             <TouchableOpacity
@@ -86,14 +86,17 @@ export const modalStyles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+
+
         backgroundColor: "rgba(0, 0, 0, 0.5)",
     },
     modalContainer: {
         width: "80%",
+
         backgroundColor: "#fff",
         borderRadius: 10,
         padding: 20,
-        alignItems: "center",
+        alignItems: "flex-start",
     },
     modalTitle: {
         fontSize: 20,
