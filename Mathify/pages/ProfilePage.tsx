@@ -1,6 +1,6 @@
 import {FlatList, ImageBackground, View} from "react-native";
 import { styles } from "../Component/style";
-import {Appbar, Card, Text, Button, IconButton, ProgressBar} from "react-native-paper";
+import {Appbar, Card, Text, Button, IconButton, ProgressBar, Divider} from "react-native-paper";
 import {useFocusEffect, useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
@@ -14,6 +14,7 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 import { ScrollView } from 'react-native'
 import {myTheme} from "../Component/theme";
 import { FontAwesome } from 'react-native-vector-icons';
+import {black} from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 export default function ProfilePage() {
     const navigation = useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
     const [state] = useContext(StateContext);
@@ -28,10 +29,9 @@ export default function ProfilePage() {
                 <Appbar.Content title="Profilo" />
             </Appbar.Header>
             <ScrollView contentContainerStyle={{ paddingBottom: 20}}>
-                <View >
+                <View style={{backgroundColor: myTheme.colors.gray}}>
                     {/* Immagine */}
-                    <View style={{padding: 20}}>
-
+                    <View style={[{padding: 20, marginLeft:10,marginRight:10,marginTop:10 }]}>
                             <ImageBackground
                                 source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
                                 style={{flex: 1}}
@@ -59,8 +59,6 @@ export default function ProfilePage() {
                                 </View>
                             </ImageBackground>
 
-
-
                         {/* Nome e cognome */}
                         <View style={{ flexDirection: "row", marginTop: 20, justifyContent: "space-between", alignItems: "center" }}>
                             <Text style={styles.bigWelcomeText}>
@@ -73,51 +71,51 @@ export default function ProfilePage() {
                             </Text>
                         </View>
                     </View>
-                        <View>
 
+                    <View>
                         <View style={{ paddingHorizontal: 16, marginVertical: 20 }}>
                             <Text style={styles.welcomeText}>
                                 Livello
                             </Text>
                         </View>
+
                         <View style={{paddingHorizontal: 16}}>
-                        <View style={styles.primaryCard}>
-                            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                            {/* Livello e stella */}
-                                <View style={{alignItems: 'center', justifyContent: 'center' }}>
-                                    <FontAwesome
-                                        name="star"
-                                        size={70}
-                                        color= 'white'
-                                    />
-                                    <Text style={{ position: "absolute", fontSize: 20, fontWeight: 'bold', color: myTheme.colors.primary, textAlign: "center" }}>
-                                    {state.utente.livello.numero}{/* Numero del livello */}
-                                    </Text>
-                                </View>
-                                <View>
-                                {/* Livello Utente */}
-
-
-                                {/* Barra di Progresso */}
-                                <View style={{ marginLeft: 10, backgroundColor: 'white', padding: 10, borderRadius: 10, flexDirection: 'column', alignItems: 'center', paddingLeft: 15, marginBottom: 4, marginRight: 5 }}>
-
-                                    <Text style={{ fontWeight: 'bold', textAlign: "center", marginBottom: 4 }}>
-                                        Apprendista{/* Percentuale calcolata */}
-                                    </Text>
-                                    <View style={{ position: 'relative', width: 180}}>
-                                        <ProgressBar
-                                            progress={parseFloat((state.utente.livello.xpTotali / 5000).toFixed(2))}
-                                            color={myTheme.colors.primary}
-                                            style={[styles.progressBar, { width: '100%'}]}
+                            <View style={styles.card}>
+                                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                                {/* Livello e stella */}
+                                    <View style={{alignItems: 'center', justifyContent: 'center' }}>
+                                        <FontAwesome
+                                            name="star"
+                                            size={70}
+                                            color={myTheme.colors.blue}
                                         />
-                                        <Text style={{color: 'white', position: 'absolute', width: '100%', textAlign: 'left', fontWeight: 'bold', marginLeft: 20, }}>
-                                            {Math.round((state.utente.livello.xpTotali / 5000) * 100)}%
+                                        <Text style={{ position: "absolute", fontSize: 20, fontWeight: 'bold', color: "white", textAlign: "center" }}>
+                                        {state.utente.livello.numero}{/* Numero del livello */}
                                         </Text>
                                     </View>
-                                </View>
+                                    <View>
+                                    {/* Livello Utente */}
+
+                                    {/* Barra di Progresso */}
+                                    <View style={{ marginLeft: 10, backgroundColor: 'white', padding: 10, borderRadius: 10, flexDirection: 'column', alignItems: 'center', paddingLeft: 15, marginBottom: 4, marginRight: 5 }}>
+
+                                        <Text style={{ fontWeight: 'bold', textAlign: "center", marginBottom: 4 }}>
+                                            Apprendista{/* Percentuale calcolata */}
+                                        </Text>
+                                        <View style={{ position: 'relative', width: 180}}>
+                                            <ProgressBar
+                                                progress={parseFloat((state.utente.livello.xpTotali / 5000).toFixed(2))}
+                                                color={myTheme.colors.primary}
+                                                style={[styles.progressBar, { width: '100%'}]}
+                                            />
+                                            <Text style={{color: 'white', position: 'absolute', width: '100%', textAlign: 'left', fontWeight: 'bold', marginLeft: 20, }}>
+                                                {Math.round((state.utente.livello.xpTotali / 5000) * 100)}%
+                                            </Text>
+                                        </View>
+                                    </View>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
                         </View>
 
                         {/* Visualizza Attività */}
@@ -129,9 +127,18 @@ export default function ProfilePage() {
 
                         <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 16 }}>
                             {/* Prima Card */}
-
-                            <View style={styles.grayCard}>
-                                <Text style={{ fontSize: 13, textAlign: 'center' }}>
+                            <View style={{borderColor: myTheme.colors.violet,
+                                flex: 1,
+                                marginHorizontal: 5,
+                                backgroundColor: myTheme.colors.gray,
+                                borderWidth: 2,
+                                marginTop: 5,
+                                borderRadius: 20,
+                                padding: 16,
+                                alignItems: 'center',
+                                justifyContent: 'space-between'
+                            }}>
+                                <Text style={{ fontSize: 13, textAlign: 'center',fontFamily:"Itim" }}>
                                     Sfide completate nell'ultima settimana
                                 </Text>
                                 <View style={styles.insideCardWhite}>
@@ -141,8 +148,19 @@ export default function ProfilePage() {
                                 </Text>
                                 </View>
                             </View>
-                            <View style={styles.grayCard}>
-                                <Text style={{ fontSize: 13, textAlign: 'center' }}>
+
+                            <View style={{borderColor: myTheme.colors.violet,
+                                flex: 1,
+                                marginHorizontal: 5,
+                                backgroundColor: myTheme.colors.gray,
+                                borderWidth: 2,
+                                marginTop: 5,
+                                borderRadius: 20,
+                                padding: 16,
+                                alignItems: 'center',
+                                justifyContent: 'space-between'
+                            }}>
+                                <Text style={{ fontSize: 13, textAlign: 'center',fontFamily:"Itim" }}>
                                     Sfide completate nell'ultimo mese
                                 </Text>
                                 <View style={styles.insideCardWhite}>
@@ -153,8 +171,6 @@ export default function ProfilePage() {
                                 </View>
                             </View>
                         </View>
-
-
 
                         {/* Visualizza Badge */}
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 16, marginVertical: 20 }}>
@@ -169,8 +185,8 @@ export default function ProfilePage() {
                                     navigation.navigate('ListaBadge');
                                 }}
                             >
-                                <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
-                                    Vedi Tutti
+                                <Text style={{ fontSize: 16, color: myTheme.colors.violet }}>
+                                    VEDI TUTTO
                                 </Text>
                             </Button>
                         </View>
@@ -191,11 +207,11 @@ export default function ProfilePage() {
                                         />
                                     </View>
                                     <View style={{ marginTop: 10 }}>
-                                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 8 }}>
+                                        <Text style={{ fontSize: 15, fontWeight: 'bold', marginTop: 8, textAlign:"center" }}>
                                             {item.titolo} {/* Nome della sfida o del badge */}
                                             {item.argomento} {/* Nome della sfida o del badge */}
                                         </Text>
-                                        <Text style={{ fontSize: 14, color: 'gray', textAlign: 'center', marginTop: 4 }}>
+                                        <Text style={{ fontSize: 14, color: myTheme.colors.violet, textAlign: 'center', marginTop: 4 }}>
                                             Complimenti! Hai guadagnato {item.xpGuadagnati} XP
                                         </Text>
                                     </View>
@@ -242,9 +258,18 @@ export default function ProfilePage() {
                                 # 1
                             </Text>
                             {/* Card per Logaritmi */}
-                            <View style={styles.grayCardRow}>
+                            <View style={{backgroundColor: myTheme.colors.gray,
+                                borderWidth: 2,
+                                marginTop: 5,
+                                borderColor: myTheme.colors.violet,
+                                borderRadius: 20,
+                                padding: 16,
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'space-between'
+                            }}>
                                 {/* Icona Trofeo */}
-                                <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, backgroundColor: 'white', borderRadius: 10}}>
+                                <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, borderRadius: 10, backgroundColor:"white"}}>
                                     <MaterialCommunityIcons
                                         name="trophy"
                                         size={40}
@@ -252,8 +277,8 @@ export default function ProfilePage() {
                                         style={{backgroundColor: myTheme.colors.cardBorder, padding: 5, borderRadius: 100, borderWidth: 5, borderColor: 'gold'}}
                                     />
                                 {/* Badge Fuoriclasse */}
-                                <View style={{ marginTop: 5, backgroundColor: myTheme.colors.primary, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
-                                    <Text style={{ color: 'white', fontSize: 12}}>
+                                <View style={{ marginTop: 5, backgroundColor: myTheme.colors.blue, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
+                                    <Text style={{ color: 'white', fontSize: 12, fontFamily:"Itim"}}>
                                         Fuoriclasse
                                     </Text>
                                 </View>
@@ -261,7 +286,7 @@ export default function ProfilePage() {
 
                                 {/* Dettagli della Specialità */}
                                 <View style={{ flex: 1, marginLeft: 20 }}>
-                                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>
+                                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10, fontFamily:"Itim"}}>
                                         Logaritmi
                                     </Text>
                                     <View style={styles.calloutXp}>
@@ -270,7 +295,7 @@ export default function ProfilePage() {
                                         size={18}
                                         color="gold"
                                     />
-                                    <Text style={[styles.calloutText, {color: 'gray'}]}>
+                                    <Text style={[styles.calloutText, {color: myTheme.colors.violet}]}>
                                         +1500 XP
                                     </Text>
                                     <MaterialCommunityIcons
@@ -279,28 +304,39 @@ export default function ProfilePage() {
                                         color="gold"
                                     />
                                     </View>
-                                    <Text style={{ fontSize: 14, color: 'gray' }}>
+                                    <Text style={{ fontSize: 14, color: myTheme.colors.violet, fontFamily:"Itim",marginTop:10 }}>
                                         12 sfide completate
                                     </Text>
                                 </View>
                             </View>
                             </View>
-                            {/* Card per Logaritmi */}
+
+
                             <View style={styles.section}>
                                 <Text style={styles.sectionText}>
                                     # 2
                                 </Text>
-                                <View style={styles.grayCardRow}>    {/* Icona Trofeo */}
-                                <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, backgroundColor: 'white', borderRadius: 10}}>
+                                <View style={{backgroundColor: myTheme.colors.gray,
+                                    borderWidth: 2,
+                                    marginTop: 5,
+                                    borderColor: myTheme.colors.violet,
+                                    borderRadius: 20,
+                                    padding: 16,
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between'
+                                }}>
+                                    {/* Icona Trofeo */}
+                                <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, borderRadius: 10, backgroundColor:"white"}}>
                                     <MaterialCommunityIcons
                                         name="account-star"
                                         size={40}
                                         color="white"
                                         style={{backgroundColor: myTheme.colors.cardBorder, padding: 5, borderRadius: 100, borderWidth: 5, borderColor: 'gold'}}
                                     />
-                                    {/* Badge Fuoriclasse */}
-                                    <View style={{ marginTop: 5, backgroundColor: myTheme.colors.primary, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
-                                        <Text style={{ color: 'white', fontSize: 12}}>
+
+                                    <View style={{ marginTop: 5, backgroundColor: myTheme.colors.blue, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
+                                        <Text style={{ color: 'white', fontSize: 12, fontFamily:"Itim"}}>
                                             Maestro
                                         </Text>
                                     </View>
@@ -308,7 +344,7 @@ export default function ProfilePage() {
 
                                 {/* Dettagli della Specialità */}
                                 <View style={{ flex: 1, marginLeft: 20 }}>
-                                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>
+                                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10, fontFamily:"Itim"}}>
                                         Funzioni
                                     </Text>
                                     <View style={styles.calloutXp}>
@@ -317,7 +353,7 @@ export default function ProfilePage() {
                                             size={18}
                                             color="gold"
                                         />
-                                        <Text style={[styles.calloutText, {color: 'gray'}]}>
+                                        <Text style={[styles.calloutText, {color: myTheme.colors.violet}]}>
                                             +1200 XP
                                         </Text>
                                         <MaterialCommunityIcons
@@ -326,7 +362,7 @@ export default function ProfilePage() {
                                             color="gold"
                                         />
                                     </View>
-                                    <Text style={{ fontSize: 14, color: 'gray' }}>
+                                    <Text style={{ fontSize: 14, color: myTheme.colors.violet, fontFamily:"Itim",marginTop:10 }}>
                                         10 sfide completate
                                     </Text>
                                 </View>
@@ -334,21 +370,32 @@ export default function ProfilePage() {
                             </View>
 
 
-                            {/* Card per Logaritmi */}
+
                             <View style={styles.section}>
                                 <Text style={styles.sectionText}>
                                     # 3
                                 </Text>
-                                <View style={styles.grayCardRow}>    {/* Icona Trofeo */}
-                                <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, backgroundColor: 'white', borderRadius: 10}}>
+                                <View style={{backgroundColor: myTheme.colors.gray,
+                                    borderWidth: 2,
+                                    marginTop: 5,
+                                    borderColor: myTheme.colors.violet,
+                                    borderRadius: 20,
+                                    padding: 16,
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between'
+                                }}>
+
+                                    {/* Icona Trofeo */}
+                                <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, borderRadius: 10,backgroundColor:"white"}}>
                                     <MaterialCommunityIcons
                                         name="telescope"
                                         size={40}
                                         color="white"
                                         style={{backgroundColor: myTheme.colors.cardBorder, padding: 5, borderRadius: 100, borderWidth: 5, borderColor: 'gold'}}
                                     />
-                                    {/* Badge Fuoriclasse */}
-                                    <View style={{ marginTop: 5, backgroundColor: myTheme.colors.primary, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
+
+                                    <View style={{ marginTop: 5, backgroundColor: myTheme.colors.blue, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
                                         <Text style={{ color: 'white', fontSize: 12}}>
                                             Esploratore
                                         </Text>
@@ -357,7 +404,7 @@ export default function ProfilePage() {
 
                                 {/* Dettagli della Specialità */}
                                 <View style={{ flex: 1, marginLeft: 20 }}>
-                                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>
+                                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10, fontFamily:"Itim"}}>
                                         Trigonometria
                                     </Text>
                                     <View style={styles.calloutXp}>
@@ -366,7 +413,7 @@ export default function ProfilePage() {
                                             size={18}
                                             color="gold"
                                         />
-                                        <Text style={[styles.calloutText, {color: 'gray'}]}>
+                                        <Text style={[styles.calloutText, {color: myTheme.colors.violet}]}>
                                             +500 XP
                                         </Text>
                                         <MaterialCommunityIcons
@@ -375,7 +422,7 @@ export default function ProfilePage() {
                                             color="gold"
                                         />
                                     </View>
-                                    <Text style={{ fontSize: 14, color: 'gray' }}>
+                                    <Text style={{ fontSize: 14, color: myTheme.colors.violet, fontFamily:"Itim",marginTop:10 }}>
                                         5 sfide completate
                                     </Text>
                                 </View>

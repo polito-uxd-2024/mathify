@@ -6,6 +6,7 @@ import * as React from "react";
 import {useContext} from "react";
 import {StateContext} from "../Reducer";
 import { ScrollView } from 'react-native'
+import {myTheme} from "./theme";
 
 export default function BadgeList(){
     const [state] = useContext(StateContext);
@@ -24,9 +25,9 @@ export default function BadgeList(){
     const allBadgesToShow = [...previousBadges,...fixedBadges];
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{backgroundColor: myTheme.colors.gray, flex:1}}>
             <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
-                <View style={{ flexDirection: 'row',flexWrap: 'wrap', justifyContent: 'space-around', paddingHorizontal: 16, marginTop:20 }}>
+                <View style={{ flexDirection: 'row',flexWrap: 'wrap', justifyContent: 'space-around', paddingHorizontal: 10, marginTop:20,marginBottom:20 }}>
                     {allBadgesToShow.map((item, index) => (
                         <View key={index} style={{ alignItems: 'center', width: 100, marginRight: 16 }}>
                             <View
@@ -42,14 +43,12 @@ export default function BadgeList(){
                             </View>
 
                             <View style={{ marginTop: 10 }}>
-                                <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 8 }}>
+                                <Text style={{ fontSize: 15, fontWeight: 'bold', textAlign:"center" }}>
                                     {item.titolo} {/* Nome della sfida o del badge */}
-                                </Text>
-                                <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 8 }}>
-                                    {item.argomento || item.id} {/* Nome della sfida o del badge */}
+                                    {item.argomento || item.id}
                                 </Text>
 
-                                <Text style={{ fontSize: 14, color: 'gray', textAlign: 'center', marginTop: 4 }}>
+                                <Text style={{ fontSize: 14, color: myTheme.colors.violet, textAlign: 'center', marginTop: 4,marginBottom:4 }}>
                                     {item.xpGuadagnati ? `Complimenti! Hai guadagnato ${item.xpGuadagnati} XP` : item.description}
                                 </Text>
                             </View>
