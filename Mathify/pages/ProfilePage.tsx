@@ -133,7 +133,8 @@ export default function ProfilePage() {
                                 </Text>
                                 <View style={styles.insideCardWhite}>
                                 <Text style={{ fontSize: 40, fontWeight: 'bold', fontFamily: 'Itim', color: myTheme.colors.primary }}>
-                                    4
+                                    {state.utente.sfideCompletate.filter(item => new Date(item.dataCompletamento).getTime() >
+                                        Date.now() - 7 * 24 * 60 * 60 * 1000).length}
                                 </Text>
                                 </View>
                             </View>
@@ -143,7 +144,8 @@ export default function ProfilePage() {
                                 </Text>
                                 <View style={styles.insideCardWhite}>
                                     <Text style={{ fontSize: 40, fontWeight: 'bold', fontFamily: 'Itim', color: myTheme.colors.primary }}>
-                                        12
+                                        {state.utente.sfideCompletate.filter(item => new Date(item.dataCompletamento).getTime() >
+                                            Date.now() - 30 * 24 * 60 * 60 * 1000).length}
                                     </Text>
                                 </View>
                             </View>
