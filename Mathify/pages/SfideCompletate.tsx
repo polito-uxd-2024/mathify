@@ -10,6 +10,7 @@ import { useContext } from "react";
 import { StateContext } from "../Reducer";
 import { useSetCurrentUser } from "../Component/setUser";
 import moment from 'moment';
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 export default function SfideCompletate() {
     const navigation = useNavigation<NativeStackNavigationProp<HomeStackParamList>>();
@@ -135,11 +136,23 @@ export default function SfideCompletate() {
                                         <View>
                                             <Text style={styles.cardTitle}>{item.titolo}</Text>
                                             <Text style={styles.subtitle}>{item.argomento}</Text>
-                                            <Text style={styles.callout}>
-                                                <Icon size={16} source="star" color='white' />
-                                                <Text style={{ color: 'white', fontWeight: 'bold' }}>{item.xpGuadagnati} XP</Text>
-                                                <Icon size={16} source="star" color='white' />
-                                            </Text>
+                                            <Text style={styles.subtitle}>{item.argomento}</Text>
+                                            <View style={styles.calloutXp}>
+                                                <MaterialCommunityIcons
+                                                    name="star-four-points"
+                                                    size={18}
+                                                    color="gold"
+                                                />
+                                                <Text style={[styles.calloutText, {color: 'gray'}]}>
+                                                    {item.xpGuadagnati} XP
+                                                </Text>
+                                                <MaterialCommunityIcons
+                                                    name="star-four-points"
+                                                    size={18}
+                                                    color="gold"
+                                                />
+                                            </View>
+
                                             <View style={[styles.row, { justifyContent: 'space-between' }]}>
                                                 <Text style={styles.subtitle}>{item.punteggio}/{item.domande.length} corrette</Text>
                                                 <Text style={styles.secondary}>{item.stringacompletamento}</Text>

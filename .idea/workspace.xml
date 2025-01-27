@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="39542f42-9a80-4e54-af61-1f4385b67116" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/Component/style.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/style.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/pages/AllListChallenges.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/AllListChallenges.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/pages/SfidaDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/SfidaDetail.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/pages/SfideCompletate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/SfideCompletate.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,17 +117,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/Mathify/Component/SegmentedButton.tsx</url>
-          <line>230</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
