@@ -327,6 +327,12 @@ export default function PlayScreen() {
                                 <Text>
                                     {currentQuestionIndex + 1}/{challenge.questions.length}
                                 </Text>
+                                <Progress.Bar
+                                    progress={(currentQuestionIndex + 1) / challenge.questions.length}
+                                    width={200}
+                                    color={colors.primary}
+                                />
+
                                 <Text style={{ fontSize: 18}}>{currentQuestion.Testo}</Text>
                                 {graficoDomandaAttivo && (
                                 <Image
