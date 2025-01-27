@@ -24,6 +24,7 @@ export const myTheme = {...CombinedDefaultTheme,  colors: {
         rightAnswer: 'rgb(176,227,198)',
         wrongAnswer: 'rgb(238,186,186)',
         gray: 'rgb(232,232,232)',
+        blue: 'rgb(79,194,243)',
 
 
 

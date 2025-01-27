@@ -190,7 +190,7 @@ export const SegmentedButton = () => {
                                                             )
                                                         }}
                                                         contentStyle={{ height: 40}}
-                                                        labelStyle={{  fontSize: 14, fontWeight: 'bold', fontFamily: 'Itim', color: 'black' }}
+                                                        labelStyle={{  fontSize: 18, fontWeight: 'bold', fontFamily: 'Itim', color: 'white' }}
 
                                                         style={styles.expandButton}
                                                     >
