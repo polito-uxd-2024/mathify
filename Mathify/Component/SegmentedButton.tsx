@@ -112,7 +112,7 @@ export const SegmentedButton = () => {
                         },
                         style: {
                             borderBottomWidth:  value === 'esplora' ? 3 : 0,
-                            borderRadius: 0, borderColor: 'black', borderWidth: 0}
+                            borderRadius: 0, borderWidth: 0}
                     },
                     {   value: 'completate',
                         label: 'Completate',
@@ -301,10 +301,10 @@ export const SegmentedButton = () => {
                     onRequestClose={handleCloseModal}
                 >
                     <View style={[styles.modalContainer]}>
-                        <View style={[styles.modalBase]}>
+                        <View style={[styles.modalBase, ]}>
                             <View>
                                 <View style={[styles.card, {borderWidth: 5, borderColor: "black"}]}>
-                                    <View style={styles.modalContent}>
+                                    <View style={[styles.modalContent]}>
                                         <ImageBackground
                                             source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
                                             style={{flex: 1}}
@@ -327,23 +327,23 @@ export const SegmentedButton = () => {
                                         </ImageBackground>
                                         <Text style={styles.modalTitle}>{state.selectedChallenge.titolo}</Text>
                                         <Text style={styles.modalSubtitle}>{state.selectedChallenge.argomento}</Text>
-                                        <View style={{flexDirection: 'row', paddingTop: 10}}>
-                                            <View style={[styles.expandButtonBase, {marginRight: 10}]}>
+                                        <View style={[styles.content, {flexDirection: "row"}]}>
+                                            <View style={[styles.expandButtonBase, {marginRight: 10, height:50}]}>
                                             <Button
                                                 mode="outlined"
                                                 onPress={handleCloseModal}
-                                                contentStyle={{ height: 40 }}
+
                                                 labelStyle={{ fontSize: 16, color:"black" }}
                                                 style={[styles.expandButton, {backgroundColor: "white"}]}
                                             >
                                                 Chiudi
                                             </Button>
                                             </View>
-                                            <View style={[styles.expandButtonBase, {marginLeft: 10}]}>
+                                            <View style={[styles.expandButtonBase, {marginLeft: 10, height: 50}]}>
                                             <Button
                                                 mode="contained"
                                                 onPress={() => handleClick(state.selectedChallenge.titolo)}
-                                                contentStyle={{ height: 40 }}
+
                                                 labelStyle={{ fontSize: 16, color:"white" }}
                                                 style={[styles.expandButton]}
                                             >
