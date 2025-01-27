@@ -9,6 +9,7 @@ import PlayScreen from "../pages/PlayScreen";
 import Materiale, {PredefinedMaterial} from "../pages/Materiale";
 import Impostazioni from "../pages/Impostazioni";
 import Verifica from "../pages/Verifica";
+import { Text, View } from "react-native"; // Import Text and View components
 
 import {CombinedDarkTheme, myTheme} from "./theme";
 import AllListChallenges from "../pages/AllListChallenges";
@@ -78,11 +79,12 @@ function HomeStackScreen() {
 
 function ProfileStackScreen() {
     return (
-        <ProfileStack.Navigator screenOptions={{headerShown:false}}>
-            <ProfileStack.Screen name="Profile" component={ProfilePage} />
+        <ProfileStack.Navigator screenOptions={{headerShown:false}} >
+            <ProfileStack.Screen name="Profile" component={ProfilePage} options={{headerShown:true}}/>
             <ProfileStack.Screen name="Impostazioni" component={Impostazioni} options={{headerShown:true}}/>
             <ProfileStack.Screen name="Classe" component={Classe}/>
             <ProfileStack.Screen name={"Segnalazioni"} component={Segnalazioni} options={{headerShown:true}}/>
+
 
             <ProfileStack.Screen name="Verifica" component={Verifica} options={{ presentation: 'modal', headerShown:true }} />
             <ProfileStack.Screen name="ListaBadge" component={BadgeList} options={{headerShown:true}}/>
@@ -114,8 +116,20 @@ function Tabs() {
                 else if (route.name === "Materiale") {
                     iconName = focused ? "book": "book-outline";
                 }
-                return <Ionicons name={iconName} size={size} color={color} />;
-            }, headerShown: false
+                return <Ionicons name={iconName} size={size} color={focused ? myTheme.colors.primary: 'black'}/>;
+            },
+            tabBarStyle: {
+                height: 60,
+                //backgroundColor: 'lightblue', // Change this to your desired background color
+                borderTopWidth: 2, // Change this to your desired border width
+                borderColor: 'black', // Change this to your desired border color
+            },
+            tabBarLabel: ({ focused }) => (
+                <Text style={{ fontSize: 12, fontFamily: 'Itim', color: focused ? myTheme.colors.primary : 'black',  }}>
+                    {route.name}
+                </Text>
+            ),
+            headerShown: false
         })}
         >
             <Tab.Screen name="Home" component={HomeStackScreen} />

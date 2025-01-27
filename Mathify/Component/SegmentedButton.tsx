@@ -93,18 +93,30 @@ export const SegmentedButton = () => {
                 buttons={[
                     {   value: 'esplora',
                         label: 'Esplora',
+                        labelStyle: {
+                            fontFamily: 'Itim',
+                            fontSize: 13
+                        },
                         style: {
                             borderBottomWidth:  value === 'esplora' ? 3 : 0,
                             borderRadius: 0, borderColor: 'black', borderWidth: 0}
                     },
                     {   value: 'completate',
                         label: 'Completate',
+                        labelStyle: {
+                            fontFamily: 'Itim',
+                            fontSize: 13
+                        },
                         style: {
                             borderBottomWidth:  value === 'completate' ? 3 : 0,
                             borderRadius: 0, borderColor: 'black', borderWidth: 0}
                     },
                     {   value: 'programmate',
                         label: 'Programmate',
+                        labelStyle: {
+                            fontFamily: 'Itim',
+                            fontSize: 13
+                        },
                         style: {
                             borderBottomWidth:  value === 'programmate' ? 3 : 0,
                             borderRadius: 0, borderColor: 'black', borderWidth: 0}
@@ -117,12 +129,11 @@ export const SegmentedButton = () => {
                 )}
                 {value === 'esplora' && (
                     <View>
-
                         {/* Sfida random */}
                         <View style={styles.section}>
                             <View style={styles.article}>
-                                <View style={styles.cardBase}>
-                                    <Card style={styles.card}>
+
+                                    <Card style={styles.randomCard}>
                                         <Card.Content>
                                             <Text style={styles.welcomeText}>Sorteggia</Text>
                                             <ImageBackground
@@ -150,21 +161,24 @@ export const SegmentedButton = () => {
                                                 </View>
                                             </ImageBackground>
                                         </Card.Content>
-                                        <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
-                                            <Card.Actions>
+                                        <View style={{ flexDirection: 'row'}}>
+                                            <View style={styles.buttonBase}><Card.Actions style={{padding: 0, margin:0}}>
+
                                                 <IconButton
                                                     mode="outlined"
                                                     onPress={() => {
                                                         handleChallengeChange();
                                                     }}
                                                     contentStyle={{ height: 40 }}
-                                                    labelStyle={{ fontSize: 14 }}
+                                                    labelStyle={{ fontSize: 14, fontWeight: 'bold', fontFamily: 'Itim', color: 'black' }}
                                                     icon="shuffle"  // Utilizza "shuffle" direttamente come nome dell'icona
-                                                    style={styles.iconButton}
+                                                    style={[styles.whiteButton, {margin: 0}]}
                                                 >
                                                 </IconButton>
-                                            </Card.Actions>
-                                            <Card.Actions style={{justifyContent: 'center' }}>
+
+                                            </Card.Actions></View>
+                                            <View style={styles.buttonBase}><Card.Actions style={{padding: 0, margin:0}}>
+
                                                 <Button
                                                     mode="contained"
                                                     onPress={()=> {
@@ -173,15 +187,17 @@ export const SegmentedButton = () => {
                                                         )
                                                     }}
                                                     contentStyle={{ height: 40 }}
-                                                    labelStyle={{ fontSize: 16 }}
+                                                    labelStyle={{ margin: 0, fontSize: 14, fontWeight: 'bold', fontFamily: 'Itim', color: 'black' }}
+
                                                     style={styles.button}
                                                 >
                                                     Play
                                                 </Button>
-                                            </Card.Actions>
+
+                                            </Card.Actions></View>
                                         </View>
                                     </Card>
-                                </View>
+
                             </View>
                         </View>
                         <Divider style={{marginTop: 20, backgroundColor: 'lightgray', height: 2}}/>
@@ -195,7 +211,6 @@ export const SegmentedButton = () => {
                                            onChangeText={setSearchQuery}
                                 />
                             </View>
-
                             {/* Lista sfide */}
                             <View style={styles.section}>
                                 {filteredChallenges.slice(0, 5).map((item) => (
@@ -229,8 +244,6 @@ export const SegmentedButton = () => {
                                         </View>
                                     </TouchableOpacity>
                                 ))}
-
-
                                 {filteredChallenges.length > 5 && (
                                     <Button
                                         onPress={() => navigationAll.navigate('AllListChallenges', { filteredChallenges })}

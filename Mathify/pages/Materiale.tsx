@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import { View, ScrollView, Image, Modal, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { Appbar, Card, List, FAB, Searchbar, SegmentedButtons, IconButton } from 'react-native-paper';
 import { styles } from '../Component/style';
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
 import {MaterialeStackParamList} from "../Component/navigation";
 import {useNavigation} from "@react-navigation/native";
+import {StateContext} from "../Reducer";
+import {useSetCurrentUser} from "../Component/setUser";
 
 type Material = {
     title: string;
@@ -84,19 +86,40 @@ export default function Materiale() {
     const [addedMaterials, setAddedMaterials] = useState<PredefinedMaterial[]>([]);
     const [savedMaterials, setSavedMaterials] = useState<PredefinedMaterial[]>([]);
     const navigation=useNavigation<NativeStackNavigationProp<MaterialeStackParamList>>();
-
+    const [state] = useContext(StateContext);
+    console.log(state);
+    useSetCurrentUser("Utente1");
     const onChangeSearch = (query: string) => setSearchQuery(query);
 
     const handleAddMaterial = () => {
+        // Controlla se i campi di newMaterial (escluso id) sono vuoti
+
+
+        const isValid = Object.entries(newMaterial)
+            .filter(([key]) => key !== 'id') // Esclude il campo 'id'
+            .every(([, value]) => value.trim() !== "");
+
+        if (!isValid) {
+            alert("Tutti i campi devono essere compilati!"); // Messaggio di errore
+            return;
+        }
+
+        // Aggiungi il nuovo materiale se i campi sono validi
         setAddedMaterials([...addedMaterials, newMaterial]);
         setModalVisible(false);
-        setNewMaterial({ id: '',
+
+        // Resetta newMaterial
+        setNewMaterial({
+            id: '',
             title: '',
             description: '',
             longDescription: '',
             icon: '',
-            image: '' });
+            image: ''
+        });
+
     };
+
 
     const handleSaveMaterial = (material: PredefinedMaterial) => {
         if (!savedMaterials.find((m) => m.id === material.id)) {
@@ -254,7 +277,7 @@ export default function Materiale() {
             <FAB
                 style={styles.fab}
                 icon="plus"
-                onPress={() => setModalVisible(true)}
+                onPress={() => state.utente.livello.numero>=10?setModalVisible(true):alert("Non hai il livello sufficiente per aggiungere materiale, Raggiungi il livello 10 e verifica il tuo account!!!")}
             />
 
             {/* Modal for Adding Material */}

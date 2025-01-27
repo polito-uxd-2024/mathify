@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
-import { View, ScrollView } from "react-native";
-import {
-    Appbar,
-    Card,
+import React, {useState, useEffect, useContext, useRef} from "react";
+import * as Progress from 'react-native-progress';
+import {View, ScrollView, TouchableOpacity, Modal, Animated, Easing, ViewStyle, Alert} from "react-native";
+import {Appbar, Card,
     Button,
     Text,
     ProgressBar,
@@ -11,12 +10,12 @@ import {
     TextInput,
     Portal,
     Icon,
-    Headline
+    Headline, IconButton, Divider
 } from "react-native-paper";
 import {DomandaSegnalata, Sfida} from "../Component/Interfaces";
 import { StateContext } from "../Reducer";
 import Collapsible from "react-native-collapsible";
-import {registraSfidaCompletata} from "../Component/writeOnDb";
+import {registraSegnalazione, registraSfidaCompletata} from "../Component/writeOnDb";
 import {aggiornaLivello} from "../Component/aggiornaLivello";
 import {useSetCurrentUser} from "../Component/setUser";
 import { Image, StyleSheet  } from 'react-native';
@@ -25,11 +24,16 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {myTheme} from "../Component/theme";
 import {Header} from "@react-navigation/stack";
 import {ScreenFooter} from "react-native-screens";
-
+import {RadioButton} from "react-native-paper";
+import {useNavigation} from "@react-navigation/native";
+import {NativeStackNavigationProp} from "react-native-screens/native-stack";
+import {PlayParamList} from "../Component/navigation";
+import CustomModal from "../Component/CustomModal";
 
 export default function PlayScreen() {
     const { colors } = useTheme();
     const [state] = useContext(StateContext);
+    const navigation = useNavigation<NativeStackNavigationProp<PlayParamList>>()
     useSetCurrentUser("Utente1");
 
     const challenge: Sfida = {
@@ -37,6 +41,38 @@ export default function PlayScreen() {
         titolo: state.selectedChallenge.titolo,
         argomento: state.selectedChallenge.argomento,
         difficolta: state.selectedChallenge.difficolta,
+    };
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [pendingAction, setPendingAction] = useState<any>(null);
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener("beforeRemove", (e: any) => {
+            if (changePage) {
+                // Navigazione normale senza impedimenti
+                navigation.dispatch(e.data.action);
+            } else {
+                // Impedisce la navigazione predefinita e mostra il modal
+                e.preventDefault?.();
+                setModalVisible(true);
+                setPendingAction(e.data.action);
+            }
+        });
+
+        return unsubscribe; // Pulisce il listener quando il componente viene smontato
+    }, [navigation]);
+
+
+
+    const confirmExit = () => {
+        setModalVisible(false);
+        if (pendingAction) {
+            navigation.dispatch(pendingAction);
+        }
+    };
+
+    const cancelExit = () => {
+        setModalVisible(false);
+        setPendingAction(null);
     };
 
     const [progress, setProgress] = useState(0);
@@ -67,11 +103,19 @@ export default function PlayScreen() {
     const [ricompensa, setRicompensa] = useState(true)
     const [isWaiting, setIsWaiting] = useState(false)
 
-
     //Gestione della Segnalazione
     const [segnalazioni, setSegnalazioni] = useState<DomandaSegnalata[]>([]);
     const [motivo, setMotivo] = useState("");
     const [isDialogVisible, setDialogVisible] = useState(false);
+    const [selectedSuggestion, setSelectedSuggestion] = useState('');
+    const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+
+    const handleCloseModal = (title) => {
+        setMotivo("");
+        setDialogVisible(false);
+        setSelectedSuggestion("");
+    };
     const handleSegnala=()=>{
 
         const domanda=state.selectedChallenge.questions[currentQuestionIndex]
@@ -82,7 +126,8 @@ export default function PlayScreen() {
             motivo:motivo,
             sfida:{titolo:sfida.titolo,argomento:sfida.argomento}
         }
-        setSegnalazioni([...segnalazioni,segnalazione])
+        registraSegnalazione(segnalazione)
+
         setDialogVisible(false)
 
     }
@@ -132,7 +177,9 @@ export default function PlayScreen() {
             }
         }
     }
-
+    const toggleExpand = (index: number) => {
+        setExpandedIndex(expandedIndex === index ? null : index);
+    };
     const handleNextQuestion = () => {
         const currentTime = Date.now();
         const timeTaken = parseFloat(((currentTime - startTime) / 1000).toFixed(2));
@@ -230,7 +277,7 @@ export default function PlayScreen() {
             titolo: state.selectedChallenge.titolo,
             argomento: state.selectedChallenge.argomento,
             dataCompletamento: new Date(),
-            segnalazioni: segnalazioni,
+            segnalazioni: [],
 
         };
 
@@ -244,150 +291,182 @@ export default function PlayScreen() {
     if (!changePage) {
         return (
             <View style={styles.content}>
-                <View style={styles.content}>
-                    <View style={styles.cover}>
-                        <Text style={{ fontSize: 20, marginBottom: 10}}>{currentQuestion.Testo}</Text>
-                        <ProgressBar
-                            progress={timerProgress}
-                            style={styles.progressBar}
-                            color={timerProgress > 0.8 ? myTheme.colors.wrongAnswer : myTheme.colors.rightAnswer}
-                        />
-                    </View>
-                    <ScrollView style={styles.questionBody}>
-                        {graficoDomandaAttivo && (
-                        <Image
-                            source={{ uri: state.selectedChallenge.questions[currentQuestionIndex].GraficList[0] }}
-                            style={{
-                                width: 100,
-                                height: 100,
-                                margin: 8,
-                                borderRadius: 4,
-                                alignSelf:"center"
-                            }}
-                        />
-                        )}
-                        {currentQuestion.Risposte.map((risposta, index) => (
-                        <View
-                            key={index}
-                            style={{
-                                flexDirection: 'row', // Layout in fila
-                                alignItems: 'center', // Allinea verticalmente
-                                marginBottom: 20,      // Spaziatura tra i pulsanti
-                            }}
-                        >
+                <View style={styles.challengeHeader}>
+                    <Text style={styles.welcomeText}>{state.selectedChallenge.titolo}</Text>
 
-                            <Button
-                                mode="contained"
-                                buttonColor={myTheme.colors.cardBorder}
-                                labelStyle={{ fontSize: 18 }}
-                                style={[styles.answerButton, {
-                                    backgroundColor: coloreRisposta && clickedButtonIndex===index ? isCorrectAnswer ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer : colors.primary }]} // Il pulsante occupa tutto lo spazio rimanente
-                                onPress={() => handleAnswerPress(risposta, index)}
-                            >
-                                {risposta} {/* Modifica "risposta" in base alla struttura del tuo oggetto */}
-                                {graficoRisposteAttivo && (
+                </View>
+                    <View style={{
+                        borderBottomRightRadius: 20,
+                        borderBottomLeftRadius: 20,
+                        backgroundColor: myTheme.colors.cardBorder,
+                        paddingHorizontal: 20,
+                        paddingBottom: 20,
+
+                    }}>
+
+                        <Progress.Bar
+                            progress={timerProgress}
+                            width={200}
+                            color={timerProgress > 0.8 ? 'red' : 'green'}
+                        />
+
+
+
+                    </View>
+                <CustomModal
+                    isVisible={isModalVisible}
+                    onConfirm={confirmExit}
+                    onCancel={cancelExit}
+                    changePage={changePage}
+                />
+               <View style={{flex: 1}}>
+                    <ScrollView style={{flex: 1}}>
+                        <View style={styles.questionBody} contentContainerStyle={{ flexGrow: 1 }}>
+                            <View style={styles.questionCardBase}>
+                            <Card style={styles.questionCard}>
+                                <Text>
+                                    {currentQuestionIndex + 1}/{challenge.questions.length}
+                                </Text>
+                                <Progress.Bar
+                                    progress={(currentQuestionIndex + 1) / challenge.questions.length}
+                                    width={200}
+                                    color={colors.primary}
+                                />
+
+                                <Text style={{ fontSize: 18}}>{currentQuestion.Testo}</Text>
+                                {graficoDomandaAttivo && (
                                 <Image
-                                    source={{ uri: state.selectedChallenge.questions[currentQuestionIndex].GraficList[index] }}
+                                    source={{ uri: state.selectedChallenge.questions[currentQuestionIndex].GraficList[0] }}
                                     style={{
-                                        width: 100,
-                                        height: 100,
-                                        marginRight: 8,
+                                        width: 230,
+                                        height: 230,
+                                        margin: 8,
                                         borderRadius: 4,
+                                        alignSelf:"center"
                                     }}
                                 />
-                            )}
-                            </Button>
+                                )}
+                            </Card>
+                            </View>
+                            <View style={{marginTop: 10}}>
+                            {currentQuestion.Risposte.map((risposta, index) => (
+                            <View
+                                key={index}
+                                style={{
+                                    flexDirection: 'row', // Layout in fila
+                                    alignItems: 'center', // Allinea verticalmente
+                                       // Spaziatura tra i pulsanti
+                                }}
+                            >
+                                <View style={styles.answerCardBase}>
+                                    <Button
+                                        mode="contained"
+
+                                        labelStyle={{ fontSize: 18}}
+                                        style={[styles.answerButton, {
+                                            backgroundColor: coloreRisposta && clickedButtonIndex===index ? isCorrectAnswer ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer : 'white' }]} // Il pulsante occupa tutto lo spazio rimanente
+                                        onPress={() => handleAnswerPress(risposta, index)}
+                                    >
+                                        <View style={{ alignItems: 'center' }}>
+                                            <Text>{risposta}</Text>
+                                            {graficoRisposteAttivo && (
+                                                <Image
+                                                    source={{ uri: state.selectedChallenge.questions[currentQuestionIndex].GraficList[index] }}
+                                                    style={{
+                                                        width: 200,
+                                                        height: 200,
+                                                        marginTop: 8,
+                                                        borderRadius: 4,
+                                                    }}
+                                                />
+                                            )}
+                                        </View>
+                                    </Button>
+                                </View>
+                            </View>
+                        ))}</View>
                         </View>
-                    ))}
                     </ScrollView>
                 </View>
-
-                {/*<Text style={{marginTop: 8}}>
-                    Tempo rimasto: {Math.ceil((1 - timerProgress) * timerDuration)}s
-                </Text>
-                    TimerProgress: {timerProgress.toString()}
-                    <Text style={{marginTop: 8}}>Domande corrette: {punteggioOttenuto}</Text>
-        <Text>GraficoRisposteAttivo: {graficoRisposteAttivo.toString()}</Text>
-    */}
-
-
                 <View>
-                <View
-                    style={{
-                        flexDirection: "row",
-                        justifyContent: "space-around",
-                        alignItems: "center",
-                        padding: 10,
-                    }}
-                >
-                    <View style={styles.miniCardBase}>
-                        <Card style={styles.miniCard}>
-                            <Text
-                                style={{ textAlign: "center", padding: 10 }}
-                                onPress={bonusGrafico}
-                            >
-                                Mostra Grafico
-                            </Text>
-                            <View style={styles.insideCard}>
-                                <Text style={{fontSize: 20, fontWeight: 'bold'}}>{(grafico && state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) ? "1" : (state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) ? "0" : "Non disponibile"}</Text>
-                            </View>
-                        </Card>
+                    <View
+                        style={{
+                            position: 'absolute',
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            flexDirection: "row",
+                            justifyContent: "space-around",
+                            alignItems: "center",
+                            padding: 10,
+                            backgroundColor: myTheme.colors.cardBorder,
+                            borderTopRightRadius: 20,
+                            borderTopLeftRadius: 20,
+                        }}
+                    >
+                        {(grafico) && (state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) && (
+                        <TouchableOpacity style={styles.miniCardBase} onPress={bonusGrafico}>
+                            <Card style={[styles.miniCard]}>
+                                <View style={{height: 40, alignItems: 'center', justifyContent: 'center'}}>
+                                <Text
+                                    style={{ fontSize: 12, textAlign: "center", padding: 3 }}
+                                >
+                                    Mostra Grafico
+                                </Text>
+                                </View>
+                                <View style={styles.insideCard}>
+                                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>{(grafico && state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) ? "1" : (state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) ? "0" : "-"}</Text>
+                                </View>
+
+                            </Card>
+                        </TouchableOpacity>)}
+                        <TouchableOpacity style={styles.miniCardBase} onPress={bonusTempo} >
+                            <Card style={[styles.miniCard, {backgroundColor: (tempoMaggiore) ? 'white':myTheme.colors.gray  }]}>
+                                <View style={{height: 40, alignItems: 'center', justifyContent: 'center'}}>
+                                    <Text style={{ fontSize: 12, textAlign: "center", padding: 3 }}>+30 secondi</Text>
+                                </View>
+                                    <View style={styles.insideCard}>
+                                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>{tempoMaggiore ? "1" : "0"}</Text>
+                                </View>
+                            </Card>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.miniCardBase} onPress={bonusTentativi}>
+                            <Card style={[styles.miniCard, {backgroundColor: (dueTentativi) ? 'white':myTheme.colors.gray  }]}>
+                                <View style={{height: 40, alignItems: 'center', justifyContent: 'center'}}>
+                                    <Text style={{ fontSize: 12, textAlign: "center", padding: 3 }}>Doppio tentativo</Text>
+                                </View>
+                                <View style={styles.insideCard}>
+                                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>{dueTentativi ? "1" : "0"}</Text>
+                                </View>
+                            </Card>
+                        </TouchableOpacity>
                     </View>
-                    <View style={styles.miniCardBase}>
-                        <Card style={styles.miniCard} onPress={bonusTempo}>
-                            <Text style={{ textAlign: "center", padding: 10 }}>+30 secondi</Text>
-                            <View style={styles.insideCard}>
-                                <Text style={{fontSize: 20, fontWeight: 'bold'}}>{tempoMaggiore ? "1" : "0"}</Text>
-                            </View>
-                        </Card>
-                    </View>
-                    <View style={styles.miniCardBase}>
-                        <Card style={styles.miniCard} onPress={bonusTentativi}>
-                            <Text style={{ textAlign: "center", padding: 10 }}>Doppio tentativo</Text>
-                            <View style={styles.insideCard}>
-                                <Text style={{fontSize: 20, fontWeight: 'bold'}}>{dueTentativi ? "1" : "0"}</Text>
-                            </View>
-                        </Card>
-                    </View>
+
                 </View>
 
 
-                <Button style = {{width:"50%", alignSelf:"center"}} mode="contained-tonal" onPress={() => setDialogVisible(true)}>Apri Dialog</Button>
-                </View>
-
-                <Portal>
-                    <Dialog visible={isDialogVisible} onDismiss={() => setDialogVisible(false)}>
-                        <Dialog.Title>Motivo per segnalare</Dialog.Title>
-                        <Dialog.Content>
-                            <TextInput
-                                label="Motivo"
-                                value={motivo}
-                                onChangeText={setMotivo}
-                                multiline
-                                numberOfLines={4}
-                                style={styles.input}
-                            />
-                        </Dialog.Content>
-                        <Dialog.Actions>
-                            <Button onPress={() => setDialogVisible(false)}>Annulla</Button>
-                            <Button onPress={handleSegnala}>Segnala</Button>
-                        </Dialog.Actions>
-                    </Dialog>
-                </Portal>
             </View>
         );
 
     } else {
+       ;
         return (
             <View style={{flex:1}}>
-
-                <Portal>
-                    <Dialog visible={ricompensa} onDismiss={() => setRicompensa(false)}>
-                        <Dialog.Title>
-                            CONGRATULAZIONI!!
-                        </Dialog.Title>
-                        <Dialog.Content>
+                <CustomModal
+                    isVisible={isModalVisible}
+                    onConfirm={confirmExit}
+                    onCancel={cancelExit}
+                    changePage={changePage}
+                />
+                <Portal style={styles.modalContainer} >
+                    <Dialog visible={ricompensa} onDismiss={() => setRicompensa(false)} style={styles.modalBase}>
+                        <View style={[styles.cardBase, {marginTop: 0}]}>
+                            <View style={styles.card}>
+                        <View style={styles.modalContent}>
+                        <Dialog.Title style={styles.modalTitle}>CONGRATULAZIONI!!</Dialog.Title>
+                        <Dialog.Content >
                             <Text style={{marginBottom:10}}>Nuovo badge sbloccato:</Text>
+                            <View style={styles.insideCard}>
                             {/* Simbolo del badge */}
                             <View
                                 style={{ width: 80, height: 80, borderRadius: 40, backgroundColor: '#3498db', justifyContent: 'center', alignItems: 'center', alignSelf:"center" }}
@@ -404,67 +483,259 @@ export default function PlayScreen() {
                             </Text>
                             <Text style={{ fontSize: 14, textAlign: 'center' }}>
                                 {state.selectedChallenge.argomento}
-                            </Text>
+
+                            </Text></View>
                             <Text style={{ fontSize: 14, textAlign: 'center', marginTop: 10 }}>
+
                                 Hai guadagnato {xp} XP
                             </Text>
+                            <View  style={[styles.progressBar,{flexDirection: 'row', paddingTop: 0}]}>
+                                <View
+                                    style={
+                                        { width: `${Math.min((state.utente.livello.xpTotali / 5000) * 100)}%`,
+                                            backgroundColor: myTheme.colors.cardBorder,
+                                            paddingVertical: 10,
+                                            borderBottomLeftRadius: 10,
+                                            borderTopLeftRadius: 10,
+                                        } as ViewStyle}
+                                ></View>
+                                <View
+                                    style={{ width: `${Math.min((xp/5000) * 100)}%`,
+                                        backgroundColor: myTheme.colors.primary,
+                                        paddingVertical: 10,
+
+                                } as ViewStyle}
+                                /></View>
                         </Dialog.Content>
-                        <Dialog.Actions>
-                        <Button onPress={() => setRicompensa(false)}>Vedi dettagli sfida</Button>
+                        <Dialog.Actions style={{padding: 0, justifyContent: 'center', paddingTop: 0}}>
+                            <Button style={styles.button} onPress={() => setRicompensa(false)}>Vai al riepilogo</Button>
                         </Dialog.Actions>
+                        </View>
+                        </View>
+                        </View>
                     </Dialog>
                 </Portal>
-                <Text style={{fontSize:36, fontWeight:"bold", margin:5}}>COMPLIMENTI! HAI COMPLETATO LA SFIDA</Text>
-                <Text style={{fontSize:20, margin:3}}>{state.selectedChallenge.argomento}</Text>
-                <Text style={{fontSize:20,margin:3}}>{state.selectedChallenge.titolo}</Text>
-                <View style={{height:500, marginRight: 20, marginLeft: 20}}>
-                <ScrollView style={{ padding: 16, backgroundColor:"grey", borderRadius:5, flex:1 }} contentContainerStyle={{ flexGrow: 1 }}>
-                {risposte.map((valore, index) => (
-                    <Card key={index} style={{ marginBottom: 8, backgroundColor: valore ? "green" : "red" }}>
-                        <Card.Content>
-                            <Text>{state.selectedChallenge.questions[index].Testo}</Text>
-                            <Button
-                                mode="contained"
-                                onPress={() => setRevisione(index)}
-                                style={{ marginTop: 8 }}
-                            >
-                                Dettagli
-                            </Button>
 
-                            <Collapsible collapsed={revisione !== index}>
 
-                                    <Text>Tempo Impiegato: {Math.round(listaTempoDomande[index])} s</Text>
-                                    <Text>Risposta data: {listaRisposteDate[index]}</Text>
-                                    <Text>Risposta corretta: {state.selectedChallenge.questions[index].Soluzione}</Text>
-                                    <Text>Spiegazione: {state.selectedChallenge.questions[index].Spiegazione}</Text>
-                                    <Text>Punti guadagnati: {risposte[index]? Math.round(10 + timerDuration - listaTempoDomande[index])  : 0}</Text>
-                                    <Text>Grafico del testo: </Text>
-                                    {state.selectedChallenge.questions[index].GraficList.length===1 ? <Image
-                                        source={{ uri: state.selectedChallenge.questions[currentQuestionIndex].GraficList[0] }}
-                                        style={{
-                                            width: 100,
-                                            height: 100,
-                                            margin: 8,
-                                            borderRadius: 4,
-                                            alignSelf:"center"
-                                        }}
-                                    /> : "Grafico non disponibile"}
 
-                            </Collapsible>
-                        </Card.Content>
-                    </Card>
-                ))}
-                </ScrollView>
+
+
+
+                <View style={styles.cover}>
+                    <View style={{alignItems: 'center'}}>
+                        <Text style={{fontWeight: 'bold', fontSize: 30, color: 'white'}}>Complimenti! </Text>
+                        <Text style={{fontSize: 16, color: 'white'}}>Sfida Completata</Text>
+                    </View>
                 </View>
-                <Card>
-                    <Text>Conteggio punti:</Text>
-                    <Text>Punti guadagnati dal tempo: {tempoTotaleXP}</Text>
-                    <Text>Punti in base alla difficoltà: {state.selectedChallenge.difficolta * 50}</Text>
-                    <Text>Punti per le risposte corrette: {xpCorrect}</Text>
-                    <Text>Punti totali: {xp}</Text>
-                </Card>
+
+                <ScrollView>
+
+                    <View style={{flex: 1}}>
+
+                    <View style={styles.mainContent}>
+                    <View style={[styles.grayCard, {marginTop: 20, paddingHorizontal: 50, borderRadius: 25}]}>
+
+                        <Text style={styles.subtitle}>{state.selectedChallenge.argomento}</Text>
+                        <Text style={styles.sectionText}>{state.selectedChallenge.titolo}</Text>
+                        <View style={{marginVertical: 5, backgroundColor: 'white', paddingVertical: 5, paddingHorizontal: 25, borderRadius: 10}}>
+                            <Text style={{fontSize: 18}}>{punteggioOttenuto} / {challenge.questions.length}</Text>
+                        </View>
+                    </View>
+                        {risposte.map((valore, index) => (
+                            <View style={styles.article} key={`question-${index}`}>
+                                <View style={styles.cardBase}>
+                                    <Card style={{borderRadius: 20, backgroundColor: myTheme.colors.cardBorder}}>
+                                        <Card.Content style={[styles.card, {paddingBottom: 15}]}>
+                                            <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
+                                                <Text style={{fontSize: 16, marginRight: 8, fontWeight: 'bold'}}>{index + 1}</Text>
+                                                <Text style={{fontSize: 16}}>{state.selectedChallenge.questions[index].Testo}</Text>
+                                            </View>
+                                            <IconButton
+                                                mode="contained-tonal"
+                                                onPress={() => setDialogVisible(true)}
+                                                contentStyle={{ height: 30 }}
+                                                labelStyle={{ fontSize: 14 }}
+                                                style={{backgroundColor: 'transparent', margin: 0}}
+                                                icon="alert"
+                                            />
+                                            <View>
+                                                <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                                                    <View style={[styles.callout, {marginTop: 6, backgroundColor: valore ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer}]}>
+                                                        <Text style={{paddingHorizontal: 6}}>{valore ? 'corretta' : 'sbagliata'}</Text>
+                                                    </View>
+                                                </View>
+                                            </View>
+                                        </Card.Content>
+                                        <TouchableOpacity onPress={() => toggleExpand(index)}
+                                                          style={{
+                                                              flex: 1,
+                                                              paddingTop: 0,
+                                                              paddingBottom: 10,
+                                                              backgroundColor: myTheme.colors.cardBorder,
+                                                              alignItems: 'flex-end',
+                                                              borderBottomLeftRadius: 20,
+                                                              borderBottomRightRadius: 20
+                                                          }}>
+                                            <Text style={{color: myTheme.colors.primary, paddingRight: 30, fontWeight: 'bold'}}>
+                                                {expandedIndex === index ?
+                                                    <MaterialCommunityIcons name="eye-off" size={24} color="black" /> :
+                                                    <MaterialCommunityIcons name="eye" size={24} color="black" />
+                                                }
+                                            </Text>
+                                        </TouchableOpacity>
+                                        <Collapsible collapsed={expandedIndex !== index}>
+                                            <View style={[styles.card, {padding: 15}]}>
+                                                <Divider />
+                                                {state.selectedChallenge.questions[index].Risposte.map((risposta, index2) => (
+                                                    <View key={`answer-${index}-${index2}`} style={{marginVertical: 8, padding: 8, borderRadius: 10,
+                                                        backgroundColor: risposta === listaRisposteDate[index]
+                                                            ? (risposta === state.selectedChallenge.questions[index].Soluzione ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer)
+                                                            : 'rgb(245,245,245)'}}>
+                                                        <Text style={{fontSize: 16}}>{risposta}</Text>
+                                                        <Divider />
+                                                    </View>
+                                                ))}
+                                                <View style={{paddingTop: 10}}>
+                                                    <Text style={styles.sectionText}>Spiegazione</Text>
+                                                    <Text>{state.selectedChallenge.questions[index].Spiegazione}</Text>
+                                                </View>
+                                            </View>
+                                        </Collapsible>
+                                    </Card>
+                                </View>
+                            </View>
+                        ))}
+
+                        <View style={styles.section}>
+                            <Card style={{alignItems: 'flex-between',backgroundColor: myTheme.colors.cardBorder, padding: 20, borderRadius: 25}}>
+                                <Text style={styles.sectionText}>Conteggio punti</Text>
+                                <View style={{flexDirection: 'row', paddingTop: 10}}>
+                                <View style={styles.miniWhiteCardBase}>
+                                    <View style={[styles.miniCard, {borderColor: 'white'}]}>
+                                        <View style={styles.insideCard}>
+                                            <View style={styles.row}>
+                                                <MaterialCommunityIcons
+                                                    name="lightning-bolt"
+                                                    size={24}
+                                                    color="black"
+                                                />
+                                                <Text style={{fontWeight: 'bold',marginLeft: 5,padding: 5, paddingHorizontal: 'auto'}}>
+                                                    {tempoTotaleXP}
+                                                </Text>
+                                            </View>
+                                        </View>
+                                        <View style={{paddingHorizontal: 3, paddingVertical: 5, alignItems: 'center'}}>
+                                            <Text style={styles.smallText}>Punti guadagnati per la velocità</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                                <View style={styles.miniWhiteCardBase}>
+                                    <View style={[styles.miniCard, {borderColor: 'white'}]}>
+                                        <View style={styles.insideCard}>
+                                            <View style={styles.row}>
+                                                <MaterialCommunityIcons
+                                                    name="weight-lifter"
+                                                    size={24}
+                                                    color="black"
+                                                />
+                                                <Text style={{fontWeight: 'bold',marginLeft: 5,padding: 5, paddingHorizontal: 'auto'}}>
+                                                    {state.selectedChallenge.difficolta * 50}
+                                                </Text>
+                                            </View>
+                                        </View>
+                                        <View style={{paddingHorizontal: 3, paddingVertical: 5, alignItems: 'center'}}>
+                                            <Text style={styles.smallText}>Punti guadagnati in base alla difficoltà</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                                <View style={styles.miniWhiteCardBase}>
+                                    <View style={[styles.miniCard, {borderColor: 'white'}]}>
+                                        <View style={styles.insideCard}>
+                                            <View style={styles.row}>
+                                                <MaterialCommunityIcons
+                                                    name="check"
+                                                    size={24}
+                                                    color="black"
+                                                />
+                                                <Text style={{fontWeight: 'bold',marginLeft: 5,padding: 5, paddingHorizontal: 'auto'}}>
+                                                    {xpCorrect}
+                                                </Text>
+                                            </View>
+                                        </View>
+                                        <View style={{paddingHorizontal: 3, paddingVertical: 5, alignItems: 'center'}}>
+                                            <Text style={styles.smallText}>Punti per le risposte corrette</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                                </View>
+                                <View style={{paddingTop: 10, paddingRight: 5, alignItems: 'center'}}>
+                                    <Text>Punti totali</Text>
+                                    <View style={{backgroundColor: 'white', padding: 5, paddingHorizontal: 30, borderRadius: 10}}>
+                                    <Text style={{fontSize: 30, fontWeight: 'bold', fontFamily: 'Itim', color: myTheme.colors.primary}}>{xp}</Text>
+                                    </View>
+                                    </View>
+                            </Card>
+                        </View>
+                    </View>
+                        <View style={{flex: 1, padding: 20, paddingHorizontal: 60}}>
+                        <View style={styles.buttonBase}>
+                            <Button style={styles.whiteButton} onPress={()=>
+                                navigation.goBack()}>Torna alla Home</Button>
+                        </View>
+                        </View>
+                    </View>
+                </ScrollView>
+                <View style={[styles.modalContainer, {backgroundColor: 'rgba(255,255,255,0)'}]}>
+                    <Modal
+                        visible={isDialogVisible}
+                        style={styles.drawerModalBase}
+                        transparent={true}
+                        animationType="slide"
+                        onRequestClose={() => setDialogVisible(false)}
+                    >
+                        <TouchableOpacity style={styles.modalContainer} activeOpacity={1} onPress={() => setDialogVisible(false)}>>
+                            <TouchableOpacity style={styles.drawerModalBase} activeOpacity={1} >
+                                <Dialog.Title><Text style={styles.welcomeText}>Perchè vuoi segnalare questa domanda?</Text></Dialog.Title>
+                                <Dialog.Content>
+                                    <RadioButton.Group onValueChange={value => setMotivo(value)} value={motivo}>
+                                        <RadioButton.Item label="Grammatica o scrittura" value="grammatica o scrittura" />
+                                        <RadioButton.Item label="Domanda ripetuta" value="domanda ripetuta" />
+                                        <RadioButton.Item label="Risposta sbagliata" value="risposta sbagliata" />
+                                    </RadioButton.Group>
+
+
+                                    <TextInput
+                                        label="Motivo"
+                                        value={motivo}
+                                        onChangeText={setMotivo}
+                                        multiline
+                                        style={{marginVertical: 5}}
+                                        numberOfLines={4}
+                                        mode="outlined"
+                                        outlineStyle={{borderRadius: 50, borderWidth: 2}}
+                                    />
+
+                                </Dialog.Content>
+                                <Dialog.Actions>
+
+                                    <Button
+                                        mode="outlined"
+                                        style={styles.expandButton}
+                                        onPress={handleCloseModal}>Annulla</Button>
+                                    <Button
+                                        mode="contained"
+                                        style={styles.expandButton}
+                                        onPress={handleSegnala}>Segnala</Button>
+
+                                </Dialog.Actions>
+                            </TouchableOpacity>
+                        </TouchableOpacity>
+                    </Modal>
+                </View>
+
+
 
             </View>
-        );
+    );
     }
 }

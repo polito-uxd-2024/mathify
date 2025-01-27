@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39542f42-9a80-4e54-af61-1f4385b67116" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Mathify/config.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mathify/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mathify/Component/SegmentedButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/SegmentedButton.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mathify/Component/style.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/style.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/Component/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/theme.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mathify/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mathify/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mathify/pages/PlayScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/PlayScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/pages/SfidaDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/SfidaDetail.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +22,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -42,23 +45,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/chicc/Documents/Lavoro e Studio/Università/UxDesign/mathify/Mathify",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "C:\\ILARIA\\mathify\\Mathify\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;nuovo-stile&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/chicc/Documents/Lavoro e Studio/Università/UxDesign/mathify/Mathify&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\ILARIA\\mathify\\Mathify\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -94,6 +97,15 @@
       <workItem from="1737333092703" duration="5361000" />
       <workItem from="1737374631514" duration="6605000" />
       <workItem from="1737405073666" duration="9102000" />
+      <workItem from="1737456207547" duration="1173000" />
+      <workItem from="1737569345838" duration="10000" />
+      <workItem from="1737645564434" duration="591000" />
+      <workItem from="1737648855889" duration="6273000" />
+      <workItem from="1737674489188" duration="13370000" />
+      <workItem from="1737729273327" duration="1486000" />
+      <workItem from="1737854948231" duration="374000" />
+      <workItem from="1737855335286" duration="657000" />
+      <workItem from="1737856011914" duration="3101000" />
     </task>
     <servers />
   </component>

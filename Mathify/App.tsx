@@ -1,4 +1,4 @@
-import React, {ReducerState, useReducer, useState} from 'react';
+import React, {ReducerState, useEffect, useReducer, useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { MD3LightTheme as DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import Navigation from './Component/navigation';
@@ -8,7 +8,8 @@ import {CombinedDarkTheme, CombinedDefaultTheme} from "./Component/theme";
 import {PreferencesContext} from "./Component/PreferencesContext";
 import {DarkTheme} from "@react-navigation/native";
 
-
+import useFonts from './useFonts';
+import AppLoading from "expo-app-loading";
 
 
 
@@ -29,8 +30,20 @@ export default function App() {
         }),
         [toggleTheme, isThemeDark]
     );
+    {/*
+    const [fontsLoaded, setFontsLoaded] = useState(false);
 
+    useEffect(() => {
+        async function loadFonts() {
+            await useFonts();
+            setFontsLoaded(true);
+        }
+        loadFonts();
+    }, []);
 
+    if (!fontsLoaded) {
+        return <AppLoading />;
+    }*/}
     return (
 
 

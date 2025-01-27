@@ -12,7 +12,8 @@ import * as React from "react";
 import CardContent from "react-native-paper/lib/typescript/components/Card/CardContent";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import { ScrollView } from 'react-native'
-
+import {myTheme} from "../Component/theme";
+import { FontAwesome } from 'react-native-vector-icons';
 export default function ProfilePage() {
     const navigation = useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
     const [state] = useContext(StateContext);
@@ -23,121 +24,136 @@ export default function ProfilePage() {
     return (
 
         <View style={{ flex: 1 }}>
-            <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
-                <Card style={{ marginBottom: 16, width: "100%", position: "relative",alignItems:"center" }}>
+            <ScrollView contentContainerStyle={{ paddingBottom: 20}}>
+                <View >
                     {/* Immagine */}
-                    <Card.Content>
-                        <ImageBackground
-                            source={{ uri: 'https://cdn.pixabay.com/photo/2017/05/02/15/05/addition-2278415_1280.jpg' }}
-                            style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 2, marginBottom: 10 }}
-                            imageStyle={{ borderRadius: 0 }}
-                        >
-                            {/* Tasto Impostazioni in alto a destra */}
-                            <IconButton
-                                icon="cog" // Icona per le impostazioni
-                                size={30}
-                                onPress={() => {
-                                    // Azione per il bottone delle impostazioni
-                                    navigation.navigate("Impostazioni");
-                                }}
-                                style={{
-                                    position: 'absolute',
-                                    top: 10,
-                                    right: 10,
-                                    backgroundColor: 'rgba(255, 255, 255, 0.2)', // Colore di sfondo semitrasparente per visibilità
-                                    borderRadius: 50, // Rende il bottone circolare
-                                }}
-                            />
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <View style={{ alignItems: "center", marginVertical: 100 }}>
-                                </View>
-                            </View>
-                        </ImageBackground>
-                    </Card.Content>
+                    <View style={{padding: 20}}>
 
-                    <Card.Content>
+                            <ImageBackground
+                                source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
+                                style={{flex: 1}}
+                                imageStyle={styles.coverImage}
+                            >
+                                {/* Tasto Impostazioni in alto a destra */}
+                                <IconButton
+                                    icon="cog" // Icona per le impostazioni
+                                    size={30}
+                                    onPress={() => {
+                                        // Azione per il bottone delle impostazioni
+                                        navigation.navigate("Impostazioni");
+                                    }}
+                                    style={{
+                                        position: 'absolute',
+                                        top: 20,
+                                        right: 10,
+                                        backgroundColor: 'rgba(255, 255, 255, 0.2)', // Colore di sfondo semitrasparente per visibilità
+                                        borderRadius: 50, // Rende il bottone circolare
+                                    }}
+                                />
+                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                    <View style={{ alignItems: "center", marginVertical: 100 }}>
+                                    </View>
+                                </View>
+                            </ImageBackground>
+
+
+
                         {/* Nome e cognome */}
-                        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                            <Text style={{ fontSize: 35, fontWeight: "bold", marginLeft: 20 }}>
+                        <View style={{ flexDirection: "row", marginTop: 20, justifyContent: "space-between", alignItems: "center" }}>
+                            <Text style={styles.bigWelcomeText}>
                                 {state.utente.nome} {state.utente.cognome}
                             </Text>
                         </View>
-
-                        {/* Visualizza email */}
-                        <View style={{ paddingHorizontal: 16 }}>
-                            <Text style={{ fontSize: 14, marginLeft: 7, color: "gray" }}>
+                        <View >
+                            <Text style={styles.subtitle}>
                                 {state.utente.email}
                             </Text>
                         </View>
+                    </View>
+                        <View>
 
-                        {/* Visualizza Livello */}
                         <View style={{ paddingHorizontal: 16, marginVertical: 20 }}>
-                            <Text style={{ fontSize: 25, marginLeft: 7 }}>
+                            <Text style={styles.welcomeText}>
                                 Livello
                             </Text>
                         </View>
-
-                        <Card style={{ marginBottom: 16, position: "relative", alignSelf: "center", width: "70%" }}>
+                        <View style={{paddingHorizontal: 16}}>
+                        <View style={styles.primaryCard}>
+                            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                             {/* Livello e stella */}
-                            <View style={{ top: 10, right: 10, alignItems: 'left', marginLeft: 10 }}>
-                                <MaterialCommunityIcons
-                                    name="star"
-                                    size={60}
-                                    color="gold" // Colore dorato
-                                    style={{ marginRight: 8 }}
-                                />
-                                <Text style={{ position: "absolute", fontSize: 20, fontWeight: 'bold', color: 'white', marginTop: 22, marginLeft: 18, textAlign: "center" }}>
-                                    {state.utente.livello.numero} {/* Numero del livello */}
-                                </Text>
-                            </View>
+                                <View style={{alignItems: 'center', justifyContent: 'center' }}>
+                                    <FontAwesome
+                                        name="star"
+                                        size={70}
+                                        color= 'white'
+                                    />
+                                    <Text style={{ position: "absolute", fontSize: 20, fontWeight: 'bold', color: myTheme.colors.primary, textAlign: "center" }}>
+                                    {state.utente.livello.numero}{/* Numero del livello */}
+                                    </Text>
+                                </View>
+                                <View>
+                                {/* Livello Utente */}
 
-                            {/* Livello Utente */}
-                            <Text style={{ color: 'white', fontWeight: 'bold', textAlign: "center", marginTop: 8, color: "black" }}>
-                                Apprendista {Math.round((state.utente.livello.xpTotali / 5000) * 100)}% {/* Percentuale calcolata */}
-                            </Text>
 
-                            {/* Barra di Progresso */}
-                            <View style={{ flexDirection: 'column', alignItems: 'center', marginTop: 4, marginLeft: 5, marginBottom: 4, marginRight: 5 }}>
-                                <ProgressBar
-                                    progress={parseFloat((state.utente.livello.xpTotali / 5000).toFixed(1))} // Conversione esplicita
-                                    color="orange"
-                                    style={{ height: 8, borderRadius: 4, width: "100%" }}
-                                />
+                                {/* Barra di Progresso */}
+                                <View style={{ marginLeft: 10, backgroundColor: 'white', padding: 10, borderRadius: 10, flexDirection: 'column', alignItems: 'center', paddingLeft: 15, marginBottom: 4, marginRight: 5 }}>
+
+                                    <Text style={{ fontWeight: 'bold', textAlign: "center", marginBottom: 4 }}>
+                                        Apprendista{/* Percentuale calcolata */}
+                                    </Text>
+                                    <View style={{ position: 'relative', width: 180}}>
+                                        <ProgressBar
+                                            progress={parseFloat((state.utente.livello.xpTotali / 5000).toFixed(2))}
+                                            color={myTheme.colors.primary}
+                                            style={[styles.progressBar, { width: '100%'}]}
+                                        />
+                                        <Text style={{color: 'white', position: 'absolute', width: '100%', textAlign: 'left', fontWeight: 'bold', marginLeft: 20, }}>
+                                            {Math.round((state.utente.livello.xpTotali / 5000) * 100)}%
+                                        </Text>
+                                    </View>
+                                </View>
+                                </View>
                             </View>
-                        </Card>
+                        </View>
+                        </View>
 
                         {/* Visualizza Attività */}
                         <View style={{ paddingHorizontal: 16, marginVertical: 20 }}>
-                            <Text style={{ fontSize: 25, marginLeft: 7 }}>
+                            <Text style={styles.welcomeText}>
                                 Attività
                             </Text>
                         </View>
 
-                        <View style={{ flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 16 }}>
+                        <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 16 }}>
                             {/* Prima Card */}
-                            <View style={{ flex: 1, backgroundColor: '#f0f0f0', marginRight: 8, padding: 16, borderRadius: 10, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ fontSize: 16, textAlign: 'center' }}>
+
+                            <View style={styles.grayCard}>
+                                <Text style={{ fontSize: 13, textAlign: 'center' }}>
                                     Sfide completate nell'ultima settimana
                                 </Text>
-                                <Text style={{ fontSize: 40, fontWeight: 'bold', marginTop: 10 }}>
+                                <View style={styles.insideCardWhite}>
+                                <Text style={{ fontSize: 40, fontWeight: 'bold', fontFamily: 'Itim', color: myTheme.colors.primary }}>
                                     4
                                 </Text>
+                                </View>
                             </View>
-
-                            {/* Seconda Card */}
-                            <View style={{ flex: 1, backgroundColor: '#f0f0f0', marginLeft: 8, padding: 16, borderRadius: 10, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ fontSize: 16, textAlign: 'center' }}>
+                            <View style={styles.grayCard}>
+                                <Text style={{ fontSize: 13, textAlign: 'center' }}>
                                     Sfide completate nell'ultimo mese
                                 </Text>
-                                <Text style={{ fontSize: 40, fontWeight: 'bold', marginTop: 10 }}>
-                                    12
-                                </Text>
+                                <View style={styles.insideCardWhite}>
+                                    <Text style={{ fontSize: 40, fontWeight: 'bold', fontFamily: 'Itim', color: myTheme.colors.primary }}>
+                                        12
+                                    </Text>
+                                </View>
                             </View>
                         </View>
 
+
+
                         {/* Visualizza Badge */}
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 16, marginVertical: 20 }}>
-                            <Text style={{ fontSize: 25, marginLeft: 7 }}>
+                            <Text style={styles.welcomeText}>
                                 Badge
                             </Text>
 
@@ -209,107 +225,161 @@ export default function ProfilePage() {
                                         </View>
                                     </View>
                                 ))}
-
                         </View>
 
                         {/* Visualizza Specialità */}
                         <View style={{ paddingHorizontal: 16, marginVertical: 20 }}>
-                            <Text style={{ fontSize: 25, marginLeft: 7 }}>
+                            <Text style={styles.welcomeText}>
                                 Le tue Specialità
                             </Text>
-
+                            <View style={styles.section}>
+                            <Text style={styles.sectionText}>
+                                # 1
+                            </Text>
                             {/* Card per Logaritmi */}
-                            <View style={{backgroundColor: '#f5f5f5', borderRadius: 10, padding: 16, marginTop: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                            <View style={styles.grayCardRow}>
                                 {/* Icona Trofeo */}
-                                <MaterialCommunityIcons
-                                    name="trophy"
-                                    size={40}
-                                    color="#f39c12"
-                                />
+                                <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, backgroundColor: 'white', borderRadius: 10}}>
+                                    <MaterialCommunityIcons
+                                        name="trophy"
+                                        size={40}
+                                        color="white"
+                                        style={{backgroundColor: myTheme.colors.cardBorder, padding: 5, borderRadius: 100, borderWidth: 5, borderColor: 'gold'}}
+                                    />
+                                {/* Badge Fuoriclasse */}
+                                <View style={{ marginTop: 5, backgroundColor: myTheme.colors.primary, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
+                                    <Text style={{ color: 'white', fontSize: 12}}>
+                                        Fuoriclasse
+                                    </Text>
+                                </View>
+                                </View>
 
                                 {/* Dettagli della Specialità */}
-                                <View style={{ flex: 1, marginLeft: 10 }}>
-                                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+                                <View style={{ flex: 1, marginLeft: 20 }}>
+                                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>
                                         Logaritmi
                                     </Text>
-                                    <Text style={{ fontSize: 14, color: 'gray', marginTop: 5 }}>
+                                    <View style={styles.calloutXp}>
+                                    <MaterialCommunityIcons
+                                        name="star-four-points"
+                                        size={18}
+                                        color="gold"
+                                    />
+                                    <Text style={[styles.calloutText, {color: 'gray'}]}>
                                         +1500 XP
                                     </Text>
+                                    <MaterialCommunityIcons
+                                        name="star-four-points"
+                                        size={18}
+                                        color="gold"
+                                    />
+                                    </View>
                                     <Text style={{ fontSize: 14, color: 'gray' }}>
                                         12 sfide completate
                                     </Text>
                                 </View>
-
-                                {/* Badge Fuoriclasse */}
-                                <View style={{backgroundColor: '#3498db', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
-                                    <Text style={{ color: 'white', fontSize: 14 }}>
-                                        Fuoriclasse
-                                    </Text>
-                                </View>
                             </View>
-
-                            {/* Card per Trigonometria */}
-                            <View style={{backgroundColor: '#f5f5f5', borderRadius: 10, padding: 16, marginTop: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                                {/* Icona libro */}
-                                <MaterialCommunityIcons
-                                    name="book"
-                                    size={40}
-                                    color="#2ecc71"
-                                />
+                            </View>
+                            {/* Card per Logaritmi */}
+                            <View style={styles.section}>
+                                <Text style={styles.sectionText}>
+                                    # 2
+                                </Text>
+                                <View style={styles.grayCardRow}>    {/* Icona Trofeo */}
+                                <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, backgroundColor: 'white', borderRadius: 10}}>
+                                    <MaterialCommunityIcons
+                                        name="account-star"
+                                        size={40}
+                                        color="white"
+                                        style={{backgroundColor: myTheme.colors.cardBorder, padding: 5, borderRadius: 100, borderWidth: 5, borderColor: 'gold'}}
+                                    />
+                                    {/* Badge Fuoriclasse */}
+                                    <View style={{ marginTop: 5, backgroundColor: myTheme.colors.primary, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
+                                        <Text style={{ color: 'white', fontSize: 12}}>
+                                            Maestro
+                                        </Text>
+                                    </View>
+                                </View>
 
                                 {/* Dettagli della Specialità */}
-                                <View style={{ flex: 1, marginLeft: 10 }}>
-                                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-                                        Trigonometria
+                                <View style={{ flex: 1, marginLeft: 20 }}>
+                                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>
+                                        Funzioni
                                     </Text>
-                                    <Text style={{ fontSize: 14, color: 'gray', marginTop: 5 }}>
-                                        +1200 XP
-                                    </Text>
+                                    <View style={styles.calloutXp}>
+                                        <MaterialCommunityIcons
+                                            name="star-four-points"
+                                            size={18}
+                                            color="gold"
+                                        />
+                                        <Text style={[styles.calloutText, {color: 'gray'}]}>
+                                            +1200 XP
+                                        </Text>
+                                        <MaterialCommunityIcons
+                                            name="star-four-points"
+                                            size={18}
+                                            color="gold"
+                                        />
+                                    </View>
                                     <Text style={{ fontSize: 14, color: 'gray' }}>
                                         10 sfide completate
                                     </Text>
                                 </View>
-
-                                {/* Badge Maestro */}
-                                <View style={{backgroundColor: '#8e44ad', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
-                                    <Text style={{ color: 'white', fontSize: 14 }}>
-                                        Maestro
-                                    </Text>
-                                </View>
+                            </View>
                             </View>
 
-                            {/* Card per Funzioni */}
-                            <View style={{backgroundColor: '#f5f5f5', borderRadius: 10, padding: 16, marginTop: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                                {/* Icona Telescopio */}
-                                <MaterialCommunityIcons
-                                    name="telescope"
-                                    size={40}
-                                    color="#9b59b6"
-                                />
+
+                            {/* Card per Logaritmi */}
+                            <View style={styles.section}>
+                                <Text style={styles.sectionText}>
+                                    # 3
+                                </Text>
+                                <View style={styles.grayCardRow}>    {/* Icona Trofeo */}
+                                <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, backgroundColor: 'white', borderRadius: 10}}>
+                                    <MaterialCommunityIcons
+                                        name="telescope"
+                                        size={40}
+                                        color="white"
+                                        style={{backgroundColor: myTheme.colors.cardBorder, padding: 5, borderRadius: 100, borderWidth: 5, borderColor: 'gold'}}
+                                    />
+                                    {/* Badge Fuoriclasse */}
+                                    <View style={{ marginTop: 5, backgroundColor: myTheme.colors.primary, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
+                                        <Text style={{ color: 'white', fontSize: 12}}>
+                                            Esploratore
+                                        </Text>
+                                    </View>
+                                </View>
 
                                 {/* Dettagli della Specialità */}
-                                <View style={{ flex: 1, marginLeft: 10 }}>
-                                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-                                        Funzioni
+                                <View style={{ flex: 1, marginLeft: 20 }}>
+                                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>
+                                        Trigonometria
                                     </Text>
-                                    <Text style={{ fontSize: 14, color: 'gray', marginTop: 5 }}>
-                                        +5000 XP
-                                    </Text>
+                                    <View style={styles.calloutXp}>
+                                        <MaterialCommunityIcons
+                                            name="star-four-points"
+                                            size={18}
+                                            color="gold"
+                                        />
+                                        <Text style={[styles.calloutText, {color: 'gray'}]}>
+                                            +500 XP
+                                        </Text>
+                                        <MaterialCommunityIcons
+                                            name="star-four-points"
+                                            size={18}
+                                            color="gold"
+                                        />
+                                    </View>
                                     <Text style={{ fontSize: 14, color: 'gray' }}>
                                         5 sfide completate
                                     </Text>
                                 </View>
-
-                                {/* Badge Esploratore */}
-                                <View style={{backgroundColor: '#9b59b6', paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
-                                    <Text style={{ color: 'white', fontSize: 14 }}>
-                                        Esploratore
-                                    </Text>
-                                </View>
                             </View>
+                            </View>
+
                         </View>
-                    </Card.Content>
-                </Card>
+                    </View>
+                </View>
             </ScrollView>
         </View>
 
