@@ -4,6 +4,8 @@ import {Appbar, Avatar, Card, Text} from 'react-native-paper';
 import { styles } from '../Component/style';
 import {StateContext} from "../Reducer";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
+import {myTheme} from "../Component/theme";
+import {FontAwesome} from "react-native-vector-icons";
 
 export default function Classe() {
 
@@ -26,10 +28,10 @@ export default function Classe() {
                 <Appbar.Content title="Classe" />
             </Appbar.Header>
             <View style={styles.content}>
-                <View style={[styles.section, {marginRight:5, marginLeft:5}]}>
+                <View style={[styles.section, {marginRight:30, marginLeft:30}]}>
 
-                        <View style={[styles.cardBase, {}]}>
-                            <Card style={styles.card}>
+                        <View>
+                            <Card style={[styles.card, {backgroundColor: myTheme.colors.gray}]}>
                                 <View style={{flexDirection: 'row', marginBottom: 10, marginHorizontal: 10}}>
                                     <View style={{marginTop: 10}}>
                                         <Image source={require('../assets/placeholder.jpg')} style={styles.cardImage}/>
@@ -58,7 +60,7 @@ export default function Classe() {
                                 <MaterialCommunityIcons
                                     name="star"
                                     size={40}
-                                    color="white"
+                                    color={myTheme.colors.gray}
                                 />
                             </Text></View>
                         </View>
@@ -68,7 +70,7 @@ export default function Classe() {
                                 <MaterialCommunityIcons
                                     name="trophy"
                                     size={40}
-                                    color="white"
+                                    color={myTheme.colors.gray}
                                 />
                             </Text></View>
                         </View>
@@ -78,7 +80,7 @@ export default function Classe() {
                                 <MaterialCommunityIcons
                                     name="medal"
                                     size={40}
-                                    color="white"
+                                    color={myTheme.colors.gray}
                                 />
                             </Text></View>
                         </View>
@@ -87,16 +89,26 @@ export default function Classe() {
                 </View>
                 <View style={styles.section}>
                     <Text style={[styles.welcomeText, {marginTop:30, marginLeft:5}]}>La tua classe</Text>
-                    <View style={{flexDirection: 'row', flexWrap: 'wrap', paddingTop: 30}}>
+                    <View style={{flexDirection: 'row', flexWrap: 'wrap', paddingTop: 30, backgroundColor:myTheme.colors.gray, borderWidth: 2, marginTop: 5, borderColor: 'black', borderRadius: 20, padding: 16, marginLeft:15, marginRight:15, marginBottom:5}}>
                     {classmates.map((classmate, index) => (
-                        <View style={{width: '50%' }}>
+                        <View style={{width: '100%' }}>
                             <View style={{padding: 10}}>
-                                <View style={styles.cardBase}>
-                                    <Card style={styles.card}>
+                                <View >
+                                    <Card style={[styles.card, {backgroundColor: myTheme.colors.gray}]}>
                                         <Card.Content>
                                             <Image source={require('../assets/placeholder.jpg')} style={{width: 80, height: 80, marginRight: 10, borderRadius: 100}}/>
                                             <View>
                                                 <Card.Title title={classmate.firstName + " " + classmate.lastName} />
+                                                <View style={{alignItems: 'center', justifyContent: 'center' }}>
+                                                    <FontAwesome
+                                                        name="star"
+                                                        size={70}
+                                                        color= 'white'
+                                                    />
+                                                    <Text style={{ position: "absolute", fontSize: 20, fontWeight: 'bold', color: myTheme.colors.primary, textAlign: "center" }}>
+                                                        {classmate.level}{/* Numero del livello */}
+                                                    </Text>
+                                                </View>
                                                 <Text>Livello {classmate.level}</Text>
                                                 <Text>Specialità: {classmate.specialita}</Text>
                                             </View>
