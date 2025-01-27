@@ -137,6 +137,8 @@ export default function PlayScreen() {
             motivo:motivo,
             sfida:{titolo:sfida.titolo,argomento:sfida.argomento}
         }
+        console.log("Segnalazione",segnalazione)
+
         registraSegnalazione(segnalazione)
 
         setDialogVisible(false)
@@ -663,7 +665,7 @@ export default function PlayScreen() {
                         </View>
                     </View>
                 </ScrollView>
-                <View style={[styles.modalContainer, {backgroundColor: 'rgba(255,255,255,0)'}]}>
+                <SafeAreaView style={[styles.modalContainer, {backgroundColor: 'rgba(255,255,255,0)'}]}>
                     <Modal
                         visible={isDialogVisible}
                         style={styles.drawerModalBase}
@@ -671,45 +673,49 @@ export default function PlayScreen() {
                         animationType="slide"
                         onRequestClose={() => setDialogVisible(false)}
                     >
-                        <TouchableOpacity style={styles.modalContainer} activeOpacity={1} onPress={() => setDialogVisible(false)}>>
-                            <TouchableOpacity style={styles.drawerModalBase} activeOpacity={1} >
-                                <Dialog.Title><Text style={styles.welcomeText}>Perchè vuoi segnalare questa domanda?</Text></Dialog.Title>
+                        <TouchableOpacity style={styles.modalContainer} activeOpacity={1} onPress={() => setDialogVisible(false)}>
+                            <TouchableOpacity style={styles.drawerModalBase} activeOpacity={1}>
+                                <Dialog.Title>
+                                    <Text style={styles.welcomeText}>Perchè vuoi segnalare questa domanda?</Text>
+                                </Dialog.Title>
                                 <Dialog.Content>
                                     <RadioButton.Group onValueChange={value => setMotivo(value)} value={motivo}>
                                         <RadioButton.Item label="Grammatica o scrittura" value="grammatica o scrittura" />
                                         <RadioButton.Item label="Domanda ripetuta" value="domanda ripetuta" />
                                         <RadioButton.Item label="Risposta sbagliata" value="risposta sbagliata" />
                                     </RadioButton.Group>
-
-
                                     <TextInput
                                         label="Motivo"
                                         value={motivo}
                                         onChangeText={setMotivo}
                                         multiline
-                                        style={{marginVertical: 5}}
+                                        style={{ marginVertical: 5 }}
                                         numberOfLines={4}
                                         mode="outlined"
-                                        outlineStyle={{borderRadius: 50, borderWidth: 2}}
+                                        outlineStyle={{ borderRadius: 50, borderWidth: 2 }}
                                     />
-
                                 </Dialog.Content>
                                 <Dialog.Actions>
-
                                     <Button
                                         mode="outlined"
-                                        style={styles.expandButton}
-                                        onPress={handleCloseModal}>Annulla</Button>
+                                        style={[styles.expandButton, {backgroundColor: "white"}]}
+                                        onPress={handleCloseModal}
+                                    >
+                                        Annulla
+                                    </Button>
                                     <Button
                                         mode="contained"
-                                        style={styles.expandButton}
-                                        onPress={handleSegnala}>Segnala</Button>
+                                        style={[styles.expandButton, {backgroundColor: "gold"}]}
+                                        onPress={handleSegnala}
+                                    >
+                                        <Text style={{color:"black"}}>Segnala</Text>
 
+                                    </Button>
                                 </Dialog.Actions>
                             </TouchableOpacity>
                         </TouchableOpacity>
                     </Modal>
-                </View>
+                </SafeAreaView>
 
 
 

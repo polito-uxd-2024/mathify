@@ -5,12 +5,12 @@ import {
     Image,
     Modal,
     Text,
-    Button,
+
     StyleSheet,
     TouchableOpacity,
-    ImageBackground, SafeAreaView
+    ImageBackground, SafeAreaView, Animated
 } from 'react-native';
-import {Appbar, Card, List, FAB, Searchbar, SegmentedButtons, IconButton, TextInput, Avatar} from 'react-native-paper';
+import {Appbar, Card, List, FAB, Searchbar, SegmentedButtons, IconButton, TextInput, Avata, Button} from 'react-native-paper';
 import { styles } from '../Component/style';
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
 import {MaterialeStackParamList} from "../Component/navigation";
@@ -19,6 +19,7 @@ import {StateContext} from "../Reducer";
 import {useSetCurrentUser} from "../Component/setUser";
 import {myTheme} from "../Component/theme";
 import {white} from "react-native-paper/lib/typescript/styles/themes/v2/colors";
+import add = Animated.add;
 
 type Material = {
     title: string;
@@ -376,63 +377,87 @@ export default function Materiale() {
                             </Card.Content>
                         </Card>*/
                         <View style={styles.section}>
-                            <Text style={styles.bigWelcomeText}>Materiale Salvato</Text>
-                            <View style={styles.article}>
-                                {savedMaterials.map((material) => (
-                                    <TouchableOpacity
-                                        key={material.id}
-                                        onPress={() => handleTopicPress(material)}
-                                        style={{ marginVertical: 8 }}
-                                    >
-                                        <View style={[styles.cardBase]}>
-                                            <View style={[styles.card]}>
-                                                <List.Item
-                                                    title={material.title}
-                                                    description={material.description}
-                                                    left={() => <List.Icon icon={material.icon} color="gold" />}
-                                                    style={{ paddingLeft: 20, paddingBottom: 10 }}
-                                                    right={() => (
-                                                        <IconButton
-                                                            icon={savedMaterials.some((m) => m.id === material.id) ? "check" : "bookmark"}
-                                                            onPress={() => handleSaveMaterial(material)}
-                                                            iconColor="white"
-                                                            style={{ backgroundColor: myTheme.colors.blue }}
-                                                        />
-                                                    )}
-                                                />
+                            {savedMaterials.length === 0 ? (
+                                <View>
+                                    <Text style={styles.bigWelcomeText}>Nessun Materiale Salvato</Text>
+                                </View>
+                            ) : (
+                                <View style={styles.article}>
+                                    {savedMaterials.map((material) => (
+                                        <TouchableOpacity
+                                            key={material.id}
+                                            onPress={() => handleTopicPress(material)}
+                                            style={{ marginVertical: 8 }}
+                                        >
+                                            <View style={[styles.cardBase]}>
+                                                <View style={[styles.card]}>
+                                                    <List.Item
+                                                        title={material.title}
+                                                        description={material.description}
+                                                        left={() => <List.Icon icon={material.icon} color="gold" />}
+                                                        style={{ paddingLeft: 20, paddingBottom: 10 }}
+                                                        right={() => (
+                                                            <IconButton
+                                                                icon={savedMaterials.some((m) => m.id === material.id) ? "check" : "bookmark"}
+                                                                onPress={() => handleSaveMaterial(material)}
+                                                                iconColor="white"
+                                                                style={{ backgroundColor: myTheme.colors.blue }}
+                                                            />
+                                                        )}
+                                                    />
+                                                </View>
                                             </View>
-                                        </View>
-                                    </TouchableOpacity>
-                                ))}
-                            </View>
+                                        </TouchableOpacity>
+                                    ))}
+                                </View>
+                            )}
                         </View>)}
 
 
-                    {activeTab === 'created' && (
+                    {activeTab === 'created' &&  (
                         <View style={styles.section}>
-                            <Text style={styles.bigWelcomeText}>Materiale Aggiunto</Text>
-                            <View style={styles.article}>
+                            {addedMaterials.length !== 0 ? (
+                                <>
+                                    <Text style={styles.bigWelcomeText}>Materiale Aggiunto</Text>
+                                    <View style={styles.article}>
+                                        ```typescript
+                                        {addedMaterials.map((material, index) => (
+                                            <TouchableOpacity
+                                                key={material.id}
+                                                onPress={() => handleTopicPress(material)}
+                                                style={{ marginVertical: 8 }}
+                                            >
+                                                <View style={[styles.cardBase]}>
+                                                    <View style={[styles.card]}>
+                                                        <List.Item
+                                                            title={material.title}
+                                                            description={material.description}
+                                                            left={() => <List.Icon icon={material.icon} color="gold" />}
+                                                            style={{ paddingLeft: 20, paddingBottom: 10 }}
+                                                            right={() => (
+                                                                <View style={{ flexDirection: "row" }}>
 
-                            {addedMaterials.map((material, index) => (
-                                <TouchableOpacity
-                                    key={material.id}
-                                    onPress={() => handleTopicPress(material)}
-                                    style={{ marginVertical: 8 }}
-                                >
-                                    <View style={[styles.cardBase]}>
-                                        <View style={[styles.card]}>
-                                            <List.Item
-                                                title={material.title}
-                                                description={material.description}
-                                                left={() => <List.Icon icon={material.icon} color="gold" />}
-                                                style={{ paddingLeft: 20, paddingBottom: 10 }}
-
-                                            />
-                                        </View>
+                                                                    <IconButton
+                                                                        icon="delete"
+                                                                        onPress={() => setAddedMaterials(addedMaterials.filter((m) => m.id !== material.id))}
+                                                                        iconColor="white"
+                                                                        style={{ backgroundColor: "red" }}
+                                                                    />
+                                                                </View>
+                                                            )}
+                                                        />
+                                                    </View>
+                                                </View>
+                                            </TouchableOpacity>
+                                        ))}
+                                        ```
                                     </View>
-                                </TouchableOpacity>
-                            ))}
-                            </View>
+                                </>
+                            ) : (
+                                <View>
+                                    <Text style={styles.bigWelcomeText}>Nessun Materiale Aggiunto</Text>
+                                </View>
+                            )}
                         </View>
                     )}
 
@@ -455,41 +480,45 @@ export default function Materiale() {
                 >
                     <View style={MaterialStyles.modalContainer}>
                         <View style={MaterialStyles.modalContent}>
-                            <Text>Aggiungi Materiale</Text>
+                            <Text style={styles.welcomeText}>Carica Il Tuo Materiale</Text>
                             <TextInput
-                                style={MaterialStyles.input}
+                                style={styles.input}
                                 placeholder="Titolo"
                                 value={newMaterial.title}
                                 onChangeText={(text) => setNewMaterial({ ...newMaterial, title: text })}
                             />
                             <TextInput
-                                style={MaterialStyles.input}
+                                style={styles.input}
                                 placeholder="Descrizione"
                                 value={newMaterial.description}
                                 onChangeText={(text) => setNewMaterial({ ...newMaterial, description: text })}
                             />
                             <TextInput
-                                style={[MaterialStyles.input, { height: 80 }]}
+                                style={[styles.input, { height: 80 }]}
                                 placeholder="Descrizione Lunga"
                                 multiline
                                 value={newMaterial.longDescription}
                                 onChangeText={(text) => setNewMaterial({ ...newMaterial, longDescription: text })}
                             />
                             <TextInput
-                                style={MaterialStyles.input}
+                                style={styles.input}
                                 placeholder="Icona"
                                 value={newMaterial.icon}
                                 onChangeText={(text) => setNewMaterial({ ...newMaterial, icon: text })}
                             />
                             <TextInput
-                                style={MaterialStyles.input}
+                                style={styles.input}
                                 placeholder="URL Immagine"
                                 value={newMaterial.image}
                                 onChangeText={(text) => setNewMaterial({ ...newMaterial, image: text })}
                             />
-                            <View style={MaterialStyles.modalButtons}>
-                                <Button title="Annulla" onPress={() => setModalVisible(false)} />
-                                <Button title="Aggiungi" onPress={handleAddMaterial} />
+                            <View style={[MaterialStyles.modalButtons, {flexDirection: "row", justifyContent: "space-around"}]}>
+                                <Button onPress={() => setModalVisible(false)} style={[styles.expandButton, {backgroundColor: "white", flex: 0.45}]}>
+                                    <Text style={[styles.calloutText, {color: "black"}]}>Annulla</Text>
+                                </Button>
+                                <Button onPress={handleAddMaterial} style={[styles.expandButton, {backgroundColor: "gold", flex: 0.45}]}>
+                                    <Text style={[styles.calloutText, {color: "black"}]}>Carica</Text>
+                                </Button>
                             </View>
                         </View>
                     </View>
