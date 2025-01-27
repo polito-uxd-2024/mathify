@@ -1,20 +1,28 @@
 import React, { useState } from 'react';
-import { View, Text, Alert, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { myTheme } from "../Component/theme";
 import { styles } from '../Component/style';
 
 export default function SfideProgrammate() {
-    // Array di sfide con date associate
+    // Array di sfide con date, orario e nome del professore associati
     const sfideProgrammate = {
-        "2025-02-01": [{ Titolo: "Triangoli", Argomento: "Geometria" }],
-        "2025-02-03": [
-            { Titolo: "Moto rettilineo", Argomento: "Fisica" },
-            { Titolo: "Caduta libera", Argomento: "Fisica" },
+        "2025-02-01": [
+            { Titolo: "Triangoli", Argomento: "Geometria", Orario: "10:00", Professore: "Prof. Rossi" },
         ],
-        "2025-02-05": [{ Titolo: "Equazioni", Argomento: "Matematica" }],
-        "2025-02-07": [{ Titolo: "Legami chimici", Argomento: "Chimica" }],
-        "2025-02-09": [{ Titolo: "Algoritmi", Argomento: "Informatica" }],
+        "2025-02-03": [
+            { Titolo: "Media ponderata", Argomento: "Statistica", Orario: "09:00", Professore: "Prof.ssa Bianchi" },
+            { Titolo: "Calcolo combinatorio", Argomento: "Probabilità", Orario: "11:30", Professore: "Prof. Verdi" },
+        ],
+        "2025-02-05": [
+            { Titolo: "Equazioni", Argomento: "Algebra", Orario: "14:00", Professore: "Prof.ssa Neri" },
+        ],
+        "2025-02-07": [
+            { Titolo: "Derivate", Argomento: "Studio di funzione", Orario: "16:00", Professore: "Prof. Gialli" },
+        ],
+        "2025-02-09": [
+            { Titolo: "Integrali per parti", Argomento: "Integrali", Orario: "08:30", Professore: "Prof.ssa Azzurri" },
+        ],
     };
 
     // Stato per memorizzare il giorno selezionato
@@ -64,23 +72,33 @@ export default function SfideProgrammate() {
             />
             <View>
                 {selectedChallenges.length === 0 ? (
-                    <Text style={[styles.welcomeText,{margin: 10}]}>
+                    <Text style={[styles.welcomeText, { margin: 10, marginTop: 30 }]}>
                         Nessuna sfida in programma
                     </Text>
                 ) : (
                     selectedChallenges.map((challenge, index) => (
-                        <View key={index} style={[{margin: 10, marginTop:30}]}>
-                            <View style={styles.mainWhiteCard}>
-                                <View style={styles.section}>
-                                    <View style={[styles.article, {margin: 10}]}>
-                                        <Text style={styles.cardTitle}>
-                                            {challenge.Titolo}
-                                        </Text>
-                                        <Text style={styles.subtitle}>
-                                            Argomento: {challenge.Argomento}
-                                        </Text>
-                                    </View>
+                        <View key={index} style={[{ margin: 10, marginTop: 30 }]}>
+                            <View style={[styles.mainWhiteCard, { flexDirection: "row", justifyContent: "space-between", alignItems: "center" }]}>
+
+                                <View style={{ flex: 1, marginRight: 10, alignItems:"center" }}>
+                                    <Text style={[styles.cardTitle, {margin:5}]}>
+                                        {challenge.Titolo}
+                                    </Text>
+                                    <Text style={[styles.subtitle, {margin:5}]}>
+                                        {challenge.Argomento}
+                                    </Text>
+                                    <Text style={[styles.subtitle, {margin:5}]}>
+                                        Orario: {challenge.Orario}
+                                    </Text>
                                 </View>
+
+                                <View style={{ flex: 1, alignItems: "center" }}>
+                                    <Image source={require('../assets/placeholder.jpg')} style={[styles.cardImage, { marginBottom: 10 }]} />
+                                    <Text style={styles.subtitle}>
+                                        {challenge.Professore}
+                                    </Text>
+                                </View>
+
                             </View>
                         </View>
                     ))
