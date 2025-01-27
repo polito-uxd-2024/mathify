@@ -63,6 +63,7 @@ export default function Impostazioni() {
                         <Text style={styles.sectionText}>
                             {state.utente.verifica ? "Verificato" : "Non verificato"}
                         </Text>
+
                         <Pressable onPress={() => setModalVisible(true)}>
                             <MaterialCommunityIcons
                                 name="information-outline"
@@ -71,18 +72,20 @@ export default function Impostazioni() {
                             />
                         </Pressable>
                     </View>
-                    <View style={styles.settingsCardBase}>
 
-                        <Button
-                        onPress={handleVerification}
-                        style={styles.settingsCard}
-                        disabled={state.utente.verifica}  // Disabilita il pulsante se l'utente è verificato
-                    >
-                        <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
-                            Verifica >
-                        </Text>
+                        {!state.utente.verifica&&(<View style={styles.settingsCardBase}>
+                            <Button
+                            onPress={handleVerification}
+                            style={styles.settingsCard}
+                            disabled={state.utente.verifica}  // Disabilita il pulsante se l'utente è verificato
+                        >
+                            <Text style={{ fontSize: 16, color: 'black', fontWeight: 'bold' }}>
+                                Verifica
+                            </Text>
                         </Button>
-                    </View>
+                        </View>)}
+
+
                 </Card.Content>
             </Card>
 
