@@ -217,7 +217,7 @@ export default function Materiale() {
                         <View style={styles.section}>
                             {/* Suggested by Algorithm */}
                             <View style={[styles.article]}>
-                            <View style={[styles.mainWhiteCard] }>
+                            <View style={[styles.mainWhiteCard, {padding: 10}] }>
 
 
                                     <TouchableOpacity onPress={() => handleTopicPress(suggestedByAlgorithm)}>
@@ -254,7 +254,7 @@ export default function Materiale() {
                                     </ImageBackground>
                                     </TouchableOpacity>
 
-                            </View> 
+                            </View>
                             </View>
 
                             {/* Suggested Topics */}
