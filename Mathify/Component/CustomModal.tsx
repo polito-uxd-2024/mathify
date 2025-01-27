@@ -96,7 +96,7 @@ export const modalStyles = StyleSheet.create({
         backgroundColor: "#fff",
         borderRadius: 10,
         padding: 20,
-        alignItems: "flex-start",
+        alignItems: "center",
     },
     modalTitle: {
         fontSize: 20,
