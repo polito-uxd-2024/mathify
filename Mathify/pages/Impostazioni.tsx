@@ -118,15 +118,10 @@ export default function Impostazioni() {
             >
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
                     <View style={{width: '80%', backgroundColor: 'white',borderRadius: 10, padding: 20, alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5,
-                        position: 'relative' // Posizione relativa per posizionare elementi assoluti all'interno
+                        position: 'relative', borderWidth:4// Posizione relativa per posizionare elementi assoluti all'interno
                     }}>
                         {/* Pulsante X in alto a destra */}
-                        <Pressable
-                            style={{position: 'absolute', top: 10, right: 10, backgroundColor: '#e74c3c', borderRadius: 15, padding: 5}}
-                            onPress={() => setModalVisible(false)}
-                        >
-                            <Text style={{ fontSize: 16, color: 'white', fontWeight: 'bold' }}>X</Text>
-                        </Pressable>
+
 
                         <Text style={{ fontSize: 16, textAlign: 'center', marginVertical: 20 }}>
                             Informazioni sul tuo account.
@@ -135,7 +130,7 @@ export default function Impostazioni() {
                         {/* Controllo dello stato di verifica */}
                         {state.utente.verifica ? (
                             <>
-                                {parseInt(state.utente.livello.numero, 10)  >= 10 ? (
+                                {state.utente.livello.numero  >= 10 ? (
                                     <Text style={{ fontSize: 16, marginBottom: 20, textAlign: 'center', marginTop: 20 }}>
                                         Il tuo account è verificato e hai il livello necessario per modificare gli argomenti.
                                     </Text>
@@ -149,6 +144,7 @@ export default function Impostazioni() {
                             <Text style={{ fontSize: 16, marginBottom: 20, textAlign: 'center', marginTop: 20 }}>
                                 Non hai effettuato la verifica della mail associata all'account.
                                 Gli utenti non verificati non possono modificare i contenuti dell'app.
+                                Raggiungi il livello 10 per verificare l'account.
                             </Text>
                         )}
 
@@ -171,13 +167,8 @@ export default function Impostazioni() {
                 onRequestClose={closeVerificationModal}
             >
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-                    <View style={{backgroundColor: 'white', borderRadius: 10, padding: 20, alignItems: 'center', position: 'relative'}}>
-                        <Pressable
-                            style={{ position: 'absolute', top: 10, right: 10, backgroundColor: '#e74c3c', borderRadius: 15, padding: 5 }}
-                            onPress={closeVerificationModal}
-                        >
-                            <Text style={{ fontSize: 16, color: 'white', fontWeight: 'bold' }}>X</Text>
-                        </Pressable>
+                    <View style={{backgroundColor: 'white', borderRadius: 10, padding: 20, alignItems: 'center', position: 'relative', borderWidth:5, width:300}}>
+
                         <Text style={{ fontSize: 16, textAlign: 'center', marginVertical: 20 }}>
                             {feedbackMessage}
                         </Text>
@@ -203,7 +194,7 @@ export default function Impostazioni() {
                 visible={successModal}
                 onRequestClose={closeSuccessModal}
             >
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)'}}>
                     <View style={{backgroundColor: 'white', borderRadius: 10, padding: 20, alignItems: 'center', position: 'relative'}}>
                         <Pressable
                             style={{ position: 'absolute', top: 10, right: 10, backgroundColor: '#e74c3c', borderRadius: 15, padding: 5 }}
