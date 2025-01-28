@@ -40,6 +40,7 @@ import {NativeStackNavigationProp} from "react-native-screens/native-stack";
 import {PlayParamList} from "../Component/navigation";
 import CustomModal from "../Component/CustomModal";
 import RewardModal from "../Component/RewardModal";
+import {FontAwesome} from "react-native-vector-icons";
 
 export default function PlayScreen() {
     const { colors } = useTheme();
@@ -316,70 +317,89 @@ export default function PlayScreen() {
                     />
                 </View>
                 {/* Title */}
-                <Text style={[styles.welcomeText, { flex: 1, textAlign: "center"}]}>Play</Text>
+                <Text style={[styles.bigWelcomeText, { flex: 1, textAlign: "center"}]}>Play</Text>
                 <View style={{ flex: 1 }} />
             </SafeAreaView>
             <View style={styles.content}>
                 <View style={styles.challengeHeader}>
-                    <Text style={styles.welcomeText}>{state.selectedChallenge.titolo}</Text>
+                    <View>
+                        <Text style={[styles.bigWelcomeText, {color: 'white'}]}>{state.selectedChallenge.titolo}</Text>
+                        <Text style={[styles.secondary, {color: 'white'}]}>{state.selectedChallenge.argomento}</Text>
+                    </View>
+                        <View style={[styles.stars, {backgroundColor: 'transparent'}]}>
+                        {[...Array(3)].map((star, index) => (
+                            <FontAwesome
+                                key={index}
+                                name="star"
+                                size={20}
+                                color={index < state.selectedChallenge.difficolta ? 'gold' : 'rgba(255,255,255,1)'} // Colore delle stelle
+                            />
+                        ))}
+                    </View>
 
-                </View>
                     <View style={{
-                        borderBottomRightRadius: 20,
-                        borderBottomLeftRadius: 20,
-                        backgroundColor: myTheme.colors.cardBorder,
-                        paddingHorizontal: 20,
-                        paddingBottom: 20,
+                        borderBottomRightRadius: 30,
+                        borderBottomLeftRadius: 30,
+                        backgroundColor: 'white',
+                        paddingTop: 0,
+                        padding: 5,
+                        margin: 0,
+                        borderWidth: 2,
+                        borderTopWidth: 0,
+                        borderColor: 'black'
 
                     }}>
-
                         <Progress.Pie
                             progress={timerProgress}
                             //width={200}
-                            color={timerProgress > 0.8 ? 'red' : 'green'}
-                            size={30}
+                            style={{paddingTop: 10}}
+                            color={timerProgress > 0.8 ? myTheme.colors.wrongAnswer : myTheme.colors.rightAnswer}
+                            size={40}
                         />
-
-
-
                     </View>
+                </View>
                 <CustomModal
                     isVisible={isModalVisible}
                     onConfirm={confirmExit}
                     onCancel={cancelExit}
                     changePage={changePage}
                 />
+
                <View style={{flex: 1}}>
                     <ScrollView style={{flex: 1}}>
-                        <View style={styles.questionBody} contentContainerStyle={{ flexGrow: 1 }}>
+                        <View style={[styles.questionBody, {paddingBottom: 100}]} contentContainerStyle={{ flexGrow: 1 }}>
                             <View style={styles.questionCardBase}>
-                            <Card style={styles.questionCard}>
-                                <Text>
+                            <View style={styles.questionCard}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                                    <Text style={styles.primary}>
+                                        {currentQuestionIndex + 1}/{challenge.questions.length}
+                                    </Text>
+                                    <View style={{paddingRight: 5}}/>
+                                    <Progress.Bar
+                                        progress={(currentQuestionIndex + 1) / challenge.questions.length}
+                                        width={230}
+                                        color={colors.primary}
 
-                                    {currentQuestionIndex + 1}/{challenge.questions.length}
-                                </Text>
-                                <Progress.Bar
-                                    progress={(currentQuestionIndex + 1) / challenge.questions.length}
-                                    width={200}
-                                    color={colors.primary}
-                                />
-
-                                <Text style={{ fontSize: 18}}>{currentQuestion.Testo}</Text>
-                                {graficoDomandaAttivo && (
-                                <Image
-                                    source={{ uri: state.selectedChallenge.questions[currentQuestionIndex].GraficList[0] }}
-                                    style={{
-                                        width: 230,
-                                        height: 230,
-                                        margin: 8,
-                                        borderRadius: 4,
-                                        alignSelf:"center"
-                                    }}
-                                />
-                                )}
-                            </Card>
+                                    />
+                                </View>
+                                <View style={{backgroundColor: 'white', padding: 10, margin: 5, borderRadius: 20}}>
+                                    <Text style={{ fontSize: 18}}>{currentQuestion.Testo}</Text>
+                                    {graficoDomandaAttivo && (
+                                    <Image
+                                        source={{ uri: state.selectedChallenge.questions[currentQuestionIndex].GraficList[0] }}
+                                        style={{
+                                            width: 230,
+                                            height: 230,
+                                            margin: 8,
+                                            borderRadius: 4,
+                                            alignSelf:"center"
+                                        }}
+                                    />
+                                    )}
+                                </View>
                             </View>
-                            <View style={{marginTop: 10}}>
+                            </View>
+                            <View style={{marginTop: 30}}>
                             {currentQuestion.Risposte.map((risposta, index) => (
                             <View
                                 key={index}
@@ -399,7 +419,7 @@ export default function PlayScreen() {
                                         onPress={() => handleAnswerPress(risposta, index)}
                                     >
                                         <View style={{ alignItems: 'center' }}>
-                                            <Text>{risposta}</Text>
+                                            <Text style={{fontFamily: 'Itim', fontSize: 16}}>{risposta}</Text>
                                             {graficoRisposteAttivo && (
                                                 <Image
                                                     source={{ uri: state.selectedChallenge.questions[currentQuestionIndex].GraficList[index] }}
@@ -417,6 +437,8 @@ export default function PlayScreen() {
                             </View>
                         ))}</View>
                         </View>
+
+                        )
                     </ScrollView>
                 </View>
                 <View>
@@ -430,14 +452,14 @@ export default function PlayScreen() {
                             justifyContent: "space-around",
                             alignItems: "center",
                             padding: 10,
-                            backgroundColor: myTheme.colors.cardBorder,
+                            //backgroundColor: 'white',
                             borderTopRightRadius: 20,
                             borderTopLeftRadius: 20,
                         }}
                     >
                         {(grafico) && (state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) && (
                         <TouchableOpacity style={styles.miniCardBase} onPress={bonusGrafico}>
-                            <Card style={[styles.miniCard]}>
+                            <View style={[styles.miniCard]}>
                                 <View style={{height: 40, alignItems: 'center', justifyContent: 'center'}}>
                                 <Text
                                     style={{ fontSize: 12, textAlign: "center", padding: 3 }}
@@ -445,31 +467,34 @@ export default function PlayScreen() {
                                     Mostra Grafico
                                 </Text>
                                 </View>
-                                <View style={styles.insideCard}>
-                                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>{(grafico && state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) ? "1" : (state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) ? "0" : "-"}</Text>
+                                <View style={[styles.insideCard,]}>
+                                    <FontAwesome name="line-chart" size={20} color="white" />
+                                    <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', marginLeft: 2, fontFamily: 'Itim'}}>{(grafico && state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) ? "1" : (state.selectedChallenge.questions[currentQuestionIndex].GraficList.length>0) ? "0" : "-"}</Text>
                                 </View>
 
-                            </Card>
+                            </View>
                         </TouchableOpacity>)}
                         <TouchableOpacity style={styles.miniCardBase} onPress={bonusTempo} >
-                            <Card style={[styles.miniCard, {backgroundColor: (tempoMaggiore) ? 'white':myTheme.colors.gray  }]}>
+                            <View style={[styles.miniCard, {backgroundColor: (tempoMaggiore) ? 'white':myTheme.colors.gray  }]}>
                                 <View style={{height: 40, alignItems: 'center', justifyContent: 'center'}}>
                                     <Text style={{ fontSize: 12, textAlign: "center", padding: 3 }}>+30 secondi</Text>
                                 </View>
                                     <View style={styles.insideCard}>
-                                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>{tempoMaggiore ? "1" : "0"}</Text>
+                                        <FontAwesome name="clock-o" size={20} color="white" />
+                                    <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold',  marginLeft: 2, fontFamily: 'Itim'}}>{tempoMaggiore ? "1" : "0"}</Text>
                                 </View>
-                            </Card>
+                            </View>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.miniCardBase} onPress={bonusTentativi}>
-                            <Card style={[styles.miniCard, {backgroundColor: (dueTentativi) ? 'white':myTheme.colors.gray  }]}>
+                            <View style={[styles.miniCard, {backgroundColor: (dueTentativi) ? 'white':myTheme.colors.gray  }]}>
                                 <View style={{height: 40, alignItems: 'center', justifyContent: 'center'}}>
                                     <Text style={{ fontSize: 12, textAlign: "center", padding: 3 }}>Doppio tentativo</Text>
                                 </View>
                                 <View style={styles.insideCard}>
-                                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>{dueTentativi ? "1" : "0"}</Text>
+                                    <FontAwesome name="refresh" size={20} color="white" />
+                                    <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold', marginLeft: 2, fontFamily: 'Itim'}}>{dueTentativi ? "1" : "0"}</Text>
                                 </View>
-                            </Card>
+                            </View>
                         </TouchableOpacity>
                     </View>
 
@@ -513,7 +538,7 @@ export default function PlayScreen() {
 
 
 
-                <View style={styles.cover}>
+                <View style={[styles.challengeHeader, {alignItems: 'center', justifyContent: 'center'}]}>
                     <View style={{alignItems: 'center'}}>
                         <Text style={{fontWeight: 'bold', fontSize: 30, color: 'white'}}>Complimenti! </Text>
                         <Text style={{fontSize: 16, color: 'white'}}>Sfida Completata</Text>
@@ -525,54 +550,81 @@ export default function PlayScreen() {
                     <View style={{flex: 1}}>
 
                     <View style={styles.mainContent}>
-                    <View style={[styles.grayCard, {marginTop: 20, paddingHorizontal: 50, borderRadius: 25}]}>
+                    <View style={[styles.mainWhiteCard, {marginTop: 20, padding: 20, justifyContent: 'center', alignItems: 'center'}]}>
 
-                        <Text style={styles.subtitle}>{state.selectedChallenge.argomento}</Text>
-                        <Text style={styles.sectionText}>{state.selectedChallenge.titolo}</Text>
-                        <View style={{marginVertical: 5, backgroundColor: 'white', paddingVertical: 5, paddingHorizontal: 25, borderRadius: 10}}>
-                            <Text style={{fontSize: 18}}>{punteggioOttenuto} / {challenge.questions.length}</Text>
+                        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 10}}>
+                            <View style={{flex: 1, marginRight: 10}}>
+                                <Text style={styles.sectionText}>{state.selectedChallenge.titolo}</Text>
+                                <Text style={styles.subtitle}>{state.selectedChallenge.argomento}</Text>
+                                <View style={[styles.stars, {backgroundColor: 'transparent'}]}>
+                                    {[...Array(3)].map((star, index) => (
+                                        <FontAwesome
+                                            key={index}
+                                            name="star"
+                                            size={20}
+                                            color={index < state.selectedChallenge.difficolta ? 'gold' : 'rgba(0,0,0,0.2)'} // Colore delle stelle
+                                        />
+                                    ))}
+                                </View>
+                            </View>
+                            <View style={{backgroundColor: myTheme.colors.blue, paddingHorizontal: 10, borderRadius: 10, justifyContent: 'center', height: 40}}>
+                                <Text style={{fontSize: 18, fontWeight: 'bold', color: 'white'}}>{punteggioOttenuto} / {challenge.questions.length}</Text>
+                            </View>
                         </View>
                     </View>
                         {risposte.map((valore, index) => (
                             <View style={styles.article} key={`question-${index}`}>
                                 <View style={styles.cardBase} >
                                     <Card onPress={() => toggleExpand(index)} style={{borderRadius: 20, backgroundColor: myTheme.colors.cardBorder}}>
-                                        <Card.Content style={[styles.card, {paddingBottom: 15}]}>
-                                            <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
-                                                <Text style={{fontSize: 16, marginRight: 8, fontWeight: 'bold'}}>{index + 1}</Text>
-                                                <Text style={{fontSize: 16}}>{state.selectedChallenge.questions[index].Testo}</Text>
-
+                                        <View style={[styles.card, {paddingBottom: 15}]}>
+                                        <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                                             <IconButton
                                                 mode="contained-tonal"
                                                 onPress={() => setDialogVisible(true)}
-                                                contentStyle={{ height: 30 }}
-                                                labelStyle={{ fontSize: 14 }}
+                                                contentStyle={{ height: 10}}
+                                                size={20}
                                                 style={{backgroundColor: 'transparent', margin: 0}}
                                                 icon="alert"
+                                                iconColor='lightgray'
                                             />
+                                        </View>
+                                            <Card.Content>
+                                            <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
+                                                <Text style={{fontSize: 16, marginRight: 8, fontWeight: 'bold'}}>{index + 1}</Text>
+                                                <Text style={{fontSize: 16}}>{state.selectedChallenge.questions[index].Testo}</Text>
                                             </View>
                                             <View>
                                                 <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                                                     <View style={[styles.callout, {marginTop: 6, backgroundColor: valore ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer}]}>
-                                                        <Text style={{paddingHorizontal: 6}}>{valore ? 'corretta' : 'sbagliata'}</Text>
+                                                        <Text style={{paddingHorizontal: 6, color :'white', fontWeight: 'bold', fontFamily: 'Itim'}}>
+                                                            {valore ? 'corretta' : 'sbagliata'}
+                                                        </Text>
+                                                        <FontAwesome
+                                                            name={valore ? "check" : "times"}
+                                                            size={16}
+                                                            color="white"
+                                                            style={{ marginRight: 6 }}
+                                                        />
+
                                                     </View>
                                                 </View>
                                             </View>
+                                            </Card.Content>
 
-                                        </Card.Content>
+                                        </View>
 
 
 
                                         <Collapsible collapsed={expandedIndex !== index}>
                                             <View style={[styles.card, {padding: 15}]}>
-                                                <Divider />
+
                                                 {state.selectedChallenge.questions[index].Risposte.map((risposta, index2) => (
                                                     <View key={`answer-${index}-${index2}`} style={{marginVertical: 8, padding: 8, borderRadius: 10,
                                                         backgroundColor: risposta === listaRisposteDate[index]
                                                             ? (risposta === state.selectedChallenge.questions[index].Soluzione ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer)
                                                             : 'rgb(245,245,245)'}}>
                                                         <Text style={{fontSize: 16}}>{risposta}</Text>
-                                                        <Divider />
+
                                                     </View>
                                                 ))}
                                                 <View style={{paddingTop: 10}}>
@@ -587,66 +639,66 @@ export default function PlayScreen() {
                         ))}
 
                         <View style={styles.section}>
-                            <Card style={{alignItems: 'flex-between',backgroundColor: myTheme.colors.cardBorder, padding: 20, borderRadius: 25}}>
+                            <Card style={[styles.mainWhiteCard,{paddingHorizontal: 20}]}>
                                 <Text style={styles.sectionText}>Conteggio punti</Text>
-                                <View style={{flexDirection: 'row', paddingTop: 10}}>
-                                <View style={styles.miniWhiteCardBase}>
-                                    <View style={[styles.miniCard, {borderColor: 'white'}]}>
-                                        <View style={styles.insideCard}>
-                                            <View style={styles.row}>
-                                                <MaterialCommunityIcons
-                                                    name="lightning-bolt"
-                                                    size={24}
-                                                    color="black"
-                                                />
-                                                <Text style={{fontWeight: 'bold',marginLeft: 5,padding: 5, paddingHorizontal: 'auto'}}>
-                                                    {tempoTotaleXP}
-                                                </Text>
+                                <View style={{flexDirection: 'row', paddingTop: 10, justifyContent: 'center', alignItems: 'center'}}>
+                                    <View style={styles.miniWhiteCardBase}>
+                                        <View style={[styles.miniCard, {borderColor: 'white', backgroundColor: myTheme.colors.gray}]}>
+                                            <View style={[styles.insideCard, {backgroundColor: 'white'}]}>
+                                                <View style={styles.row}>
+                                                    <MaterialCommunityIcons
+                                                        name="lightning-bolt"
+                                                        size={24}
+                                                        color={myTheme.colors.primary}
+                                                    />
+                                                    <Text style={{fontWeight: 'bold', marginLeft: 5, padding: 5, paddingHorizontal: 'auto', color: myTheme.colors.primary}}>
+                                                        {tempoTotaleXP}
+                                                    </Text>
+                                                </View>
+                                            </View>
+                                            <View style={{paddingHorizontal: 3, paddingVertical: 5, alignItems: 'center'}}>
+                                                <Text style={styles.smallText}>Punti guadagnati per la velocità</Text>
                                             </View>
                                         </View>
-                                        <View style={{paddingHorizontal: 3, paddingVertical: 5, alignItems: 'center'}}>
-                                            <Text style={styles.smallText}>Punti guadagnati per la velocità</Text>
-                                        </View>
                                     </View>
-                                </View>
-                                <View style={styles.miniWhiteCardBase}>
-                                    <View style={[styles.miniCard, {borderColor: 'white'}]}>
-                                        <View style={styles.insideCard}>
-                                            <View style={styles.row}>
-                                                <MaterialCommunityIcons
-                                                    name="weight-lifter"
-                                                    size={24}
-                                                    color="black"
-                                                />
-                                                <Text style={{fontWeight: 'bold',marginLeft: 5,padding: 5, paddingHorizontal: 'auto'}}>
-                                                    {state.selectedChallenge.difficolta * 50}
-                                                </Text>
+                                    <View style={styles.miniWhiteCardBase}>
+                                        <View style={[styles.miniCard, {borderColor: 'white', backgroundColor: myTheme.colors.gray}]}>
+                                            <View style={[styles.insideCard, {backgroundColor: 'white'}]}>
+                                                <View style={styles.row}>
+                                                    <MaterialCommunityIcons
+                                                        name="weight-lifter"
+                                                        size={24}
+                                                        color={myTheme.colors.primary}
+                                                    />
+                                                    <Text style={{fontWeight: 'bold', marginLeft: 5, padding: 5, paddingHorizontal: 'auto', color: myTheme.colors.primary}}>
+                                                        {state.selectedChallenge.difficolta * 50}
+                                                    </Text>
+                                                </View>
+                                            </View>
+                                            <View style={{paddingHorizontal: 3, paddingVertical: 5, alignItems: 'center'}}>
+                                                <Text style={styles.smallText}>Punti guadagnati in base alla difficoltà</Text>
                                             </View>
                                         </View>
-                                        <View style={{paddingHorizontal: 3, paddingVertical: 5, alignItems: 'center'}}>
-                                            <Text style={styles.smallText}>Punti guadagnati in base alla difficoltà</Text>
-                                        </View>
                                     </View>
-                                </View>
-                                <View style={styles.miniWhiteCardBase}>
-                                    <View style={[styles.miniCard, {borderColor: 'white'}]}>
-                                        <View style={styles.insideCard}>
-                                            <View style={styles.row}>
-                                                <MaterialCommunityIcons
-                                                    name="check"
-                                                    size={24}
-                                                    color="black"
-                                                />
-                                                <Text style={{fontWeight: 'bold',marginLeft: 5,padding: 5, paddingHorizontal: 'auto'}}>
-                                                    {xpCorrect}
-                                                </Text>
+                                    <View style={styles.miniWhiteCardBase}>
+                                        <View style={[styles.miniCard, {borderColor: 'white', backgroundColor: myTheme.colors.gray}]}>
+                                            <View style={[styles.insideCard, {backgroundColor: 'white'}]}>
+                                                <View style={styles.row}>
+                                                    <MaterialCommunityIcons
+                                                        name="check"
+                                                        size={24}
+                                                        color={myTheme.colors.primary}
+                                                    />
+                                                    <Text style={{fontWeight: 'bold', marginLeft: 5, padding: 5, paddingHorizontal: 'auto', color: myTheme.colors.primary}}>
+                                                        {xpCorrect}
+                                                    </Text>
+                                                </View>
+                                            </View>
+                                            <View style={{paddingHorizontal: 3, paddingVertical: 5, alignItems: 'center'}}>
+                                                <Text style={styles.smallText}>Punti per le risposte corrette</Text>
                                             </View>
                                         </View>
-                                        <View style={{paddingHorizontal: 3, paddingVertical: 5, alignItems: 'center'}}>
-                                            <Text style={styles.smallText}>Punti per le risposte corrette</Text>
-                                        </View>
                                     </View>
-                                </View>
                                 </View>
                                 <View style={{paddingTop: 10, paddingRight: 5, alignItems: 'center'}}>
                                     <Text>Punti totali</Text>
@@ -656,13 +708,14 @@ export default function PlayScreen() {
                                     </View>
                             </Card>
                         </View>
-                    </View>
+
                         <View style={{flex: 1, padding: 20, paddingHorizontal: 60}}>
                         <View style={styles.buttonBase}>
                             <Button style={styles.whiteButton} onPress={()=>
                                 navigation.goBack()}>Torna alla Home</Button>
                         </View>
                         </View>
+                    </View>
                     </View>
                 </ScrollView>
                 <SafeAreaView style={[styles.modalContainer, {backgroundColor: 'rgba(255,255,255,0)'}]}>

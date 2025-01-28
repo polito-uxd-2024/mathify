@@ -35,18 +35,14 @@ export interface Challenge {
     icon: string;
 }
 const challenges = [
-    { id: "1", title: "Circonferenza", icon: "alpha-a-box", argomento: "Geometria analitica", difficoltà: 1 },
-    { id: "2", title: "Equazioni", icon: "alpha-g-box", argomento: "Algebra", difficoltà: 1 },
-    { id: "3", title: "Dominio", icon: "alpha-c-box", argomento: "Funzioni", difficoltà: 1 },
-    { id: "4", title: "Triangoli equilateri", icon: "alpha-t-box", argomento: "Geometria", difficoltà: 3 },
-    { id: "5", title: "Disequazioni", icon: "alpha-p-box", argomento: "Algebra", difficoltà: 2 },
-    { id: "6", title: "Triangoli", icon: "alpha-s-box", argomento: "Geometria", difficoltà: 1 },
-    { id: "7", title: "Algebra", icon: "alpha-a-box", argomento: "Algebra", difficoltà: 2 },
-    { id: "8", title: "Geometria", icon: "alpha-g-box", argomento: "Geometria", difficoltà: 1 },
-    { id: "9", title: "Calcolo", icon: "alpha-c-box", argomento: "Analisi", difficoltà: 3 },
-    { id: "10", title: "Logaritmo", icon: "alpha-t-box", argomento: "Algebra", difficoltà: 2 },
-    { id: "11", title: "Probabilità", icon: "alpha-p-box", argomento: "Algebra", difficoltà: 2 },
-    { id: "12", title: "Statistica", icon: "alpha-s-box", argomento: "Statistica", difficoltà: 1 },
+    { id: "1", title: "Circonferenza", icon: require(`../assets/circonferenze.png`), argomento: "Geometria analitica", difficoltà: 1 },
+    { id: "2", title: "Domini", icon: require(`../assets/domini.png`), argomento: "Funzioni", difficoltà: 1 },
+    { id: "3", title: "Disequazioni", icon: require(`../assets/disequazioni.png`), argomento: "Algebra", difficoltà: 2 },
+    { id: "4", title: "Equazioni", icon: '', argomento: "Algebra", difficoltà: 3 },
+    { id: "5", title: "Esponenziali", icon: require(`../assets/esponenziali.png`), argomento: "Algebra", difficoltà: 2 },
+    { id: "6", title: "Probabilità condizionata", icon: '', argomento: "Probabilità", difficoltà: 2 },
+    { id: "7", title: "Derivate", icon: require(`../assets/derivate.png`), argomento: "Analisi", difficoltà: 1 },
+    { id: "8", title: "Funzioni sinusoidali", icon: require(`../assets/sinusoidi.png`), argomento: "Trigonometria", difficoltà: 3 },
 ];
 
 export const SegmentedButton = () => {
@@ -153,11 +149,11 @@ export const SegmentedButton = () => {
                                     <View style={styles.mainWhiteCard}>
                                         <Card.Content>
 
-                                            <View style={{borderWidth: 0, borderRadius: 10, marginBottom: 12}}>
+                                            <View style={{borderWidth: 0, borderRadius: 0, marginBottom: 12}}>
                                             <ImageBackground
                                                 source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
                                                 style={{flex: 1}}
-                                                imageStyle={{ borderRadius: 10,  margin: 0}}
+                                                imageStyle={{ borderRadius: 0,  margin: 0}}
                                             >
                                                 <View style={{ paddingHorizontal: 20, marginVertical: 0, paddingBottom: 8, marginTop: 0}}>
                                                     <View style={{flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 80}}>
@@ -257,7 +253,10 @@ export const SegmentedButton = () => {
                                             <View style={styles.card}>
                                                 <View style={{flexDirection: 'row', marginBottom: 10, marginHorizontal: 10}}>
                                                     <View style={{marginTop: 10}}>
-                                                        <Image source={require('../assets/placeholder.jpg')} style={styles.cardImage}/>
+                                                        <Image
+                                                            source={item.icon || require('../assets/placeholder.jpg')}
+                                                            style={styles.cardImage}
+                                                        />
                                                     </View>
                                                     <View style={{flex: 1}}>
                                                         <View style={{flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 'auto', marginLeft: 'auto'}}>

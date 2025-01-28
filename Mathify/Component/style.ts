@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
 
     content: {
         flex: 1,
+        backgroundColor: myTheme.colors.gray,
         flexDirection: 'column',
     },
     mainContent: {
@@ -69,14 +70,16 @@ export const styles = StyleSheet.create({
         flex: 1,
         //flexDirection: 'column',
         paddingHorizontal: 20,
-        marginVertical: 15,
+        marginVertical: 30,
     },
     challengeHeader: {
+        paddingBottom: 10,
         paddingHorizontal: 30,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: myTheme.colors.cardBorder,
+
+        backgroundColor: myTheme.colors.blue,
     },
 
     //Text
@@ -180,12 +183,14 @@ export const styles = StyleSheet.create({
         flex: 1,
         marginHorizontal: 10,
         width: '100%',
-        backgroundColor: 'black',
-        paddingLeft: 2,
-        paddingTop: 2,
+        backgroundColor: 'rgb(40,121,178)',
+        paddingLeft: 0,
+        paddingTop: 0,
         paddingBottom: 5,
-        paddingRight: 4,
-        borderRadius: 20,
+        paddingRight: 0,
+        borderRadius: 16,
+        borderWidth: 2,
+
 
     },
     miniWhiteCardBase: {
@@ -200,12 +205,12 @@ export const styles = StyleSheet.create({
     answerCardBase: {
         flex: 1,
         width: '100%',
-        backgroundColor: 'black',
+        backgroundColor: myTheme.colors.darkBlue,
         paddingLeft: 2,
         paddingTop: 2,
         paddingBottom: 5,
-        paddingRight: 4,
-        borderRadius: 18,
+        paddingRight: 2,
+        borderRadius: 13,
         marginHorizontal: 25,
         marginVertical: 5,
     },
@@ -213,10 +218,10 @@ export const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         backgroundColor: 'black',
-        paddingLeft: 2,
-        paddingTop: 2,
-        paddingBottom: 5,
-        paddingRight: 4,
+        paddingLeft: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
+        paddingRight: 0,
         borderRadius: 20,
 
     },
@@ -275,30 +280,33 @@ export const styles = StyleSheet.create({
         margin: 0,
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: 150,
-        padding: 10,
+        //minHeight: 150,
+        padding: 5,
         borderRadius: 20,
-        borderColor: myTheme.colors.cardBorder,
-        borderWidth: 10,
-        backgroundColor: 'rgb(255,255,255)',
+        borderColor: 'black',
+        borderWidth: 2,
+        backgroundColor: myTheme.colors.cardBorder,
     },
     miniCard: {
         margin: 0,
-        borderRadius: 18,
+        elevation: 0,
+        borderRadius: 15,
         borderColor: 'black',
         borderWidth: 0,
         backgroundColor: 'white',
         paddingVertical: 'auto'
     },
     insideCard: {
-        backgroundColor: myTheme.colors.gray,
+        backgroundColor: myTheme.colors.blue,
         padding: 6,
         margin: 5,
+        flexDirection: 'row',
         marginTop: 3,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 10,
     },
+
     insideCardWhite: {
         backgroundColor: 'white',
         paddingHorizontal: 30,
@@ -408,11 +416,11 @@ export const styles = StyleSheet.create({
     answerButton: {
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 15,
+        borderRadius: 10,
         borderColor: myTheme.colors.cardBorder,
         borderWidth: 0,
         paddingHorizontal: 5,
-        paddingVertical: 1,
+        paddingVertical: 4,
 
         flex: 1,
         flexDirection: 'column'
@@ -484,7 +492,7 @@ export const styles = StyleSheet.create({
         width: 80,
         height: 80,
         marginRight: 10,
-        borderRadius: 20
+        borderRadius: 0
     },
 
     callout: {

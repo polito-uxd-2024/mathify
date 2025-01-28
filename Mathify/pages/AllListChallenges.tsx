@@ -9,6 +9,7 @@ import {useContext, useState} from "react";
 import {setSelectedChallenge} from "../Action";
 import {StateContext} from "../Reducer";
 import {myTheme} from "../Component/theme";
+import {FontAwesome} from "react-native-vector-icons";
 
 
 const AllListChallenges = ({ route }: { route: any }) => {
@@ -86,17 +87,18 @@ const AllListChallenges = ({ route }: { route: any }) => {
                             <Card style={styles.card}>
                                 <View style={{flexDirection: 'row', marginBottom: 10, paddingHorizontal: 10}}>
                                     <View style={{marginTop: 10}}>
-                                        <Image source={require('../assets/placeholder.jpg')} style={styles.cardImage}/>
+                                        <Image source={item.icon || require('../assets/placeholder.jpg')}
+                                               style={styles.cardImage}/>
                                     </View>
                                     <View>
                                         <View style={{flexDirection: 'row', marginLeft: 110, marginBottom: 'auto'}}>
                                             <View style={styles.stars}>
                                                 {[...Array(3)].map((star, index) => (
-                                                    <Avatar.Icon
+                                                    <FontAwesome
                                                         key={index}
-                                                        icon="star"
+                                                        name="star"
                                                         size={20}
-                                                        color={index < state.selectedChallenge.difficolta ? 'white' : 'black'} // Colore delle stelle
+                                                        color={index < state.selectedChallenge.difficolta ? 'gold' : 'rgba(255,255,255,0.5)'} // Colore delle stelle
                                                     />
                                                 ))}
                                             </View>
