@@ -267,10 +267,11 @@ export default function PlayScreen() {
         const correctAnswers = risposte.filter((risposta) => risposta === true).length;
         const xpCorretto = 10 * correctAnswers;
 
-        const tempoTotXP = Math.max(
-            0,
-            Math.round(timerDuration * risposte.length - listaTempoDomande.reduce((accumulator, currentValue) => accumulator + currentValue, 0))
-        );
+        const tempoTotXP = listaTempoDomande.reduce((sum, num, index) => {
+            // Arrotonda il numero prima di moltiplicarlo
+            const numArrotondato = Math.round(timerDuration - num);
+            return sum + (numArrotondato * (risposte[index] ? 1 : 0));  // Moltiplica solo se il booleano è true
+        }, 0);
 
         const totaleXP = state.selectedChallenge.difficolta * 50 + xpCorretto + tempoTotXP;
 
