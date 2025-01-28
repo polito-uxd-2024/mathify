@@ -26,13 +26,13 @@ export default function ProfilePage() {
 
     // Array di badge (fuori da BadgeList)
     const badges = [
-        {id: 1, name: "Un primo obbiettivo", image: require("../assets/Badge Image/flag_4158032.png")},
-        {id: 2, name: "Hai centrato l'obbiettivo", image: require("../assets/Badge Image/goal_4158044.png")},
-        {id: 3, name: "Pronto al diploma", image: require("../assets/Badge Image/graduation_4158029.png")},
-        {id: 4, name: "Crescita spaventosa", image: require("../assets/Badge Image/growth_4157905.png")},
-        {id: 5, name: "In cima alla classifica", image: require("../assets/Badge Image/star_4158051.png")},
-        {id: 6, name: "Obbiettivo raggiunto", image: require("../assets/Badge Image/trophy_4158048.png")},
-        {id: 7, name: "Star", image: require("../assets/Badge Image/victory_4158038.png")},
+        {id: 1, name: "Determinato", image: require("../assets/Badge Image/flag_4158032.png"), description: "Hai completato 10 sfide nell'ultima settimana!"},
+        {id: 2, name: "Precisino", image: require("../assets/Badge Image/goal_4158044.png"), description: "Hai risposto correttamente a tutte le domande"},
+        {id: 3, name: "Ingegnere", image: require("../assets/Badge Image/graduation_4158029.png"), description: "Hai svolto 40 sfide dall'inizio del tuo percorso"},
+        {id: 4, name: "Razzo", image: require("../assets/Badge Image/growth_4157905.png"), description: "Hai impiegato meno di 5 minuti per finire la sfida"},
+        {id: 5, name: "Asso", image: require("../assets/Badge Image/star_4158051.png"), description: "Hai ottenuto il massimo risultato in 5 sfide"},
+        {id: 6, name: "Campione", image: require("../assets/Badge Image/trophy_4158048.png"), description: "Hai ottenuto un risultato superiore a 8 nelle ultime 3 sfide"},
+        {id: 7, name: "Intuitore", image: require("../assets/Badge Image/victory_4158038.png"), description: "Hai completato almeno 5 domande in meno di 20 secondi"},
     ];
 
     // Funzione per ottenere un elemento casuale dalla lista badges
@@ -260,7 +260,7 @@ export default function ProfilePage() {
                                             {badges[index].name} {/* Nome della sfida o del badge */}
                                         </Text>
                                         <Text style={{ fontSize: 12, color: myTheme.colors.violet, textAlign: 'center', marginTop: 4 }}>
-                                            Complimenti! Hai guadagnato {item.xpGuadagnati} XP
+                                            {badges[index].description}
                                         </Text>
                                     </View>
                                 </View>
