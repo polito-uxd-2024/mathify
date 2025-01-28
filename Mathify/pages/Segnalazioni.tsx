@@ -1,8 +1,10 @@
 import { StateContext } from "../Reducer";
-import { useContext } from "react";
-import {View, Text, ScrollView} from "react-native";
-import {Card} from "react-native-paper";
-import {styles} from "../Component/style";
+import React, { useContext } from "react";
+import { View, Text, ScrollView } from "react-native";
+import { Card } from "react-native-paper";
+import { styles } from "../Component/style";
+import { myTheme } from "../Component/theme";
+import { FontAwesome } from "react-native-vector-icons";
 
 export default function Segnalazioni() {
     const [state] = useContext(StateContext);
@@ -13,42 +15,69 @@ export default function Segnalazioni() {
                 {state.utente.sfideCompletate
                     .filter((sfida) => sfida.segnalazioni && sfida.segnalazioni.length > 0)
                     .map((sfida, sfidaIndex) => (
-                        <View key={`sfida-${sfidaIndex}`} style={styles.mainWhiteCard}>
-                            <View>
-                                <Text style={{fontSize: 25, fontWeight: "bold", marginLeft: 20, marginBottom:10 }}>
-                                    {sfida.titolo}
-                                </Text>
+                        <View key={`sfida-${sfidaIndex}`} style={{ paddingTop: 10 }}>
+                            <Text style={{ fontSize: 25, fontWeight: "bold", marginLeft: 0, marginBottom: 10 }}>
+                                {sfida.titolo}
+                            </Text>
+                            <View style={{ padding: 10 }}>
+                                {sfida.segnalazioni.map((segnalazione, segnalazioneIndex) => {
+                                    // Randomize risolta property
+                                    const isResolved = Math.random() < 0.5;
 
-                                {sfida.segnalazioni.map((segnalazione, segnalazioneIndex) => (
-                                    <View key={`segnalazione-${sfidaIndex}-${segnalazioneIndex}`} style={[styles.grayCard, {margin: 10}]}>
-                                        <Text style={styles.welcomeText}>
-                                            {segnalazioneIndex + 1}. Segnalazione
-                                        </Text>
-                                        <Text style={styles.calloutText}>
-                                            Testo della domanda:
-                                        </Text>
-                                        <Text style={{ fontSize: 16, textAlign: 'center' }}>
-                                            {segnalazione.domanda?.testo || "Domanda non disponibile"}
-                                        </Text>
-                                        <Text style={styles.calloutText}>
-                                            Motivo della segnalazione:
-                                        </Text>
-                                        <Text style={{ fontSize: 16, textAlign: 'center' }}>
-                                            {segnalazione.motivo || "Motivo non specificato"}
-                                        </Text>
-                                        <Text style={styles.calloutText}>
-                                            Stato della segnalazione:
-                                        </Text>
-                                        <Text style={{ fontSize: 16, textAlign: 'center' }}>
-                                            {Math.random() < 0.5 ? "Risolta" : "Non risolta"}
-                                        </Text>
-                                    </View>
-                                ))}
+                                    return (
+                                        <View
+                                            key={`segnalazione-${sfidaIndex}-${segnalazioneIndex}`}
+                                            style={[styles.mainWhiteCard, { marginBottom: 20, padding: 20, alignItems: "center" }]}
+                                        >
+                                            <View style={{ alignItems: "flex-start" }}>
+                                                <Text style={styles.welcomeText}>
+                                                    {segnalazioneIndex + 1}. Segnalazione
+                                                </Text>
+                                                <Text style={[styles.calloutText, { marginVertical: 10 }]}>
+                                                    Testo della domanda:
+                                                </Text>
+                                                <Text style={{ fontSize: 16 }}>
+                                                    {segnalazione.domanda?.testo || "Domanda non disponibile"}
+                                                </Text>
+                                                <Text style={[styles.calloutText, { marginVertical: 10 }]}>
+                                                    Motivo della segnalazione:
+                                                </Text>
+                                                <Text style={{ fontSize: 16, textAlign: 'center' }}>
+                                                    {segnalazione.motivo || "Motivo non specificato"}
+                                                </Text>
+                                                <Text style={[styles.calloutText, { marginVertical: 10 }]}>
+                                                    Stato della segnalazione:
+                                                </Text>
+                                                <View
+                                                    style={[
+                                                        styles.callout,
+                                                        {
+                                                            marginTop: 6,
+                                                            backgroundColor:
+                                                                isResolved
+                                                                    ? myTheme.colors.rightAnswer
+                                                                    : myTheme.colors.wrongAnswer,
+                                                        },
+                                                    ]}
+                                                >
+                                                    <Text style={{ paddingHorizontal: 6, color: 'white', fontWeight: 'bold', fontFamily: 'Itim' }}>
+                                                        {isResolved ? 'risolta' : 'non risolta'}
+                                                    </Text>
+                                                    <FontAwesome
+                                                        name={isResolved ? "check" : "times"}
+                                                        size={16}
+                                                        color="white"
+                                                        style={{ marginRight: 6 }}
+                                                    />
+                                                </View>
+                                            </View>
+                                        </View>
+                                    );
+                                })}
                             </View>
                         </View>
                     ))}
             </View>
         </ScrollView>
-
     );
 }
