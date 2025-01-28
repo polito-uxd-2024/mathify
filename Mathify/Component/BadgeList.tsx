@@ -1,5 +1,5 @@
 import {styles} from "./style";
-import {Card, Text} from "react-native-paper";
+import {Appbar, Card, IconButton, Text} from "react-native-paper";
 import {Image, View} from "react-native";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import * as React from "react";
@@ -7,10 +7,11 @@ import {useContext} from "react";
 import {StateContext} from "../Reducer";
 import { ScrollView } from 'react-native'
 import {myTheme} from "./theme";
+import {useNavigation} from "@react-navigation/native";
 
 export default function BadgeList(){
     const [state] = useContext(StateContext);
-
+    const navigation = useNavigation();
     // I badge che non sono visibili nel profilo (ovvero quelli prima delle ultime 3 sfide completate)
     const previousBadges = state.utente.sfideCompletate; // Badge prima delle ultime 3 sfide completate
 
@@ -37,6 +38,19 @@ export default function BadgeList(){
 
     return (
         <View style={{backgroundColor: myTheme.colors.gray, flex:1}}>
+
+            <Appbar.Header style={[styles.header]}>
+                <View style={{ position: 'absolute', left: 0 }}>
+                    <IconButton
+                        icon="arrow-left"
+                        size={24}
+                        color="black"
+                        onPress={() => navigation.goBack()}
+                        style={{ marginLeft: 10 }}
+                    />
+                </View>
+                <Appbar.Content title="Riepilogo Sfida" style={{ alignSelf: "center", marginLeft: 50 }} />
+            </Appbar.Header>
             <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
                 <View style={{ flexDirection: 'row',flexWrap: 'wrap', justifyContent: 'space-around', paddingHorizontal: 10, marginTop:20,marginLeft:11}}>
                     {allBadgesToShow.map((item, index) => (

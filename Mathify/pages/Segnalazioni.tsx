@@ -1,16 +1,32 @@
 import { StateContext } from "../Reducer";
 import React, { useContext } from "react";
 import { View, Text, ScrollView } from "react-native";
-import { Card } from "react-native-paper";
+import {Appbar, Card, IconButton} from "react-native-paper";
 import { styles } from "../Component/style";
 import { myTheme } from "../Component/theme";
 import { FontAwesome } from "react-native-vector-icons";
+import {useNavigation} from "@react-navigation/native";
 
 export default function Segnalazioni() {
     const [state] = useContext(StateContext);
+    const navigation=useNavigation();
 
     return (
+        <>
+            <Appbar.Header style={[styles.header]}>
+                <View style={{ position: 'absolute', left: 0 }}>
+                    <IconButton
+                        icon="arrow-left"
+                        size={24}
+                        color="black"
+                        onPress={() => navigation.goBack()}
+                        style={{ marginLeft: 10 }}
+                    />
+                </View>
+                <Appbar.Content title="Segnalazioni" style={{ alignSelf: "center", marginLeft: 50 }} />
+            </Appbar.Header>
         <ScrollView style={styles.content}>
+
             <View style={styles.mainContent}>
                 {state.utente.sfideCompletate
                     .filter((sfida) => sfida.segnalazioni && sfida.segnalazioni.length > 0)
@@ -79,5 +95,6 @@ export default function Segnalazioni() {
                     ))}
             </View>
         </ScrollView>
+            </>
     );
 }
