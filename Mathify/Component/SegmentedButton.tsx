@@ -34,7 +34,7 @@ export interface Challenge {
     title: string;
     icon: string;
 }
-const challenges = [
+export const challenges = [
     { id: "1", title: "Circonferenza", icon: require(`../assets/circonferenze.png`), argomento: "Geometria analitica", difficoltà: 1 },
     { id: "2", title: "Dominio", icon: require(`../assets/domini.png`), argomento: "Funzioni", difficoltà: 1 },
     { id: "3", title: "Disequazioni", icon: require(`../assets/disequazioni.png`), argomento: "Algebra", difficoltà: 2 },

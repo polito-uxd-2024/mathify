@@ -12,6 +12,7 @@ import { myTheme } from "../Component/theme";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "react-native-vector-icons";
 import * as Progress from 'react-native-progress';
+import {challenges} from "../Component/SegmentedButton";
 
 export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackParamList, "SfidaDetail"> }) {
     const { sfida } = route.params;
@@ -29,7 +30,13 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
     return (
         <ScrollView style={{ flex: 1, width: '100%' }}>
             <View style={[styles.cover, { backgroundColor: 'white', paddingBottom: 20 }]}>
-                <Image source={require("../assets/placeholder.jpg")} style={styles.coverImage} />
+                <View style={[styles.coverImage, {justifyContent:"center", backgroundColor:myTheme.colors.gray}]}>
+                <Image
+                    source={challenges.find(image => image.title === sfida.titolo)?.icon}
+                    style={{ width: 150, height: 150, alignSelf: 'center'}}
+                    />
+                </View>-
+
                 <View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={styles.cardTitle}>{sfida.titolo}</Text>
