@@ -55,6 +55,7 @@ export const SegmentedButton = () => {
     const [index, setIndex] = useState(0);
     const [state, dispatch]= useContext(StateContext)
     const [modalVisible, setModalVisible] = useState(false);
+    const [icon, setIcon] = useState(require('../assets/placeholder.jpg'));
     //const [selectedChallenge, setSelectedChallenge] = useState<Challenge | null>(null);
 
     console.log(state.selectedChallenge)
@@ -81,10 +82,11 @@ export const SegmentedButton = () => {
             setSearchQuery(title);
         }
     };
-    const handleCardPress = (title) => {
+    const handleCardPress = (title, icon) => {
         if (state.challengeList.some(challenge => challenge.titolo === title)) {
             dispatch(setSelectedChallenge(state.challengeList.find(challenge => challenge.titolo === title)!));
             setModalVisible(true);
+            setIcon(icon);
         } else {
             alert('Sfida non ancora implementata');
         }
@@ -219,7 +221,7 @@ export const SegmentedButton = () => {
                         <Divider style={{marginTop: 20, backgroundColor: 'lightgray', height: 2}}/>
 
                         <View style={styles.section}>
-                            <Text style={styles.welcomeText}>Prova</Text>
+                            <Text style={styles.welcomeText}>Cerca Sfide</Text>
                             <View style={styles.article}>
                                 <TextInput
                                     label="Cerca sfida"
@@ -250,7 +252,7 @@ export const SegmentedButton = () => {
                             {/* Lista sfide */}
                             <View style={styles.section}>
                                 {filteredChallenges.slice(0, 5).map((item) => (
-                                    <TouchableOpacity key={item.id} style={styles.article} onPress={() => handleCardPress(item.title)}>
+                                    <TouchableOpacity key={item.id} style={styles.article} onPress={() => handleCardPress(item.title, item.icon)}>
                                         <View style={styles.cardBase}>
                                             <View style={styles.card}>
                                                 <View style={{flexDirection: 'row', marginBottom: 10, marginHorizontal: 10}}>
@@ -310,28 +312,32 @@ export const SegmentedButton = () => {
                             <View >
                                 <View style={[styles.card, {borderWidth: 5, borderColor: "black"}]}>
                                     <View style={[styles.modalContent]}>
-                                        <ImageBackground
-                                            source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
-                                            style={{flex: 1}}
-                                            imageStyle={{ borderRadius: 10}}
-                                        >
-                                            <View style={{ paddingHorizontal: 20, paddingBottom: 8}}>
-                                                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-                                                    <View style={styles.stars}>
-                                                        {[...Array(3)].map((star, index) => (
-                                                            <FontAwesome
-                                                                key={index}
-                                                                name="star"
-                                                                size={20}
-                                                                color={index < state.selectedChallenge.difficolta ? 'gold' : 'rgba(255,255,255,0.5)'} // Colore delle stelle
-                                                            />
-                                                        ))}
-                                                    </View>
+                                        <View style={{ paddingHorizontal: 20}}>
+                                            <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                                                <View style={styles.stars}>
+                                                    {[...Array(3)].map((star, index) => (
+                                                        <FontAwesome
+                                                            key={index}
+                                                            name="star"
+                                                            size={20}
+                                                            color={index < state.selectedChallenge.difficolta ? 'gold' : 'rgba(255,255,255,0.5)'} // Colore delle stelle
+                                                        />
+                                                    ))}
                                                 </View>
                                             </View>
-                                        </ImageBackground>
-                                        <Text style={styles.modalTitle}>{state.selectedChallenge.titolo}</Text>
-                                        <Text style={styles.modalSubtitle}>{state.selectedChallenge.argomento}</Text>
+                                        </View>
+                                        <ImageBackground
+                                            source={icon}
+                                            style={{flex: 1,height: 150, width: 150, alignSelf: 'center',margin: 30}}
+                                            imageStyle={{ borderRadius: 0,  margin: 0}}
+                                        />
+
+
+
+                                        <View style={{alignItems: 'flex-start', paddingBottom:20}}>
+                                            <Text style={styles.modalTitle}>{state.selectedChallenge.titolo}</Text>
+                                            <Text style={styles.modalSubtitle}>{state.selectedChallenge.argomento}</Text>
+                                        </View>
                                         <View style={{flexDirection: "row"}}>
 
                                             <View style={[styles.expandButtonBase, {marginRight: 10, height:50}]}>
