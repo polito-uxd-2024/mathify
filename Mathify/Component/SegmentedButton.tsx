@@ -36,13 +36,15 @@ export interface Challenge {
 }
 const challenges = [
     { id: "1", title: "Circonferenza", icon: require(`../assets/circonferenze.png`), argomento: "Geometria analitica", difficoltà: 1 },
-    { id: "2", title: "Domini", icon: require(`../assets/domini.png`), argomento: "Funzioni", difficoltà: 1 },
+    { id: "2", title: "Dominio", icon: require(`../assets/domini.png`), argomento: "Funzioni", difficoltà: 1 },
     { id: "3", title: "Disequazioni", icon: require(`../assets/disequazioni.png`), argomento: "Algebra", difficoltà: 2 },
-    { id: "4", title: "Equazioni", icon: '', argomento: "Algebra", difficoltà: 3 },
+    { id: "4", title: "Equazioni", icon: require(`../assets/equazioni.png`), argomento: "Algebra", difficoltà: 3 },
     { id: "5", title: "Esponenziali", icon: require(`../assets/esponenziali.png`), argomento: "Algebra", difficoltà: 2 },
-    { id: "6", title: "Probabilità condizionata", icon: '', argomento: "Probabilità", difficoltà: 2 },
-    { id: "7", title: "Derivate", icon: require(`../assets/derivate.png`), argomento: "Analisi", difficoltà: 1 },
+    { id: "6", title: "Probabilità condizionata", icon: require(`../assets/probabilita.png`), argomento: "Probabilità", difficoltà: 2 },
+        { id: "7", title: "Derivate", icon: require(`../assets/derivate.png`), argomento: "Funzioni", difficoltà: 1 },
     { id: "8", title: "Funzioni sinusoidali", icon: require(`../assets/sinusoidi.png`), argomento: "Trigonometria", difficoltà: 3 },
+    { id: "9", title: "Solidi euclidei", icon: require(`../assets/solidi euclidei.png`), argomento: "Geometria", difficoltà: 3 },
+    { id: "9", title: "Pitagora", icon: require(`../assets/pitagora.png`), argomento: "Geometria", difficoltà: 3 },
 ];
 
 export const SegmentedButton = () => {
@@ -70,7 +72,7 @@ export const SegmentedButton = () => {
         setIndex((index + 1) % state.challengeList.length);
     };
 
-    const buttonTitles = ["Geometria analitica", "Funzioni", "Geometria", "Algebra", "Trigonometria"];
+    const buttonTitles = ["Geometria analitica", "Funzioni", "Geometria", "Algebra", "Trigonometria", "Probabilità"];
 
     const handleButtonClick = (title: string) => {
         if (searchQuery === title) {

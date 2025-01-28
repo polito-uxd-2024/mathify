@@ -34,9 +34,14 @@ export default function ProfilePage() {
                     {/* Immagine */}
                     <View style={[{padding: 20, marginLeft:10,marginRight:10,marginTop:10 }]}>
                             <ImageBackground
-                                source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
+                                source= {require('../assets/student.png')}
                                 style={{flex: 1}}
-                                imageStyle={styles.coverImage}
+                                imageStyle={{width: "100%",
+                                    height: 200,
+                                    resizeMode: 'cover',
+                                    marginVertical: 15,
+                                    borderRadius: 30,
+                                    borderWidth: 2,}}
                             >
                                 {/* Tasto Impostazioni in alto a destra */}
                                 <IconButton
