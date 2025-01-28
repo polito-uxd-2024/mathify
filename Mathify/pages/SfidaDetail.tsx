@@ -155,11 +155,9 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                                             {valore.Risposte.map((risposta, index2) => (
                                                 <View key={index2} style={{
                                                     marginVertical: 8, padding: 8, borderRadius: 10,
-                                                    backgroundColor: valore.RispostaCorretta === risposta
-                                                        ? myTheme.colors.rightAnswer // Colora in verde se è la risposta corretta
-                                                        : valore.RispostaData === risposta
-                                                            ? myTheme.colors.wrongAnswer // Colora in rosso se è la risposta scelta dall'utente ed è sbagliata
-                                                            : myTheme.colors.gray// Altrimenti usa il grigio
+                                                    backgroundColor: risposta === valore
+                                                        ? (risposta === state.selectedChallenge.questions[index].Soluzione ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer)
+                                                        : 'rgb(245,245,245)'// Altrimenti usa il grigio
 
                                                 }}>
                                                     <Text style={{ fontSize: 16, alignSelf: "center" }}>{risposta}</Text>
