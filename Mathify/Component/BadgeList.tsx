@@ -1,6 +1,6 @@
 import {styles} from "./style";
 import {Card, Text} from "react-native-paper";
-import {View} from "react-native";
+import {Image, View} from "react-native";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import * as React from "react";
 import {useContext} from "react";
@@ -16,13 +16,24 @@ export default function BadgeList(){
 
     // I badge fissi (velocista, stakanovista, perfezionista) trattati come oggetti
     const fixedBadges = [
-        { id: 'Velocista', description: 'Sfida completata in meno di due minuti', icon: 'run-fast', color: '#ff6f61' },
-        { id: 'Stakanovista', description: '3 sfide nella stessa giornata', icon: 'arm-flex', color: '#4caf50' },
-        { id: 'Perfezionista', description: '10 domande di fila', icon: 'star', color: '#ffc107' }
+        { id: 'Velocista', description: 'Complimenti! Hai guadagnato 150 XP', icon: 'run-fast', color: '#ff6f61', titolo: "Logaritmi" },
+        { id: 'Stakanovista', description: 'Complimenti! Hai guadagnato 300 XP', icon: 'arm-flex', color: '#4caf50', titolo: "Radicali" },
+        { id: 'Perfezionista', description: 'Complimenti! Hai guadagnato 450 XP', icon: 'star', color: '#ffc107', titolo: "Disequazioni" }
     ];
 
     // Combinare i badge non visibili e quelli fissi
     const allBadgesToShow = [...previousBadges,...fixedBadges];
+
+    const badges = [
+        {id: 1, name: "Un primo obbiettivo", image: require("../assets/Badge Image/flag_4158032.png")},
+        {id: 2, name: "Hai centrato l'obbiettivo", image: require("../assets/Badge Image/goal_4158044.png")},
+        {id: 3, name: "Pronto al diploma", image: require("../assets/Badge Image/graduation_4158029.png")},
+        {id: 4, name: "Crescita spaventosa", image: require("../assets/Badge Image/growth_4157905.png")},
+        {id: 5, name: "In cima alla classifica", image: require("../assets/Badge Image/star_4158051.png")},
+        {id: 6, name: "Obbiettivo raggiunto", image: require("../assets/Badge Image/trophy_4158048.png")},
+        {id: 7, name: "Star", image: require("../assets/Badge Image/victory_4158038.png")},
+    ];
+
 
     return (
         <View style={{backgroundColor: myTheme.colors.gray, flex:1}}>
@@ -35,18 +46,23 @@ export default function BadgeList(){
                                 style={{ width: 80, height: 80, borderRadius: 40,
                                     backgroundColor: item.color || '#3498db', // Colore specifico per ogni badge
                                     justifyContent: 'center', alignItems: 'center',marginTop:10 }}
+
                             >
-                                <MaterialCommunityIcons
-                                    name={item.icon || "trophy"} // Usa l'icona specifica o una generica
-                                    size={40}
-                                    color="white"
+                                <Image
+                                    source={badges[index % badges.length].image}
+                                    style={[styles.cardImage, { position:"absolute", left:1}]}
                                 />
                             </View>
 
                             <View style={{ marginTop: 10 }}>
+
                                 <Text style={{ fontSize: 14, fontWeight: 'bold', textAlign:"center" }}>
-                                    {item.titolo} {/* Nome della sfida o del badge */}
-                                    {item.argomento || item.id}
+                                    {item.titolo } {/* Nome della sfida o del badge */}
+
+                                </Text>
+
+                                <Text style={[styles.subtitle, {textAlign:"center"}]}>
+                                    {badges[index % badges.length].name}
                                 </Text>
 
                                 <Text style={{ fontSize: 12, color: myTheme.colors.violet, textAlign: 'center', marginTop: 4,marginBottom:4 }}>

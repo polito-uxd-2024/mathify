@@ -1,4 +1,4 @@
-import {FlatList, ImageBackground, View} from "react-native";
+import {FlatList, Image, ImageBackground, View} from "react-native";
 import { styles } from "../Component/style";
 import {Appbar, Card, Text, Button, IconButton, ProgressBar, Divider} from "react-native-paper";
 import {useFocusEffect, useNavigation} from "@react-navigation/native";
@@ -7,7 +7,7 @@ import {NativeStackNavigationProp} from "react-native-screens/native-stack";
 import {ProfileStackParamList, RootStackParamList} from "../Component/navigation";
 import {useSetCurrentUser} from "../Component/setUser";
 import {StateContext} from "../Reducer";
-import {useCallback, useContext} from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import * as React from "react";
 import CardContent from "react-native-paper/lib/typescript/components/Card/CardContent";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
@@ -20,6 +20,37 @@ export default function ProfilePage() {
     const navigation = useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
     const [state] = useContext(StateContext);
     useSetCurrentUser("Utente1");
+    const [items, setItems] = useState([]);
+    const [numeroSfideCompletate, setNumeroSfideCompletate] = useState(0);
+
+    // Array di badge (fuori da BadgeList)
+    const badges = [
+        {id: 1, name: "Un primo obbiettivo", image: require("../assets/Badge Image/flag_4158032.png")},
+        {id: 2, name: "Hai centrato l'obbiettivo", image: require("../assets/Badge Image/goal_4158044.png")},
+        {id: 3, name: "Pronto al diploma", image: require("../assets/Badge Image/graduation_4158029.png")},
+        {id: 4, name: "Crescita spaventosa", image: require("../assets/Badge Image/growth_4157905.png")},
+        {id: 5, name: "In cima alla classifica", image: require("../assets/Badge Image/star_4158051.png")},
+        {id: 6, name: "Obbiettivo raggiunto", image: require("../assets/Badge Image/trophy_4158048.png")},
+        {id: 7, name: "Star", image: require("../assets/Badge Image/victory_4158038.png")},
+    ];
+
+    // Funzione per ottenere un elemento casuale dalla lista badges
+    const getRandomItem = (badges) => {
+        if (badges.length === 0) return null; // Se la lista è vuota, restituisce null
+        const randomIndex = Math.floor(Math.random() * badges.length); // Indice casuale
+        return badges[randomIndex]; // Ritorna l'elemento all'indice casuale
+    };
+
+    useEffect(() => {
+        // Controlla se ci sono sfide completate prima di aggiungere un nuovo elemento
+        if (state.utente.sfideCompletate > numeroSfideCompletate) {
+            setNumeroSfideCompletate(state.utente.sfideCompletate.length); // Aggiorna il numero di sfide completate
+            const randomItem = getRandomItem(badges); // Prendi un elemento casuale
+            if (randomItem) {
+                setItems((prevItems) => [...prevItems, randomItem]); // Aggiungi l'elemento alla lista
+            }
+        }
+    }, [state.utente.sfideCompletate, numeroSfideCompletate]); // Esegui quando cambia "sfideCompletate"
 
 
 
@@ -218,16 +249,15 @@ export default function ProfilePage() {
                                     <View
                                         style={{ width: 80, height: 80, borderRadius: 40, backgroundColor: '#3498db', justifyContent: 'center', alignItems: 'center',marginTop:10 }}
                                     >
-                                        <MaterialCommunityIcons
-                                            name="trophy"
-                                            size={40}
-                                            color="white"
-                                        />
+                                        <Image source={badges[index].image}
+                                               style={[styles.cardImage, { position:"absolute", left:1}]}/>
                                     </View>
                                     <View style={{ marginTop: 10 }}>
                                         <Text style={{ fontSize: 14, fontWeight: 'bold', marginTop: 8, textAlign:"center" }}>
                                             {item.titolo} {/* Nome della sfida o del badge */}
-                                            {item.argomento} {/* Nome della sfida o del badge */}
+                                        </Text>
+                                        <Text style={[styles.subtitle, {textAlign:"center"}]}>
+                                            {badges[index].name} {/* Nome della sfida o del badge */}
                                         </Text>
                                         <Text style={{ fontSize: 12, color: myTheme.colors.violet, textAlign: 'center', marginTop: 4 }}>
                                             Complimenti! Hai guadagnato {item.xpGuadagnati} XP
