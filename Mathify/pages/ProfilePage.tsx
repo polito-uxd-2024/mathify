@@ -14,6 +14,7 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 import { ScrollView } from 'react-native'
 import {myTheme} from "../Component/theme";
 import { FontAwesome } from 'react-native-vector-icons';
+import * as Progress from 'react-native-progress';
 import {black} from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 export default function ProfilePage() {
     const navigation = useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
@@ -103,13 +104,13 @@ export default function ProfilePage() {
                                             Apprendista{/* Percentuale calcolata */}
                                         </Text>
                                         <View style={{ position: 'relative', width: 180}}>
-                                            <ProgressBar
+                                            <Progress.Bar
                                                 progress={parseFloat((state.utente.livello.xpTotali / 5000).toFixed(2))}
                                                 color={myTheme.colors.primary}
-                                                style={[styles.progressBar, { width: '100%'}]}
+
                                             />
-                                            <Text style={{color: 'white', position: 'absolute', width: '100%', textAlign: 'left', fontWeight: 'bold', marginLeft: 20, }}>
-                                                {Math.round((state.utente.livello.xpTotali / 5000) * 100)}%
+                                            <Text style={{color: 'black', position: 'absolute', width: '100%', textAlign: 'left', fontWeight: 'bold', marginLeft: 20, marginBottom:0 }}>
+                                                {(Math.round((state.utente.livello.xpTotali / 5000) * 100))}%
                                             </Text>
                                         </View>
                                     </View>

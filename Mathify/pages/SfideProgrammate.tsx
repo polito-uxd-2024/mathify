@@ -56,6 +56,12 @@ export default function SfideProgrammate() {
             </Text>
             <Calendar
                 // Specifica i giorni marcati
+                style={{
+                    borderWidth: 3,
+                    borderColor: myTheme.colors.primary,
+                    borderRadius: 20,
+                    height: 350
+                }}
                 markedDates={markedDates}
                 // Tema personalizzato
                 theme={{
