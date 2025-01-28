@@ -113,7 +113,9 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                     {sfida.domande.map((valore, index) => (
                         <View style={styles.article} key={index}>
                             <View style={styles.cardBase}>
-                                <Card style={{ borderRadius: 20, backgroundColor: myTheme.colors.cardBorder }} onPress={() => toggleExpand(index)}>
+                                <Card style={{ borderRadius: 20, backgroundColor: myTheme.colors.cardBorder }} onPress={() => {
+                                    toggleExpand(index), console.log(valore)
+                                }}>
                                     <View style={[styles.card, { paddingBottom: 15 }]}>
                                         <Card.Content >
                                             <View style={{ flexDirection: "row", alignItems: "flex-start", paddingTop: 15 }}>
@@ -128,17 +130,17 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                                                             {
                                                                 marginTop: 6,
                                                                 backgroundColor:
-                                                                    valore.correttezza === true
-                                                                        ? myTheme.colors.wrongAnswer
-                                                                        : myTheme.colors.rightAnswer,
+                                                                    valore.correttezza
+                                                                        ? myTheme.colors.rightAnswer
+                                                                        : myTheme.colors.wrongAnswer,
                                                             },
                                                         ]}
                                                     >
                                                         <Text style={{ paddingHorizontal: 6, color: 'white', fontWeight: 'bold', fontFamily: 'Itim' }}>
-                                                            {valore.correttezza ? 'sbagliata' : 'corretta'}
+                                                            {valore.correttezza ? 'corretta' : 'sbagliata'}
                                                         </Text>
                                                         <FontAwesome
-                                                            name={valore.correttezza ? "times" : "check"}
+                                                            name={!valore.correttezza ? "times" : "check"}
                                                             size={16}
                                                             color="white"
                                                             style={{ marginRight: 6 }}
@@ -153,9 +155,12 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                                             {valore.Risposte.map((risposta, index2) => (
                                                 <View key={index2} style={{
                                                     marginVertical: 8, padding: 8, borderRadius: 10,
-                                                    backgroundColor: risposta === state.selectedChallenge.questions[index].Soluzione
-                                                        ? (risposta === state.selectedChallenge.questions[index].Soluzione ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer)
-                                                        : 'rgb(245,245,245)'
+                                                    backgroundColor: valore.RispostaCorretta === risposta
+                                                        ? myTheme.colors.rightAnswer // Colora in verde se è la risposta corretta
+                                                        : valore.RispostaData === risposta
+                                                            ? myTheme.colors.wrongAnswer // Colora in rosso se è la risposta scelta dall'utente ed è sbagliata
+                                                            : myTheme.colors.gray// Altrimenti usa il grigio
+
                                                 }}>
                                                     <Text style={{ fontSize: 16, alignSelf: "center" }}>{risposta}</Text>
                                                     {valore.GraficList?.length > 1 && (
