@@ -35,7 +35,7 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                     source={challenges.find(image => image.title === sfida.titolo)?.icon}
                     style={{ width: 150, height: 150, alignSelf: 'center'}}
                     />
-                </View>-
+                </View>
 
                 <View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
