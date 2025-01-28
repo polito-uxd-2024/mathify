@@ -345,12 +345,11 @@ export const SegmentedButton = () => {
                     visible={modalVisible}
                     onRequestClose={handleCloseModal}
                 >
-                    <View style={[styles.modalContainer]}>
-                        <View style={[styles.modalBase ]}>
-                            <View >
+                    <TouchableOpacity style={styles.modalContainer} activeOpacity={1} onPress={handleCloseModal}>
+                        <TouchableOpacity style={styles.modalBase} activeOpacity={1}>
+                            <View>
                                 <View style={[styles.card, {borderWidth: 3, borderColor: myTheme.colors.primary, backgroundColor: myTheme.colors.gray}]}>
                                     <View style={[styles.modalContent]}>
-
                                         <View style={[styles.coverImage, {justifyContent:"center", backgroundColor: 'white'}]}>
                                             <View style={{flexDirection: 'row', justifyContent: 'flex-end', position: 'absolute', top: 0, right: 25}}>
                                                 <View style={styles.stars}>
@@ -369,14 +368,11 @@ export const SegmentedButton = () => {
                                                 style={{ width: 150, height: 150, alignSelf: 'center'}}
                                             />
                                         </View>
-
-
                                         <View style={{alignItems: 'flex-start', paddingBottom:20}}>
                                             <Text style={styles.modalTitle}>{state.selectedChallenge.titolo}</Text>
                                             <Text style={styles.modalSubtitle}>{state.selectedChallenge.argomento}</Text>
                                         </View>
                                         <View style={{flexDirection: "row"}}>
-
                                             <View style={[styles.expandButtonBase, {marginRight: 10, height:50}]}>
                                             <Button
                                                 mode="outlined"
@@ -403,11 +399,9 @@ export const SegmentedButton = () => {
                                     </View>
                                 </View>
                             </View>
-                        </View>
-
-                    </View>
+                        </TouchableOpacity>
+                    </TouchableOpacity>
                 </Modal>
-
         </View>
     );
 };

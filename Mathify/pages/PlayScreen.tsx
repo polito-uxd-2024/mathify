@@ -535,11 +535,6 @@ export default function PlayScreen() {
                 />
                <RewardModal state={state} xp={xp}  onClose={()=>{setRicompensa(false)}} visible={ricompensa}/>
 
-
-
-
-
-
                 <View style={[styles.challengeHeader, {alignItems: 'center', justifyContent: 'center'}]}>
                     <View style={{alignItems: 'center'}}>
                         <Text style={{fontWeight: 'bold', fontSize: 30, color: 'white'}}>Complimenti! </Text>
@@ -739,7 +734,8 @@ export default function PlayScreen() {
                     </View>
                     </View>
                 </ScrollView>
-                <SafeAreaView style={[styles.modalContainer, {backgroundColor: 'rgba(255,255,255,0)'}]}>
+                <View style={[styles.modalContainer, {backgroundColor: 'rgba(255,255,255,0)'}]}>
+
                     <Modal
                         visible={isDialogVisible}
                         style={styles.drawerModalBase}
@@ -793,7 +789,9 @@ export default function PlayScreen() {
                             </TouchableOpacity>
                         </TouchableOpacity>
                     </Modal>
-                </SafeAreaView>
+
+
+                </View>
 
 
 

@@ -85,9 +85,9 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                             <View style={{ width: 5 }} />
                             {sfida.stringacompletamento}</Text>
                     </View>
-                    <View style={{ paddingTop: 20 }}>
+                    <View style={{ paddingTop: 20}}>
                         <ProgressBar
-                            style={styles.progressBar} // Cambia l'altezza se necessario
+                            style={[styles.progressBar, {height: 15}]} // Cambia l'altezza se necessario
                             progress={progress}
                             color={myTheme.colors.rightAnswer} // Colore della barra completata
                         />

@@ -1,9 +1,13 @@
-import React from 'react';
-import { View, Text, Modal, TouchableOpacity, ViewStyle } from 'react-native';
+import React, {useContext, useState} from 'react';
+import {View, Text, Modal, TouchableOpacity, ViewStyle, Image} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styles } from './style';
 import { modalStyles } from './CustomModal';
 import { myTheme } from './theme';
+import {FontAwesome} from "react-native-vector-icons";
+import {Button} from "react-native-paper";
+import {StateContext} from "../Reducer";
+const badgeImage = require("../assets/Badge Image/trophy_4158048.png");
 
 type RewardModalProps = {
     visible: boolean;
@@ -14,15 +18,28 @@ type RewardModalProps = {
         utente: { livello: { xpTotali: number } };
     };
 };
+const badges = [
+    {id: 1, name: "Un primo obbiettivo", image: require("../assets/Badge Image/flag_4158032.png")},
+    {id: 2, name: "Hai centrato l'obbiettivo", image: require("../assets/Badge Image/goal_4158044.png")},
+    {id: 3, name: "Pronto al diploma", image: require("../assets/Badge Image/graduation_4158029.png")},
+    {id: 4, name: "Crescita spaventosa", image: require("../assets/Badge Image/growth_4157905.png")},
+    {id: 5, name: "In cima alla classifica", image: require("../assets/Badge Image/star_4158051.png")},
+    {id: 6, name: "Obbiettivo raggiunto", image: require("../assets/Badge Image/trophy_4158048.png")},
+    {id: 7, name: "Star", image: require("../assets/Badge Image/victory_4158038.png")},
+];
+
+
 
 const RewardModal = ({ visible, xp, state, onClose }: RewardModalProps) => {
+    const [stateUser]=useContext(StateContext)
     return (
         <Modal
             visible={visible}
-            animationType="slide"
+            animationType="fade"
             transparent={true}
             onRequestClose={onClose}
         >
+            {/*
             <View style={modalStyles.modalBackground}>
                 <View style={[modalStyles.modalContainer, { borderRadius: 15, backgroundColor: "transparent", padding: 0}]}>
                     <View style={[styles.cardBase, {margin:0}]}>
@@ -43,12 +60,7 @@ const RewardModal = ({ visible, xp, state, onClose }: RewardModalProps) => {
                             />
                         </View>
                     </View>
-
-
-
                     <Text style={[styles.sectionText, { marginBottom: 10 }]}>Hai guadagnato {xp} XP</Text>
-
-
                     <View style={[styles.progressBar, { flexDirection: 'row', marginBottom: 10 }]}>
                         <View
                             style={{
@@ -65,7 +77,6 @@ const RewardModal = ({ visible, xp, state, onClose }: RewardModalProps) => {
                             } as ViewStyle}
                         />
                     </View>
-
                     <TouchableOpacity
                         style={[modalStyles.confirmButton, { width: 200, borderRadius: 10, height: 40, alignItems: "center", backgroundColor: myTheme.colors.blue, alignSelf: "center" }]}
                         onPress={onClose}
@@ -76,6 +87,46 @@ const RewardModal = ({ visible, xp, state, onClose }: RewardModalProps) => {
                     </View>
                 </View>
             </View>
+            */}
+
+            <TouchableOpacity style={styles.modalContainer} activeOpacity={1} onPress={onClose}>
+                <TouchableOpacity style={styles.modalBase} activeOpacity={1}>
+                    <View>
+                        <View style={[styles.card, {borderWidth: 3, borderColor: myTheme.colors.primary, backgroundColor: myTheme.colors.gray}]}>
+                            <View style={[styles.modalContent]}>
+                                <View style={{alignItems: 'center'}}>
+                                <Text style={styles.bigWelcomeText}>Congratulazioni!</Text>
+
+                                    <Text style={styles.subtitle}>Hai sbloccato il badge</Text>
+                                </View>
+                                <View style={[styles.coverImage, {borderWidth: 0, backgroundColor: 'white', justifyContent:"center"}]}>
+                                    <Image
+                                        source={badges[stateUser.utente.sfideCompletate.length % badges.length].image}
+                                        style={{ width: 150, height: 150, alignSelf: 'center'}}
+                                    />
+                                    
+                                </View>
+
+                                <View style={{flexDirection: "row"}}>
+                                    <View style={[styles.expandButtonBase, {marginRight: 10, height:50}]}>
+                                        <Button
+                                            mode="outlined"
+                                            onPress={onClose}
+                                            labelStyle={{ fontSize: 16, color:"black" }}
+                                            style={styles.expandButton}
+                                        >
+                                            Vai al Riepilogo
+                                        </Button>
+                                    </View>
+
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            </TouchableOpacity>
+
+
         </Modal>
     );
 };
