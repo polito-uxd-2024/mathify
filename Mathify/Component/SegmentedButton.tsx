@@ -113,7 +113,7 @@ export const SegmentedButton = () => {
                         },
                         style: {
                             borderBottomWidth:  value === 'esplora' ? 3 : 0,
-                            borderRadius: 0, borderWidth: 0}
+                            borderRadius: 0, borderWidth: 0, borderColor: 'black'}
                     },
                     {   value: 'completate',
                         label: 'Completate',
