@@ -153,11 +153,49 @@ export const SegmentedButton = () => {
                                     <View style={styles.mainWhiteCard}>
                                         <Card.Content>
 
-                                            <View style={{borderWidth: 0, borderRadius: 0, marginBottom: 12}}>
-                                            <ImageBackground
-                                                source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
-                                                style={{flex: 1}}
-                                                imageStyle={{ borderRadius: 0,  margin: 0}}
+
+                                            <View style={[styles.coverImage, { justifyContent: "center", backgroundColor: myTheme.colors.gray, borderRadius: 5, borderWidth: 0 }]}>
+                                                {/* Immagine di sfondo */}
+                                                <Image
+                                                    source={challenges.find(challenge => challenge.title === state.selectedChallenge.titolo)?.icon || require('../assets/placeholder.jpg')}
+                                                    style={{
+                                                        width: 150,
+                                                        height: 150,
+                                                        position: "absolute",
+                                                        resizeMode: "cover",
+                                                        borderRadius: 20,
+                                                        alignSelf: 'center',
+                                                        top: '5%', // Imposta la distanza dall'alto per centrarla meglio o per spostarla verso l'alto
+                                                    }}
+                                                />
+
+                                                {/* Stelline in alto a destra */}
+                                                <View style={{ flexDirection: "row", justifyContent: "flex-end", position: "absolute", top: 0, right: 0 }}>
+                                                    <View style={[styles.stars, { marginTop: 0 , borderRadius:5}]}>
+                                                        {[...Array(3)].map((star, index) => (
+                                                            <FontAwesome
+                                                                key={index}
+                                                                name="star"
+                                                                size={20}
+                                                                color={index < state.selectedChallenge.difficolta ? "gold" : "rgba(255,255,255,0.5)"} // Colore delle stelle
+                                                            />
+                                                        ))}
+                                                    </View>
+                                                </View>
+                                                {/* Titoli in basso a sinistra */}
+                                                <View style={{ position: "absolute", bottom: 10, left: 10 }}>
+                                                    <Text style={styles.sectionText}>{state.selectedChallenge.titolo}</Text>
+                                                    <Text style={styles.subtitle}>{state.selectedChallenge.argomento}</Text>
+                                                </View>
+                                            </View>
+
+
+
+
+                                            {/*<ImageBackground
+                                                source={challenges.find(challenge => challenge.title === state.selectedChallenge.titolo)?.icon || require('../assets/placeholder.jpg')}
+                                                style={{flex: 1, height: 200, width: '100%', justifyContent: 'flex-end'}}
+                                                imageStyle={{ height: 120, width:120, alignSelf:"center", marginHorizontal:90, marginVertical:30}}
                                             >
                                                 <View style={{ paddingHorizontal: 20, marginVertical: 0, paddingBottom: 8, marginTop: 0}}>
                                                     <View style={{flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 80}}>
@@ -177,8 +215,8 @@ export const SegmentedButton = () => {
                                                         <Text style={styles.subtitle}>{state.selectedChallenge.argomento}</Text>
                                                     </View>
                                                 </View>
-                                            </ImageBackground>
-                                            </View>
+                                            </ImageBackground>*/}
+
                                         </Card.Content>
                                         <View style={{alignItems: 'center'}}>
                                             <View style={{width: 200, flexDirection: 'row'}}>
