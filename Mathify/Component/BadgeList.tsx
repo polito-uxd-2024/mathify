@@ -49,7 +49,7 @@ export default function BadgeList(){
                         style={{ marginLeft: 10 }}
                     />
                 </View>
-                <Appbar.Content title="Riepilogo Sfida" style={{ alignSelf: "center", marginLeft: 50 }} />
+                <Appbar.Content title="I Tuoi Badge" style={{ alignSelf: "center", marginLeft: 50 }} />
             </Appbar.Header>
             <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
                 <View style={{ flexDirection: 'row',flexWrap: 'wrap', justifyContent: 'space-around', paddingHorizontal: 10, marginTop:20,marginLeft:11}}>

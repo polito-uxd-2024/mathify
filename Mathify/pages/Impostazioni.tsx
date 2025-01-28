@@ -112,7 +112,7 @@ export default function Impostazioni() {
 
             {/* Info Modal */}
             <Modal
-                animationType="slide"
+                animationType="fade"
                 transparent={true}
                 visible={modalVisible}
                 onRequestClose={() => setModalVisible(false)}
@@ -162,7 +162,7 @@ export default function Impostazioni() {
 
             {/* Verification Modal */}
             <Modal
-                animationType="slide"
+                animationType="fade"
                 transparent={true}
                 visible={verificationModal}
                 onRequestClose={closeVerificationModal}
@@ -191,7 +191,7 @@ export default function Impostazioni() {
 
             {/* Success Modal */}
             <Modal
-                animationType="slide"
+                animationType="fade"
                 transparent={true}
                 visible={successModal}
                 onRequestClose={closeSuccessModal}
