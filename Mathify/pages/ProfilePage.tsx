@@ -31,8 +31,13 @@ export default function ProfilePage() {
         {id: 3, name: "Ingegnere", image: require("../assets/Badge Image/graduation_4158029.png"), description: "Hai svolto 40 sfide dall'inizio del tuo percorso"},
         {id: 4, name: "Razzo", image: require("../assets/Badge Image/growth_4157905.png"), description: "Hai impiegato meno di 5 minuti per finire la sfida"},
         {id: 5, name: "Asso", image: require("../assets/Badge Image/star_4158051.png"), description: "Hai ottenuto il massimo risultato in 5 sfide"},
-        {id: 6, name: "Campione", image: require("../assets/Badge Image/trophy_4158048.png"), description: "Hai ottenuto un risultato superiore a 8 nelle ultime 3 sfide"},
+        {id: 6, name: "Geniaccio", image: require("../assets/Badge Image/idea_4158034.png"), description: "Hai ottenuto un risultato superiore a 8 nelle ultime 3 sfide"},
         {id: 7, name: "Intuitore", image: require("../assets/Badge Image/victory_4158038.png"), description: "Hai completato almeno 5 domande in meno di 20 secondi"},
+    ];
+    const trophys = [
+        {id: 1, image: require("../assets/Badge Image/god_4158059.png")},
+        {id: 2, image: require("../assets/Badge Image/trophy_4158048.png")},
+        {id: 3, image: require("../assets/Badge Image/ladder_4158057.png")},
     ];
 
     // Funzione per ottenere un elemento casuale dalla lista badges
@@ -112,7 +117,7 @@ export default function ProfilePage() {
                         </View>
 
                         <View style={{paddingHorizontal: 16}}>
-                            <View style={styles.card}>
+                            <View style={[styles.card, {borderWidth: 2, borderColor: 'black'}]}>
                                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                                 {/* Livello e stella */}
                                     <View style={{alignItems: 'center', justifyContent: 'center' }}>
@@ -317,7 +322,7 @@ export default function ProfilePage() {
                                 justifyContent: 'space-between'
                             }}>
                                 {/* Icona Trofeo */}
-                                <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, borderRadius: 10, backgroundColor:"white"}}>
+                                <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, borderRadius: 10, backgroundColor: myTheme.colors.gray}}>
                                     <MaterialCommunityIcons
                                         name="trophy"
                                         size={40}
@@ -325,7 +330,7 @@ export default function ProfilePage() {
                                         style={{backgroundColor: myTheme.colors.cardBorder, padding: 5, borderRadius: 100, borderWidth: 5, borderColor: 'gold'}}
                                     />
                                 {/* Badge Fuoriclasse */}
-                                <View style={{ marginTop: 5, backgroundColor: myTheme.colors.blue, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
+                                <View style={{ marginTop: 5, backgroundColor: myTheme.colors.primary, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
                                     <Text style={{ color: 'white', fontSize: 12, fontFamily:"Itim"}}>
                                         Fuoriclasse
                                     </Text>
@@ -376,7 +381,7 @@ export default function ProfilePage() {
                                     justifyContent: 'space-between'
                                 }}>
                                     {/* Icona Trofeo */}
-                                <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, borderRadius: 10, backgroundColor:"white"}}>
+                                <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, borderRadius: 10, backgroundColor: myTheme.colors.gray}}>
                                     <MaterialCommunityIcons
                                         name="account-star"
                                         size={40}
@@ -384,7 +389,7 @@ export default function ProfilePage() {
                                         style={{backgroundColor: myTheme.colors.cardBorder, padding: 5, borderRadius: 100, borderWidth: 5, borderColor: 'gold'}}
                                     />
 
-                                    <View style={{ marginTop: 5, backgroundColor: myTheme.colors.blue, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
+                                    <View style={{ marginTop: 5, backgroundColor: myTheme.colors.primary, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
                                         <Text style={{ color: 'white', fontSize: 12, fontFamily:"Itim"}}>
                                             Maestro
                                         </Text>
@@ -437,20 +442,19 @@ export default function ProfilePage() {
                                 }}>
 
                                     {/* Icona Trofeo */}
-                                <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, borderRadius: 10,backgroundColor:"white"}}>
-                                    <MaterialCommunityIcons
-                                        name="telescope"
-                                        size={40}
-                                        color={"white"}
-                                        style={{backgroundColor: myTheme.colors.cardBorder, padding: 5, borderRadius: 100, borderWidth: 5, borderColor: 'gold'}}
-                                    />
-
-                                    <View style={{ marginTop: 5, backgroundColor: myTheme.colors.blue, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
-                                        <Text style={{ color: 'white', fontSize: 12}}>
-                                            Esploratore
-                                        </Text>
+                                    <View style={{width: 120, alignItems: 'center', padding: 10, paddingTop: 10, borderRadius: 10, backgroundColor: myTheme.colors.gray}}>
+                                        <View style={{ width: 80, height: 80, backgroundColor: myTheme.colors.cardBorder, borderRadius: 100, borderWidth: 5, borderColor: 'gold', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+                                            <Image
+                                                source={trophys[2].image}
+                                                style={{ width: 80, height: 80, position: 'absolute', top: -40, left: 0, right: 0, marginLeft: 'auto', marginRight: 'auto' }}
+                                            />
+                                        </View>
+                                        <View style={{ marginTop: 5, backgroundColor: myTheme.colors.primary, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
+                                            <Text style={{ color: 'white', fontSize: 12}}>
+                                                Esploratore
+                                            </Text>
+                                        </View>
                                     </View>
-                                </View>
 
                                 {/* Dettagli della Specialità */}
                                 <View style={{ flex: 1, marginLeft: 20}}>

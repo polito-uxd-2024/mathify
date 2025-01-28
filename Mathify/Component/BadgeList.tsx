@@ -30,7 +30,7 @@ export default function BadgeList(){
         {id: 3, name: "Ingegnere", image: require("../assets/Badge Image/graduation_4158029.png"), description: "Hai svolto 40 sfide dall'inizio del tuo percorso"},
         {id: 4, name: "Razzo", image: require("../assets/Badge Image/growth_4157905.png"), description: "Hai impiegato meno di 5 minuti per finire la sfida"},
         {id: 5, name: "Asso", image: require("../assets/Badge Image/star_4158051.png"), description: "Hai ottenuto il massimo risultato in 5 sfide"},
-        {id: 6, name: "Campione", image: require("../assets/Badge Image/trophy_4158048.png"), description: "Hai ottenuto un risultato superiore a 8 nelle ultime 3 sfide"},
+        {id: 6, name: "Geniaccio", image: require("../assets/Badge Image/idea_4158034.png"), description: "Hai ottenuto un risultato superiore a 8 nelle ultime 3 sfide"},
         {id: 7, name: "Intuitore", image: require("../assets/Badge Image/victory_4158038.png"), description: "Hai completato almeno 5 domande in meno di 20 secondi"},
     ];
 

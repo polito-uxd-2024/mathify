@@ -5,6 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39542f42-9a80-4e54-af61-1f4385b67116" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Mathify/assets/Badge Image/god_4158059.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mathify/assets/Badge Image/idea_4158034.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mathify/assets/Badge Image/ladder_4158057.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mathify/Component/BadgeList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/BadgeList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mathify/Component/RewardModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/RewardModal.tsx" afterDir="false" />
@@ -61,6 +64,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\ILARIA\mathify\Mathify\assets\Badge Image" />
       <recent name="C:\ILARIA\mathify\Mathify\assets" />
       <recent name="C:\ILARIA\mathify\Mathify\assets\fonts" />
     </key>
@@ -113,7 +117,7 @@
       <workItem from="1737982062337" duration="16418000" />
       <workItem from="1738041287180" duration="7000" />
       <workItem from="1738058578337" duration="6047000" />
-      <workItem from="1738076377851" duration="5196000" />
+      <workItem from="1738076377851" duration="7817000" />
     </task>
     <servers />
   </component>
