@@ -305,16 +305,16 @@ export const SegmentedButton = () => {
                 >
                     <View style={[styles.modalContainer]}>
                         <View style={[styles.modalBase, ]}>
-                            <View>
+                            <View >
                                 <View style={[styles.card, {borderWidth: 5, borderColor: "black"}]}>
                                     <View style={[styles.modalContent]}>
                                         <ImageBackground
                                             source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
                                             style={{flex: 1}}
-                                            imageStyle={{ borderRadius: 10, marginVertical: 8}}
+                                            imageStyle={{ borderRadius: 10}}
                                         >
-                                            <View style={{ paddingHorizontal: 20, marginVertical: 8, paddingBottom: 8}}>
-                                                <View style={{flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 80}}>
+                                            <View style={{ paddingHorizontal: 20, paddingBottom: 8}}>
+                                                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                                                     <View style={styles.stars}>
                                                         {[...Array(3)].map((star, index) => (
                                                             <FontAwesome
@@ -330,7 +330,8 @@ export const SegmentedButton = () => {
                                         </ImageBackground>
                                         <Text style={styles.modalTitle}>{state.selectedChallenge.titolo}</Text>
                                         <Text style={styles.modalSubtitle}>{state.selectedChallenge.argomento}</Text>
-                                        <View style={[styles.content, {flexDirection: "row"}]}>
+                                        <View style={{flexDirection: "row"}}>
+
                                             <View style={[styles.expandButtonBase, {marginRight: 10, height:50}]}>
                                             <Button
                                                 mode="outlined"
