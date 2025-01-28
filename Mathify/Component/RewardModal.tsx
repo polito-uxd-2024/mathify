@@ -94,7 +94,7 @@ const RewardModal = ({ visible, xp, state, onClose }: RewardModalProps) => {
                     <View>
                         <View style={[styles.card, {borderWidth: 3, borderColor: myTheme.colors.primary, backgroundColor: myTheme.colors.gray}]}>
                             <View style={[styles.modalContent]}>
-                                <View style={{alignItems: 'center'}}>
+                                <View style={{alignItems: 'center', paddingVertical: 15}}>
                                 <Text style={styles.bigWelcomeText}>Congratulazioni!</Text>
 
                                     <Text style={styles.subtitle}>Hai sbloccato il badge</Text>
@@ -104,10 +104,16 @@ const RewardModal = ({ visible, xp, state, onClose }: RewardModalProps) => {
                                         source={badges[stateUser.utente.sfideCompletate.length % badges.length].image}
                                         style={{ width: 150, height: 150, alignSelf: 'center'}}
                                     />
-                                    
+                                    <View style={{flexDirection: 'row', justifyContent: 'center', paddingVertical: 10}}>
+                                        <View style={[styles.callout, {backgroundColor: myTheme.colors.primary}]}>
+                                        <Text style={{ color: 'white', fontSize: 14, fontWeight: 'bold' }}>
+                                            {badges[stateUser.utente.sfideCompletate.length % badges.length].name}
+                                        </Text>
+                                        </View>
+                                    </View>
                                 </View>
 
-                                <View style={{flexDirection: "row"}}>
+                                <View style={{flexDirection: "row", paddingTop: 10}}>
                                     <View style={[styles.expandButtonBase, {marginRight: 10, height:50}]}>
                                         <Button
                                             mode="outlined"
