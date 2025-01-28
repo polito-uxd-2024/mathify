@@ -27,7 +27,7 @@ export type RootStackParamList = {
 }
 export type TabParamList = {
     Home: undefined;
-    Profile: undefined;
+    Profilo: undefined;
     Classe: undefined;
     Materiale: undefined;
 }
@@ -108,7 +108,7 @@ function Tabs() {
                 let iconName;
                 if (route.name === "Home") {
                     iconName = focused ? "home" : "home-outline";
-                } else if (route.name === "Profile") {
+                } else if (route.name === "Profilo") {
                     iconName = focused ? "person" : "person-outline";
                 } else if (route.name === "Classe") {
                     iconName = focused ? "people" : "people-outline";
@@ -136,7 +136,7 @@ function Tabs() {
             <Tab.Screen name="Materiale" component={MaterialeStackScreen}/>
 
             <Tab.Screen name="Classe" component={Classe} />
-            <Tab.Screen name="Profilo" component={ProfileStackScreen} />
+            <Tab.Screen name="Profilo" component={ProfileStackScreen} options={{headerTitle:"Profilo"}}/>
         </Tab.Navigator>
     );
 }
