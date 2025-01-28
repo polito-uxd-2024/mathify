@@ -72,7 +72,7 @@ export default function Impostazioni() {
             <View style={{ flex: 1 }} />
         </SafeAreaView>
 
-        <ScrollView style={[styles.mainContent]}>
+        <ScrollView style={[styles.mainContent, {paddingTop: 20}]}>
             <SafeAreaView>
 
             <Card style={styles.randomCard}>
@@ -225,7 +225,7 @@ export default function Impostazioni() {
                                                         labelStyle={{ fontSize: 16, color:"black" }}
                                                         style={styles.expandButton}
                                                     >
-                                                        Vai al Riepilogo
+                                                        Continua
                                                     </Button>
                                                 </View>
 
@@ -301,7 +301,7 @@ export default function Impostazioni() {
             </Card>
             </View>
 
-            <Card style={{ flex: 1, marginTop: 15, padding: 16, borderRadius: 10, width: '100%', alignSelf: 'center' }}>
+            <View style={{ backgroundColor: 'white', borderWidth: 2,  flex: 1, marginTop: 15, padding: 16, borderRadius: 10, width: '100%', alignSelf: 'center' }}>
                 {/* Nome e cognome con il bottone "ESCI" */}
                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                     <Text style={{ fontSize: 20, fontWeight: "bold", marginLeft: 20 }}>
@@ -327,7 +327,8 @@ export default function Impostazioni() {
                         {state.utente.email}
                     </Text>
                 </View>
-            </Card>
+
+            </View><View style={{height: 20}}/>
             </SafeAreaView>
         </ScrollView>
         </>

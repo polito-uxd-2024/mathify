@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { myTheme } from "../Component/theme";
 import { styles } from '../Component/style';
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 export default function SfideProgrammate() {
     // Array di sfide con date, orario e nome del professore associati
@@ -84,7 +85,7 @@ export default function SfideProgrammate() {
                 ) : (
                     selectedChallenges.map((challenge, index) => (
                         <View key={index} style={[{ margin: 10, marginTop: 30 }]}>
-                            <View>
+                            <View style={styles.cardBase}>
                             <View style={[styles.card, { flexDirection: "row", justifyContent: "space-between", alignItems: "center" }]}>
 
                                 <View style={{ flex: 1, marginRight: 10, alignItems:"center" }}>
@@ -95,12 +96,12 @@ export default function SfideProgrammate() {
                                         {challenge.Argomento}
                                     </Text>
                                     <Text style={[styles.subtitle, {margin:5}]}>
-                                        Orario: {challenge.Orario}
+                                        <MaterialCommunityIcons name="clock-outline" size={20} color= 'black' /> {challenge.Orario}
                                     </Text>
                                 </View>
 
                                 <View style={{ flex: 1, alignItems: "center" }}>
-                                    <Image source={require('../assets/placeholder.jpg')} style={[styles.cardImage, { marginBottom: 10 }]} />
+                                    <Image source={require('../assets/teacher.png')} style={[styles.cardImage, { marginBottom: 10 }]} />
                                     <Text style={styles.subtitle}>
                                         {challenge.Professore}
                                     </Text>

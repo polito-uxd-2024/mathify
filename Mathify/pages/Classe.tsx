@@ -27,12 +27,12 @@ export default function Classe() {
             <Appbar.Header style={styles.header}>
                 <Appbar.Content title="Classe" />
             </Appbar.Header>
-            <View style={[styles.content, {backgroundColor:myTheme.colors.gray}]}>
-                <View style={[styles.section, {marginRight:30, marginLeft:30}]}>
+            <View style={[styles.mainContent, {backgroundColor:myTheme.colors.gray}]}>
+                <View style={[styles.section]}>
 
                         <View>
-                            <Card style={[styles.card, {backgroundColor: "white"}]}>
-                                <View style={{flexDirection: 'row', marginBottom: 10, marginHorizontal: 10}}>
+                            <Card style={[styles.card, {backgroundColor: "white", paddingLeft: 10, borderColor: myTheme.colors.blue}]}>
+                                <View style={{flexDirection: 'row', marginBottom: 10}}>
                                     <View style={{marginTop: 10}}>
                                         <Image source={require('../assets/teacher.png')} style={styles.cardImage}/>
                                     </View>
@@ -48,58 +48,45 @@ export default function Classe() {
                                 </View>
                             </Card>
                     </View>
-                    <View style={{ height: 2, backgroundColor: myTheme.colors.gray, marginTop: 40 }} />
 
                 </View>
-                <View style={[styles.section ,{marginRight:30, marginLeft:30}]}>
-                <Text style={[styles.welcomeText, {marginTop:8, marginLeft:5}]}>Classifica</Text>
-                <View style={[styles.grayCard, {backgroundColor: "white"}]}>
-
-                    <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-end', marginTop: 10, width: "100%"}}>
-                        <View style={{flex: 1, flexDirection: 'column', alignItems:"flex-end"}}>
-                            <Text>Chiara</Text>
-                            <View style={{paddingTop: 20, backgroundColor: '#CD7F32', width:"50%", alignItems: "flex-end"}}><Text>
-                                <MaterialCommunityIcons
-                                    name="star"
-                                    size={40}
-                                    color={myTheme.colors.gray}
-                                />
-                            </Text></View>
-                        </View>
-                        <View style={{flex: 1, flexDirection: 'column', alignItems:"center"}}>
-                            <Text>Giulia</Text>
-                            <View style={{paddingTop: 60, backgroundColor: '#FFD700', width:"50%", alignItems: "center"}}><Text>
-                                <MaterialCommunityIcons
-                                    name="trophy"
-                                    size={40}
-                                    color={myTheme.colors.gray}
-                                />
-                            </Text></View>
-                        </View>
-                        <View style={{flex: 1, flexDirection: 'column', alignItems:"flex-start"}}>
-                            <Text>Sara</Text>
-                            <View style={{paddingTop: 40, backgroundColor: '#C0C0C0', width:"50%" }}><Text>
-                                <MaterialCommunityIcons
-                                    name="medal"
-                                    size={40}
-                                    color={myTheme.colors.gray}
-                                />
-                            </Text></View>
+                <View style={[styles.section]}>
+                <Text style={[styles.welcomeText]}>Classifica</Text>
+                    <View style={[styles.grayCard, {backgroundColor: "white"}]}>
+                        <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-end', marginTop: 10, width: "100%"}}>
+                            <View style={{flex: 1, flexDirection: 'column', alignItems:"flex-end"}}>
+                                <Text>Chiara</Text>
+                                <View style={{paddingTop: 20, backgroundColor: myTheme.colors.cardBorder, width:"50%", alignItems: "center"}}>
+                                    <Text style={{fontSize: 40, fontFamily: 'Itim', color: 'white', fontWeight: 'bold'}}>3</Text>
+                                </View>
+                            </View>
+                            <View style={{flex: 1, flexDirection: 'column', alignItems:"center"}}>
+                                <Text>Giulia</Text>
+                                <View style={{paddingTop: 60, backgroundColor: myTheme.colors.cardBorder, width:"50%", alignItems: "center"}}>
+                                    <Text style={{fontSize: 40, fontFamily: 'Itim', color: 'white', fontWeight: 'bold'}}>1</Text>
+                                </View>
+                            </View>
+                            <View style={{flex: 1, flexDirection: 'column', alignItems:"flex-start"}}>
+                                <Text>Sara</Text>
+                                <View style={{paddingTop: 40, backgroundColor: myTheme.colors.cardBorder, width:"50%", alignItems: "center" }}>
+                                    <Text style={{fontSize: 40, fontFamily: 'Itim', color: 'white', fontWeight: 'bold'}}>2</Text>
+                                </View>
+                            </View>
                         </View>
                     </View>
-                </View>
-                    <View style={{ height: 2, backgroundColor: myTheme.colors.gray, marginTop:40 }} />
+
                 </View>
 
 
-                <View style={[styles.section,{marginRight:30, marginLeft:30}]}>
-                    <Text style={[styles.welcomeText, {marginTop:8, marginLeft:5}]}>La tua classe</Text>
+                <View style={[styles.section]}>
+                    <Text style={[styles.welcomeText]}>La tua classe</Text>
                     <View style={[{backgroundColor:myTheme.colors.gray}]}>
                     {classmates.map((classmate, index) => (
                         <View style={{width: '100%' }}>
                             <View >
                                 <View>
-                                    <Card style={[styles.card, {margin: 10}]}>
+                                    <Card style={[styles.card, {borderColor: myTheme.colors.primary, borderWidth: 3, marginVertical: 5}]}>
+                                        <View style={{backgroundColor: myTheme.colors.gray, borderTopRightRadius: 18, borderTopLeftRadius: 18}}>
                                         <ImageBackground source={classmate.image} style={{ width: 100, height: 100, borderRadius: 10,marginLeft:75, marginTop:10 }} imageStyle={{ borderRadius: 10 }}/>
                                         <View style={{ position: 'absolute', top: 10, right: 10 }}>
                                             <FontAwesome
@@ -121,11 +108,12 @@ export default function Classe() {
                                                 {classmate.level}
                                             </Text>
                                         </View>
+                                        </View>
                                         <Card.Content>
-                                            <View>
-                                                <Text style={[styles.questionText, {margin: 5}]}>{classmate.firstName + " " + classmate.lastName} </Text>
-                                                <Text style={[styles.subtitle, {margin: 5}]}>Specialità: {classmate.specialita}</Text>
-                                            </View>
+
+                                                <Text style={[styles.cardTitle]}>{classmate.firstName + " " + classmate.lastName} </Text>
+                                                <Text style={[styles.subtitle]}>Specialità: {classmate.specialita}</Text>
+
                                         </Card.Content>
                                     </Card>
                                 </View>

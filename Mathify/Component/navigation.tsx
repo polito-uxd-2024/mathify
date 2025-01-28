@@ -134,8 +134,9 @@ function Tabs() {
         >
             <Tab.Screen name="Home" component={HomeStackScreen} />
             <Tab.Screen name="Materiale" component={MaterialeStackScreen}/>
-            <Tab.Screen name="Profile" component={ProfileStackScreen} />
+
             <Tab.Screen name="Classe" component={Classe} />
+            <Tab.Screen name="Profilo" component={ProfileStackScreen} />
         </Tab.Navigator>
     );
 }
