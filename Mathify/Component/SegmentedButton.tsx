@@ -308,9 +308,9 @@ export const SegmentedButton = () => {
                     onRequestClose={handleCloseModal}
                 >
                     <View style={[styles.modalContainer]}>
-                        <View style={[styles.modalBase, ]}>
+                        <View style={[styles.modalBase ]}>
                             <View >
-                                <View style={[styles.card, {borderWidth: 5, borderColor: "black"}]}>
+                                <View style={[styles.card, {borderWidth: 3, borderColor: myTheme.colors.primary, backgroundColor: myTheme.colors.gray}]}>
                                     <View style={[styles.modalContent]}>
                                         <View style={{ paddingHorizontal: 20}}>
                                             <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
