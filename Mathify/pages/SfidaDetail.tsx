@@ -129,16 +129,16 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                                                                 marginTop: 6,
                                                                 backgroundColor:
                                                                     valore.correttezza === true
-                                                                        ? myTheme.colors.rightAnswer
-                                                                        : myTheme.colors.wrongAnswer,
+                                                                        ? myTheme.colors.wrongAnswer
+                                                                        : myTheme.colors.rightAnswer,
                                                             },
                                                         ]}
                                                     >
                                                         <Text style={{ paddingHorizontal: 6, color: 'white', fontWeight: 'bold', fontFamily: 'Itim' }}>
-                                                            {valore.correttezza ? 'corretta' : 'sbagliata'}
+                                                            {valore.correttezza ? 'sbagliata' : 'corretta'}
                                                         </Text>
                                                         <FontAwesome
-                                                            name={valore.correttezza ? "check" : "times"}
+                                                            name={valore.correttezza ? "times" : "check"}
                                                             size={16}
                                                             color="white"
                                                             style={{ marginRight: 6 }}
