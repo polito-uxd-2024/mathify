@@ -312,8 +312,9 @@ export const SegmentedButton = () => {
                             <View >
                                 <View style={[styles.card, {borderWidth: 3, borderColor: myTheme.colors.primary, backgroundColor: myTheme.colors.gray}]}>
                                     <View style={[styles.modalContent]}>
-                                        <View style={{ paddingHorizontal: 20}}>
-                                            <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+
+                                        <View style={[styles.coverImage, {justifyContent:"center", backgroundColor: 'white'}]}>
+                                            <View style={{flexDirection: 'row', justifyContent: 'flex-end', position: 'absolute', top: 0, right: 25}}>
                                                 <View style={styles.stars}>
                                                     {[...Array(3)].map((star, index) => (
                                                         <FontAwesome
@@ -325,13 +326,11 @@ export const SegmentedButton = () => {
                                                     ))}
                                                 </View>
                                             </View>
+                                            <Image
+                                                source={icon}
+                                                style={{ width: 150, height: 150, alignSelf: 'center'}}
+                                            />
                                         </View>
-                                        <ImageBackground
-                                            source={icon}
-                                            style={{flex: 1,height: 150, width: 150, alignSelf: 'center',margin: 30}}
-                                            imageStyle={{ borderRadius: 0,  margin: 0}}
-                                        />
-
 
 
                                         <View style={{alignItems: 'flex-start', paddingBottom:20}}>
