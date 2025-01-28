@@ -103,6 +103,9 @@ export default function Materiale() {
     console.log(state);
     useSetCurrentUser("Utente1");
     const onChangeSearch = (query: string) => setSearchQuery(query);
+    //const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
+    const [materialToDelete, setMaterialToDelete] = useState<PredefinedMaterial | null>(null);
 
     const handleAddMaterial = () => {
         // Controlla se i campi di newMaterial (escluso id) sono vuoti
@@ -142,7 +145,20 @@ export default function Materiale() {
         }
     };
 
-
+    const handleDeleteMaterial = () => {
+        if (materialToDelete) {
+            setAddedMaterials(addedMaterials.filter((m) => m.id !== materialToDelete.id));
+            setDeleteModalVisible(false);
+            setMaterialToDelete(null);
+        }
+    const handleDeleteMaterial = () => {
+        if (materialToDelete) {
+            setAddedMaterials(addedMaterials.filter((m) => m.id !== materialToDelete.id));
+            setDeleteModalVisible(false);
+            setMaterialToDelete(null);
+        }
+    };
+    };
     const handleTopicPress = (material: PredefinedMaterial) => {
         // Handle the topic press event here
         console.log('Topic pressed:', material);
@@ -443,7 +459,10 @@ export default function Materiale() {
 
                                                                     <IconButton
                                                                         icon="delete"
-                                                                        onPress={() => setAddedMaterials(addedMaterials.filter((m) => m.id !== material.id))}
+                                                                        onPress={() => {
+                                                                            setMaterialToDelete(material);
+                                                                            setDeleteModalVisible(true);
+                                                                        }}
                                                                         iconColor="white"
                                                                         style={{ backgroundColor: "red" }}
                                                                     />
@@ -535,6 +554,23 @@ export default function Materiale() {
                         </View>
                     </View>
                 </Modal>
+
+
+            <Modal animationType="slide" transparent={true} visible={deleteModalVisible} onRequestClose={() => setDeleteModalVisible(false)}>
+                <View style={MaterialStyles.modalContainer}>
+                    <View style={MaterialStyles.modalContent}>
+                        <Text style={styles.welcomeText}>Sei sicuro di voler eliminare questo materiale?</Text>
+                        <View style={[MaterialStyles.modalButtons, { flexDirection: "row", justifyContent: "space-around" }]}>
+                            <Button onPress={() => setDeleteModalVisible(false)} style={[styles.expandButton, { backgroundColor: "white", flex: 0.45 }]}>
+                                <Text style={[styles.calloutText, { color: "black" }]}>Annulla</Text>
+                            </Button>
+                            <Button onPress={handleDeleteMaterial} style={[styles.expandButton, { backgroundColor: "red", flex: 0.45 }]}>
+                                <Text style={[styles.calloutText, { color: "white" }]}>Elimina</Text>
+                            </Button>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
 
             </View>
 
