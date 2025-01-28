@@ -55,6 +55,18 @@ const AllListChallenges = ({ route }: { route: any }) => {
     };
     return (
         <>
+            <Appbar.Header style={[styles.header]}>
+                <View style={{ position: 'absolute', left: 0 }}>
+                    <IconButton
+                        icon="arrow-left"
+                        size={24}
+                        color="black"
+                        onPress={() => navigation.goBack()}
+                        style={{ marginLeft: 10 }}
+                    />
+                </View>
+                <Appbar.Content title="Tutte Le Sfide" style={{ alignSelf: "center", marginLeft: 50 }} />
+            </Appbar.Header>
         <ScrollView style={styles.mainContent}>
             <View style={{paddingBottom: 30}}>
             <View style={styles.section}>
@@ -120,7 +132,7 @@ const AllListChallenges = ({ route }: { route: any }) => {
                 </View>
 
             </View>
-            
+
 
         </ScrollView>
             <Modal

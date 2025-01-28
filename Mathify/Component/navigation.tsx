@@ -71,8 +71,8 @@ function HomeStackScreen() {
     return (
         <HomeStack.Navigator screenOptions={{headerShown:false}}>
             <HomeStack.Screen name="Home" component={HomeScreen} />
-            <HomeStack.Screen name="AllListChallenges" component={AllListChallenges} options={{headerShown:true}} />
-            <HomeStack.Screen name={"SfidaDetail"} component={SfidaDetail} options={{headerShown:true, headerTitle:"Dettaglio Sfida"}} />
+            <HomeStack.Screen name="AllListChallenges" component={AllListChallenges} options={{headerShown:false, headerTitle:"Tutte Le Sfide"}} />
+            <HomeStack.Screen name={"SfidaDetail"} component={SfidaDetail} options={{headerShown:false, headerTitle:"Dettaglio Sfida"}} />
         </HomeStack.Navigator>
     );
 }

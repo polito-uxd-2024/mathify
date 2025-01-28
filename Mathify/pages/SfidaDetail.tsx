@@ -6,7 +6,7 @@ import { StateContext } from "../Reducer";
 import { useSetCurrentUser } from "../Component/setUser";
 import { Animated, Image, ScrollView, TouchableOpacity, View } from "react-native";
 import { styles } from "../Component/style";
-import { Card, Divider, Icon, ProgressBar, Text } from "react-native-paper";
+import {Appbar, Card, Divider, Icon, IconButton, ProgressBar, Text} from "react-native-paper";
 import Collapsible from "react-native-collapsible";
 import { myTheme } from "../Component/theme";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -28,6 +28,19 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
     };
 
     return (
+        <>
+        <Appbar.Header style={[styles.header]}>
+            <View style={{ position: 'absolute', left: 0 }}>
+                <IconButton
+                    icon="arrow-left"
+                    size={24}
+                    color="black"
+                    onPress={() => navigation.goBack()}
+                    style={{ marginLeft: 10 }}
+                />
+            </View>
+            <Appbar.Content title="Riepilogo Sfida" style={{ alignSelf: "center", marginLeft: 50 }} />
+        </Appbar.Header>
         <ScrollView style={{ flex: 1, width: '100%' }}>
             <View style={[styles.cover, { backgroundColor: 'white', paddingBottom: 20 }]}>
                 <View style={[styles.coverImage, {justifyContent:"center", backgroundColor:myTheme.colors.gray}]}>
@@ -184,5 +197,6 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                 </View>
             </View>
         </ScrollView>
+        </>
     );
 }
