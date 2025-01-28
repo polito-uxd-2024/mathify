@@ -64,7 +64,7 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                 {sfida.domande.map((valore, index) => (
                     <View style={styles.article} key={index}>
                         <View style={styles.cardBase}>
-                            <Card style={{ borderRadius: 20, backgroundColor: myTheme.colors.cardBorder }}>
+                            <Card style={{ borderRadius: 20, backgroundColor: myTheme.colors.cardBorder }} onPress={()=>toggleExpand(index)}>
                                 <Card.Content style={[styles.card, { paddingBottom: 15 }]}>
                                     <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
                                         <Text style={{ fontSize: 16, marginRight: 8, fontWeight: "bold" }}>{index + 1}</Text>
@@ -89,24 +89,7 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                                         </View>
                                     </View>
                                 </Card.Content>
-                                <TouchableOpacity
-                                    onPress={() => toggleExpand(index)}
-                                    style={{
-                                        flex: 1,
-                                        paddingTop: 0,
-                                        paddingBottom: 10,
-                                        backgroundColor: myTheme.colors.cardBorder,
-                                        alignItems: "flex-end",
-                                        borderBottomLeftRadius: 20,
-                                        borderBottomRightRadius: 20,
-                                    }}
-                                >
-                                    {expandedIndex === index ? (
-                                        <MaterialCommunityIcons name="eye-off" size={24} color="black" />
-                                    ) : (
-                                        <MaterialCommunityIcons name="eye" size={24} color="black" />
-                                    )}
-                                </TouchableOpacity>
+
                                 <Collapsible collapsed={expandedIndex !== index}>
                                     <View style={[styles.card, { padding: 15 }]}>
                                         <Divider />
