@@ -230,9 +230,9 @@ export default function Materiale() {
 
                                                 <TouchableOpacity onPress={() => handleTopicPress(suggestedByAlgorithm)}>
                                                     <ImageBackground
-                                                        source={{ uri: 'https://i.sstatic.net/y9DpT.jpg' }}
-                                                        style={{flex: 1, height:200}}
-                                                        imageStyle={{ borderRadius: 10}}
+                                                        source={require("../assets/Logaritmi.png")}
+                                                        style={{ height:200 }}
+                                                        imageStyle={{ borderRadius: 10, height: 200, width: 200, position:"absolute", top:0, left:50, right:0, bottom:0}}
                                                     >
 
                                                         <View style={{ paddingLeft: 20, marginVertical: 8, paddingBottom: 8, justifyContent: "space-between", alignItems: "stretch" }}>

@@ -1,6 +1,6 @@
 import { MaterialeStackParamList } from "../Component/navigation";
 import {RouteProp, useNavigation} from "@react-navigation/native";
-import {View, Image, StyleSheet, ScrollView, SafeAreaView} from "react-native";
+import {View, Image, StyleSheet, ScrollView, SafeAreaView, ImageBackground} from "react-native";
 import {Text, Card, Button, IconButton} from "react-native-paper";
 import {styles} from "../Component/style";
 import React from "react";
@@ -34,12 +34,13 @@ export default function MaterialeDetail({ route }: { route: RouteProp<MaterialeS
                         <Card style={[styles.card, {marginHorizontal:10}]}>
 
                             <Card.Content>
-                                {Materiale.image ? (
-                                    <Image
-                                        source={{ uri: Materiale.image }}
-                                        style={styles.coverImage}
+
+                                    <ImageBackground
+                                        source={require("../assets/Logaritmi.png")}
+                                        style={{ height:180, width:180, borderRadius:10, borderWidth:2, position:"relative", top:0, left:70, right:0, bottom:0}}
+                                        imageStyle={{ height: 170, width: 170, position:"absolute", top:0, left:0, right:0, bottom:0, borderRadius:10}}
                                     />
-                                ): (<Image source={{uri: 'https://i.sstatic.net/y9DpT.jpg'}} style={styles.coverImage}/> )}
+
                                 <View style={styles.article}>
                                 <Text style={styles.bigWelcomeText}>{Materiale.title}</Text>
                                 </View>
