@@ -10,6 +10,7 @@ import { Card, Divider, Icon, ProgressBar, Text } from "react-native-paper";
 import Collapsible from "react-native-collapsible";
 import { myTheme } from "../Component/theme";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import {FontAwesome} from "react-native-vector-icons";
 
 export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackParamList, "SfidaDetail"> }) {
     const { sfida } = route.params;
@@ -65,60 +66,84 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                     <View style={styles.article} key={index}>
                         <View style={styles.cardBase}>
                             <Card style={{ borderRadius: 20, backgroundColor: myTheme.colors.cardBorder }} onPress={()=>toggleExpand(index)}>
-                                <Card.Content style={[styles.card, { paddingBottom: 15 }]}>
-                                    <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
-                                        <Text style={{ fontSize: 16, marginRight: 8, fontWeight: "bold" }}>{index + 1}</Text>
-                                        <Text style={{ fontSize: 16 }}>{valore.Testo}</Text>
-                                    </View>
-                                    <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-                                        <View
-                                            style={[
-                                                styles.callout,
-                                                {
-                                                    marginTop: 6,
-                                                    backgroundColor:
-                                                        valore.correttezza === true
-                                                            ? myTheme.colors.rightAnswer
-                                                            : myTheme.colors.wrongAnswer,
-                                                },
-                                            ]}
-                                        >
-                                            <Text style={{ paddingHorizontal: 6 }}>
-                                                {valore.correttezza === true ? "corretta" : "sbagliata"}
-                                            </Text>
+                                <View style={[styles.card, { paddingBottom: 15 }]}>
+                                    <Card.Content >
+                                        <View style={{ flexDirection: "row", alignItems: "flex-start", paddingTop:15 }}>
+                                            <Text style={{fontSize: 16, marginRight: 8, fontWeight: 'bold'}}>{index + 1}</Text>
+                                            <Text style={{ fontSize: 16 }}>{valore.Testo}</Text>
                                         </View>
-                                    </View>
-                                </Card.Content>
-
-                                <Collapsible collapsed={expandedIndex !== index}>
-                                    <View style={[styles.card, { padding: 15 }]}>
-                                        <Divider />
-                                        {state.selectedChallenge.questions[index].Risposte.map((risposta, index2) => (
-                                            <View key={index2}>
+                                        <View>
+                                            <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
                                                 <View
-                                                    style={{
-                                                        marginVertical: 8,
-                                                        padding: 8,
-                                                        borderRadius: 10,
-                                                        backgroundColor:
-                                                            risposta === valore.RispostaData
-                                                                ? risposta === valore.Soluzione
+                                                    style={[
+                                                        styles.callout,
+                                                        {
+                                                            marginTop: 6,
+                                                            backgroundColor:
+                                                                valore.correttezza === true
                                                                     ? myTheme.colors.rightAnswer
-                                                                    : myTheme.colors.wrongAnswer
-                                                                : "rgb(245,245,245)",
-                                                    }}
+                                                                    : myTheme.colors.wrongAnswer,
+                                                        },
+                                                    ]}
                                                 >
-                                                    <Text style={{ fontSize: 16 }}>{risposta}</Text>
+                                                    <Text style={{paddingHorizontal: 6, color :'white', fontWeight: 'bold', fontFamily: 'Itim'}}>
+                                                        {valore.correttezza ? 'corretta' : 'sbagliata'}
+                                                    </Text>
+                                                    <FontAwesome
+                                                        name={valore.correttezza ? "check" : "times"}
+                                                        size={16}
+                                                        color="white"
+                                                        style={{ marginRight: 6 }}
+                                                    />
+
                                                 </View>
-                                                <Divider />
                                             </View>
-                                        ))}
-                                        <View style={{ paddingTop: 10 }}>
-                                            <Text style={styles.sectionText}>Spiegazione</Text>
-                                            <Text>{valore.Spiegazione}</Text>
                                         </View>
-                                    </View>
-                                </Collapsible>
+                                    </Card.Content>
+                                </View>
+                                    <Collapsible collapsed={expandedIndex !== index}>
+                                        <View style={[styles.card, { padding: 15 }]}>
+
+                                            {state.selectedChallenge.questions[index].Risposte.map((risposta, index2) => (
+                                                <View key={index2} style={{marginVertical: 8, padding: 8, borderRadius: 10,
+                                                    backgroundColor: risposta === state.selectedChallenge.questions[index].Soluzione
+                                                        ? (risposta === state.selectedChallenge.questions[index].Soluzione ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer)
+                                                        : 'rgb(245,245,245)'}}>
+                                                    <Text style={{fontSize: 16, alignSelf:"center"}}>{risposta}</Text>
+                                                    {state.selectedChallenge.questions[index].GraficList.length > 1 && (
+                                                        <Image
+                                                            source={{ uri: state.selectedChallenge.questions[index].GraficList[index2] }}
+                                                            style={{
+                                                                width: 150,
+                                                                height: 150,
+                                                                marginTop: 8,
+                                                                borderRadius: 4,
+                                                                alignSelf: "center"
+                                                            }}
+                                                        />
+                                                    )}
+
+                                                </View>
+                                            ))}
+                                            <View style={{ paddingTop: 10 }}>
+                                                <Text style={styles.sectionText}>Spiegazione</Text>
+                                                {state.selectedChallenge.questions[index].GraficList.length === 1 && (
+                                                    <Image
+                                                        source={{ uri: state.selectedChallenge.questions[index].GraficList[0] }}
+                                                        style={{
+                                                            width: 200,
+                                                            height: 200,
+                                                            margin: 8,
+                                                            borderRadius: 4,
+                                                            alignSelf: "center"
+                                                        }}
+                                                    />
+                                                )}
+                                                <Text>{valore.Spiegazione}</Text>
+                                            </View>
+                                        </View>
+                                    </Collapsible>
+
                             </Card>
                         </View>
                     </View>
