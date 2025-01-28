@@ -12,6 +12,10 @@ import { myTheme } from "../Component/theme";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {FontAwesome} from "react-native-vector-icons";
 
+
+
+import * as Progress from 'react-native-progress';
+
 export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackParamList, "SfidaDetail"> }) {
     const { sfida } = route.params;
     const navigation = useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
@@ -27,32 +31,61 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
 
     return (
         <ScrollView>
-            <View style={[styles.cover, { backgroundColor: myTheme.colors.cardBorder, marginBottom: 20 }]}>
+            <View style={[styles.cover, { backgroundColor: 'white', paddingBottom: 20 }]}>
                 <Image source={require("../assets/placeholder.jpg")} style={styles.coverImage} />
-                <View style={{ flexDirection: "row", marginTop: 20, alignItems: "center", justifyContent: "space-between" }}>
-                    <Text style={styles.welcomeText}>{sfida.titolo}</Text>
-                    <Text style={{ fontWeight: "bold" }}>{sfida.stringacompletamento}</Text>
-                </View>
-                <Text style={styles.subtitle}>{sfida.argomento}</Text>
-
-
-                <View style={styles.calloutXp}>
-                    <MaterialCommunityIcons
-                        name="star-four-points"
-                        size={18}
-                        color="gold"
-                    />
-                    <Text style={[styles.calloutText, {color: 'gray'}]}>
-                        {sfida.xpGuadagnati} XP
+                <View>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Text style={styles.cardTitle}>{sfida.titolo}</Text>
+                        <View style={[styles.stars, {backgroundColor: 'transparent'}]}>
+                            {[...Array(3)].map((star, index) => (
+                                <FontAwesome
+                                    key={index}
+                                    name="star"
+                                    size={20}
+                                    color={index < state.selectedChallenge.difficolta ? 'gold' : myTheme.colors.gray}
+                                />
+                            ))}
+                        </View>
+                    </View>
+                    <Text style={styles.subtitle}>{sfida.argomento}</Text>
+                    <Text style={styles.subtitle}>
+                        <FontAwesome
+                            name="check"
+                            size={16}
+                            color={myTheme.colors.primary}
+                        />
+                        <View style={{ width: 5 }} />
+                        <Text style={{ fontWeight: 'bold' }}>{sfida.punteggio}</Text>/{sfida.domande.length} corrette
                     </Text>
-                    <MaterialCommunityIcons
-                        name="star-four-points"
-                        size={18}
-                        color="gold"
-                    />
-                </View>
-                
-                <View style={{ paddingTop: 15 }}>
+                    <View style={[styles.row, { marginTop: 10, justifyContent: 'space-between' }]}>
+                        <View style={[styles.calloutXp, { backgroundColor: myTheme.colors.blue }]}>
+                            <MaterialCommunityIcons
+                                name="star-four-points"
+                                size={18}
+                                color="gold"
+                            />
+                            <Text style={[styles.calloutText, { color: 'white' }]}>
+                                {sfida.xpGuadagnati} XP
+                            </Text>
+                            <MaterialCommunityIcons
+                                name="star-four-points"
+                                size={18}
+                                color="gold"
+                            />
+                        </View>
+                        <Text style={styles.secondary}>
+                            <FontAwesome
+                                name="clock-o"
+                                size={16}
+                            />
+                            <View style={{ width: 5 }} />
+                            {sfida.stringacompletamento}</Text>
+                    </View>
+
+
+
+
+                <View style={{ paddingTop: 20}}>
                     <ProgressBar
                         style={styles.progressBar} // Cambia l'altezza se necessario
                         progress={progress}
@@ -61,7 +94,7 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                     <Text style={{ alignSelf: "center" }}>{(progress * 100).toFixed(0).toString()}% corretta</Text>
                 </View>
             </View>
-            <View style={styles.mainContent}>
+            <View style={[styles.mainContent, {paddingVertical: 30}]}>
                 {sfida.domande.map((valore, index) => (
                     <View style={styles.article} key={index}>
                         <View style={styles.cardBase}>
@@ -149,6 +182,6 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                     </View>
                 ))}
             </View>
-        </ScrollView>
-    );
+            </View>   );
+        </ScrollView>)
 }
