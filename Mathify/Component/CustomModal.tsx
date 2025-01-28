@@ -21,7 +21,7 @@ const CustomModal = ({ isVisible, changePage, onConfirm, onCancel }: CustomModal
                 onRequestClose={onCancel}
             >
                 <View style={modalStyles.modalBackground}>
-                    <View style={modalStyles.modalContainer}>
+                    <View style={[modalStyles.modalContainer, {borderWidth:3}]}>
                         <Text style={modalStyles.modalTitle}>Sei sicuro?</Text>
                         <Text style={modalStyles.modalMessage}>
                             Vuoi uscire dalla schermata di gioco? I progressi non salvati andranno persi.
@@ -52,8 +52,8 @@ const CustomModal = ({ isVisible, changePage, onConfirm, onCancel }: CustomModal
                 animationType="fade"
                 onRequestClose={onCancel}
             >
-                <View style={modalStyles.modalBackground}>
-                    <View style={modalStyles.modalContainer}>
+                <View style={[modalStyles.modalBackground]}>
+                    <View style={[modalStyles.modalContainer, {borderWidth:2}]}>
                         <Text style={modalStyles.modalTitle}>Sei sicuro?</Text>
                         <Text style={modalStyles.modalMessage}>
                             Esci dal Riepilogo della Sfida
