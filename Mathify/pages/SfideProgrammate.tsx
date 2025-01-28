@@ -7,10 +7,10 @@ import { styles } from '../Component/style';
 export default function SfideProgrammate() {
     // Array di sfide con date, orario e nome del professore associati
     const sfideProgrammate = {
-        "2025-02-01": [
+        "2025-02-10": [
             { Titolo: "Triangoli", Argomento: "Geometria", Orario: "10:00", Professore: "Prof. Rossi" },
         ],
-        "2025-02-03": [
+        "2025-02-15": [
             { Titolo: "Media ponderata", Argomento: "Statistica", Orario: "09:00", Professore: "Prof.ssa Bianchi" },
             { Titolo: "Calcolo combinatorio", Argomento: "Probabilità", Orario: "11:30", Professore: "Prof. Verdi" },
         ],
