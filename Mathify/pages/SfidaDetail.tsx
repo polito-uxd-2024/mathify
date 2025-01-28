@@ -150,7 +150,7 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                                     </View>
                                     <Collapsible collapsed={expandedIndex !== index}>
                                         <View style={[styles.card, { padding: 15 }]}>
-                                            {state.selectedChallenge.questions[index].Risposte.map((risposta, index2) => (
+                                            {valore.Risposte.map((risposta, index2) => (
                                                 <View key={index2} style={{
                                                     marginVertical: 8, padding: 8, borderRadius: 10,
                                                     backgroundColor: risposta === state.selectedChallenge.questions[index].Soluzione
@@ -158,9 +158,9 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                                                         : 'rgb(245,245,245)'
                                                 }}>
                                                     <Text style={{ fontSize: 16, alignSelf: "center" }}>{risposta}</Text>
-                                                    {state.selectedChallenge.questions[index].GraficList.length > 1 && (
+                                                    {valore.GraficList?.length > 1 && (
                                                         <Image
-                                                            source={{ uri: state.selectedChallenge.questions[index].GraficList[index2] }}
+                                                            source={{ uri: valore.GraficList[index2] }}
                                                             style={{
                                                                 width: 150,
                                                                 height: 150,
@@ -174,9 +174,9 @@ export default function SfidaDetail({ route }: { route: RouteProp<ProfileStackPa
                                             ))}
                                             <View style={{ paddingTop: 10 }}>
                                                 <Text style={styles.sectionText}>Spiegazione</Text>
-                                                {state.selectedChallenge.questions[index].GraficList.length === 1 && (
+                                                {valore.GraficList?.length === 1 && (
                                                     <Image
-                                                        source={{ uri: state.selectedChallenge.questions[index].GraficList[0] }}
+                                                        source={{ uri: valore.GraficList[0] }}
                                                         style={{
                                                             width: 200,
                                                             height: 200,
