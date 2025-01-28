@@ -323,18 +323,19 @@ export default function ProfilePage() {
                             }}>
                                 {/* Icona Trofeo */}
                                 <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, borderRadius: 10, backgroundColor: myTheme.colors.gray}}>
-                                    <MaterialCommunityIcons
-                                        name="trophy"
-                                        size={40}
-                                        color="white"
-                                        style={{backgroundColor: myTheme.colors.cardBorder, padding: 5, borderRadius: 100, borderWidth: 5, borderColor: 'gold'}}
-                                    />
-                                {/* Badge Fuoriclasse */}
-                                <View style={{ marginTop: 5, backgroundColor: myTheme.colors.primary, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
-                                    <Text style={{ color: 'white', fontSize: 12, fontFamily:"Itim"}}>
-                                        Fuoriclasse
-                                    </Text>
-                                </View>
+                                    <View style={{width: 120, alignItems: 'center', padding: 10, paddingTop: 10, borderRadius: 10, backgroundColor: myTheme.colors.gray}}>
+                                        <View style={{ width: 80, height: 80, backgroundColor: myTheme.colors.cardBorder, borderRadius: 100, borderWidth: 5, borderColor: 'gold', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+                                            <Image
+                                                source={trophys[0].image}
+                                                style={{ width: 60, height: 60, position: 'absolute', top: 0, left: 5, right: 0, marginLeft: 'auto', marginRight: 'auto', alignSelf: 'center' }}
+                                            />
+                                        </View>
+                                        <View style={{ marginTop: 5, backgroundColor: myTheme.colors.primary, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
+                                            <Text style={{ color: 'white', fontSize: 12}}>
+                                                Esploratore
+                                            </Text>
+                                        </View>
+                                    </View>
                                 </View>
 
                                 {/* Dettagli della Specialità */}
@@ -382,17 +383,18 @@ export default function ProfilePage() {
                                 }}>
                                     {/* Icona Trofeo */}
                                 <View style={{width: 120,alignItems: 'center', padding: 10, paddingTop: 10, borderRadius: 10, backgroundColor: myTheme.colors.gray}}>
-                                    <MaterialCommunityIcons
-                                        name="account-star"
-                                        size={40}
-                                        color="white"
-                                        style={{backgroundColor: myTheme.colors.cardBorder, padding: 5, borderRadius: 100, borderWidth: 5, borderColor: 'gold'}}
-                                    />
-
-                                    <View style={{ marginTop: 5, backgroundColor: myTheme.colors.primary, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
-                                        <Text style={{ color: 'white', fontSize: 12, fontFamily:"Itim"}}>
-                                            Maestro
-                                        </Text>
+                                    <View style={{width: 120, alignItems: 'center', padding: 10, paddingTop: 10, borderRadius: 10, backgroundColor: myTheme.colors.gray}}>
+                                        <View style={{ width: 80, height: 80, backgroundColor: myTheme.colors.cardBorder, borderRadius: 100, borderWidth: 5, borderColor: 'gold', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+                                            <Image
+                                                source={trophys[1].image}
+                                                style={{ width: 70, height: 70, position: 'absolute', top: 0, left: 0, right: 0, marginLeft: 'auto', marginRight: 'auto', alignSelf: 'center' }}
+                                            />
+                                        </View>
+                                        <View style={{ marginTop: 5, backgroundColor: myTheme.colors.primary, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
+                                            <Text style={{ color: 'white', fontSize: 12}}>
+                                                Esploratore
+                                            </Text>
+                                        </View>
                                     </View>
                                 </View>
 
