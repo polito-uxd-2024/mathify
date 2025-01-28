@@ -446,7 +446,7 @@ export default function ProfilePage() {
                                         <View style={{ width: 80, height: 80, backgroundColor: myTheme.colors.cardBorder, borderRadius: 100, borderWidth: 5, borderColor: 'gold', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
                                             <Image
                                                 source={trophys[2].image}
-                                                style={{ width: 80, height: 80, position: 'absolute', top: -40, left: 0, right: 0, marginLeft: 'auto', marginRight: 'auto' }}
+                                                style={{ width: 70, height: 70, position: 'absolute', top: 0, left: 0, right: 0, marginLeft: 'auto', marginRight: 'auto', alignSelf: 'center' }}
                                             />
                                         </View>
                                         <View style={{ marginTop: 5, backgroundColor: myTheme.colors.primary, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 20}}>
