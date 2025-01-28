@@ -84,7 +84,8 @@ export default function SfideProgrammate() {
                 ) : (
                     selectedChallenges.map((challenge, index) => (
                         <View key={index} style={[{ margin: 10, marginTop: 30 }]}>
-                            <View style={[styles.mainWhiteCard, { flexDirection: "row", justifyContent: "space-between", alignItems: "center" }]}>
+                            <View>
+                            <View style={[styles.card, { flexDirection: "row", justifyContent: "space-between", alignItems: "center" }]}>
 
                                 <View style={{ flex: 1, marginRight: 10, alignItems:"center" }}>
                                     <Text style={[styles.cardTitle, {margin:5}]}>
@@ -106,9 +107,9 @@ export default function SfideProgrammate() {
                                 </View>
 
                             </View>
-                        </View>
+                        </View></View>
                     ))
-                )}
+                            )}
             </View>
         </View>
     );

@@ -5,18 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39542f42-9a80-4e54-af61-1f4385b67116" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Mathify/assets/circonferenze.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mathify/assets/derivate.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mathify/assets/disequazioni.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mathify/assets/domini.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mathify/assets/esponenziali.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mathify/assets/sinusoidi.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/Component/SegmentedButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/SegmentedButton.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mathify/Component/style.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/style.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/Component/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/Component/theme.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mathify/pages/AllListChallenges.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/AllListChallenges.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mathify/pages/PlayScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/PlayScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mathify/pages/SfidaDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/SfidaDetail.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mathify/pages/SfideProgrammate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mathify/pages/SfideProgrammate.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,6 +112,8 @@
       <workItem from="1737856011914" duration="3101000" />
       <workItem from="1737971109337" duration="8278000" />
       <workItem from="1737982062337" duration="16418000" />
+      <workItem from="1738041287180" duration="7000" />
+      <workItem from="1738058578337" duration="6047000" />
     </task>
     <servers />
   </component>
@@ -142,7 +137,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/Mathify/Component/theme.ts</url>
           <line>23</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

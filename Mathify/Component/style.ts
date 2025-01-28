@@ -554,7 +554,8 @@ export const styles = StyleSheet.create({
         height: 20,
         borderRadius: 10,
         width: '100%',
-        borderWidth: 1,
+        borderWidth: 2,
+        backgroundColor: 'white',
         borderColor: 'black',
     },
     fab: {
