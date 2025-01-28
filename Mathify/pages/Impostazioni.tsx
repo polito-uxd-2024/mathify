@@ -1,6 +1,6 @@
 import {styles} from "../Component/style";
 import {Appbar, Button, Card, IconButton} from "react-native-paper";
-import {View, Text, ScrollView, SafeAreaView} from "react-native";
+import {View, Text, ScrollView, SafeAreaView, TouchableOpacity, Image} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "react-native-screens/native-stack";
 import {ProfileStackParamList} from "../Component/navigation";
@@ -11,6 +11,7 @@ import { Modal, Pressable } from 'react-native';
 import {useSetCurrentUser} from "../Component/setUser";
 import {registraVerifica} from "../Component/writeOnDb";
 import {myTheme} from "../Component/theme";
+import {backgroundColor} from "react-native-calendars/src/style";
 
 export default function Impostazioni() {
     const navigation=useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
@@ -118,7 +119,7 @@ export default function Impostazioni() {
             >
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
                     <View style={{width: '80%', backgroundColor: 'white',borderRadius: 10, padding: 20, alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5,
-                        position: 'relative', borderWidth:4// Posizione relativa per posizionare elementi assoluti all'interno
+                        position: 'relative', borderWidth:3// Posizione relativa per posizionare elementi assoluti all'interno
                     }}>
                         {/* Pulsante X in alto a destra */}
 
@@ -167,21 +168,22 @@ export default function Impostazioni() {
                 onRequestClose={closeVerificationModal}
             >
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-                    <View style={{backgroundColor: 'white', borderRadius: 10, padding: 20, alignItems: 'center', position: 'relative', borderWidth:5, width:300}}>
+                    <View style={{backgroundColor: 'white', borderRadius: 10, padding: 20, alignItems: 'center', position: 'relative', borderWidth:3, width:300}}>
 
                         <Text style={{ fontSize: 16, textAlign: 'center', marginVertical: 20 }}>
                             {feedbackMessage}
                         </Text>
                         {!state.utente.verifica && (
-                            <Button onPress={() => setFeedbackMessage("Una nuova email è stata inviata!")}>
+                            <Button onPress={() => setFeedbackMessage("Una nuova email è stata inviata!")} style={{borderWidth:2, borderColor:"black",
+                                backgroundColor:myTheme.colors.gray, borderRadius:10}}>
                                 Inviami un'altra email
                             </Button>
                         )}
                         <Pressable
-                            style={{backgroundColor: '#ddd', padding: 10, borderRadius: 8, marginTop: 20, width: '80%'}}
+                            style={{backgroundColor: "#ff3838", padding: 10, borderRadius: 8, marginTop: 20, width: '80%', borderWidth:2}}
                             onPress={closeVerificationModal}
                         >
-                            <Text style={{ fontSize: 16, color: '#555', textAlign: 'center' }}>Chiudi</Text>
+                            <Text style={{ fontSize: 16, color: 'black', textAlign: 'center',  }}>Chiudi</Text>
                         </Pressable>
                     </View>
                 </View>
@@ -195,25 +197,44 @@ export default function Impostazioni() {
                 onRequestClose={closeSuccessModal}
             >
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)'}}>
-                    <View style={{backgroundColor: 'white', borderRadius: 10, padding: 20, alignItems: 'center', position: 'relative'}}>
-                        <Pressable
-                            style={{ position: 'absolute', top: 10, right: 10, backgroundColor: '#e74c3c', borderRadius: 15, padding: 5 }}
-                            onPress={closeSuccessModal}
-                        >
-                            <Text style={{ fontSize: 16, color: 'white', fontWeight: 'bold' }}>X</Text>
-                        </Pressable>
-                        <Text style={{ fontSize: 16, textAlign: 'center', marginVertical: 20 }}>
-                            Hai verificato il tuo account!
-                            {parseInt(state.utente.livello.numero, 10) >= 10 && (
-                                <Text> Ora puoi modificare gli argomenti.</Text>
-                            )}
-                        </Text>
-                        <Pressable
-                            style={{backgroundColor: '#ddd', padding: 10, borderRadius: 8, marginTop: 20, width: '80%'}}
-                            onPress={closeSuccessModal}
-                        >
-                            <Text style={{ fontSize: 16, color: '#555', textAlign: 'center' }}>Chiudi</Text>
-                        </Pressable>
+                    <View style={{ padding: 20, alignItems: 'center',  flexDirection:"column"}}>
+
+
+
+                            <TouchableOpacity style={styles.modalBase} >
+                                <View>
+                                    <View style={[styles.card, {borderWidth: 3, borderColor: "black", backgroundColor: "white"}]}>
+                                        <View style={[styles.modalContent]}>
+                                            <View style={{alignItems: 'center', paddingVertical: 15}}>
+                                                <Text style={styles.bigWelcomeText}>Congratulazioni!</Text>
+
+                                                <Text style={[styles.welcomeText,{fontSize: 15}]}>Hai Verificato il tuo account</Text>
+                                            </View>
+                                            <View style={[styles.coverImage, {borderWidth: 0, backgroundColor: 'white', justifyContent:"center"}]}>
+                                                <Image
+                                                source={require('../assets/pitagora.png')}
+                                                style={{ width: 150, height: 150, alignSelf: 'center'}}/>
+
+                                            </View>
+
+                                            <View style={{flexDirection: "row", paddingTop: 10}}>
+                                                <View style={[styles.expandButtonBase, {marginRight: 10, height:50}]}>
+                                                    <Button
+                                                        mode="outlined"
+                                                        onPress={closeSuccessModal}
+                                                        labelStyle={{ fontSize: 16, color:"black" }}
+                                                        style={styles.expandButton}
+                                                    >
+                                                        Vai al Riepilogo
+                                                    </Button>
+                                                </View>
+
+                                            </View>
+                                        </View>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+
                     </View>
                 </View>
             </Modal>
