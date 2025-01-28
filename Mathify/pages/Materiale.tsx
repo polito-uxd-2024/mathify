@@ -250,7 +250,11 @@ export default function Materiale() {
                                                                 left={() => <List.Icon icon={suggestedByAlgorithm.icon} color={"gold"} />}
                                                                 right={() => (
                                                                     <IconButton
-                                                                        icon="bookmark"
+                                                                        icon={
+                                                                            savedMaterials.some((m) => m.id === suggestedByAlgorithm.id)
+                                                                                ? "check"
+                                                                                : "bookmark"
+                                                                        }
                                                                         iconColor={"white"}
                                                                         style={{ backgroundColor: myTheme.colors.blue }}
                                                                         onPress={() => handleSaveMaterial(suggestedByAlgorithm)}
