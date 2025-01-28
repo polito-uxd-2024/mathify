@@ -632,6 +632,10 @@ export default function PlayScreen() {
                                                     </View>
                                                 ))}
                                                 <View style={{paddingTop: 10}}>
+                                                    <Text style={styles.sectionText}>Risposta Corretta</Text>
+                                                    <View style={{marginVertical: 8, padding: 8, borderRadius: 10,backgroundColor: myTheme.colors.gray}}>
+                                                    <Text>{state.selectedChallenge.questions[index].Soluzione}</Text>
+                                                    </View>
                                                     <Text style={styles.sectionText}>Spiegazione</Text>
                                                     {state.selectedChallenge.questions[index].GraficList.length === 1 && (
                                                         <Image
