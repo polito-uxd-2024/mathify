@@ -154,16 +154,15 @@ export const SegmentedButton = () => {
                                         <Card.Content>
 
 
-                                            <View style={[styles.coverImage, { justifyContent: "center", backgroundColor: myTheme.colors.gray, borderRadius: 5, borderWidth: 0 }]}>
+                                            <View style={[styles.coverImage, { justifyContent: "center", backgroundColor: myTheme.colors.gray, borderRadius: 18, borderWidth: 0 }]}>
                                                 {/* Immagine di sfondo */}
                                                 <Image
                                                     source={challenges.find(challenge => challenge.title === state.selectedChallenge.titolo)?.icon || require('../assets/placeholder.jpg')}
                                                     style={{
-                                                        width: 150,
-                                                        height: 150,
+                                                        width: 140,
+                                                        height: 140,
                                                         position: "absolute",
                                                         resizeMode: "cover",
-                                                        borderRadius: 20,
                                                         alignSelf: 'center',
                                                         top: '5%', // Imposta la distanza dall'alto per centrarla meglio o per spostarla verso l'alto
                                                     }}
@@ -171,7 +170,7 @@ export const SegmentedButton = () => {
 
                                                 {/* Stelline in alto a destra */}
                                                 <View style={{ flexDirection: "row", justifyContent: "flex-end", position: "absolute", top: 0, right: 0 }}>
-                                                    <View style={[styles.stars, { marginTop: 0 , borderRadius:5}]}>
+                                                    <View style={[styles.stars, { marginTop: 0 , borderRadius:18, borderTopLeftRadius:0, borderBottomRightRadius: 0}]}>
                                                         {[...Array(3)].map((star, index) => (
                                                             <FontAwesome
                                                                 key={index}
@@ -184,8 +183,8 @@ export const SegmentedButton = () => {
                                                 </View>
                                                 {/* Titoli in basso a sinistra */}
                                                 <View style={{ position: "absolute", bottom: 10, left: 10 }}>
-                                                    <Text style={styles.sectionText}>{state.selectedChallenge.titolo}</Text>
-                                                    <Text style={styles.subtitle}>{state.selectedChallenge.argomento}</Text>
+                                                    <Text style={[styles.sectionText, {fontSize: 20}]}>{state.selectedChallenge.titolo}</Text>
+                                                    <Text style={[styles.subtitle, {fontSize: 15}]}>{state.selectedChallenge.argomento}</Text>
                                                 </View>
                                             </View>
 
