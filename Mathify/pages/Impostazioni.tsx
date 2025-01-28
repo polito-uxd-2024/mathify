@@ -212,7 +212,7 @@ export default function Impostazioni() {
                                             </View>
                                             <View style={[styles.coverImage, {borderWidth: 0, backgroundColor: 'white', justifyContent:"center"}]}>
                                                 <Image
-                                                source={require('../assets/pitagora.png')}
+                                                source={require('../assets/Verifica.png')}
                                                 style={{ width: 150, height: 150, alignSelf: 'center'}}/>
 
                                             </View>
