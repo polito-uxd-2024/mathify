@@ -573,62 +573,81 @@ export default function PlayScreen() {
                         </View>
                     </View>
                         {risposte.map((valore, index) => (
+
                             <View style={styles.article} key={`question-${index}`}>
                                 <View style={styles.cardBase} >
                                     <Card onPress={() => toggleExpand(index)} style={{borderRadius: 20, backgroundColor: myTheme.colors.cardBorder}}>
                                         <View style={[styles.card, {paddingBottom: 15}]}>
-                                        <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-                                            <IconButton
-                                                mode="contained-tonal"
-                                                onPress={() => setDialogVisible(true)}
-                                                contentStyle={{ height: 10}}
-                                                size={20}
-                                                style={{backgroundColor: 'transparent', margin: 0}}
-                                                icon="alert"
-                                                iconColor='lightgray'
-                                            />
-                                        </View>
-                                            <Card.Content>
-                                            <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
-                                                <Text style={{fontSize: 16, marginRight: 8, fontWeight: 'bold'}}>{index + 1}</Text>
-                                                <Text style={{fontSize: 16}}>{state.selectedChallenge.questions[index].Testo}</Text>
+                                            <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                                                <IconButton
+                                                    mode="contained-tonal"
+                                                    onPress={() => setDialogVisible(true)}
+                                                    contentStyle={{ height: 10}}
+                                                    size={20}
+                                                    style={{backgroundColor: 'transparent', margin: 0}}
+                                                    icon="alert"
+                                                    iconColor='lightgray'
+                                                />
                                             </View>
-                                            <View>
-                                                <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-                                                    <View style={[styles.callout, {marginTop: 6, backgroundColor: valore ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer}]}>
-                                                        <Text style={{paddingHorizontal: 6, color :'white', fontWeight: 'bold', fontFamily: 'Itim'}}>
-                                                            {valore ? 'corretta' : 'sbagliata'}
-                                                        </Text>
-                                                        <FontAwesome
-                                                            name={valore ? "check" : "times"}
-                                                            size={16}
-                                                            color="white"
-                                                            style={{ marginRight: 6 }}
-                                                        />
+                                            <Card.Content>
+                                                <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
+                                                    <Text style={{fontSize: 16, marginRight: 8, fontWeight: 'bold'}}>{index + 1}</Text>
+                                                    <Text style={{fontSize: 16}}>{state.selectedChallenge.questions[index].Testo}</Text>
+                                                </View>
 
+                                                <View>
+                                                    <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                                                        <View style={[styles.callout, {marginTop: 6, backgroundColor: valore ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer}]}>
+                                                            <Text style={{paddingHorizontal: 6, color :'white', fontWeight: 'bold', fontFamily: 'Itim'}}>
+                                                                {valore ? 'corretta' : 'sbagliata'}
+                                                            </Text>
+                                                            <FontAwesome
+                                                                name={valore ? "check" : "times"}
+                                                                size={16}
+                                                                color="white"
+                                                                style={{ marginRight: 6 }}
+                                                            />
+                                                        </View>
                                                     </View>
                                                 </View>
-                                            </View>
                                             </Card.Content>
-
                                         </View>
-
-
-
                                         <Collapsible collapsed={expandedIndex !== index}>
                                             <View style={[styles.card, {padding: 15}]}>
-
                                                 {state.selectedChallenge.questions[index].Risposte.map((risposta, index2) => (
                                                     <View key={`answer-${index}-${index2}`} style={{marginVertical: 8, padding: 8, borderRadius: 10,
                                                         backgroundColor: risposta === listaRisposteDate[index]
                                                             ? (risposta === state.selectedChallenge.questions[index].Soluzione ? myTheme.colors.rightAnswer : myTheme.colors.wrongAnswer)
                                                             : 'rgb(245,245,245)'}}>
-                                                        <Text style={{fontSize: 16}}>{risposta}</Text>
-
+                                                        <Text style={{fontSize: 16, alignSelf:"center"}}>{risposta}</Text>
+                                                        {state.selectedChallenge.questions[index].GraficList.length > 1 && (
+                                                            <Image
+                                                                source={{ uri: state.selectedChallenge.questions[index].GraficList[index2] }}
+                                                                style={{
+                                                                    width: 150,
+                                                                    height: 150,
+                                                                    marginTop: 8,
+                                                                    borderRadius: 4,
+                                                                    alignSelf: "center"
+                                                                }}
+                                                            />
+                                                        )}
                                                     </View>
                                                 ))}
                                                 <View style={{paddingTop: 10}}>
                                                     <Text style={styles.sectionText}>Spiegazione</Text>
+                                                    {state.selectedChallenge.questions[index].GraficList.length === 1 && (
+                                                        <Image
+                                                            source={{ uri: state.selectedChallenge.questions[index].GraficList[0] }}
+                                                            style={{
+                                                                width: 200,
+                                                                height: 200,
+                                                                margin: 8,
+                                                                borderRadius: 4,
+                                                                alignSelf: "center"
+                                                            }}
+                                                        />
+                                                    )}
                                                     <Text>{state.selectedChallenge.questions[index].Spiegazione}</Text>
                                                 </View>
                                             </View>
