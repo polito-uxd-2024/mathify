@@ -201,7 +201,7 @@ export default function Materiale() {
                     <SafeAreaView style={styles.section}>
                         <View style={styles.article}>
 
-                            <TextInput label="Cerca sfida"
+                            <TextInput label="Cerca Materiale"
                                        mode='outlined'
                                        value={searchQuery}
                                        outlineStyle={{borderRadius: 50, borderWidth: 2}}
