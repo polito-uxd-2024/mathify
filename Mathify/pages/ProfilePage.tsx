@@ -15,6 +15,7 @@ import { ScrollView } from 'react-native'
 import {myTheme} from "../Component/theme";
 import { FontAwesome } from 'react-native-vector-icons';
 import * as Progress from 'react-native-progress';
+
 import {black} from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 export default function ProfilePage() {
     const navigation = useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
@@ -63,18 +64,8 @@ export default function ProfilePage() {
             <ScrollView contentContainerStyle={{ paddingBottom: 20}}>
                 <View style={{backgroundColor: myTheme.colors.gray}}>
                     {/* Immagine */}
-                    <View style={[{padding: 20, marginLeft:10,marginRight:10,marginTop:10 }]}>
-                            <ImageBackground
-                                source= {require('../assets/student.png')}
-                                style={{flex: 1}}
-                                imageStyle={{width: "100%",
-                                    height: 200,
-                                    resizeMode: 'cover',
-                                    marginVertical: 15,
-                                    borderRadius: 30,
-                                    borderWidth: 2,}}
-                            >
-                                {/* Tasto Impostazioni in alto a destra */}
+                        <View style={[{padding: 20, marginLeft:10,marginRight:10,marginTop:10 }]}>
+                            <View style={[styles.coverImage, {justifyContent:"center", backgroundColor: 'white'}]}>
                                 <IconButton
                                     icon="cog" // Icona per le impostazioni
                                     size={30}
@@ -90,11 +81,15 @@ export default function ProfilePage() {
                                         borderRadius: 50, // Rende il bottone circolare
                                     }}
                                 />
-                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <View style={{ alignItems: "center", marginVertical: 100 }}>
-                                    </View>
-                                </View>
-                            </ImageBackground>
+                                <Image
+                                    source={require('../assets/student.png')}
+                                    style={{ width: 150, height: 150, alignSelf: 'center'}}
+                                />
+                        </View>
+
+                                {/* Tasto Impostazioni in alto a destra */}
+
+
 
                         {/* Nome e cognome */}
                         <View style={{ flexDirection: "row", marginTop: 20, justifyContent: "space-between", alignItems: "center" }}>
@@ -134,18 +129,23 @@ export default function ProfilePage() {
                                     {/* Livello Utente */}
 
                                     {/* Barra di Progresso */}
-                                    <View style={{ marginLeft: 10, backgroundColor: 'white', padding: 10, borderRadius: 10, flexDirection: 'column', alignItems: 'center', paddingLeft: 15, marginBottom: 4, marginRight: 5 }}>
+                                    <View style={{ marginLeft: 10, backgroundColor: 'white', padding: 10, borderRadius: 10, flexDirection: 'column',
+                                        alignItems: 'center',  marginBottom: 4}}>
 
-                                        <Text style={{ fontWeight: 'bold', textAlign: "center", marginBottom: 4 }}>
+                                        <Text style={{ fontWeight: 'bold', textAlign: "center", marginBottom: 4, }}>
                                             Apprendista{/* Percentuale calcolata */}
                                         </Text>
-                                        <View style={{ position: 'relative', width: 180}}>
+                                        <View style={{flexDirection:"row", width:200, alignItems:"center", paddingTop:10}}>
                                             <Progress.Bar
                                                 progress={parseFloat((state.utente.livello.xpTotali / 5000).toFixed(2))}
-                                                color={myTheme.colors.primary}
-
+                                                color={"gold"}
+                                                style={{height:15, borderRadius:10}}
+                                                borderColor={"black"}
+                                                borderWidth={2}
+                                                width={170}
+                                                height={15}
                                             />
-                                            <Text style={{color: 'black', position: 'absolute', width: '100%', textAlign: 'left', fontWeight: 'bold', marginLeft: 20, marginBottom:0 }}>
+                                            <Text style={{color: 'black', width: '100%', textAlign: 'left', fontWeight: 'bold', fontSize:18, paddingLeft:10}}>
                                                 {(Math.round((state.utente.livello.xpTotali / 5000) * 100))}%
                                             </Text>
                                         </View>
